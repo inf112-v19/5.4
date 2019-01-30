@@ -1,8 +1,8 @@
-# INF112 Maven template 
-Simple skeleton with libgdx. 
+# BeTheBee
+Gang is coding RoboRally yo
 
+Discord:
+https://discord.gg/Q4VHjp8
 
-## Known bugs
-Currently throws "WARNING: An illegal reflective access operation has occurred", 
-when the java version used is >8. This has no effect on function or performance, and is just a warning.
-
+Google Docs:
+https://docs.google.com/document/d/1yfMfC7k1WYnd7LHV9xSt__5PsQecMtFUssJk55mtu38/edit
