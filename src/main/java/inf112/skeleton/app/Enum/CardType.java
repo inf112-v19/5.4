@@ -10,12 +10,12 @@ public enum CardType {
     BACK_UP("Move 1 Backwards", -1, null);
 
     private String description;
-    private int moveDelta;
+    private int moveDistance;
     private Rotation rotation;
 
-    CardType(String description, int moveDelta, Rotation rotation){
+    CardType(String description, int moveDistance, Rotation rotation){
         this.description = description;
-        this.moveDelta = moveDelta;
+        this.moveDistance = moveDistance;
         this.rotation = rotation;
     }
 
@@ -23,8 +23,8 @@ public enum CardType {
         return description;
     }
 
-    public int getMoveDelta() {
-        return moveDelta;
+    public int getMoveDistance() {
+        return moveDistance;
     }
 
     public Rotation getRotationDelta() {
