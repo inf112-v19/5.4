@@ -15,8 +15,8 @@ public interface ICell {
 
     /**
      * Returns the symbol that represents this cell
-     * @return String symbol representation
+     * @return char symbol representation
      */
-    String getSymbol();
+    char getSymbol();
 
 }

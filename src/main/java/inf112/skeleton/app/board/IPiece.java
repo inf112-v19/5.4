@@ -17,9 +17,9 @@ public interface IPiece {
 
     /**
      * Returns the symbol that represents this Piece
-     * @return String symbol representation
+     * @return char symbol representation
      */
-    String getSymbol();
+    char getSymbol();
 
     /**
      * Returns the direction of the Piece
@@ -28,7 +28,7 @@ public interface IPiece {
     Direction getRotation();
 
     //TODO Implement IPosition?
-    /**
+    /*
      * Returns the position of the Piece
      * @return IPosition
      */
