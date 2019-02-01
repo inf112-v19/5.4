@@ -11,10 +11,20 @@ public interface IPlayer {
      */
     void move(int i);
 
+
+
     /**
      * Piece loses 1 health
      */
     void takeDamage();
+
+
+
+    /**
+     * Piece's health goes back to max
+     */
+    void repair();
+
 
 
     /**
@@ -23,20 +33,39 @@ public interface IPlayer {
      */
     void rotate(Rotation r);
 
-    /**
-     * Piece fires in the direction it's facing
-     */
-    void fire();
+
 
     /**
      * @return this piece's health
      */
     int getHealth();
 
+
+
     /**
      * @return This piece's current facing direction
      */
-    Direction direction();
+    Direction getDirection();
 
+
+
+    /**
+     * @return This piece's current X position
+     */
+    int getXpos();
+
+
+
+    /**
+     * @return This piece's current Y position
+     */
+    int getYpos();
+
+
+
+    /**
+     * @return true if piece's health is above 0, otherwise false
+     */
+    boolean isAlive();
 
 }
