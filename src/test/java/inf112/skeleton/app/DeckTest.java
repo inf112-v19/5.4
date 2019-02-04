@@ -4,6 +4,7 @@ import inf112.skeleton.app.Enum.CardType;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -48,10 +49,7 @@ public class DeckTest {
         assertEquals(CardType.MOVE_3, tempDeck.get(0).getCardType());
     }
 
-    @Test
-    public void testShuffle(){
-        List<ProgramCard> tempDeck = deck.drawXCards(84);
-        deck.shuffleDeck();
-        assertNotEquals(tempDeck, deck);
-    }
+    //TODO
+    //Find a way to test ShuffleDeck() not sure if it works atm.
+
 }

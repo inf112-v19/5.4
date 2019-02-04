@@ -49,6 +49,10 @@ public class ProgramCardDeck {
         return deck.size();
     }
 
+    public Stack<ProgramCard> getDeck() {
+        return deck;
+    }
+
     private boolean isEmpty() {
         return deck.isEmpty();
     }
@@ -63,6 +67,17 @@ public class ProgramCardDeck {
             PCList.add(getTopCard());
         }
         return PCList;
+    }
+
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        for(ProgramCard currCard : deck){
+            sb.append(currCard.getCardType().getDescription())
+                    .append(" ")
+                    .append(currCard.getPriority())
+                    .append("\n");
+        }
+        return sb.toString();
     }
 
 }
