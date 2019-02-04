@@ -72,9 +72,7 @@ public class ProgramCardDeck {
     public String toString(){
         StringBuilder sb = new StringBuilder();
         for(ProgramCard currCard : deck){
-            sb.append(currCard.getCardType().getDescription())
-                    .append(" ")
-                    .append(currCard.getPriority())
+            sb.append(currCard.toString())
                     .append("\n");
         }
         return sb.toString();

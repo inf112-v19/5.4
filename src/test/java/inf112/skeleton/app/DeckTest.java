@@ -49,7 +49,20 @@ public class DeckTest {
         assertEquals(CardType.MOVE_3, tempDeck.get(0).getCardType());
     }
 
-    //TODO
-    //Find a way to test ShuffleDeck() not sure if it works atm.
+    @Test
+    public void testShuffle(){
+        ProgramCardDeck preShuffleDeck = new ProgramCardDeck();
+        ProgramCardDeck postShuffleDeck = new ProgramCardDeck();
+        assertEquals(preShuffleDeck.getDeck().pop().getPriority()
+                , postShuffleDeck.getDeck().pop().getPriority());
+        postShuffleDeck.shuffleDeck();
+        assertNotEquals(preShuffleDeck.getDeck().pop().getPriority()
+                , postShuffleDeck.getDeck().pop().getPriority());
+    }
+
+    @Test
+    public void testToString(){
+        System.out.println(deck.toString());
+    }
 
 }
