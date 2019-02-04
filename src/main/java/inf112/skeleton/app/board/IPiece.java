@@ -26,11 +26,4 @@ public interface IPiece {
      * @return Direction
      */
     Direction getRotation();
-
-    //TODO Implement IPosition?
-    /*
-     * Returns the position of the Piece
-     * @return IPosition
-     */
-    //IPosition getPosition();
 }

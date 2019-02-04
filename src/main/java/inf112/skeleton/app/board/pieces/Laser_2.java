@@ -23,12 +23,12 @@ public class Laser_2 implements IPiece {
 
     @Override
     public String getName() {
-        return "Laser_1";
+        return "Laser_2";
     }
 
     @Override
     public char getSymbol() {
-        return '-';
+        return '=';
     }
 
     @Override
