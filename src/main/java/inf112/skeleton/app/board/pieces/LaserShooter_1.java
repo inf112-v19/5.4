@@ -6,14 +6,9 @@ import inf112.skeleton.app.board.IPiece;
 public class LaserShooter_1 implements IPiece {
 
     private Direction direction;
-    private int damage = 1;
 
     public LaserShooter_1(Direction dir){
         this.direction = dir;
-    }
-
-    public int getDamage() {
-        return damage;
     }
 
     @Override
