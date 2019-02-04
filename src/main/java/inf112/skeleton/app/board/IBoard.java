@@ -1,13 +1,11 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.board;
 
 public interface IBoard {
 
     /**
      * A method for generating the game board.
-     * @param height The height of the board
-     * @param width The width of the board
      */
-    void generateBoard(int height, int width);
+    void generateBoard();
 
     /**
      * Prints out the board
