@@ -1,8 +1,9 @@
-package inf112.skeleton.app.board;
+package inf112.skeleton.app.board.pieces;
 
 import inf112.skeleton.app.Enum.Direction;
+import inf112.skeleton.app.board.IPiece;
 
-public class LaserShooter implements IPiece{
+public class Flag implements IPiece {
 
     private Direction direction;
 

@@ -11,5 +11,4 @@ public interface IActiveCell extends ICell{
      */
     String getAction();
 
-
 }
