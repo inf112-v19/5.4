@@ -1,11 +1,21 @@
 package inf112.skeleton.app.board.pieces;
 
 import inf112.skeleton.app.Enum.Direction;
+import inf112.skeleton.app.Enum.Rotation;
 import inf112.skeleton.app.board.IPiece;
 
 public class Flag implements IPiece {
 
-    private Direction direction;
+    private Direction direction = Direction.NORTH;
+    private int number;
+
+    public Flag(int number){
+        this.number = number;
+    }
+
+    public int getNumber() {
+        return number;
+    }
 
     @Override
     public IPiece getType() {
@@ -14,12 +24,12 @@ public class Flag implements IPiece {
 
     @Override
     public String getName() {
-        return "LaserShooter";
+        return "Flag";
     }
 
     @Override
     public char getSymbol() {
-        return '>';
+        return 'F';
     }
 
     @Override
