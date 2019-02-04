@@ -2,6 +2,7 @@ package inf112.skeleton.app;
 
 import inf112.skeleton.app.Enum.CardType;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,6 +13,9 @@ public class ProgramCardDeck {
 
     public ProgramCardDeck() {
         deck = generateCards();
+    }
+
+    public void shuffleDeck(){
         Collections.shuffle(deck);
     }
 
@@ -41,6 +45,10 @@ public class ProgramCardDeck {
         return temp;
     }
 
+    public int numCardsLeftInDeck(){
+        return deck.size();
+    }
+
     private boolean isEmpty() {
         return deck.isEmpty();
     }
@@ -49,7 +57,7 @@ public class ProgramCardDeck {
         return isEmpty() ? null : deck.pop();
     }
 
-    public List<ProgramCard> getANumberOfCards(int numberOfCards) {
+    public List<ProgramCard> drawXCards(int numberOfCards) {
         List<ProgramCard> PCList = new ArrayList<>();
         for (int i = 0; i < numberOfCards; i++) {
             PCList.add(getTopCard());
