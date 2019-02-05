@@ -18,4 +18,8 @@ public class ProgramCard {
     public int getPriority() {
         return priority;
     }
+
+    public String toString(){
+        return cardType.getDescription() + " " + priority;
+    }
 }
