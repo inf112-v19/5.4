@@ -53,11 +53,11 @@ public class DeckTest {
     public void testShuffle(){
         ProgramCardDeck preShuffleDeck = new ProgramCardDeck();
         ProgramCardDeck postShuffleDeck = new ProgramCardDeck();
-        assertEquals(preShuffleDeck.getDeck().pop().getPriority()
-                , postShuffleDeck.getDeck().pop().getPriority());
+        assertEquals(preShuffleDeck.getTopCard().getPriority()
+                , postShuffleDeck.getTopCard().getPriority());
         postShuffleDeck.shuffleDeck();
-        assertNotEquals(preShuffleDeck.getDeck().pop().getPriority()
-                , postShuffleDeck.getDeck().pop().getPriority());
+        assertNotEquals(preShuffleDeck.getTopCard().getPriority()
+                , postShuffleDeck.getTopCard().getPriority());
     }
 
     @Test
