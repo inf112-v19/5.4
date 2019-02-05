@@ -27,6 +27,5 @@ public class JSONBoardGenerator {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
     }
 }
