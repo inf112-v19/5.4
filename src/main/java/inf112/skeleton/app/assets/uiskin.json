@@ -1,0 +1,13 @@
+{
+com.badlogic.gdx.grapgics.g2d.BitMapFont: { default-font: { file: bignoodle.fnt} },
+com.badlogic.gdx.scenes.ui.TextButton$TextButtonStyle:{
+    default: { down: default-round-down, up: default-round-up, font: default-font}},
+
+com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle:{
+
+    default:{
+        titleFont: default-font
+        }
+
+}
+}
