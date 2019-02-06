@@ -1,4 +1,4 @@
-package com.jarlescene2d;
+package inf112.skeleton.app.GUI;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
