@@ -24,6 +24,8 @@
 .idea/*
 .idea/**
 .idea*
+**/.idea
+**/.idea/
 
 # Sensitive or high-churn files
 .idea/**/dataSources/
