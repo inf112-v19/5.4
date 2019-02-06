@@ -1,18 +1,17 @@
 package inf112.skeleton.app.board;
 
 import inf112.skeleton.app.Enum.Direction;
-import inf112.skeleton.app.board.activeCells.Conveyor_Straight;
-import inf112.skeleton.app.board.pieces.Flag;
-import inf112.skeleton.app.board.pieces.Wall;
+import inf112.skeleton.app.board.activeCells.Conveyor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Board implements IBoard {
 
+    String boardName;
 
     public Board(String name) {
-        String boardName = name;
+        boardName = name;
     }
 
     public ICell[][] brett;
@@ -27,23 +26,23 @@ public class Board implements IBoard {
 
         // Row 0
         ArrayList<ICell> row0c0 = new ArrayList<ICell>();
-        row0c0.add(new Conveyor_Straight(Direction.EAST));
+        row0c0.add(new Conveyor(Direction.EAST));
         boardList.add(row0c0);
 
         ArrayList<ICell> row0c1 = new ArrayList<ICell>();
-        row0c1.add(new Conveyor_Straight(Direction.NORTH));
+        row0c1.add(new Conveyor(Direction.NORTH));
         boardList.add(row0c1);
 
         ArrayList<ICell> row0c2 = new ArrayList<ICell>();
-        row0c2.add(new Conveyor_Straight(Direction.WEST));
+        row0c2.add(new Conveyor(Direction.WEST));
         boardList.add(row0c2);
 
         ArrayList<ICell> row0c3 = new ArrayList<ICell>();
-        row0c3.add(new Conveyor_Straight(Direction.SOUTH));
+        row0c3.add(new Conveyor(Direction.SOUTH));
         boardList.add(row0c3);
 
         ArrayList<ICell> row0c4 = new ArrayList<ICell>();
-        row0c4.add(new Conveyor_Straight(Direction.NORTH));
+        row0c4.add(new Conveyor(Direction.NORTH));
         boardList.add(row0c4);
 
 
@@ -66,7 +65,7 @@ public class Board implements IBoard {
         ICell[][] brett = new ICell[height][width];
         for (int i = 0; i < brett.length; i++) {
             for (int j = 0; j < brett.length; j++) {
-                brett[i][j] = new Conveyor_Straight("Straight_conveyor");
+                brett[i][j] = new Conveyor("Straight_conveyor");
             }
         }
         for (int i = 1; i < brett.length-1; i++) {

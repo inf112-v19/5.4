@@ -3,13 +3,14 @@ package inf112.skeleton.app.board.pieces;
 import inf112.skeleton.app.Enum.Direction;
 import inf112.skeleton.app.board.IPiece;
 
-public class Laser_1 implements IPiece {
+public class LaserShooter implements IPiece {
 
     private Direction direction;
-    private int damage = 1;
+    private int damage;
 
-    public Laser_1(Direction dir){
+    public LaserShooter(Direction dir, int damage){
         this.direction = dir;
+        this.damage = damage;
     }
 
     public int getDamage() {
@@ -23,12 +24,12 @@ public class Laser_1 implements IPiece {
 
     @Override
     public String getName() {
-        return "Laser_1";
+        return "LaserShooter";
     }
 
     @Override
     public char getSymbol() {
-        return '-';
+        return '>';
     }
 
     @Override
