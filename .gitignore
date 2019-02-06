@@ -1,4 +1,7 @@
 
+#Ignore .xml
+*.xml
+
 # Created by https://www.gitignore.io/api/maven,intellij
 # Edit at https://www.gitignore.io/?templates=maven,intellij
 
@@ -17,6 +20,12 @@
 # Generated files
 .idea/**/contentModel.xml
 .idea
+.idea/
+.idea/*
+.idea/**
+.idea*
+**/.idea
+**/.idea/
 
 # Sensitive or high-churn files
 .idea/**/dataSources/
