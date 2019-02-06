@@ -1,6 +1,6 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.Game;
 
-import inf112.skeleton.app.Enum.CardType;
+import inf112.skeleton.app.Game.Enum.CardType;
 
 public class ProgramCard {
     private CardType cardType;

@@ -1,7 +1,7 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.Game;
 
-import inf112.skeleton.app.Enum.Direction;
-import inf112.skeleton.app.Enum.Rotation;
+import inf112.skeleton.app.Game.Enum.Direction;
+import inf112.skeleton.app.Game.Enum.Rotation;
 
 public interface IPlayer {
 

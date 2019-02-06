@@ -1,10 +1,11 @@
 package inf112.skeleton.app;
 
-import inf112.skeleton.app.Enum.CardType;
+import inf112.skeleton.app.Game.Enum.CardType;
+import inf112.skeleton.app.Game.ProgramCard;
+import inf112.skeleton.app.Game.ProgramCardDeck;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;

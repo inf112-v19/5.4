@@ -1,4 +1,4 @@
-package inf112.skeleton.app.Enum;
+package inf112.skeleton.app.Game.Enum;
 
 public enum CardType {
     ROTATE_U("U-Turn", 6, 0, Rotation.U),

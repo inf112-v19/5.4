@@ -1,8 +1,7 @@
-package inf112.skeleton.app.board.activeCells;
+package inf112.skeleton.app.Game.board.activeCells;
 
-import inf112.skeleton.app.Enum.Direction;
-import inf112.skeleton.app.board.IActiveCell;
-import inf112.skeleton.app.board.IPiece;
+import inf112.skeleton.app.Game.Enum.Direction;
+import inf112.skeleton.app.Game.board.IActiveCell;
 
 public class Conveyor implements IActiveCell {
 

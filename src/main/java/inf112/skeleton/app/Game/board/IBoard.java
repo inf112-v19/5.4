@@ -1,4 +1,4 @@
-package inf112.skeleton.app.board;
+package inf112.skeleton.app.Game.board;
 
 public interface IBoard {
 
