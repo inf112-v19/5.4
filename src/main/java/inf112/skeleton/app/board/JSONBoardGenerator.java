@@ -1,5 +1,7 @@
 package inf112.skeleton.app.board;
 
+import inf112.skeleton.app.Enum.Direction;
+import inf112.skeleton.app.board.pieces.Wall;
 import org.json.simple.JSONArray;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -35,15 +37,39 @@ public class JSONBoardGenerator {
                             case "Hole":
                                 System.out.println("Making Hole!");
                                 break;
-                            case "WestWall":
-                                System.out.println("Making westfacing wall!");
+                            case "NorthWall":
+                                System.out.println("Making northfacing wall!");
+                                new Wall(Direction.NORTH);
+                                break;
+                            case "EastWall":
+                                System.out.println("Making eastfacing wall!");
+                                new Wall(Direction.EAST);
                                 break;
                             case "SouthWall":
                                 System.out.println("Making southfacing wall!");
+                                new Wall(Direction.SOUTH);
                                 break;
-                            case "NorthWall":
-                                System.out.println("Making northfacing wall!");
+                            case "WestWall":
+                                System.out.println("Making westfacing wall!");
+                                new Wall(Direction.NORTH);
                                 break;
+                            case "ConveyorNorth":
+                                System.out.println("Making northfacing conveyor!");
+                                new Wall(Direction.NORTH);
+                                break;
+                            case "ConveyorEast":
+                                System.out.println("Making eastfacing conveyor!");
+                                new Wall(Direction.NORTH);
+                                break;
+                            case "ConveyorSouth":
+                                System.out.println("Making southfacing conveyor!");
+                                new Wall(Direction.NORTH);
+                                break;
+                            case "ConveyorWest":
+                                System.out.println("Making westfacing conveyor!");
+                                new Wall(Direction.NORTH);
+                                break;
+
                         }
 
                     }
