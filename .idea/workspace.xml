@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/test/java/inf112/skeleton/app/PlayerTest.java" line="79" mnemonic="7" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="2194faca-58b6-46f5-9e85-533e64fc59d8" name="Default Changelist" comment="">
+    <list default="true" id="2194faca-58b6-46f5-9e85-533e64fc59d8" name="Default Changelist" comment="Added Class JSONBoardGenerator">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvn-app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/mvn-app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/inf112/skeleton/app/Enum/CardType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/inf112/skeleton/app/Enum/CardType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/inf112/skeleton/app/ProgramCardDeck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/inf112/skeleton/app/ProgramCardDeck.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/inf112/skeleton/app/DeckTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/inf112/skeleton/app/DeckTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,88 +16,75 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="982338170">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="JAVA" value="4" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="177" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/IPlayer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="782">
-              <caret line="64" selection-start-line="64" selection-end-line="64" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/inf112/skeleton/app/AppTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="28" selection-start-column="28" selection-end-column="28" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/inf112/skeleton/app/PlayerTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1411">
-              <caret line="86" column="62" selection-start-line="86" selection-start-column="62" selection-end-line="86" selection-end-column="62" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/Player.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="69" selection-start-line="14" selection-start-column="69" selection-end-line="14" selection-end-column="69" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/IBoard.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/ProgramCardDeck.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="1" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
+            <state relative-caret-position="1215">
+              <caret line="81" lean-forward="true" selection-start-line="81" selection-end-line="81" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#376#377#0" expanded="true" />
+                <element signature="e#406#407#0" expanded="true" />
+                <element signature="e#506#507#0" expanded="true" />
+                <element signature="e#547#548#0" expanded="true" />
+                <element signature="e#1579#1580#0" expanded="true" />
+                <element signature="e#1613#1614#0" expanded="true" />
+                <element signature="e#1743#1744#0" expanded="true" />
+                <element signature="e#1770#1771#0" expanded="true" />
+                <element signature="e#1889#1890#0" expanded="true" />
+                <element signature="e#1926#1927#0" expanded="true" />
+                <element signature="e#2068#2069#0" expanded="true" />
+                <element signature="e#2101#2102#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/Board.java">
+        <entry file="file://$PROJECT_DIR$/src/test/java/inf112/skeleton/app/DeckTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="680">
-              <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
+            <state relative-caret-position="32">
+              <caret line="34" column="47" lean-forward="true" selection-start-line="34" selection-start-column="47" selection-end-line="34" selection-end-column="47" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/Enum/Direction.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/ProgramCard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="33" selection-start-column="33" selection-end-column="33" />
+            <state relative-caret-position="60">
+              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/Enum/Rotation.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/Enum/CardType.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" selection-start-line="10" selection-end-line="10" />
+            <state relative-caret-position="135">
+              <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -116,6 +104,7 @@
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
         <option value="motrendo@gmail.com" />
+        <option value="38794357+motrendo@users.noreply.github.com" />
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -125,55 +114,71 @@
       <list>
         <option value="$PROJECT_DIR$/src/main/java/inf112/skeleton/app/Direction.java" />
         <option value="$PROJECT_DIR$/src/main/java/inf112/skeleton/app/Enum/Rotation.java" />
-        <option value="$PROJECT_DIR$/src/test/java/inf112/skeleton/app/PlayerTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/inf112/skeleton/app/Player.java" />
         <option value="$PROJECT_DIR$/src/main/java/inf112/skeleton/app/IPlayer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/inf112/skeleton/app/Player.java" />
         <option value="$PROJECT_DIR$/src/main/java/inf112/skeleton/app/IBoard.java" />
         <option value="$PROJECT_DIR$/src/main/java/inf112/skeleton/app/Board.java" />
+        <option value="$PROJECT_DIR$/src/main/java/inf112/skeleton/app/board/Board.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/inf112/skeleton/app/board/JSONBoardGenerator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/inf112/skeleton/app/ProgramCardDeck.java" />
+        <option value="$PROJECT_DIR$/src/test/java/inf112/skeleton/app/DeckTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/inf112/skeleton/app/Enum/CardType.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="953" />
-    <option name="width" value="974" />
-    <option name="height" value="1087" />
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="1" id="Add" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="504" />
+    <option name="y" value="23" />
+    <option name="width" value="936" />
+    <option name="height" value="822" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="mvn-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BeTheBee" type="b2602c69:ProjectViewProjectNode" />
               <item name="BeTheBee" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="mvn-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BeTheBee" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BeTheBee" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BeTheBee" type="b2602c69:ProjectViewProjectNode" />
               <item name="BeTheBee" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="mvn-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BeTheBee" type="b2602c69:ProjectViewProjectNode" />
               <item name="BeTheBee" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="mvn-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BeTheBee" type="b2602c69:ProjectViewProjectNode" />
               <item name="BeTheBee" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="mvn-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BeTheBee" type="b2602c69:ProjectViewProjectNode" />
               <item name="BeTheBee" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
@@ -181,40 +186,34 @@
               <item name="app" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="mvn-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BeTheBee" type="b2602c69:ProjectViewProjectNode" />
               <item name="BeTheBee" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="mvn-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BeTheBee" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="mvn-app" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BeTheBee" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Enum" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BeTheBee" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BeTheBee" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548943542469" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1549401473408" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../inf101.v18.sem1-master" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -228,8 +227,9 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.PlayerTest">
-    <configuration name="PlayerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.All in mvn-app">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="inf112.skeleton.app.Main" />
       <module name="mvn-app" />
       <extension name="coverage">
         <pattern>
@@ -237,91 +237,26 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="inf112.skeleton.app" />
-      <option name="MAIN_CLASS_NAME" value="inf112.skeleton.app.PlayerTest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PlayerTest.testThatPlayerIsAliveWhenHealthIsAboveZero" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="All in mvn-app" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mvn-app" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="inf112.skeleton.app.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="inf112.skeleton.app" />
-      <option name="MAIN_CLASS_NAME" value="inf112.skeleton.app.PlayerTest" />
-      <option name="METHOD_NAME" value="testThatPlayerIsAliveWhenHealthIsAboveZero" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PlayerTest.testThatPlayerIsNotAliveWhenHealthIsZero" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="mvn-app" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="inf112.skeleton.app.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="inf112.skeleton.app" />
-      <option name="MAIN_CLASS_NAME" value="inf112.skeleton.app.PlayerTest" />
-      <option name="METHOD_NAME" value="testThatPlayerIsNotAliveWhenHealthIsZero" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PlayerTest.testThatYouFaceTheCorrectDirectionAfterRotatingRight" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="mvn-app" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="inf112.skeleton.app.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="inf112.skeleton.app" />
-      <option name="MAIN_CLASS_NAME" value="inf112.skeleton.app.PlayerTest" />
-      <option name="METHOD_NAME" value="testThatYouFaceTheCorrectDirectionAfterRotatingRight" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PlayerTest.testThatYouLoseHealthWhenYouTakeDamage" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="mvn-app" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="inf112.skeleton.app.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="inf112.skeleton.app" />
-      <option name="MAIN_CLASS_NAME" value="inf112.skeleton.app.PlayerTest" />
-      <option name="METHOD_NAME" value="testThatYouLoseHealthWhenYouTakeDamage" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.PlayerTest.testThatYouFaceTheCorrectDirectionAfterRotatingRight" />
-      <item itemvalue="JUnit.PlayerTest.testThatPlayerIsAliveWhenHealthIsAboveZero" />
-      <item itemvalue="JUnit.PlayerTest" />
-      <item itemvalue="JUnit.PlayerTest.testThatYouLoseHealthWhenYouTakeDamage" />
-      <item itemvalue="JUnit.PlayerTest.testThatPlayerIsNotAliveWhenHealthIsZero" />
+      <item itemvalue="Application.Main" />
+      <item itemvalue="JUnit.All in mvn-app" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.PlayerTest" />
-        <item itemvalue="JUnit.PlayerTest.testThatPlayerIsNotAliveWhenHealthIsZero" />
-        <item itemvalue="JUnit.PlayerTest.testThatYouLoseHealthWhenYouTakeDamage" />
-        <item itemvalue="JUnit.PlayerTest.testThatYouFaceTheCorrectDirectionAfterRotatingRight" />
-        <item itemvalue="JUnit.PlayerTest.testThatPlayerIsAliveWhenHealthIsAboveZero" />
+        <item itemvalue="JUnit.All in mvn-app" />
+        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -335,70 +270,58 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1548856707750</updated>
-      <workItem from="1548856711029" duration="4383000" />
-      <workItem from="1548881168768" duration="574000" />
-      <workItem from="1548924846037" duration="6077000" />
-      <workItem from="1548942339985" duration="1163000" />
+      <workItem from="1548856711029" duration="3245000" />
+      <workItem from="1548868084380" duration="1798000" />
+      <workItem from="1548869989574" duration="1076000" />
+      <workItem from="1549294532325" duration="26000" />
+      <workItem from="1549400579055" duration="921000" />
+      <workItem from="1549406263432" duration="473000" />
     </task>
-    <task id="LOCAL-00001" summary="Basic implementation of IBoard and Board. Board is represented with a 2D char array. X represents a normal tile, and 0 represents a hole.">
-      <created>1548942647898</created>
+    <task id="LOCAL-00001" summary="Introducing an ArrayList to store the cell information.">
+      <created>1549310303940</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1548942647898</updated>
+      <updated>1549310303940</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added Class JSONBoardGenerator">
+      <created>1549400982689</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1549400982689</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="PlayerTest_testThatYouLoseHealthWhenYouTakeDamage - 2019.01.31 at 11h 06m 08s.xml">
-      <configuration name="PlayerTest.testThatYouLoseHealthWhenYouTakeDamage" configurationId="JUnit" />
+    <history-entry file="All_in_mvn-app - 2019.02.05 at 23h 44m 13s.xml">
+      <configuration name="All in mvn-app" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PlayerTest_testThatYouLoseHealthWhenYouTakeDamage - 2019.01.31 at 11h 06m 31s.xml">
-      <configuration name="PlayerTest.testThatYouLoseHealthWhenYouTakeDamage" configurationId="JUnit" />
+    <history-entry file="All_in_mvn-app - 2019.02.05 at 23h 44m 45s.xml">
+      <configuration name="All in mvn-app" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PlayerTest_testThatPlayerIsNotAliveWhenHealthIsZero - 2019.01.31 at 11h 07m 49s.xml">
-      <configuration name="PlayerTest.testThatPlayerIsNotAliveWhenHealthIsZero" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PlayerTest - 2019.01.31 at 11h 16m 48s.xml">
-      <configuration name="PlayerTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PlayerTest - 2019.01.31 at 11h 17m 10s.xml">
-      <configuration name="PlayerTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PlayerTest - 2019.01.31 at 11h 17m 26s.xml">
-      <configuration name="PlayerTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PlayerTest - 2019.01.31 at 11h 17m 32s.xml">
-      <configuration name="PlayerTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PlayerTest - 2019.01.31 at 11h 27m 18s.xml">
-      <configuration name="PlayerTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PlayerTest - 2019.01.31 at 11h 29m 42s.xml">
-      <configuration name="PlayerTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PlayerTest - 2019.01.31 at 11h 29m 47s.xml">
-      <configuration name="PlayerTest" configurationId="JUnit" />
+    <history-entry file="All_in_mvn-app - 2019.02.05 at 23h 45m 16s.xml">
+      <configuration name="All in mvn-app" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12197000" />
+    <option name="totallyTimeSpent" value="8713000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
+    <frame x="504" y="23" width="936" height="822" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25799572" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19574945" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32972974" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.24109589" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -407,10 +330,10 @@
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Messages" order="11" />
-      <window_info anchor="right" id="Maven" />
+      <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.32876712" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.24975026" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
@@ -418,111 +341,118 @@
       <window_info anchor="right" id="Palette&#9;" order="6" />
       <window_info anchor="right" id="Database" order="7" />
       <window_info anchor="right" id="Maven Projects" order="8" />
+      <window_info anchor="right" id="Maven" order="9" />
     </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28397712" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32917964" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Messages" order="12" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.24975026" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Palette&#9;" order="6" />
+      <window_info anchor="right" id="Database" order="7" />
+      <window_info anchor="right" id="Maven Projects" order="8" />
+      <window_info anchor="right" id="Maven" order="9" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Basic implementation of IBoard and Board. Board is represented with a 2D char array. X represents a normal tile, and 0 represents a hole." />
-    <option name="LAST_COMMIT_MESSAGE" value="Basic implementation of IBoard and Board. Board is represented with a 2D char array. X represents a normal tile, and 0 represents a hole." />
+    <MESSAGE value="Basic implementation of IBoard and Board. The board is represented with a 2D char array. '0' represents a hole, 'X' represents a basic tile." />
+    <MESSAGE value="Introducing an ArrayList to store the cell information." />
+    <MESSAGE value="Added Class JSONBoardGenerator" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Class JSONBoardGenerator" />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.11/junit-4.11.jar!/org/junit/Assert.class">
+    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/IPlayer.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/Board.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/Player.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/Enum/Rotation.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/IBoard.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/board/pieces/Flag.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/board/activeCells/Conveyor_Straight.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/board/ICell.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/board/IPiece.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/Enum/Direction.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/board/pieces/Laser_1.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/board/pieces/Laser_2.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/board/pieces/Wall.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/HelloWorld.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/board/Board.java" />
+    <entry file="file://$PROJECT_DIR$/pom.xml" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/Main.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/board/IBoard.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/board/IActiveCell.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/board/JSONBoardGenerator.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/ProgramCard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="97">
-          <caret line="209" selection-start-line="209" selection-end-line="209" />
+        <state relative-caret-position="60">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/inf112/skeleton/app/DeckTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="34" column="47" lean-forward="true" selection-start-line="34" selection-start-column="47" selection-end-line="34" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/Enum/CardType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/ProgramCardDeck.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1215">
+          <caret line="81" lean-forward="true" selection-start-line="81" selection-end-line="81" />
           <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#376#377#0" expanded="true" />
+            <element signature="e#406#407#0" expanded="true" />
+            <element signature="e#506#507#0" expanded="true" />
+            <element signature="e#547#548#0" expanded="true" />
+            <element signature="e#1579#1580#0" expanded="true" />
+            <element signature="e#1613#1614#0" expanded="true" />
+            <element signature="e#1743#1744#0" expanded="true" />
+            <element signature="e#1770#1771#0" expanded="true" />
+            <element signature="e#1889#1890#0" expanded="true" />
             <element signature="e#1926#1927#0" expanded="true" />
-            <element signature="e#1972#1973#0" expanded="true" />
-            <element signature="e#7379#7380#0" expanded="true" />
+            <element signature="e#2068#2069#0" expanded="true" />
+            <element signature="e#2101#2102#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.11/junit-4.11.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.11/junit-4.11.jar!/org/junit/runners/model/FrameworkMethod.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
-          <folding>
-            <element signature="e#728#922#0" expanded="true" />
-            <element signature="e#921#922#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/inf112/skeleton/app/AppTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="28" selection-start-column="28" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/inf112/skeleton/app/PlayerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1411">
-          <caret line="86" column="62" selection-start-line="86" selection-start-column="62" selection-end-line="86" selection-end-column="62" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/Enum/Direction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="33" selection-start-column="33" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/Enum/Rotation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="69" selection-start-line="14" selection-start-column="69" selection-end-line="14" selection-end-column="69" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/Board.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/IPlayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="64" selection-start-line="64" selection-end-line="64" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/inf112/skeleton/app/IBoard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="1" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
         </state>
       </provider>
     </entry>
