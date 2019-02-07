@@ -7,15 +7,19 @@ import inf112.skeleton.app.GUI.Pieces.Tile;
 
 public class Board extends Table {
 
-    float size;
+
+    // How many X and Y tiles are generated.
     int xGridSize;
     int yGridSize;
+
+    // Size of each square (currently even, i.e unitSize 64 means 64x64 px).
     float unitSize;
+
+
     Tile[][] boardMap;
 
     public Board(float unitSize, int xGridSize, int yGridSize){
 
-        this.size = unitSize;
         this.xGridSize = xGridSize;
         this.yGridSize = yGridSize;
         this.unitSize = unitSize;

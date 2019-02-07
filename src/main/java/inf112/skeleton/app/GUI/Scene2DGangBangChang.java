@@ -35,14 +35,13 @@ public class Scene2DGangBangChang extends ApplicationAdapter {
 		game.setFillParent(true);
 		game.setDebug(true);
 		game.top().left();
-		//game.defaults().left();
 
-		// Create board
+		// Create board.
 		Board board = new Board(90, 10, 10);
 		//board.setDebug(true);
 		board.padTop(30);
 
-		// Add some shit
+		// Add some pieces to the board.
 		board.addPiece(3,3, new Robot(1));
 		board.addPiece(3,2, new Robot(0));
 		board.addPiece(2,3,new Laser());
@@ -60,11 +59,8 @@ public class Scene2DGangBangChang extends ApplicationAdapter {
 		game.row();
 		game.add(deck).bottom().padBottom(30);
 
+		// Add the main table - game - to the stage.
 		stage.addActor(game);
-
-		// CARD
-		//Card actor = new Card();
-		//stage.addActor(actor);
 
 		// BASE ASSET TEST
 		//stage.addActor(new BaseAsset());
