@@ -104,4 +104,13 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
+
+*.iml
+*.ipr
+*.iws
+.gradle/
+/out/
+*.DS_Store
+
+
 # End of https://www.gitignore.io/api/maven,intellij

@@ -1,7 +1,9 @@
 package inf112.skeleton.app;
 
-import inf112.skeleton.app.Enum.Direction;
-import inf112.skeleton.app.Enum.Rotation;
+import inf112.skeleton.app.Game.Enum.Direction;
+import inf112.skeleton.app.Game.Enum.Rotation;
+import inf112.skeleton.app.Game.IPlayer;
+import inf112.skeleton.app.Game.Player;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
