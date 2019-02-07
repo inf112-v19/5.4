@@ -1,5 +1,5 @@
 # BeTheBee
-Gang is coding RoboRally yo
+*Greetings! My name is Jerimiah Fink, and I want to share with you my personal creed. What is the most admirable creature on God's green Earth? Why, it's the bee! Have you ever seen a bee on vacation? Have you ever seen a bee take a sick day? Well, my friends, the answer is no! So I say, be… the bee! Be the bee!*
 
 Discord:
 https://discord.gg/Q4VHjp8
