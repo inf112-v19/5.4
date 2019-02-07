@@ -112,7 +112,7 @@ buildNumber.properties
 /out/
 *.DS_Store
 *.xml
-
+*.iml
 
 
 # End of https://www.gitignore.io/api/maven,intellij
