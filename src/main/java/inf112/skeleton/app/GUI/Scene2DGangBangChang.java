@@ -11,6 +11,8 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import inf112.skeleton.app.GUI.Pieces.Laser;
 import inf112.skeleton.app.GUI.Pieces.Robot;
 import inf112.skeleton.app.GUI.Cards.Deck;
+import inf112.skeleton.app.GUI.Player.MovableRobot;
+import inf112.skeleton.app.GUI.Player.MyActor;
 
 public class Scene2DGangBangChang extends ApplicationAdapter {
 	private Stage stage;
@@ -47,6 +49,8 @@ public class Scene2DGangBangChang extends ApplicationAdapter {
 		board.addPiece(3,2, new Robot(0));
 		board.addPiece(2,3,new Laser());
 		board.addPiece(4,3,new Laser());
+		MovableRobot hans = new MovableRobot(1);
+		board.addPiece(5,5, hans);
 
 		// Create cards
 		Deck deck = new Deck(skin);
@@ -70,6 +74,7 @@ public class Scene2DGangBangChang extends ApplicationAdapter {
 		//stage.addActor(new BaseAsset());
 
 		Gdx.input.setInputProcessor(stage);
+		stage.setKeyboardFocus(hans);
 	}
 
 	@Override
@@ -81,6 +86,8 @@ public class Scene2DGangBangChang extends ApplicationAdapter {
 		stage.act(Gdx.graphics.getDeltaTime());
 
 	}
+
+
 
 	@Override
 	public void dispose() {

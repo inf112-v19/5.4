@@ -1,22 +1,22 @@
 package inf112.skeleton.app.Game;
 
+import inf112.skeleton.app.GUI.Player.Position;
 import inf112.skeleton.app.Game.Enum.Direction;
 import inf112.skeleton.app.Game.Enum.Rotation;
+
 
 public class Player implements IPlayer {
     private int health;
     private final int maxHealth;
     private Direction dir;
-    private int xPos;
-    private int yPos;
+    private Position pos;
     // private Game game;
 
     /**
      * Constructs a Player object with position, direction and health
      */
-    public Player(int xPos, int yPos, Direction dir, int health) {
-        this.xPos = xPos;
-        this.yPos = yPos;
+    public Player(Position pos, Direction dir, int health) {
+        this.pos = pos;
         this.dir = dir;
         this.health = health;
         this.maxHealth = health;
@@ -24,16 +24,24 @@ public class Player implements IPlayer {
 
     /**
      * The piece moves i times in the direction it's facing
-     * @param i
+     * @param steps
      */
     @Override
-    public void move(int i) {
-        for (int j = 0; j < i; j++) {
+    public void move(int steps) {
+        for (int j = 0; j < steps; j++) {
             switch (this.dir) {
-                case NORTH: this.yPos--; break;
-                case EAST: this.xPos++; break;
-                case SOUTH: this.yPos++; break;
-                case WEST: this.xPos--; break;
+                case NORTH: this.pos = this.pos.north(); break;
+                case EAST: this.pos = this.pos.east(); break;
+                case SOUTH: this.pos = this.pos.south(); break;
+                case WEST: this.pos = this.pos.west(); break;
+            }
+        }
+        if (steps == -1) {
+            switch (this.dir) {
+                case NORTH: this.pos = this.pos.south(); break;
+                case EAST: this.pos = this.pos.west(); break;
+                case SOUTH: this.pos = this.pos.north(); break;
+                case WEST: this.pos = this.pos.east(); break;
             }
         }
     }
@@ -106,20 +114,9 @@ public class Player implements IPlayer {
         return this.dir;
     }
 
-    /**
-     * @return This piece's current X position
-     */
     @Override
-    public int getXpos() {
-        return this.xPos;
-    }
-
-    /**
-     * @return This piece's current Y position
-     */
-    @Override
-    public int getYpos() {
-        return this.yPos;
+    public Position getPos() {
+        return this.pos;
     }
 
     /**

@@ -12,8 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import javafx.scene.control.ToggleButton;
-
 
 // Card needs to turn into a Stack that hold two tables or actors - one for the button, and a table that hold the text and image.
 

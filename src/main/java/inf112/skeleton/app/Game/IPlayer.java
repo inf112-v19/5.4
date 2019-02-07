@@ -1,71 +1,66 @@
 package inf112.skeleton.app.Game;
 
+import inf112.skeleton.app.GUI.Player.Position;
 import inf112.skeleton.app.Game.Enum.Direction;
 import inf112.skeleton.app.Game.Enum.Rotation;
 
-public interface IPlayer {
 
-    /**
-     * Moves piece i times in the direction it's facing
-     * @param i
-     */
-    void move(int i);
+    interface IPlayer {
 
-
-
-    /**
-     * Piece loses 1 health
-     */
-    void takeDamage();
+        /**
+         * @param steps
+         *          Times the player moves in the direction it's facing
+         */
+        void move(int steps);
 
 
 
-    /**
-     * Piece's health goes back to max
-     */
-    void repair();
+        /**
+         * Player loses 1 health
+         */
+        void takeDamage();
 
 
 
-    /**
-     * Piece rotates right or left
-     * @param r
-     */
-    void rotate(Rotation r);
+        /**
+         * Player's health goes back to max
+         */
+        void repair();
 
 
 
-    /**
-     * @return this piece's health
-     */
-    int getHealth();
+        /**
+         * Player rotates right or left
+         * @param rot
+         *         the direction to turn
+         */
+        void rotate(Rotation rot);
 
 
 
-    /**
-     * @return This piece's current facing direction
-     */
-    Direction getDirection();
+        /**
+         * @return this player's health
+         */
+        int getHealth();
 
 
 
-    /**
-     * @return This piece's current X position
-     */
-    int getXpos();
+        /**
+         * @return This player's current facing direction
+         */
+        Direction getDirection();
+
+        /**
+         * @return
+         *      This player's current position
+         */
+        Position getPos();
 
 
-
-    /**
-     * @return This piece's current Y position
-     */
-    int getYpos();
-
+        /**
+         * @return true if player's health is above 0, otherwise false
+         */
+        boolean isAlive();
 
 
-    /**
-     * @return true if piece's health is above 0, otherwise false
-     */
-    boolean isAlive();
-
-}
+    }
