@@ -1,7 +1,7 @@
 package inf112.skeleton.app.Game.board;
 
-import inf112.skeleton.app.Enum.Direction;
-import inf112.skeleton.app.board.pieces.Wall;
+import inf112.skeleton.app.Game.Enum.Direction;
+import inf112.skeleton.app.Game.board.pieces.Wall;
 import org.json.simple.JSONArray;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
