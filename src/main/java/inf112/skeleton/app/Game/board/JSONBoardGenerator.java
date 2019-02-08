@@ -18,14 +18,13 @@ import org.json.simple.parser.ParseException;
 public class JSONBoardGenerator {
 
     JSONParser parser = new JSONParser();
-    List<List<IPiece>> jsonBoardPieceList = new ArrayList<List<IPiece>>();
 
-    public void generateJsonBoard() {
-
+    public void List<List<IPiece>> generateJsonBoard (String filepath) {
+        List<List<IPiece>> jsonBoardPieceList = new ArrayList<List<IPiece>>();
 
         try {
 
-            Object boardFile = parser.parse(new FileReader("C:\\Users\\Morten\\IdeaProjects\\jsonParseTest\\jsonParseTesto\\src\\main\\java\\PackageMcGoo\\TestBoard.json"));
+            Object boardFile = parser.parse(new FileReader(filepath));
             JSONObject jsonBoardFile = (JSONObject) boardFile;
             System.out.println(jsonBoardFile);
 
@@ -92,5 +91,6 @@ public class JSONBoardGenerator {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        return jsonBoardPieceList;
     }
 }
