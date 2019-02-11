@@ -2,6 +2,7 @@ package inf112.skeleton.app.Game.board;
 
 import inf112.skeleton.app.Game.Enum.Direction;
 import inf112.skeleton.app.Game.board.activeCells.Conveyor;
+import inf112.skeleton.app.Game.board.pieces.Flag;
 import inf112.skeleton.app.Game.board.pieces.Wall;
 import org.json.simple.JSONArray;
 import java.io.FileNotFoundException;
@@ -19,6 +20,12 @@ public class JSONBoardGenerator {
 
     JSONParser parser = new JSONParser();
 
+
+    /**
+     * The main method for generating a List/Board of pieces from a JSON document.
+     * @param filepath The path of the JSON file you want to parse.
+     * @return  A List of lists containing the parsed pieces.
+     */
     public List<List<IPiece>> generateJsonBoard (String filepath) {
 
         List<List<IPiece>> jsonBoardPieceList = new ArrayList<List<IPiece>>();
@@ -78,7 +85,18 @@ public class JSONBoardGenerator {
                                 System.out.println("Making westfacing conveyor!");
                                 new Conveyor(Direction.WEST);
                                 break;
-
+                            case "FlagOne":
+                                System.out.println("Making flag number 1");
+                                new Flag(1);
+                                break;
+                            case "FlagTwo":
+                                System.out.println("Making flag number 2");
+                                new Flag(2);
+                                break;
+                            case "FlagThree":
+                                System.out.println("Making flag number 3");
+                                new Flag (3);
+                                break;
                         }
                         jsonBoardPieceList.add(innerList);
                     }
