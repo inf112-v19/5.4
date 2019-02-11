@@ -19,7 +19,8 @@ public class JSONBoardGenerator {
 
     JSONParser parser = new JSONParser();
 
-    public void List<List<IPiece>> generateJsonBoard (String filepath) {
+    public List<List<IPiece>> generateJsonBoard (String filepath) {
+
         List<List<IPiece>> jsonBoardPieceList = new ArrayList<List<IPiece>>();
 
         try {
