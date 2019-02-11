@@ -10,7 +10,6 @@ import java.util.Stack;
 public class ProgramCardDeck {
 
     private Stack<ProgramCard> deck = new Stack<>();
-    private int priority = 0;
 
     /**
      * Generates a deck of 84 cards
