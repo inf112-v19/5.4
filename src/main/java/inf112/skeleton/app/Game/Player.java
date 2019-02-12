@@ -8,6 +8,7 @@ import inf112.skeleton.app.Game.Enum.Rotation;
 public class Player implements IPlayer {
     private int health;
     private final int maxHealth;
+    private int damageTokens;
     private Direction dir;
     private Position pos;
     // private Game Game;
@@ -20,6 +21,7 @@ public class Player implements IPlayer {
         this.dir = dir;
         this.health = health;
         this.maxHealth = health;
+        this.damageTokens = 0;
     }
 
     /**
@@ -47,19 +49,26 @@ public class Player implements IPlayer {
     }
 
     /**
-     * This piece loses 1 health
+     * Player gets one damageToken
      */
     @Override
-    public void takeDamage() {
-        this.health--;
+    public void takeDamage(int amountOfDamage) {
+        if(damageTokens + amountOfDamage < 10){
+            damageTokens+=amountOfDamage;
+        } else {
+            damageTokens = 0;
+            health--;
+        }
     }
 
     /**
-     * Piece's health goes back to max
+     * Player loses a damageToken
      */
     @Override
     public void repair() {
-        this.health = this.maxHealth;
+        if(damageTokens > 0){
+            damageTokens--;
+        }
     }
 
 
@@ -104,6 +113,15 @@ public class Player implements IPlayer {
     @Override
     public int getHealth() {
         return this.health;
+    }
+
+
+    /**
+     * @return This piece's current amount of damageTokens
+     */
+    @Override
+    public int getDamageTokens() {
+        return damageTokens;
     }
 
     /**

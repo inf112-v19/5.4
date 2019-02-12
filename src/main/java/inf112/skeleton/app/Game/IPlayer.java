@@ -16,14 +16,15 @@ import inf112.skeleton.app.Game.Enum.Rotation;
 
 
         /**
-         * Player loses 1 health
+         * Player gets X amount of damageTokens
+         * @param amountOfDamage the amount of damageTokens the player recieves
          */
-        void takeDamage();
+        void takeDamage(int amountOfDamage);
 
 
 
         /**
-         * Player's health goes back to max
+         * Player loses a damageToken
          */
         void repair();
 
@@ -42,6 +43,12 @@ import inf112.skeleton.app.Game.Enum.Rotation;
          * @return this player's health
          */
         int getHealth();
+
+
+        /**
+         * @return this player's damageTokens
+         */
+        int getDamageTokens();
 
 
 

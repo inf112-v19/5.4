@@ -18,12 +18,20 @@ public class Game {
         actionList = new LinkedList<>();
     }
 
+    public boolean actionListIsEmpty(){
+        return actionList.isEmpty();
+    }
+
+    public boolean playerListIsEmpty(){
+        return playerList.isEmpty();
+    }
+
     public void doAction() {
-        if (!actionList.isEmpty()) {
+        if (!actionListIsEmpty()) {
             Action action = actionList.poll();
             switch (action.getActionType()) {
                 case DAMAGE:
-                    action.getPlayer().takeDamage();
+                    action.getPlayer().takeDamage(action.getAmount());
                     break;
                 case MOVE:
                     action.getPlayer().move(action.getAmount());

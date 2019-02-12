@@ -25,12 +25,12 @@ public class ActionTest {
     }
 
     @Test
-    public void testActionDo1Damage(){
-        assertEquals(3, player.getHealth());
+    public void testActionPlayerGetsADamageToken(){
+        assertEquals(0, player.getDamageTokens());
         Action action = new Action(player, ActionType.DAMAGE,null,1);
         game.addActionToList(action);
         game.doAction();
-        assertEquals(2, player.getHealth());
+        assertEquals(1, player.getDamageTokens());
     }
 
     @Test
