@@ -10,7 +10,7 @@ public class Player implements IPlayer {
     private final int maxHealth;
     private Direction dir;
     private Position pos;
-    // private Game game;
+    // private Game Game;
 
     /**
      * Constructs a Player object with position, direction and health

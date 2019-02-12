@@ -63,7 +63,7 @@ public class Scene2DGangBangChang extends ApplicationAdapter {
 		game.row();
 		game.add(deck).bottom().padBottom(30);
 
-		// Add the main table - game - to the stage.
+		// Add the main table - Game - to the stage.
 		stage.addActor(game);
 
 		// BASE ASSET TEST

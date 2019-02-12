@@ -3,7 +3,7 @@ package inf112.skeleton.app.Game.board;
 public interface IBoard {
 
     /**
-     * A method for generating the game board.
+     * A method for generating the Game board.
      */
     void generateBoard();
 
