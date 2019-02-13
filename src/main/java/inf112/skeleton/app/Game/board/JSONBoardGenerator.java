@@ -71,19 +71,19 @@ public class JSONBoardGenerator {
                                 break;
                             case "ConveyorNorth":
                                 System.out.println("Making northfacing conveyor!");
-                                new Conveyor(Direction.NORTH);
+                                new Conveyor(Direction.NORTH,1);
                                 break;
                             case "ConveyorEast":
                                 System.out.println("Making eastfacing conveyor!");
-                                new Conveyor(Direction.EAST);
+                                new Conveyor(Direction.EAST,1);
                                 break;
                             case "ConveyorSouth":
                                 System.out.println("Making southfacing conveyor!");
-                                new Conveyor(Direction.SOUTH);
+                                new Conveyor(Direction.SOUTH,1);
                                 break;
                             case "ConveyorWest":
                                 System.out.println("Making westfacing conveyor!");
-                                new Conveyor(Direction.WEST);
+                                new Conveyor(Direction.WEST,1);
                                 break;
                             case "FlagOne":
                                 System.out.println("Making flag number 1");

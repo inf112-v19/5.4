@@ -1,13 +1,12 @@
 package inf112.skeleton.app.Game;
 
+import com.sun.jdi.request.DuplicateRequestException;
+import com.sun.tools.internal.ws.wsdl.framework.DuplicateEntityException;
 import inf112.skeleton.app.Game.Enum.ActionType;
 import inf112.skeleton.app.Game.Enum.Rotation;
 import org.lwjgl.Sys;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class Game {
     private List<Player> playerList;
@@ -16,6 +15,10 @@ public class Game {
     public Game() {
         playerList = new ArrayList<>();
         actionList = new LinkedList<>();
+    }
+
+    public void addPlayerToList(){
+
     }
 
     public boolean actionListIsEmpty(){
@@ -44,6 +47,18 @@ public class Game {
             }
         } else {
             System.out.println("actionList Empty");
+        }
+    }
+
+    public List<Player> getPlayerList() {
+        return playerList;
+    }
+
+    public void addPlayerToList(Player player) throws DuplicateEntityException{
+        if(!playerList.contains(player)){
+            playerList.add(player);
+        } else {
+            System.out.println("This player already exists");
         }
     }
 

@@ -61,10 +61,8 @@ public class DeckTest {
                 , postShuffleDeck.getTopCard().getPriority());
     }
 
-    /*
     @Test
     public void testToString(){
         System.out.println(deck.toString());
     }
-    */
 }

@@ -1,15 +1,17 @@
 package inf112.skeleton.app.Game.board.activeCells;
 
+import inf112.skeleton.app.Game.Enum.ActionType;
 import inf112.skeleton.app.Game.Enum.Direction;
 import inf112.skeleton.app.Game.board.IActiveCell;
 
 public class Conveyor implements IActiveCell {
 
     private Direction direction;
-    private int speed = 1;
+    private int speed;
 
-    public Conveyor(Direction dir){
+    public Conveyor(Direction dir, int speed){
         this.direction = dir;
+        this.speed = speed;
     }
 
     public int getSpeed() {
@@ -41,7 +43,7 @@ public class Conveyor implements IActiveCell {
     }
 
     @Override
-    public String getAction() {
-        return null;
+    public ActionType getActionType() {
+        return ActionType.MOVE;
     }
 }

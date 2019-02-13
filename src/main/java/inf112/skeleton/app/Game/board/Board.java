@@ -26,23 +26,23 @@ public class Board implements IBoard {
 
         // Row 0
         ArrayList<ICell> row0c0 = new ArrayList<ICell>();
-        row0c0.add(new Conveyor(Direction.EAST));
+        row0c0.add(new Conveyor(Direction.EAST, 1));
         boardList.add(row0c0);
 
         ArrayList<ICell> row0c1 = new ArrayList<ICell>();
-        row0c1.add(new Conveyor(Direction.NORTH));
+        row0c1.add(new Conveyor(Direction.NORTH,1));
         boardList.add(row0c1);
 
         ArrayList<ICell> row0c2 = new ArrayList<ICell>();
-        row0c2.add(new Conveyor(Direction.WEST));
+        row0c2.add(new Conveyor(Direction.WEST,1 ));
         boardList.add(row0c2);
 
         ArrayList<ICell> row0c3 = new ArrayList<ICell>();
-        row0c3.add(new Conveyor(Direction.SOUTH));
+        row0c3.add(new Conveyor(Direction.SOUTH,1));
         boardList.add(row0c3);
 
         ArrayList<ICell> row0c4 = new ArrayList<ICell>();
-        row0c4.add(new Conveyor(Direction.NORTH));
+        row0c4.add(new Conveyor(Direction.NORTH,1));
         boardList.add(row0c4);
 
 

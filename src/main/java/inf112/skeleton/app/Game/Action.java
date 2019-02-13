@@ -9,12 +9,27 @@ public class Action {
     private int amount;
     private Rotation rotation;
 
-    public Action (Player player, ActionType actionType, Rotation rotation, int amount){
+    public Action(Player player, ProgramCard programCard) {
+        this.player = player;
+        this.actionType = programCard.getCardType().getActionType();
+        this.amount = programCard.getCardType().getMoveDistance();
+        this.rotation = programCard.getCardType().getRotationDelta();
+    }
+
+    public Action(Player player, ActionType actionType, int amount) {
         this.player = player;
         this.actionType = actionType;
         this.amount = amount;
+        this.rotation = null;
+    }
+
+    public Action(Player player, ActionType actionType, Rotation rotation) {
+        this.player = player;
+        this.actionType = actionType;
+        this.amount = 0;
         this.rotation = rotation;
     }
+
 
     public Rotation getRotation() {
         return rotation;
