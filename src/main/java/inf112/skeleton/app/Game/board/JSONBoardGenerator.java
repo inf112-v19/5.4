@@ -38,6 +38,7 @@ public class JSONBoardGenerator {
 
             for (int x = 0; x <= 9; x++) {
                 for (int y = 0; y <= 9; y++) {
+
                     String intX = Integer.toString(x);
                     String intY = Integer.toString(y);
 
