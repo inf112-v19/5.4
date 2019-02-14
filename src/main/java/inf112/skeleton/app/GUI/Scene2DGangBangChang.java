@@ -25,6 +25,7 @@ public class Scene2DGangBangChang extends ApplicationAdapter {
 
 		// Main stage
 		camera = new OrthographicCamera();
+
 		viewport = new ExtendViewport(1200, 1200, camera);
 		stage = new Stage(viewport);
 
