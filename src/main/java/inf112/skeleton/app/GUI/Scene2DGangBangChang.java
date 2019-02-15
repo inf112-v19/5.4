@@ -8,11 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import inf112.skeleton.app.GUI.Pieces.Laser;
-import inf112.skeleton.app.GUI.Pieces.Robot;
-import inf112.skeleton.app.GUI.Cards.Deck;
-import inf112.skeleton.app.GUI.Player.MovableRobot;
-import inf112.skeleton.app.GUI.Player.MyActor;
+import inf112.skeleton.app.GUI.pieces.Laser;
+import inf112.skeleton.app.GUI.pieces.Robot;
+import inf112.skeleton.app.GUI.cards.Deck;
+import inf112.skeleton.app.GUI.player.MovableRobot;
 
 import java.util.Random;
 
