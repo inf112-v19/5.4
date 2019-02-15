@@ -1,4 +1,4 @@
-package inf112.skeleton.app.Game.board;
+/**package inf112.skeleton.app.Game.board;
 
 import inf112.skeleton.app.Game.Enum.Direction;
 import inf112.skeleton.app.Game.board.activeCells.Conveyor;
@@ -39,3 +39,4 @@ public class Board implements IBoard {
         return board;
     }
 }
+*/
