@@ -14,6 +14,8 @@ import inf112.skeleton.app.GUI.Cards.Deck;
 import inf112.skeleton.app.GUI.Player.MovableRobot;
 import inf112.skeleton.app.GUI.Player.MyActor;
 
+import java.util.Random;
+
 public class Scene2DGangBangChang extends ApplicationAdapter {
 	private Stage stage;
 	private Skin skin;
@@ -26,7 +28,7 @@ public class Scene2DGangBangChang extends ApplicationAdapter {
 		// Main stage
 		camera = new OrthographicCamera();
 
-		viewport = new ExtendViewport(1200, 1200, camera);
+        viewport = new ExtendViewport(1200, 1200, camera);
 		stage = new Stage(viewport);
 
 		// Main skin
@@ -49,6 +51,7 @@ public class Scene2DGangBangChang extends ApplicationAdapter {
 		board.addPiece(3,2, new Robot(0));
 		board.addPiece(2,3,new Laser());
 		board.addPiece(4,3,new Laser());
+		board.addPiece(7,7, new Laser());
 		MovableRobot hans = new MovableRobot(1);
 		board.addPiece(5,5, hans);
 
