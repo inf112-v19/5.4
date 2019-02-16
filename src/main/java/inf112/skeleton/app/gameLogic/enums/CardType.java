@@ -1,33 +1,39 @@
 package inf112.skeleton.app.gameLogic.enums;
 
 public enum CardType {
-    ROTATE_U("U-Turn", 6, 0, Rotation.U),
-    ROTATE_LEFT("Rotate Left", 18, 0, Rotation.L),
-    ROTATE_RIGHT("Rotate Right", 18, 0, Rotation.R),
-    BACK_UP("Move 1", 6, -1, null),
-    MOVE_1("Move 1", 18, 1, null),
-    MOVE_2("Move 2", 12, 2, null),
-    MOVE_3("Move 3", 6, 3, null);
+    ROTATE_U("U-Turn", ActionType.TURN, Rotation.U, 0, 6),
+    ROTATE_LEFT("Rotate Left", ActionType.TURN, Rotation.L, 0, 18),
+    ROTATE_RIGHT("Rotate Right", ActionType.TURN, Rotation.R, 0, 18),
+    BACK_UP("Back Up", ActionType.MOVE, null, -1, 6),
+    MOVE_1("Move 1", ActionType.MOVE, null, 1, 18),
+    MOVE_2("Move 2", ActionType.MOVE, null, 2, 12),
+    MOVE_3("Move 3", ActionType.MOVE, null, 3, 6);
 
 
     private String description;
     private int numberOfCard;
     private int moveDistance;
     private Rotation rotation;
+    private ActionType actionType;
 
-    CardType(String description, int numOfCard, int moveDistance, Rotation rotation){
+    CardType(String description, ActionType actionType, Rotation rotation, int moveDistance, int numOfCard) {
         this.description = description;
         this.moveDistance = moveDistance;
         this.rotation = rotation;
         this.numberOfCard = numOfCard;
+        this.actionType = actionType;
 
+    }
+
+    public ActionType getActionType() {
+        return actionType;
     }
 
     public int getNumberOfCard() {
         return numberOfCard;
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return description;
     }
 
@@ -35,7 +41,7 @@ public enum CardType {
         return moveDistance;
     }
 
-    public Rotation getRotationDelta() {
+    public Rotation getRotation() {
         return rotation;
     }
 }

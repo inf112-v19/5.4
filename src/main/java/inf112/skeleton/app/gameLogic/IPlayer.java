@@ -1,66 +1,74 @@
 package inf112.skeleton.app.gameLogic;
 
+
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.enums.Rotation;
 
 
-    interface IPlayer {
+interface IPlayer {
 
-        /**
-         * @param steps
-         *          Times the player moves in the direction it's facing
-         */
-        void move(int steps);
-
-
-
-        /**
-         * player loses 1 health
-         */
-        void takeDamage();
+    /**
+     * @param steps
+     *          Times the player moves in the direction it's facing
+     */
+    void move(int steps);
 
 
 
-        /**
-         * player's health goes back to max
-         */
-        void repair();
+    /**
+     * Player gets X amount of damageTokens
+     * @param amountOfDamage the amount of damageTokens the player recieves
+     */
+    void takeDamage(int amountOfDamage);
 
 
 
-        /**
-         * player rotates right or left
-         * @param rot
-         *         the direction to turn
-         */
-        void rotate(Rotation rot);
+    /**
+     * Player loses a damageToken
+     */
+    void repair();
 
 
 
-        /**
-         * @return this player's health
-         */
-        int getHealth();
+    /**
+     * Player rotates right or left
+     * @param rot
+     *         the direction to turn
+     */
+    void rotate(Rotation rot);
 
 
 
-        /**
-         * @return This player's current facing direction
-         */
-        Direction getDirection();
-
-        /**
-         * @return
-         *      This player's current position
-         */
-        Position getPos();
+    /**
+     * @return this player's health
+     */
+    int getHealth();
 
 
-        /**
-         * @return true if player's health is above 0, otherwise false
-         */
-        boolean isAlive();
+    /**
+     * @return this player's damageTokens
+     */
+    int getDamageTokens();
 
 
-    }
+
+    /**
+     * @return This player's current facing direction
+     */
+    Direction getDirection();
+
+    /**
+     * @return
+     *      This player's current position
+     */
+    Position getPos();
+
+
+    /**
+     * @return true if player's health is above 0, otherwise false
+     */
+    boolean isAlive();
+
+
+}

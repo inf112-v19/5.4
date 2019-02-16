@@ -1,25 +1,35 @@
 package inf112.skeleton.app.gameLogic;
 
+import inf112.skeleton.app.gameLogic.enums.*;
 import inf112.skeleton.app.GUI.player.Position;
-import inf112.skeleton.app.gameLogic.enums.Direction;
-import inf112.skeleton.app.gameLogic.enums.Rotation;
+
+import java.util.List;
+import java.util.Stack;
 
 
 public class Player implements IPlayer {
     private int health;
     private final int maxHealth;
+    private int damageTokens;
     private Direction dir;
     private Position pos;
-    // private gameLogic game;
+    private Stack<ProgramCard> playerDeck;
+    private List<ProgramCard> playerRegister;
+
+    public Stack<ProgramCard> returnDeck(){
+        return playerDeck;
+    }
+
 
     /**
-     * Constructs a player object with position, direction and health
+     * Constructs a Player object with position, direction and health
      */
     public Player(Position pos, Direction dir, int health) {
         this.pos = pos;
         this.dir = dir;
         this.health = health;
         this.maxHealth = health;
+        this.damageTokens = 0;
     }
 
     /**
@@ -47,19 +57,26 @@ public class Player implements IPlayer {
     }
 
     /**
-     * This piece loses 1 health
+     * Player gets one damageToken
      */
     @Override
-    public void takeDamage() {
-        this.health--;
+    public void takeDamage(int amountOfDamage) {
+        if(damageTokens + amountOfDamage < 10){
+            damageTokens+=amountOfDamage;
+        } else {
+            damageTokens = 0;
+            health--;
+        }
     }
 
     /**
-     * Piece's health goes back to max
+     * Player loses a damageToken
      */
     @Override
     public void repair() {
-        this.health = this.maxHealth;
+        if(damageTokens > 0){
+            damageTokens--;
+        }
     }
 
 
@@ -104,6 +121,15 @@ public class Player implements IPlayer {
     @Override
     public int getHealth() {
         return this.health;
+    }
+
+
+    /**
+     * @return This piece's current amount of damageTokens
+     */
+    @Override
+    public int getDamageTokens() {
+        return damageTokens;
     }
 
     /**
