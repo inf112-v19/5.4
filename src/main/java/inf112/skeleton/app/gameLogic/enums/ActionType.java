@@ -1,4 +1,4 @@
-package inf112.skeleton.app.gameLogic.enums;
+package inf112.skeleton.app.Game.Enum;
 
 import javax.swing.*;
 

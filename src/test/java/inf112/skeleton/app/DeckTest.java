@@ -65,5 +65,4 @@ public class DeckTest {
     public void testToString(){
         System.out.println(deck.toString());
     }
-
 }

@@ -1,16 +1,24 @@
 package inf112.skeleton.app.gameLogic.board;
 
+import java.util.List;
+
 public interface IBoard {
 
     /**
-     * A method for generating the game board.
+     * Prints a basic representation of the elements in the board.
      */
-    void generateBoard();
+    void displayBoard();
 
     /**
-     * Prints out the board
-     * @param brett 2D array to be printed.
+     * A method for returning the board name.
+     * @return The name of the board
      */
-    void displayBoard(char[][] brett);
+    String getBoardName();
+
+    /**
+     * A method for returning the boardList
+     * @return The list containing the board elements
+     */
+    List<List<IPiece>> getBoard();
 
 }

@@ -7,10 +7,14 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 
-public class Tile extends Stack {
+import java.util.Iterator;
+import java.util.LinkedList;
 
+public class Tile extends Stack {
+    private LinkedList<Piece> linkedList;
 
     public Tile () {
+        this.linkedList = new LinkedList<>();
 
         class BaseTile extends Actor {
             Sprite sprite = new Sprite(new Texture(Gdx.files.internal("board/normal_tile.png")));
@@ -25,8 +29,19 @@ public class Tile extends Stack {
         //this.add(new Robot());
     }
 
+    /**
+     * Adds a piece to linked list
+     * @param piece the piece that is added to the linked list
+     */
     public void addPiece(Piece piece) {
-        // REMOVE
-        this.add(piece);
+        linkedList.add(piece);
+    }
+
+    /**
+     * @return
+     *      an iterator over the pieces in the linked list
+     */
+    public Iterator<Piece> getPieces() {
+        return linkedList.iterator();
     }
 }
