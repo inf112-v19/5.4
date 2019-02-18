@@ -1,10 +1,12 @@
 package inf112.skeleton.app;
 
-import inf112.skeleton.app.GUI.Player.Position;
-import inf112.skeleton.app.Game.*;
-import inf112.skeleton.app.Game.Enum.ActionType;
-import inf112.skeleton.app.Game.Enum.Direction;
-import inf112.skeleton.app.Game.Enum.Rotation;
+import inf112.skeleton.app.GUI.player.Position;
+import inf112.skeleton.app.gameLogic.game.TestGame;
+import inf112.skeleton.app.gameLogic.enums.*;
+import inf112.skeleton.app.gameLogic.Player;
+import inf112.skeleton.app.gameLogic.game.Action;
+import inf112.skeleton.app.gameLogic.ProgramCardDeck;
+import inf112.skeleton.app.gameLogic.ProgramCard;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,12 +18,12 @@ import static org.junit.Assert.assertEquals;
 public class ActionTest {
 
     private Player player;
-    private Game game;
+    private TestGame game;
 
     @Before
     public void setupActionTest(){
         player = new Player(new Position(3,3), Direction.NORTH, 3);
-        game = new Game();
+        game = new TestGame();
     }
 
     @Test
