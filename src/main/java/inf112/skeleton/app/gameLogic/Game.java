@@ -1,9 +1,11 @@
-package inf112.skeleton.app.Game;
+/**package inf112.skeleton.app.gameLogic;
 
 import com.sun.jdi.request.DuplicateRequestException;
 import com.sun.tools.internal.ws.wsdl.framework.DuplicateEntityException;
 import inf112.skeleton.app.Game.Enum.ActionType;
-import inf112.skeleton.app.Game.Enum.Rotation;
+import inf112.skeleton.app.gameLogic.enums.Rotation;
+import inf112.skeleton.app.gameLogic.Player;
+import inf112.skeleton.app.gameLogic.game.Action;
 import org.lwjgl.Sys;
 
 import java.util.*;
@@ -67,3 +69,4 @@ public class Game {
     }
 
 }
+*/

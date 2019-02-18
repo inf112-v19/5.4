@@ -19,6 +19,15 @@ public interface IBoard {
      * A method for returning the boardList
      * @return The list containing the board elements
      */
-    List<List<IPiece>> getBoard();
+    ICell[][] getBoard();
+
+
+    /**
+     * Returns Cell from a specific location.
+     * @param x x-coordinates
+     * @param y y-coordinates
+     * @return Cell
+     */
+    ICell getCellAt(int x, int y);
 
 }

@@ -1,7 +1,9 @@
-package inf112.skeleton.app.Game;
+package inf112.skeleton.app.gameLogic;
 
 import inf112.skeleton.app.Game.Enum.ActionType;
-import inf112.skeleton.app.Game.Enum.Rotation;
+import inf112.skeleton.app.gameLogic.Player;
+import inf112.skeleton.app.gameLogic.ProgramCard;
+import inf112.skeleton.app.gameLogic.enums.Rotation;
 
 public class Action {
     private Player player;

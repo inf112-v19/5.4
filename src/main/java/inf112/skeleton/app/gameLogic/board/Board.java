@@ -9,82 +9,41 @@ import java.util.List;
 public class Board implements IBoard {
 
     String boardName;
+    ICell[][] board;
 
-    public Board(String name) {
+    public Board(String name, String path) {
         boardName = name;
+        board = new JSONBoardGenerator().generateJsonBoard(path);
     }
 
-    public ICell[][] brett;
-    public ICell[][] getBrett () {
-        return brett;
-    }
-
+    private ICell[][] brett;
 
     public void generateBoard() {
 
-        List<List<ICell>> boardList = new ArrayList<List<ICell>>();
-
-        // Row 0
-        ArrayList<ICell> row0c0 = new ArrayList<ICell>();
-        row0c0.add(new Conveyor(Direction.EAST));
-        boardList.add(row0c0);
-
-        ArrayList<ICell> row0c1 = new ArrayList<ICell>();
-        row0c1.add(new Conveyor(Direction.NORTH));
-        boardList.add(row0c1);
-
-        ArrayList<ICell> row0c2 = new ArrayList<ICell>();
-        row0c2.add(new Conveyor(Direction.WEST));
-        boardList.add(row0c2);
-
-        ArrayList<ICell> row0c3 = new ArrayList<ICell>();
-        row0c3.add(new Conveyor(Direction.SOUTH));
-        boardList.add(row0c3);
-
-        ArrayList<ICell> row0c4 = new ArrayList<ICell>();
-        row0c4.add(new Conveyor(Direction.NORTH));
-        boardList.add(row0c4);
-
-
-        // Row 1
-
-        // Row 2
-
-        // row 3
-
     }
 
-
-
-
-
-
-
-/*    public void generateBoard(int height, int width) {
-
-        ICell[][] brett = new ICell[height][width];
-        for (int i = 0; i < brett.length; i++) {
-            for (int j = 0; j < brett.length; j++) {
-                brett[i][j] = new Conveyor("Straight_conveyor");
-            }
-        }
-        for (int i = 1; i < brett.length-1; i++) {
-            for (int j = 1; j < brett.length-1; j++) {
-                brett[i][j] = 'X';
-            }
-        }
-        this.brett = brett;
-    }
-  */
-
-    public void displayBoard(char[][] brett) {
-        for (int i = 0; i < brett.length; i++) {
-            System.out.println();
-            for (int j = 0; j < brett[i].length; j++) {
+    public void displayBoard() {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
                 System.out.print(" | " + brett[i][j]);
             }
             System.out.print(" | ");
             System.out.println();
         }
+    }
+
+    @Override
+    public String getBoardName() {
+        return boardName;
+    }
+
+    @Override
+    public ICell[][] getBoard() {
+        return board;
+    }
+
+    @Override
+    public ICell getCellAt(int x, int y) {
+        return board[x][y];
     }
 }
