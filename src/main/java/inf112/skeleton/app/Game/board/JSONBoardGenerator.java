@@ -93,7 +93,7 @@ public class JSONBoardGenerator {
                                 new Flag (3);
                                 break;
                         }
-                        jsonBoardPieceList.add(innerList);
+                        //jsonBoardPieceList.add(innerList);
                     }
                     //System.out.println(yCord);
                 }
@@ -112,7 +112,6 @@ public class JSONBoardGenerator {
 
         return jsonBoardPieceList2;
     }
-
     /**
      * The main method for generating a List/Board of pieces from a JSON document.
      * @param filepath The path of the JSON file you want to parse.
