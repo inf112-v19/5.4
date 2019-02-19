@@ -1,6 +1,4 @@
-package inf112.skeleton.app.Game.Enum;
-
-import javax.swing.*;
+package inf112.skeleton.app.gameLogic.enums;
 
 public enum ActionType {
     DAMAGE_1("1 DMG", ActionTypeType.DAMAGE, 1),

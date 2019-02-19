@@ -1,12 +1,12 @@
-package inf112.skeleton.app.Game.board.activeCells;
+package inf112.skeleton.app.gameLogic.board.activeCells;
 
-import inf112.skeleton.app.Game.Enum.ActionType;
-import inf112.skeleton.app.Game.Enum.Rotation;
-import inf112.skeleton.app.Game.board.IActiveCell;
+import inf112.skeleton.app.gameLogic.enums.ActionType;
 
+import inf112.skeleton.app.gameLogic.board.IActiveCell;
+import inf112.skeleton.app.gameLogic.enums.Rotation;
 public class Gears implements IActiveCell {
 
-    private ActionType actionType = ActionType.TURN;
+    private ActionType actionType;
     private Rotation rotation;
 
     public Gears(Rotation rotation){

@@ -87,4 +87,19 @@ public class Board implements IBoard {
             System.out.println();
         }
     }
+
+    @Override
+    public void displayBoard() {
+
+    }
+
+    @Override
+    public String getBoardName() {
+        return null;
+    }
+
+    @Override
+    public List<List<IPiece>> getBoard() {
+        return null;
+    }
 }
