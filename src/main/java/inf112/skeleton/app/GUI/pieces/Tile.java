@@ -11,21 +11,14 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Tile extends Stack {
-    private LinkedList<Piece> linkedList;
+    private LinkedList<Piece> tilePieces;
 
     public Tile () {
-        this.linkedList = new LinkedList<>();
+        this.tilePieces = new LinkedList<>();
 
-        class BaseTile extends Actor {
-            Sprite sprite = new Sprite(new Texture(Gdx.files.internal("board/normal_tile.png")));
+        this.updateTile();
 
-            @Override
-            public void draw(Batch batch, float parentAlpha) {
-                batch.draw(sprite, getX(),getY(), getWidth(), getHeight());
-            }
-        }
-
-        this.add(new BaseTile());
+        //this.add(new BaseTile());
         //this.add(new Robot());
     }
 
@@ -34,7 +27,30 @@ public class Tile extends Stack {
      * @param piece the piece that is added to the linked list
      */
     public void addPiece(Piece piece) {
-        linkedList.add(piece);
+        tilePieces.add(piece);
+        updateTile();
+
+    }
+    
+
+    public void updateTile(){
+
+        class BaseTile extends Actor {
+            Sprite sprite = new Sprite(new Texture(Gdx.files.internal("board/normal_tile.png")));
+            //Sprite sprite = new Sprite(new Texture(Gdx.files.internal("bots/rolobot-alpha/rolobot-alpha.png")));
+
+
+            @Override
+            public void draw(Batch batch, float parentAlpha) {
+                batch.draw(sprite, getX(),getY(), getWidth(), getHeight());
+            }
+        }
+
+        this.clearChildren();
+        this.add(new BaseTile());
+        for(Piece iterPiece : tilePieces){
+            this.add(iterPiece);
+        }
     }
 
     /**
@@ -42,6 +58,6 @@ public class Tile extends Stack {
      *      an iterator over the pieces in the linked list
      */
     public Iterator<Piece> getPieces() {
-        return linkedList.iterator();
+        return tilePieces.iterator();
     }
 }

@@ -47,8 +47,8 @@ public class Scene2DGangBangChang extends ApplicationAdapter {
 		// Add some pieces to the board.
 		board.addPiece(3,3, new Robot(1));
 		board.addPiece(3,2, new Robot(0));
-		board.addPiece(2,3,new Laser());
-		board.addPiece(4,3,new Laser());
+		board.addPiece(2,3, new Laser());
+		board.addPiece(4,3, new Laser());
 		board.addPiece(7,7, new Laser());
 		MovableRobot hans = new MovableRobot(1);
 		board.addPiece(5,5, hans);
@@ -71,8 +71,6 @@ public class Scene2DGangBangChang extends ApplicationAdapter {
 
 		// Add the main table - Game - to the stage.
 		stage.addActor(game);
-
-
 
 		Gdx.input.setInputProcessor(stage);
 		stage.setKeyboardFocus(hans);

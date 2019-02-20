@@ -20,12 +20,14 @@ public class Robot extends Piece {
                                 break;
                 }
 
+                super.sprite = new Sprite(new Texture(Gdx.files.internal(path)));
                 sprite = new Sprite(new Texture(Gdx.files.internal(path)));
         }
 
 
         @Override
         public void draw(Batch batch, float parentAlpha) {
+            System.out.println("Robot Draw");
            //batch.enableBlending();
             batch.draw(sprite, getX(),getY(), getWidth(), getHeight());
         }
