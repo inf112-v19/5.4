@@ -19,6 +19,11 @@ public class MovableRobot extends Robot {
        addListener(new InputListener() {
            @Override
            public boolean keyDown(InputEvent event, int keycode) {
+
+               System.out.println("MOVED");
+
+
+
                setOrigin(getWidth() / 2, getHeight() / 2);
                MoveByAction moveAction = new MoveByAction();
                moveAction.setDuration(0.3f);

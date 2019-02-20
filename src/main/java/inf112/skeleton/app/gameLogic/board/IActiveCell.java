@@ -1,6 +1,6 @@
 package inf112.skeleton.app.gameLogic.board;
 
-import inf112.skeleton.app.Game.Enum.ActionType;
+import inf112.skeleton.app.gameLogic.enums.ActionType;
 
 public interface IActiveCell extends ICell{
 

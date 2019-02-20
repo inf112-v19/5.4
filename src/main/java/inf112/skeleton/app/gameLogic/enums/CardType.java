@@ -1,6 +1,6 @@
 package inf112.skeleton.app.gameLogic.enums;
 
-import inf112.skeleton.app.Game.Enum.ActionType;
+import inf112.skeleton.app.gameLogic.enums.ActionType;
 
 public enum CardType {
     ROTATE_U("U-Turn", ActionType.TURN, Rotation.U, 0, 6),

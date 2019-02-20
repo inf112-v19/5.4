@@ -13,7 +13,6 @@ import inf112.skeleton.app.GUI.pieces.Robot;
 import inf112.skeleton.app.GUI.cards.Deck;
 import inf112.skeleton.app.GUI.player.MovableRobot;
 
-import java.util.Random;
 
 public class Scene2DGangBangChang extends ApplicationAdapter {
 	private Stage stage;
@@ -54,6 +53,7 @@ public class Scene2DGangBangChang extends ApplicationAdapter {
 		MovableRobot hans = new MovableRobot(1);
 		board.addPiece(5,5, hans);
 
+
 		// Create cards
 		Deck deck = new Deck(skin);
 
@@ -66,11 +66,13 @@ public class Scene2DGangBangChang extends ApplicationAdapter {
 		game.row();
 		game.add(deck).bottom().padBottom(30);
 
+        // BASE ASSET TEST
+        game.addActor(new BaseAsset());
+
 		// Add the main table - Game - to the stage.
 		stage.addActor(game);
 
-		// BASE ASSET TEST
-		//stage.addActor(new BaseAsset());
+
 
 		Gdx.input.setInputProcessor(stage);
 		stage.setKeyboardFocus(hans);

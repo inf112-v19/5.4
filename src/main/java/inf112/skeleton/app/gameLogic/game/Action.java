@@ -1,9 +1,9 @@
 package inf112.skeleton.app.gameLogic.game;
 
-import inf112.skeleton.app.gameLogic.enums.ActionType;
-import inf112.skeleton.app.gameLogic.enums.Rotation;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.ProgramCard;
+import inf112.skeleton.app.gameLogic.enums.ActionType;
+import inf112.skeleton.app.gameLogic.enums.Rotation;
 
 
 public class Action {
