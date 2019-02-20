@@ -41,7 +41,7 @@ public class MainGameScreen extends ApplicationAdapter {
 		// Main table
 		Table game = new Table();
 		game.setFillParent(true);
-		game.setDebug(true);
+		//game.setDebug(true);
 		game.top().left();
 
 		// Create board.
@@ -89,8 +89,6 @@ public class MainGameScreen extends ApplicationAdapter {
 		stage.act(Gdx.graphics.getDeltaTime());
 
 	}
-
-
 
 	@Override
 	public void dispose() {
