@@ -1,4 +1,4 @@
-package inf112.skeleton.app.GUI.pieces;
+package inf112.skeleton.app.GUI.Pieces;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

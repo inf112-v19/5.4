@@ -1,4 +1,16 @@
-package inf112.skeleton.app.GUI.player;
+package inf112.skeleton.app.GUI.Player;
+
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
+import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import inf112.skeleton.app.GUI.Pieces.Robot;
+import inf112.skeleton.app.Game.Enum.Direction;
+import inf112.skeleton.app.Game.Enum.Rotation;
+import inf112.skeleton.app.Game.Player;
 
 
 public class MyActor{
@@ -7,7 +19,7 @@ public class MyActor{
 
     /*public MyActor() {
 
-        final player player = new player(new Position(xPos,yPos), Direction.NORTH, 9);
+        final Player player = new Player(new Position(xPos,yPos), Direction.NORTH, 9);
 
         setBounds(getX(), getY(), getWidth(), getHeight());
 

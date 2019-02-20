@@ -1,14 +1,12 @@
-package inf112.skeleton.app.GUI.player;
+package inf112.skeleton.app.GUI.Player;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
-import inf112.skeleton.app.GUI.pieces.Robot;
+import inf112.skeleton.app.GUI.Pieces.Robot;
 
 public class MovableRobot extends Robot {
 
@@ -27,13 +25,7 @@ public class MovableRobot extends Robot {
 
                RotateByAction rotateByAction = new RotateByAction();
 
-               // Move sound
-               Sound moveSound = Gdx.audio.newSound(Gdx.files.internal("sound/move.mp3"));
-               moveSound.play(0.2f,0.5f,1);
-               //moveSound.dispose();
 
-
-                // Set move amounts
                moveAction.setAmount(-getWidth(), 0f);
                moveAction.setInterpolation(Interpolation.pow3);
 
@@ -64,8 +56,6 @@ public class MovableRobot extends Robot {
                return true;
            }
        });
-
-
 
    }
 

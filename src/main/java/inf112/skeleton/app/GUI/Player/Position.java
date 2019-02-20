@@ -1,4 +1,4 @@
-package inf112.skeleton.app.GUI.player;
+package inf112.skeleton.app.GUI.Player;
 
 public class Position {
     private final int xPos;

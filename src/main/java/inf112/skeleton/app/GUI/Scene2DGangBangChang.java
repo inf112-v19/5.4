@@ -9,14 +9,15 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import inf112.skeleton.app.GUI.board.Board;
-import inf112.skeleton.app.GUI.board.Stats;
-import inf112.skeleton.app.GUI.pieces.Laser;
-import inf112.skeleton.app.GUI.pieces.Robot;
-import inf112.skeleton.app.GUI.cards.Deck;
-import inf112.skeleton.app.GUI.player.MovableRobot;
+import inf112.skeleton.app.GUI.Pieces.Laser;
+import inf112.skeleton.app.GUI.Pieces.Robot;
+import inf112.skeleton.app.GUI.Cards.Deck;
+import inf112.skeleton.app.GUI.Player.MovableRobot;
+import inf112.skeleton.app.GUI.Player.MyActor;
 
-public class MainGameScreen extends ApplicationAdapter {
+import java.util.Random;
+
+public class Scene2DGangBangChang extends ApplicationAdapter {
 	private Stage stage;
 	private Skin skin;
 	OrthographicCamera camera;
@@ -26,7 +27,16 @@ public class MainGameScreen extends ApplicationAdapter {
 	@Override
 	public void create () {
 
-		playMusic();
+		// Play music
+		music = Gdx.audio.newMusic(Gdx.files.internal("sound/Rally_Roller.mp3"));
+		music.setVolume(0.5f);                 // sets the volume to half the maximum volume
+		music.setLooping(true);                // will repeat playback until music.stop() is called
+		//music.stop();                          // stops the playback
+		//music.pause();                         // pauses the playback
+		music.play();                          // resumes the playback
+		boolean isPlaying = music.isPlaying(); // obvious :)
+		boolean isLooping = music.isLooping(); // obvious as well :)
+		float position = music.getPosition();  // returns the playback position in seconds
 
 		// Main stage
 		camera = new OrthographicCamera();
@@ -102,19 +112,6 @@ public class MainGameScreen extends ApplicationAdapter {
 	public void resize(int width, int height) {
 		viewport.update(width, height, true);
 
-	}
-
-	public void playMusic(){
-		// Play music
-		music = Gdx.audio.newMusic(Gdx.files.internal("sound/Rally_Roller.mp3"));
-		music.setVolume(0.5f);                 // sets the volume to half the maximum volume
-		music.setLooping(true);                // will repeat playback until music.stop() is called
-		//music.stop();                          // stops the playback
-		//music.pause();                         // pauses the playback
-		music.play();                          // resumes the playback
-		boolean isPlaying = music.isPlaying(); // obvious :)
-		boolean isLooping = music.isLooping(); // obvious as well :)
-		float position = music.getPosition();  // returns the playback position in seconds
 	}
 
 }

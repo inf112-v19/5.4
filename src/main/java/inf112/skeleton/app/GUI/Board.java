@@ -1,8 +1,8 @@
-package inf112.skeleton.app.GUI.board;
+package inf112.skeleton.app.GUI;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import inf112.skeleton.app.GUI.pieces.Piece;
-import inf112.skeleton.app.GUI.pieces.Tile;
+import inf112.skeleton.app.GUI.Pieces.Piece;
+import inf112.skeleton.app.GUI.Pieces.Tile;
 
 
 public class Board extends Table {

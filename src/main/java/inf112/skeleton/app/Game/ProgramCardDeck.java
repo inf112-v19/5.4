@@ -26,7 +26,7 @@ public class ProgramCardDeck {
     }
 
     /**
-     * Generates the deck of Program cards
+     * Generates the deck of Program Cards
      */
     private void generateDeck() {
         deck.clear();

@@ -1,6 +1,6 @@
 package inf112.skeleton.app.Game;
 
-import inf112.skeleton.app.GUI.player.Position;
+import inf112.skeleton.app.GUI.Player.Position;
 import inf112.skeleton.app.Game.Enum.Direction;
 import inf112.skeleton.app.Game.Enum.Rotation;
 
@@ -16,21 +16,21 @@ import inf112.skeleton.app.Game.Enum.Rotation;
 
 
         /**
-         * player loses 1 health
+         * Player loses 1 health
          */
         void takeDamage();
 
 
 
         /**
-         * player's health goes back to max
+         * Player's health goes back to max
          */
         void repair();
 
 
 
         /**
-         * player rotates right or left
+         * Player rotates right or left
          * @param rot
          *         the direction to turn
          */

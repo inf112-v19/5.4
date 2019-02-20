@@ -1,6 +1,6 @@
 package inf112.skeleton.app.Game;
 
-import inf112.skeleton.app.GUI.player.Position;
+import inf112.skeleton.app.GUI.Player.Position;
 import inf112.skeleton.app.Game.Enum.Direction;
 import inf112.skeleton.app.Game.Enum.Rotation;
 
@@ -13,7 +13,7 @@ public class Player implements IPlayer {
     // private Game game;
 
     /**
-     * Constructs a player object with position, direction and health
+     * Constructs a Player object with position, direction and health
      */
     public Player(Position pos, Direction dir, int health) {
         this.pos = pos;
