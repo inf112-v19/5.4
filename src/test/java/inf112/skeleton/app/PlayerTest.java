@@ -1,6 +1,6 @@
 package inf112.skeleton.app;
 
-import inf112.skeleton.app.GUI.Player.Position;
+import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.Game.Enum.Direction;
 import inf112.skeleton.app.Game.Enum.Rotation;
 import inf112.skeleton.app.Game.Player;

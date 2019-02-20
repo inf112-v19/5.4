@@ -1,9 +1,8 @@
-package inf112.skeleton.app.GUI.Cards;
+package inf112.skeleton.app.GUI.cards;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 
 public class Deck extends Table {
 
