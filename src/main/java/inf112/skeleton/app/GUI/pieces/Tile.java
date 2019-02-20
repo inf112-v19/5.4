@@ -51,6 +51,7 @@ public class Tile extends Stack {
         for(Piece iterPiece : tilePieces){
             this.add(iterPiece);
         }
+
     }
 
     /**
