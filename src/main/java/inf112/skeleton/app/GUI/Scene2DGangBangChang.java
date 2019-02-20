@@ -2,6 +2,7 @@ package inf112.skeleton.app.GUI;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -21,9 +22,21 @@ public class Scene2DGangBangChang extends ApplicationAdapter {
 	private Skin skin;
 	OrthographicCamera camera;
 	ExtendViewport viewport;
+	Music music;
 
 	@Override
 	public void create () {
+
+		// Play music
+		music = Gdx.audio.newMusic(Gdx.files.internal("sound/Rally_Roller.mp3"));
+		music.setVolume(0.5f);                 // sets the volume to half the maximum volume
+		music.setLooping(true);                // will repeat playback until music.stop() is called
+		//music.stop();                          // stops the playback
+		//music.pause();                         // pauses the playback
+		music.play();                          // resumes the playback
+		boolean isPlaying = music.isPlaying(); // obvious :)
+		boolean isLooping = music.isLooping(); // obvious as well :)
+		float position = music.getPosition();  // returns the playback position in seconds
 
 		// Main stage
 		camera = new OrthographicCamera();
@@ -92,6 +105,7 @@ public class Scene2DGangBangChang extends ApplicationAdapter {
 	@Override
 	public void dispose() {
 		stage.dispose();
+		music.dispose();
 	}
 
 	@Override
