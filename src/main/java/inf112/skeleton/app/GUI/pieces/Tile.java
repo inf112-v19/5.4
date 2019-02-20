@@ -31,7 +31,7 @@ public class Tile extends Stack {
         updateTile();
 
     }
-    
+
 
     public void updateTile(){
 

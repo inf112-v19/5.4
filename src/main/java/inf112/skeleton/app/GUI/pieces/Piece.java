@@ -10,7 +10,6 @@ public class Piece extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        System.out.println("Piece Draw");
         batch.draw(sprite, getX(), getY(), getWidth(), getHeight());
     }
 }

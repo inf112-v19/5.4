@@ -7,28 +7,19 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 
 public class Robot extends Piece {
-        String path = "bots/";
+    String path = "bots/";
 
-        public Robot(int robotNumber){
+    public Robot(int robotNumber) {
 
-                switch (robotNumber){
-                        case 0:
-                                path += "rolobot-alpha/rolobot-alpha.png";
-                                break;
-                        case 1:
-                                path += "sputnik/sputnik.png";
-                                break;
-                }
-
-                super.sprite = new Sprite(new Texture(Gdx.files.internal(path)));
-                sprite = new Sprite(new Texture(Gdx.files.internal(path)));
+        switch (robotNumber) {
+            case 0:
+                path += "rolobot-alpha/rolobot-alpha.png";
+                break;
+            case 1:
+                path += "sputnik/sputnik.png";
+                break;
         }
 
-
-        @Override
-        public void draw(Batch batch, float parentAlpha) {
-            System.out.println("Robot Draw");
-           //batch.enableBlending();
-            batch.draw(sprite, getX(),getY(), getWidth(), getHeight());
-        }
+        super.sprite = new Sprite(new Texture(Gdx.files.internal(path)));
+    }
 }
