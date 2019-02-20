@@ -1,7 +1,7 @@
-package inf112.skeleton.app.Game.board.pieces;
+package inf112.skeleton.app.gameLogic.board.pieces;
 
-import inf112.skeleton.app.Game.Enum.Direction;
-import inf112.skeleton.app.Game.board.IPiece;
+import inf112.skeleton.app.gameLogic.enums.Direction;
+import inf112.skeleton.app.gameLogic.board.IPiece;
 
 public class Laser implements IPiece {
 

@@ -1,6 +1,6 @@
-package inf112.skeleton.app.Game.board;
+package inf112.skeleton.app.gameLogic.board;
 
-import inf112.skeleton.app.Game.Enum.Direction;
+import inf112.skeleton.app.gameLogic.enums.Direction;
 
 public interface IPiece {
     /**

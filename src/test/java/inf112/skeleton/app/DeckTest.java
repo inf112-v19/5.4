@@ -1,8 +1,8 @@
 package inf112.skeleton.app;
 
-import inf112.skeleton.app.Game.Enum.CardType;
-import inf112.skeleton.app.Game.ProgramCard;
-import inf112.skeleton.app.Game.ProgramCardDeck;
+import inf112.skeleton.app.gameLogic.enums.CardType;
+import inf112.skeleton.app.gameLogic.ProgramCard;
+import inf112.skeleton.app.gameLogic.ProgramCardDeck;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -65,5 +65,4 @@ public class DeckTest {
     public void testToString(){
         System.out.println(deck.toString());
     }
-
 }

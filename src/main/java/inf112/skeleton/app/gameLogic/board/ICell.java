@@ -1,4 +1,4 @@
-package inf112.skeleton.app.Game.board;
+package inf112.skeleton.app.gameLogic.board;
 
 public interface ICell {
     /**

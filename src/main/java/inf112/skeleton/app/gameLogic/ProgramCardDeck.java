@@ -1,6 +1,6 @@
-package inf112.skeleton.app.Game;
+package inf112.skeleton.app.gameLogic;
 
-import inf112.skeleton.app.Game.Enum.CardType;
+import inf112.skeleton.app.gameLogic.enums.CardType;
 
 import java.util.ArrayList;
 import java.util.Collections;
