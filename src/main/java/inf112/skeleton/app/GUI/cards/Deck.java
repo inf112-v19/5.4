@@ -10,9 +10,9 @@ public class Deck extends Table {
 
         //this.setDebug(true);
         this.left().bottom();
-        this.add(new Label("Pick three:", skin));
-        for(int i = 0; i< 3; i++){
-            this.add(new Card(skin));
+        this.add(new Label("Pick 5:", skin));
+        for(int i = 0; i< 9; i++){
+            this.add(new Card(skin)).left().bottom().size(120,200);
         }
 
     }
