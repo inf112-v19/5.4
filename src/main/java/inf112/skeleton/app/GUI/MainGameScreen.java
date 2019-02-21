@@ -2,6 +2,7 @@ package inf112.skeleton.app.GUI;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,15 +17,14 @@ import inf112.skeleton.app.GUI.pieces.Robot;
 import inf112.skeleton.app.GUI.cards.Deck;
 import inf112.skeleton.app.GUI.player.MovableRobot;
 
-public class MainGameScreen extends ApplicationAdapter {
+public class MainGameScreen implements Screen {
 	private Stage stage;
 	private Skin skin;
 	OrthographicCamera camera;
 	ExtendViewport viewport;
 	Music music;
 
-	@Override
-	public void create () {
+	public MainGameScreen(){
 
 		playMusic();
 
@@ -82,7 +82,12 @@ public class MainGameScreen extends ApplicationAdapter {
 	}
 
 	@Override
-	public void render () {
+	public void show() {
+
+	}
+
+	@Override
+	public void render (float delta) {
 		Gdx.gl.glClearColor(0.57f, 0.77f, 0.85f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -100,6 +105,21 @@ public class MainGameScreen extends ApplicationAdapter {
 	@Override
 	public void resize(int width, int height) {
 		viewport.update(width, height, true);
+
+	}
+
+	@Override
+	public void pause() {
+
+	}
+
+	@Override
+	public void resume() {
+
+	}
+
+	@Override
+	public void hide() {
 
 	}
 
