@@ -14,6 +14,10 @@ public class GUIMain extends Game {
     public void create() {
         //camera = new OrthographicCamera();
         //viewport = new ExtendViewport(1200, 1200, camera);
-        setScreen(new MainGameScreen());
+        setScreen(new LoadScreen(this));
+    }
+
+    public void render(){
+        super.render();
     }
 }

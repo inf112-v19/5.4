@@ -30,7 +30,7 @@ public class MovableRobot extends Robot {
 
                // Move sound
                Sound moveSound = Gdx.audio.newSound(Gdx.files.internal("sound/move.mp3"));
-               moveSound.play(0.2f,0.5f,1);
+               moveSound.play(0.4f,0.5f,1);
                //moveSound.dispose();
 
 
