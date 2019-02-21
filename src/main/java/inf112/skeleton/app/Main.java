@@ -13,9 +13,9 @@ public class Main {
         //new Board("Gooblepoops", "C:\\Users\\Morten\\Desktop\\UiB\\INF112\\First Oblig\\TestBoard.json").displayBoard();
 
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-        cfg.title = "hello-world";
+        cfg.title = "Robo Rally Rampage";
         cfg.width = 1200;
-        cfg.height = 1200;
+        cfg.height = 800;
 
         new LwjglApplication(new GUIMain(), cfg);
     }

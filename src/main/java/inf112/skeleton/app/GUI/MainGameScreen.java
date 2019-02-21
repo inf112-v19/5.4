@@ -51,11 +51,13 @@ public class MainGameScreen implements Screen {
 		board.padTop(30);
 
 		// Add some pieces to the board.
-		board.addPiece(3,3, new Robot(1));
-		board.addPiece(3,2, new Robot(0));
+		//board.addPiece(3,3, new Robot(1));
+		board.addPiece(3,3, new Robot(0));
+		board.addPiece(1,3, new Laser());
 		board.addPiece(2,3, new Laser());
 		board.addPiece(4,3, new Laser());
-		board.addPiece(7,7, new Laser());
+		board.addPiece(5,3, new Laser());
+
 		MovableRobot hans = new MovableRobot(1);
 		board.addPiece(5,5, hans);
 

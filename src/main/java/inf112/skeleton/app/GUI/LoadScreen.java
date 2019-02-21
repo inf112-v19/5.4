@@ -45,7 +45,7 @@ public class LoadScreen implements Screen {
         mainTable.setFillParent(true);
         mainTable.add(label).expand().center();
         stage.addActor(mainTable);
-    
+
         Gdx.input.setInputProcessor(stage);
 
     }
