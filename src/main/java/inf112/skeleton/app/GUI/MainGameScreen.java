@@ -106,7 +106,7 @@ public class MainGameScreen extends ApplicationAdapter {
 	public void playMusic(){
 		// Play music
 		music = Gdx.audio.newMusic(Gdx.files.internal("sound/Rally_Roller.mp3"));
-		music.setVolume(0.5f);                 // sets the volume to half the maximum volume
+		music.setVolume(0.32f);                 // sets the volume to half the maximum volume
 		music.setLooping(true);                // will repeat playback until music.stop() is called
 		//music.stop();                          // stops the playback
 		//music.pause();                         // pauses the playback
