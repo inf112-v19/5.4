@@ -8,13 +8,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import inf112.skeleton.app.GUI.Pieces.Laser;
-import inf112.skeleton.app.GUI.Pieces.Robot;
-import inf112.skeleton.app.GUI.Cards.Deck;
-import inf112.skeleton.app.GUI.Player.MovableRobot;
-import inf112.skeleton.app.GUI.Player.MyActor;
+import inf112.skeleton.app.GUI.pieces.Laser;
+import inf112.skeleton.app.GUI.pieces.Robot;
+import inf112.skeleton.app.GUI.cards.Deck;
+import inf112.skeleton.app.GUI.player.MovableRobot;
 
-import java.util.Random;
 
 public class Scene2DGangBangChang extends ApplicationAdapter {
 	private Stage stage;
@@ -49,11 +47,12 @@ public class Scene2DGangBangChang extends ApplicationAdapter {
 		// Add some pieces to the board.
 		board.addPiece(3,3, new Robot(1));
 		board.addPiece(3,2, new Robot(0));
-		board.addPiece(2,3,new Laser());
-		board.addPiece(4,3,new Laser());
+		board.addPiece(2,3, new Laser());
+		board.addPiece(4,3, new Laser());
 		board.addPiece(7,7, new Laser());
 		MovableRobot hans = new MovableRobot(1);
 		board.addPiece(5,5, hans);
+
 
 		// Create cards
 		Deck deck = new Deck(skin);
@@ -67,11 +66,11 @@ public class Scene2DGangBangChang extends ApplicationAdapter {
 		game.row();
 		game.add(deck).bottom().padBottom(30);
 
-		// Add the main table - game - to the stage.
-		stage.addActor(game);
+        // BASE ASSET TEST
+        game.addActor(new BaseAsset());
 
-		// BASE ASSET TEST
-		//stage.addActor(new BaseAsset());
+		// Add the main table - Game - to the stage.
+		stage.addActor(game);
 
 		Gdx.input.setInputProcessor(stage);
 		stage.setKeyboardFocus(hans);

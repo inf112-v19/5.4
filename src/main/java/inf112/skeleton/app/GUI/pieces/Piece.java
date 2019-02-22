@@ -1,25 +1,15 @@
-package inf112.skeleton.app.GUI;
+package inf112.skeleton.app.GUI.pieces;
 
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class BaseAsset extends Actor {
+public class Piece extends Actor {
 
-    Sprite sprite = new Sprite(new Texture(Gdx.files.internal("badlogic.jpg")));
+    Sprite sprite;
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(sprite, getX(), getY(), getWidth(), getHeight());
     }
-
-    public BaseAsset(){
-
-
-
-    }
-
 }

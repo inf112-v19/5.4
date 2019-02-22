@@ -1,9 +1,9 @@
 package inf112.skeleton.app;
 
-import inf112.skeleton.app.GUI.Player.Position;
-import inf112.skeleton.app.Game.Enum.Direction;
-import inf112.skeleton.app.Game.Enum.Rotation;
-import inf112.skeleton.app.Game.Player;
+import inf112.skeleton.app.GUI.player.*;
+import inf112.skeleton.app.gameLogic.enums.Direction;
+import inf112.skeleton.app.gameLogic.enums.Rotation;
+import inf112.skeleton.app.gameLogic.Player;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -11,10 +11,9 @@ public class PlayerTest {
 
     @Test
     public void testThatYouLoseHealthWhenYouTakeDamage() {
-        Player player = new Player(new Position(1, 1), Direction.NORTH, 9);
-        player.takeDamage();
-
-        assertEquals(8, player.getHealth());
+        Player player = new Player(new Position(1, 1), Direction.NORTH, 3);
+        player.takeDamage(1);
+        assertEquals(1, player.getDamageTokens());
 
     }
     @Test
@@ -74,7 +73,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testThatYourPositionCorrectyChangesWhenMoving() {
+    public void testThatYourPositionCorrectlyChangesWhenMoving() {
         Player player = new Player(new Position(4,3), Direction.SOUTH, 1);
 
         player.move(3);
@@ -82,7 +81,7 @@ public class PlayerTest {
         player.move(3);
 
         assertEquals(7, player.getPos().getX());
-        assertEquals(6, player.getPos().getY());
+        assertEquals(0, player.getPos().getY());
     }
 
     @Test
@@ -101,7 +100,7 @@ public class PlayerTest {
     public void testThatHealthGoesBackToMaxWhenRepairing() {
         Player player = new Player(new Position(1,1), Direction.SOUTH, 9);
 
-        player.takeDamage();
+        player.takeDamage(1);
         player.repair();
 
         assertEquals(9, player.getHealth());
