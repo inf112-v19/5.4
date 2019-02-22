@@ -7,14 +7,11 @@ import inf112.skeleton.app.gameLogic.board.IActiveCell;
 public class Conveyor implements IActiveCell {
 
     private Direction direction;
-    private int speed = 1;
+    private ActionType actionType;
 
-    public Conveyor(Direction dir){
+    public Conveyor(Direction dir, ActionType speed){
         this.direction = dir;
-    }
-
-    public int getSpeed() {
-        return speed;
+        this.actionType = speed;
     }
 
     @Override
@@ -37,17 +34,8 @@ public class Conveyor implements IActiveCell {
         }
     }
 
-    public Direction getRotation() {
-        return direction;
-    }
-
-
-    public String getAction() {
-        return null;
-    }
-
     @Override
     public ActionType getActionType() {
-        return speed == 1 ? ActionType.MOVE_1 : ActionType.MOVE_2;
+        return actionType;
     }
 }
