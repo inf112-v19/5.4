@@ -1,48 +1,61 @@
 package inf112.skeleton.app.GUI.cards;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 
 // Card needs to turn into a Stack that hold two tables or actors - one for the button, and a table that hold the text and image.
 
 public class Card extends Stack {
 
-    private Label text;
+    private Label priorityValue;
+    private Label cardAction; // Should be changed to picture in the future.
+    private Button cardButton;
+    Skin skin;
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
     }
 
+    public Button getButton(){return this.cardButton;};
+
     public Card(Skin skin){
-            // Table stuff
-            //this.setDebug(true);
-            //final Button btn = new Button("500 \n \n R 180", skin);
-            final Button btn = new Button(skin);
-            this.add(btn);
 
-            Table textStuff = new Table();
-            Label priority = new Label("500", skin);
-            textStuff.add(priority).top().pad(10);
+            this.skin = skin;
 
-            Label cardAction = new Label("R 180", skin);
-            textStuff.add(cardAction).bottom().pad(20);
+            getCardValues();
 
-            this.add(textStuff);
+            // The main button added to the Stack.
+            this.cardButton = new CardButton(this,skin);
+
+            this.add(cardButton);
+
+            Table buttonTextLabels = new Table();
+            buttonTextLabels.setFillParent(true);
+            //buttonTextLabels.setDebug(true);
+            buttonTextLabels.defaults().expandX().right();
+
+            // The card's priority value and action added to display.
+            buttonTextLabels.add(priorityValue).padRight(22);
+            buttonTextLabels.row();
+            buttonTextLabels.add(cardAction).padRight(15);
+
+            // Click throughable
+            buttonTextLabels.setTouchable(Touchable.disabled);
+
+            this.add(buttonTextLabels);
 
 
 
-            //Label priority = new Label("500", skin);
-            //Label description = new Label("Move 5", skin);
-
-
-
-
-            //this.add(btn).bottom().size(120,200);
-            /* this.add(priority);
-            this.row();
-            this.row();
-            this.add(description);*/
         }
+
+    private void getCardValues() {
+        // GAME LOGIC INSERT
+        this.priorityValue = new Label("1000", skin);
+        this.cardAction = new Label("MOVE 5", skin);
+    }
 
 }

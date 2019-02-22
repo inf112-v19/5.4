@@ -1,12 +1,12 @@
 package inf112.skeleton.app.GUI;
 
+import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -15,10 +15,7 @@ import inf112.skeleton.app.GUI.board.Stats;
 import inf112.skeleton.app.GUI.pieces.Laser;
 import inf112.skeleton.app.GUI.pieces.Robot;
 import inf112.skeleton.app.GUI.cards.Deck;
-import inf112.skeleton.app.GUI.pieces.GUIWall;
 import inf112.skeleton.app.GUI.player.MovableRobot;
-import inf112.skeleton.app.gameLogic.board.pieces.Wall;
-import inf112.skeleton.app.gameLogic.enums.Direction;
 
 public class MainGameScreen implements Screen {
 	private Stage stage;

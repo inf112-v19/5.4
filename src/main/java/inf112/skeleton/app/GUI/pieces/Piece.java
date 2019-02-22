@@ -6,10 +6,15 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Piece extends Actor {
 
-    Sprite sprite;
+    public Sprite sprite;
+    float rotation;
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.draw(sprite, getX(), getY(), getWidth(), getHeight());
+        batch.draw(sprite,getX(),getY(),getOriginX(),getOriginY(),getWidth(),getHeight(),getScaleX(),getScaleY(),rotation);
+    }
+
+    public void setRotation(float rot){
+        this.rotation = rot;
     }
 }
