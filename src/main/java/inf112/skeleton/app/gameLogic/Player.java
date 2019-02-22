@@ -22,7 +22,7 @@ public class Player implements IPlayer {
 
 
     /**
-     * Constructs a Player object with position, direction and health
+     * Constructs a player object with position, direction and health
      */
     public Player(Position pos, Direction dir, int health) {
         this.pos = pos;
