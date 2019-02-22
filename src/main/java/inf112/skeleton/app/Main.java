@@ -3,8 +3,7 @@ package inf112.skeleton.app;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
-import inf112.skeleton.app.GUI.GUIMain;
-import inf112.skeleton.app.GUI.MainGameScreen;
+import inf112.skeleton.app.GUI.Scene2DGangBangChang;
 
 
 public class Main {
@@ -13,10 +12,11 @@ public class Main {
         //new Board("Gooblepoops", "C:\\Users\\Morten\\Desktop\\UiB\\INF112\\First Oblig\\TestBoard.json").displayBoard();
 
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-        cfg.title = "Robo Rally Rampage";
+        cfg.title = "hello-world";
         cfg.width = 1200;
-        cfg.height = 800;
+        cfg.height = 1200;
 
-        new LwjglApplication(new GUIMain(), cfg);
+        new LwjglApplication(new Scene2DGangBangChang(), cfg);
+
     }
 }

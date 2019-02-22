@@ -7,13 +7,38 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 
-public class Tile extends Stack {
+import java.util.Iterator;
+import java.util.LinkedList;
 
+public class Tile extends Stack {
+    private LinkedList<Piece> tilePieces;
 
     public Tile () {
+        this.tilePieces = new LinkedList<>();
+
+        this.updateTile();
+
+        //this.add(new BaseTile());
+        //this.add(new Robot());
+    }
+
+    /**
+     * Adds a piece to linked list
+     * @param piece the piece that is added to the linked list
+     */
+    public void addPiece(Piece piece) {
+        tilePieces.add(piece);
+        updateTile();
+
+    }
+
+
+    public void updateTile(){
 
         class BaseTile extends Actor {
             Sprite sprite = new Sprite(new Texture(Gdx.files.internal("board/normal_tile.png")));
+            //Sprite sprite = new Sprite(new Texture(Gdx.files.internal("bots/rolobot-alpha/rolobot-alpha.png")));
+
 
             @Override
             public void draw(Batch batch, float parentAlpha) {
@@ -21,12 +46,18 @@ public class Tile extends Stack {
             }
         }
 
+        this.clearChildren();
         this.add(new BaseTile());
-        //this.add(new Robot());
+        for(Piece iterPiece : tilePieces){
+            this.add(iterPiece);
+        }
     }
 
-    public void addPiece(Piece piece) {
-        // REMOVE
-        this.add(piece);
+    /**
+     * @return
+     *      an iterator over the pieces in the linked list
+     */
+    public Iterator<Piece> getPieces() {
+        return tilePieces.iterator();
     }
 }

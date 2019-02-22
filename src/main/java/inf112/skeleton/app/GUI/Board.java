@@ -40,9 +40,10 @@ public class Board extends Table {
 
     public void addPiece(int x, int y, Piece piece){
         this.boardMap[y][x].addPiece(piece);
+        System.out.println("Added piece!");
     }
 
-    // Updates the actual table based on boardMa=.
+    // Updates the actual table based on boardMap.
     public void updateBoard(){
 
         // Clears previous values.

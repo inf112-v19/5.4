@@ -3,10 +3,6 @@ package inf112.skeleton.app.gameLogic;
 import inf112.skeleton.app.gameLogic.enums.*;
 import inf112.skeleton.app.GUI.player.Position;
 
-import java.util.List;
-import java.util.Stack;
-
-
 public class Player implements IPlayer {
     private int health;
     private final int maxHealth;
