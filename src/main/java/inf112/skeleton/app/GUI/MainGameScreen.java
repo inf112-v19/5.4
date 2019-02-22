@@ -26,8 +26,7 @@ public class MainGameScreen implements Screen {
 
 	public MainGameScreen(){
 
-
-		playMusic();
+		//playMusic();
 
 		// Main stage
 		camera = new OrthographicCamera();
