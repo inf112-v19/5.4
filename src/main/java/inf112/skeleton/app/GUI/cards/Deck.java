@@ -93,8 +93,6 @@ public class Deck extends Table {
         instructionLabel.setText(instructions);
         this.add(instructionLabel).size(instructionLabel.getWidth(),instructionLabel.getHeight());
 
-
-
         Array<CardButton> cardButtonArray = new Array<CardButton>(this.buttonGroup.getAllChecked());
         this.buttonGroup.uncheckAll();
 

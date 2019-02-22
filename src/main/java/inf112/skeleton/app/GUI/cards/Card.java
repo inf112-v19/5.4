@@ -1,8 +1,10 @@
 package inf112.skeleton.app.GUI.cards;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 
 // Card needs to turn into a Stack that hold two tables or actors - one for the button, and a table that hold the text and image.
 
@@ -28,6 +30,7 @@ public class Card extends Stack {
 
             // The main button added to the Stack.
             this.cardButton = new CardButton(this,skin);
+
             this.add(cardButton);
 
             Table buttonTextLabels = new Table();
@@ -44,6 +47,8 @@ public class Card extends Stack {
             buttonTextLabels.setTouchable(Touchable.disabled);
 
             this.add(buttonTextLabels);
+
+
 
         }
 

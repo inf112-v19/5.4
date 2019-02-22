@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
+import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import inf112.skeleton.app.GUI.pieces.Robot;
 
 public class MovableRobot extends Robot {
@@ -17,6 +18,12 @@ public class MovableRobot extends Robot {
        super(robotnr);
 
        setBounds(getX(), getY(), getWidth(), getHeight());
+
+       addListener(new DragListener() {
+           public void drag(InputEvent event, float x, float y, int pointer) {
+               moveBy(x - getWidth()/2, y - getHeight()/2);
+           }
+       });
 
        addListener(new InputListener() {
            @Override
