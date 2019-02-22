@@ -129,11 +129,11 @@ public class MainGameScreen implements Screen {
 		Stats stats = new Stats(skin);
 
 		// Add everything to the main table.
-		topBar.add();
+		topBar.add().prefWidth(200);
 		// Board add
-		topBar.add(board).top().center().expandX().padTop(30);;
+		topBar.add(board).top().center().expandX().padTop(30);
 		// Stat add
-		topBar.add(stats).top().left().padTop(40);
+		topBar.add(stats).top().left().pad(70);
 
 		game.add(topBar).expandX();
 		game.row();
