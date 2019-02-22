@@ -2,7 +2,6 @@ package inf112.skeleton.app.GUI.board;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import inf112.skeleton.app.GUI.pieces.Piece;
-import inf112.skeleton.app.GUI.pieces.Tile;
 
 
 public class Board extends Table {
@@ -41,6 +40,7 @@ public class Board extends Table {
     public void addPiece(int x, int y, Piece piece){
         this.boardMap[y][x].addPiece(piece);
     }
+
 
     // Updates the actual table based on boardMa=.
     public void updateBoard(){

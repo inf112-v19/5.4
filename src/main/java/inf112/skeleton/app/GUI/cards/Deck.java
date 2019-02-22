@@ -90,6 +90,7 @@ public class Deck extends Table {
         this.clearChildren();
 
         String instructions = "Order your cards:";
+        
         instructionLabel.setText(instructions);
         this.add(instructionLabel).size(instructionLabel.getWidth(),instructionLabel.getHeight());
 
