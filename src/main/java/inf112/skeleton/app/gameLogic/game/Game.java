@@ -11,6 +11,6 @@ public class Game {
     }
 
     public void doPhase1(){
-        
+
     }
 }
