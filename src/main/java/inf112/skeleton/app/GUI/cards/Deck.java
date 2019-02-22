@@ -15,10 +15,11 @@ public class Deck extends Table {
     Array<Card> cards;
 
     int amountOfCardsAllowedToPick;
-    int maxCardsToPick;
+    int maxCards;
     boolean readyBool;
 
     Label cardsPickedDisplay;
+    Label instructionLabel;
     int pickedCardsCounter;
 
     public Deck(Skin skin){
@@ -26,7 +27,9 @@ public class Deck extends Table {
         this.skin = skin;
         this.cards = new Array<Card>();
         this.amountOfCardsAllowedToPick = 5;
-        this.maxCardsToPick = 9;
+        this.maxCards = 9;
+        this.instructionLabel = new Label("Pick 5:", skin);
+        instructionLabel.setWrap(true);
 
         // Max 5 checked!
         buttonGroup = new ButtonGroup();
@@ -34,7 +37,7 @@ public class Deck extends Table {
         buttonGroup.setMinCheckCount(0);
 
         // Default card position
-        this.defaults().left().size(140,200);
+        this.defaults().left().size(140,200).expandY();
 
         createCards();
 
@@ -44,7 +47,7 @@ public class Deck extends Table {
     }
 
     public void createCards() {
-        for (int i = 0; i < maxCardsToPick; i++) {
+        for (int i = 0; i < maxCards; i++) {
             Card card = new Card(skin);
             Button cardButton = card.getButton();
             this.addButtonListener(cardButton);
@@ -63,9 +66,11 @@ public class Deck extends Table {
         this.clearChildren();
         this.left().bottom();
 
-        Label pickLabel = new Label("Pick 5:", skin);
+        // Set instruction label.
+        String instructions = "Pick " + amountOfCardsAllowedToPick + ":";
+        instructionLabel.setText(instructions);
         // Just fixes size.
-        this.add(pickLabel).size(pickLabel.getWidth(),pickLabel.getHeight());
+        this.add(instructionLabel).size(instructionLabel.getWidth(),instructionLabel.getHeight());
 
         // Adds all cards to the Deck table.
         for(Card card : cards){
@@ -73,7 +78,7 @@ public class Deck extends Table {
         }
 
         this.cardsPickedDisplay = new Label(amountCardsPickedCounter(), skin);
-        this.add(cardsPickedDisplay);
+        this.add(cardsPickedDisplay).pad(20);
         addActionButton(this, "READY");
         this.add(actionButton).left().center().size(actionButton.getWidth(),actionButton.getHeight());
     }
@@ -83,6 +88,12 @@ public class Deck extends Table {
 
         // Always clear first.
         this.clearChildren();
+
+        String instructions = "Order your cards:";
+        instructionLabel.setText(instructions);
+        this.add(instructionLabel).size(instructionLabel.getWidth(),instructionLabel.getHeight());
+
+
 
         Array<CardButton> cardButtonArray = new Array<CardButton>(this.buttonGroup.getAllChecked());
         this.buttonGroup.uncheckAll();
