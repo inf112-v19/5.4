@@ -124,6 +124,11 @@ public class MainGameScreen implements Screen {
 		board.addPiece(5,3, new Laser());
 		MovableRobot hans = new MovableRobot(1);
 		board.addPiece(5,5, hans);
+		board.addPiece(1, 2, new GUIWall(new Wall(Direction.WEST)));
+		board.addPiece(1, 3, new GUIWall(new Wall(Direction.NORTH)));
+		board.addPiece(1, 4, new GUIWall(new Wall(Direction.EAST)));
+		board.addPiece(1, 5, new GUIWall(new Wall(Direction.SOUTH)));
+
 
 		// BOARD CREATION AND SETUP
 

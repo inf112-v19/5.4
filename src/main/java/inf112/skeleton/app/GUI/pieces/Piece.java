@@ -11,7 +11,7 @@ public class Piece extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.draw(sprite,getX(),getY(),getOriginX(),getOriginY(),getWidth(),getHeight(),getScaleX(),getScaleY(),rotation);
+        batch.draw(sprite,getX(),getY(),getWidth()/2,getHeight()/2,getWidth(),getHeight(),getScaleX(),getScaleY(),rotation);
     }
 
     public void setRotation(float rot){
