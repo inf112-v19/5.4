@@ -13,9 +13,7 @@ import inf112.skeleton.app.GUI.pieces.Robot;
 public class MovableRobot extends Robot {
 
    public MovableRobot(int robotnr){
-
        super(robotnr);
-
        setBounds(getX(), getY(), getWidth(), getHeight());
 
        addListener(new InputListener() {
@@ -35,32 +33,35 @@ public class MovableRobot extends Robot {
 
 
                 // Set move amounts
-               moveAction.setAmount(-getWidth(), 0f);
+//               moveAction.setAmount(-getWidth(), 0f);
                moveAction.setInterpolation(Interpolation.pow3);
 
 
                switch (keycode) {
                    case Input.Keys.RIGHT:
                        moveAction.setAmount(getWidth(), 0f);
+                       MovableRobot.this.addAction(moveAction);
 
                        break;
                    case Input.Keys.LEFT:
                        moveAction.setAmount(-getWidth(), 0);
+                       MovableRobot.this.addAction(moveAction);
 
                        break;
                    case Input.Keys.DOWN:
                        moveAction.setAmount(0f, -getHeight());
+                       MovableRobot.this.addAction(moveAction);
 
 
                        break;
                    case Input.Keys.UP:
                        moveAction.setAmount(0f, getHeight());
+                       MovableRobot.this.addAction(moveAction);
 
                        break;
 
 
                }
-               MovableRobot.this.addAction(moveAction);
 
                return true;
            }

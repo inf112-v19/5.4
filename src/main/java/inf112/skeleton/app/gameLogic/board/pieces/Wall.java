@@ -18,7 +18,7 @@ public class Wall implements IPiece {
 
     @Override
     public String getName() {
-        return "Wall";
+        return "GUIWall";
     }
 
     @Override
