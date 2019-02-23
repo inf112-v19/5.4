@@ -7,6 +7,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -99,6 +100,14 @@ public class MainGameScreen implements Screen {
 	}
 
 	public void addPiecesTest(){
+
+
+		// TESTING
+		Label lbl = new Label("hei gjengen", skin);
+		this.stage.addActor(lbl);
+		lbl.setPosition(1370,20);
+		//
+
 		// Main table
 		Table game = new Table();
 		Table topBar = new Table();

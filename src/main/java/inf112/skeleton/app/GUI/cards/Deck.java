@@ -1,18 +1,27 @@
 package inf112.skeleton.app.GUI.cards;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Array;
+
+import java.util.ArrayList;
 
 public class Deck extends Table {
 
     Skin skin;
     ButtonGroup buttonGroup;
-    Button actionButton;
-    Array<Card> cards;
+    Button listenerButton;
+
+    ArrayList<Card> assignedCards;
+    ArrayList<Card> pickedCards;
+    ArrayList<Card> drawCards;
+
+    ArrayList<Cell> cardCells;
 
     int amountOfCardsAllowedToPick;
     int maxCards;
@@ -20,12 +29,15 @@ public class Deck extends Table {
 
     Label cardsPickedDisplay;
     Label instructionLabel;
-    int pickedCardsCounter;
+    String updateButtonString;
 
     public Deck(Skin skin){
 
         this.skin = skin;
-        this.cards = new Array<Card>();
+        this.assignedCards = new ArrayList<Card>();
+        this.drawCards = new ArrayList<Card>();
+        this.pickedCards = new ArrayList<Card>();
+
         this.amountOfCardsAllowedToPick = 5;
         this.maxCards = 9;
         this.instructionLabel = new Label("Pick 5:", skin);
@@ -50,10 +62,10 @@ public class Deck extends Table {
         for (int i = 0; i < maxCards; i++) {
             Card card = new Card(skin);
             Button cardButton = card.getButton();
-            this.addButtonListener(cardButton);
+            this.addReadyButtonListener(cardButton);
             buttonGroup.add(cardButton);
 
-            this.cards.add(card);
+            this.assignedCards.add(card);
         }
     }
 
@@ -62,73 +74,120 @@ public class Deck extends Table {
      */
     public void testDeck(){
 
+        // Set instruction label.
+        String instructions = "Pick " + amountOfCardsAllowedToPick + ":";
+        instructionLabel.setText(instructions);
+        updateButtonString = "READY";
+
+        // Which cards to draw
+        drawCards = assignedCards;
+
+        drawDeck();
+
+        this.cardsPickedDisplay = new Label(amountCardsPickedCounter(), skin);
+        this.add(cardsPickedDisplay).pad(20);
+    }
+
+    /**
+     * Pick which order your deck is in!
+     */
+    public void pickDeckOrder(){
+
+        // DRAG AND DROP THESE BAD BOYS
+        // Always clear first.
+        this.clearChildren();
+        pickedCards.clear();
+
+        // Making label.
+        String instructions = "Order your cards:";
+        instructionLabel.setText(instructions);
+        this.add(instructionLabel).size(instructionLabel.getWidth(),instructionLabel.getHeight());
+
+        // Getting the clicked buttons, and fetch it's corresponding card.
+        Array<CardButton> cardButtonArray = new Array<CardButton>(this.buttonGroup.getAllChecked());
+
+        for(CardButton cardButton : cardButtonArray){
+            this.pickedCards.add(cardButton.getCard());
+        }
+
+        // Uncheck buttons
+        this.buttonGroup.uncheckAll();
+
+        this.drawCards = this.pickedCards;
+
+        // Add undo button
+        this.updateButtonString = "UNDO";
+
+        // DRAW THE THING
+        drawDeck();
+
+
+        for(Card tempCard : drawCards){
+            addDragAndDropCard(tempCard);
+        }
+
+
+
+    }
+
+    public void drawDeck(){
+
         // Always clear first.
         this.clearChildren();
         this.left().bottom();
 
-        // Set instruction label.
-        String instructions = "Pick " + amountOfCardsAllowedToPick + ":";
-        instructionLabel.setText(instructions);
-        // Just fixes size.
         this.add(instructionLabel).size(instructionLabel.getWidth(),instructionLabel.getHeight());
 
+        // Add new assignedCards to deck.
+        ArrayList<Cell> cardCells = new ArrayList<Cell>();
         // Adds all cards to the Deck table.
-        for(Card card : cards){
-            this.add(card);
+
+        for(Card card : drawCards){
+            Cell cardCell = this.add(card);
+            cardCells.add(cardCell);
         }
 
-        this.cardsPickedDisplay = new Label(amountCardsPickedCounter(), skin);
-        this.add(cardsPickedDisplay).pad(20);
-        addActionButton(this, "READY");
-        this.add(actionButton).left().center().size(actionButton.getWidth(),actionButton.getHeight());
+        this.cardCells = cardCells;
+
+        addActionButton(this, updateButtonString);
+        this.add(listenerButton).left().center().size(listenerButton.getWidth(), listenerButton.getHeight());
     }
 
-    public void pickDeck(){}
-    public void orderDeck(){
-
-        // Always clear first.
-        this.clearChildren();
-
-        String instructions = "Order your cards:";
-        
-        instructionLabel.setText(instructions);
-        this.add(instructionLabel).size(instructionLabel.getWidth(),instructionLabel.getHeight());
-
-        Array<CardButton> cardButtonArray = new Array<CardButton>(this.buttonGroup.getAllChecked());
-        this.buttonGroup.uncheckAll();
-
-        for(CardButton cardButton : cardButtonArray){
-            this.add(cardButton.card);
-        }
-
-        addActionButton(this, "UNDO");
-        this.add(actionButton).left().center().size(actionButton.getWidth(),actionButton.getHeight());
-    }
 
 
     public void addActionButton(final Deck deck, String text){
 
-        this.actionButton = new TextButton(text, skin);
+        this.listenerButton = new TextButton(text, skin);
 
-        actionButton.addListener(new InputListener() {
+        listenerButton.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 System.out.println("down");
                 if(readyBool){
                     // CHANGE
                     readyBool = false;
                     deck.testDeck();
+
+                    // Removes drag listeners :-)
+                    for(Card card: drawCards){
+                        for(EventListener ill : card.getListeners()){
+                            card.removeListener(ill);
+                        }
+                    }
+
                 }
                 else{
                     readyBool = true;
-                    deck.orderDeck();
+                    deck.pickDeckOrder();
 
                 }
+
+
                 return true;
             }
         });
     }
 
-    public void addButtonListener(Button listenerButton){
+    public void addReadyButtonListener(Button listenerButton){
 
         listenerButton.addListener(new ChangeListener() {
             @Override
@@ -142,5 +201,58 @@ public class Deck extends Table {
 
     public String amountCardsPickedCounter(){
         return String.format("Picked: %d/%d", buttonGroup.getAllChecked().size, amountOfCardsAllowedToPick);
+    }
+
+    public void addDragAndDropCard(final Card listenerCard){
+
+        listenerCard.addListener(new DragListener() {
+
+            float oldX = listenerCard.getX();
+
+
+            public void drag(InputEvent event, float x, float y, int pointer) {
+                listenerCard.moveBy(x - listenerCard.getWidth() / 2, y-listenerCard.getHeight() / 2);
+            }
+
+            @Override
+            public void dragStart(InputEvent event, float x, float y, int pointer) {
+                oldX= listenerCard.getX();
+            }
+
+            @Override
+            public void dragStop(InputEvent event, float x, float y, int pointer) {
+                float nowX = listenerCard.getX();
+                int pos = pickedCards.indexOf(listenerCard);
+
+                System.out.println("OldX: " + oldX);
+                System.out.println("NowX: " + nowX);
+
+                System.out.println("DENNE I VARIABELEN: " + pos);
+
+                // Move left
+                if(oldX-listenerCard.getWidth()>nowX && pos > 0 ){
+                    System.out.println("MOVE TO DA LEFT");
+                    Card tempCard = drawCards.get(pos-1);
+                    pickedCards.set(pos-1,listenerCard);
+                    pickedCards.set(pos, tempCard);
+                    oldX=nowX;
+                }
+
+                // Move right
+                if(oldX+listenerCard.getWidth()<nowX && pos < pickedCards.size()-1 ){
+                    System.out.println("MOVE TO DA RIGHT");
+                    Card tempCard = drawCards.get(pos+1);
+                    pickedCards.set(pos+1,listenerCard);
+                    pickedCards.set(pos, tempCard);
+                    oldX=nowX;
+                }
+
+                drawCards = pickedCards;
+                drawDeck();
+
+            }
+
+
+        });
     }
 }
