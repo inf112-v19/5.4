@@ -101,20 +101,13 @@ public class MainGameScreen implements Screen {
 
 	public void addPiecesTest(){
 
-
-		// TESTING
-		Label lbl = new Label("hei gjengen", skin);
-		this.stage.addActor(lbl);
-		lbl.setPosition(1370,20);
-		//
-
 		// Main table
 		Table game = new Table();
 		Table topBar = new Table();
 		Table bottomBar = new Table();
 
 		game.setFillParent(true);
-		game.setDebug(true);
+		//game.setDebug(true);
 		game.top().left();
 
 		// Create board.
