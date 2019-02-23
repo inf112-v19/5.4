@@ -239,6 +239,10 @@ public class Deck extends Table {
             @Override
             public void dragStart(InputEvent event, float x, float y, int pointer) {
                 oldX= listenerCard.getX();
+
+                // Making sure the dragged card is at the front. This appearently resets. 30 to be safe.
+                System.out.println(listenerCard.getZIndex());
+                listenerCard.setZIndex(30);
             }
 
             @Override
