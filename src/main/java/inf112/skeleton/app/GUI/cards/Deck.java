@@ -251,23 +251,60 @@ public class Deck extends Table {
 
                 System.out.println("DENNE I VARIABELEN: " + pos);
 
-                // Move left
-                if(oldX-listenerCard.getWidth()>nowX && pos > 0 ){
+                int widthChange = (int) (nowX-oldX);
+                System.out.println("WidthChange:" + widthChange);
+                int positionChanges = widthChange/(int)listenerCard.getWidth();
+                System.out.println("Position changes: " + positionChanges);
+                System.out.println("Position: " + pos);
+
+
+                boolean tooFarLeft = !(pos+positionChanges>=0);
+                boolean moveLeft = (!tooFarLeft && widthChange<0);
+                boolean tooFarRight = !(pos+positionChanges <= pickedCards.size()-1);
+                boolean moveRight = (!tooFarRight && widthChange>0);
+
+
+                if( moveLeft || moveRight ){
+                    Card tempCard = drawCards.get(pos+positionChanges);
+                    System.out.println("MOVE");
+                    pickedCards.set(pos+positionChanges,listenerCard);
+                    pickedCards.set(pos, tempCard);
+                    oldX=nowX;
+                }
+
+                if(tooFarRight){
+                    int maxPos = pickedCards.size()-1;
+                    Card tempCard = drawCards.get(maxPos);
+                    pickedCards.set(maxPos, listenerCard);
+                    pickedCards.set(pos, tempCard);
+                    oldX=nowX;
+                }
+
+                if(tooFarLeft){
+                    int minPos = 0;
+                    Card tempCard = drawCards.get(minPos);
+                    pickedCards.set(minPos, listenerCard);
+                    pickedCards.set(pos, tempCard);
+                    oldX=nowX;
+                }
+
+                /*// Move left
+                if(widthChange<0 && pos-positionChanges>=0){
                     System.out.println("MOVE TO DA LEFT");
-                    Card tempCard = drawCards.get(pos-1);
-                    pickedCards.set(pos-1,listenerCard);
+                    Card tempCard = drawCards.get(pos+positionChanges);
+                    pickedCards.set(pos+positionChanges,listenerCard);
                     pickedCards.set(pos, tempCard);
                     oldX=nowX;
                 }
 
                 // Move right
-                if(oldX+listenerCard.getWidth()<nowX && pos < pickedCards.size()-1 ){
+                if(widthChange>0 && pos+positionChanges <= pickedCards.size()-1 ){
                     System.out.println("MOVE TO DA RIGHT");
-                    Card tempCard = drawCards.get(pos+1);
-                    pickedCards.set(pos+1,listenerCard);
+                    Card tempCard = drawCards.get(pos+positionChanges);
+                    pickedCards.set(pos+positionChanges,listenerCard);
                     pickedCards.set(pos, tempCard);
                     oldX=nowX;
-                }
+                }*/
 
                 drawCards = pickedCards;
                 drawDeck();
