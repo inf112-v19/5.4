@@ -30,4 +30,8 @@ public class Tile extends Stack {
         // REMOVE
         this.add(piece);
     }
+
+    public void removePiece(Piece piece){
+        this.removeActor(piece);
+    }
 }

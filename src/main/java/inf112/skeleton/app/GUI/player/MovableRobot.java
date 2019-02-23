@@ -29,6 +29,7 @@ public class MovableRobot extends Robot {
            @Override
            public boolean keyDown(InputEvent event, int keycode) {
 
+               // Make moveBy action.
                setOrigin(getWidth() / 2, getHeight() / 2);
                MoveByAction moveAction = new MoveByAction();
                moveAction.setDuration(0.3f);
