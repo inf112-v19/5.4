@@ -12,5 +12,9 @@ public class CardButton extends Button {
         this.card = card;
     }
 
+    public Card getCard(){
+        return this.card;
+    }
+
 
 }
