@@ -59,14 +59,30 @@ public class Deck extends Table {
     }
 
     public void createCards() {
-        for (int i = 0; i < maxCards; i++) {
+        for (int i = 0; i < maxCards-2; i++) {
             Card card = new Card(skin);
             Button cardButton = card.getButton();
-            this.addReadyButtonListener(cardButton);
+            this.addCardCounterUpdateListener(cardButton);
             buttonGroup.add(cardButton);
-
             this.assignedCards.add(card);
         }
+
+        Card testCard1 = new Card(skin);
+        testCard1.setCardValues("120", "move 3");
+        Card testCard2 = new Card(skin);
+        testCard2.setCardValues("230", "move 1");
+        ArrayList<Card> testCards = new ArrayList<>();
+        testCards.add(testCard1);
+        testCards.add(testCard2);
+        for(Card tempCard : testCards){
+            Button cardButton = tempCard.getButton();
+            this.addCardCounterUpdateListener(cardButton);
+            buttonGroup.add(cardButton);
+            this.assignedCards.add(tempCard);
+        }
+
+
+
     }
 
     /**
@@ -155,13 +171,19 @@ public class Deck extends Table {
 
 
 
+    /**
+     * The ready/undo button. Checks for button press.
+     *
+     */
     public void addActionButton(final Deck deck, String text){
 
         this.listenerButton = new TextButton(text, skin);
 
-        listenerButton.addListener(new InputListener() {
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+        listenerButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
                 System.out.println("down");
+                // What to do if ready:
                 if(readyBool){
                     // CHANGE
                     readyBool = false;
@@ -175,19 +197,19 @@ public class Deck extends Table {
                     }
 
                 }
+                // What to do if not ready(undo):
                 else{
                     readyBool = true;
                     deck.pickDeckOrder();
 
                 }
 
-
-                return true;
             }
         });
     }
 
-    public void addReadyButtonListener(Button listenerButton){
+
+    public void addCardCounterUpdateListener(Button listenerButton){
 
         listenerButton.addListener(new ChangeListener() {
             @Override
