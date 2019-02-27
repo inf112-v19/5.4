@@ -16,9 +16,6 @@ public class Player implements IPlayer {
     private Stack<ProgramCard> playerDeck;
     private List<ProgramCard> playerRegister;
 
-    public Stack<ProgramCard> returnDeck(){
-        return playerDeck;
-    }
 
 
     /**
@@ -31,6 +28,16 @@ public class Player implements IPlayer {
         this.maxHealth = health;
         this.damageTokens = 0;
     }
+
+    @Override
+    public void addProgramCard(ProgramCard programCard) {
+        this.playerDeck.push(programCard);
+    }
+
+    public Stack<ProgramCard> returnDeck() {
+        return playerDeck;
+    }
+
 
     /**
      * The piece moves i times in the direction it's facing

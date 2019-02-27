@@ -9,6 +9,12 @@ import inf112.skeleton.app.gameLogic.enums.Rotation;
 interface IPlayer {
 
     /**
+     * Add programCards to the player
+     * @param programCard The card to be added
+     */
+    void addProgramCard(ProgramCard programCard);
+
+    /**
      * @param steps
      *          Times the player moves in the direction it's facing
      */
