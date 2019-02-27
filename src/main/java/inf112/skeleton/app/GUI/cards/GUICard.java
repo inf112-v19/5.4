@@ -19,6 +19,8 @@ public class GUICard extends Stack {
     private Button cardButton;
     Skin skin;
 
+    ProgramCard pgCard;
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
@@ -30,10 +32,7 @@ public class GUICard extends Stack {
 
             this.skin = skin;
             this.buttonTextLabels = new Table();
-
-
-            // TEST
-            //setCardValues("500", "R 180");
+            this.pgCard = pgCard;
 
 
             setCardValues(pgCard.getPriority(),pgCard.getCardType().getDescription());
@@ -79,6 +78,10 @@ public class GUICard extends Stack {
 
         updateCard();
 
+    }
+
+    public ProgramCard getProgramCard(){
+        return this.pgCard;
     }
 
 }

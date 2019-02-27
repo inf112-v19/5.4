@@ -1,5 +1,6 @@
 package inf112.skeleton.app.gameLogic;
 
+import inf112.skeleton.app.GUI.player.MovableRobot;
 import inf112.skeleton.app.gameLogic.enums.*;
 import inf112.skeleton.app.GUI.player.Position;
 
@@ -15,6 +16,7 @@ public class Player implements IPlayer {
     private Position pos;
     private Stack<ProgramCard> playerDeck;
     private List<ProgramCard> playerRegister;
+    private MovableRobot robot;
 
 
 
@@ -27,6 +29,7 @@ public class Player implements IPlayer {
         this.health = health;
         this.maxHealth = health;
         this.damageTokens = 0;
+        this.robot = new MovableRobot(1);
     }
 
     @Override
@@ -61,6 +64,7 @@ public class Player implements IPlayer {
                 case WEST: this.pos = this.pos.east(); break;
             }
         }
+        robot.doAction(ActionTypeType.MOVE, this.dir);
     }
 
     /**
@@ -159,4 +163,5 @@ public class Player implements IPlayer {
     public boolean isAlive() {
         return this.health > 0;
     }
+
 }

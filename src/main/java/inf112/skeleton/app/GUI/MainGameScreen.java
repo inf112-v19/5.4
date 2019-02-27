@@ -16,8 +16,14 @@ import inf112.skeleton.app.GUI.pieces.Laser;
 import inf112.skeleton.app.GUI.pieces.Robot;
 import inf112.skeleton.app.GUI.pieces.GUIWall;
 import inf112.skeleton.app.GUI.player.MovableRobot;
+import inf112.skeleton.app.gameLogic.ProgramCard;
+import inf112.skeleton.app.gameLogic.ProgramCardDeck;
 import inf112.skeleton.app.gameLogic.board.pieces.Wall;
 import inf112.skeleton.app.gameLogic.enums.Direction;
+import inf112.skeleton.app.gameLogic.game.RoboRallyGame;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class MainGameScreen implements Screen {
 	private Stage stage;
@@ -25,6 +31,11 @@ public class MainGameScreen implements Screen {
 	OrthographicCamera camera;
 	ExtendViewport viewport;
 	Music music;
+
+	List<ProgramCard> pgCards;
+	MovableRobot overallHans;
+
+	GUIDeck guiDeck;
 
 	public MainGameScreen(){
 
@@ -42,8 +53,11 @@ public class MainGameScreen implements Screen {
 
 		addPiecesTest();
 
+        RoboRallyGame roboRallyGame = new RoboRallyGame(this);
+
 		Gdx.input.setInputProcessor(stage);
 	}
+
 
 	@Override
 	public void show() {
@@ -53,6 +67,12 @@ public class MainGameScreen implements Screen {
 	public void render (float delta) {
 		Gdx.gl.glClearColor(0.57f, 0.77f, 0.85f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        /*for( ProgramCard card : this.pgCards){
+            overallHans.doAction(card.getCardType().getActionType().getActionTypeType(),Direction.NORTH);
+            //System.out.println(card.toString());
+
+        }*/
 
 		stage.draw();
 		stage.act(Gdx.graphics.getDeltaTime());
@@ -102,6 +122,7 @@ public class MainGameScreen implements Screen {
 
 	public void addPiecesTest(){
 
+
 		// Main table
 		Table game = new Table();
 		Table topBar = new Table();
@@ -133,7 +154,9 @@ public class MainGameScreen implements Screen {
 		// BOARD CREATION AND SETUP
 
 		// Create cards
-		GUIDeck GUIDeck = new GUIDeck(skin);
+		GUIDeck GUIDeck = new GUIDeck(skin, pgCards);
+        this.guiDeck = GUIDeck;
+
 		Stats stats = new Stats(skin);
 
 		// Add everything to the main table.
@@ -153,10 +176,39 @@ public class MainGameScreen implements Screen {
 		// BASE ASSET TEST
 		//game.addActor(new BaseAsset());
 
-		// Add the main table - Game - to the stage.
+		// Add the main table - RoboRallyGame - to the stage.
 		stage.addActor(game);
 
 		stage.setKeyboardFocus(hans);
+
+		testMoveStuff(hans, GUIDeck);
 	}
+
+
+
+    private void testMoveStuff(MovableRobot hans, GUIDeck guiDeck) {
+
+        List<ProgramCard> programCards = guiDeck.getProgramCards();
+        this.pgCards = programCards;
+        this.overallHans = hans;
+
+
+    }
+
+    public List<ProgramCard> pickCardPhase(List<ProgramCard> pgCards){
+        this.guiDeck = new GUIDeck(skin, pgCards);
+        guiDeck.setProgramCards(pgCards);
+        guiDeck.testDeck();
+
+        /*while(!guiDeck.getGoBool()){
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }*/
+
+        return guiDeck.getPickedProgramCards();
+    }
 
 }

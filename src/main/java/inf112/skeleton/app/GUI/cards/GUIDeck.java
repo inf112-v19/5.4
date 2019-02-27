@@ -10,7 +10,8 @@ import com.badlogic.gdx.utils.Array;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.ProgramCardDeck;
 
-import java.util.ArrayList;
+import java.util.*;
+import java.util.List;
 
 public class GUIDeck extends Table {
 
@@ -21,18 +22,22 @@ public class GUIDeck extends Table {
     ArrayList<GUICard> assignedGUICards;
     ArrayList<GUICard> pickedGUICards;
     ArrayList<GUICard> drawGUICards;
+    List<ProgramCard> pgCards;
 
     ArrayList<Cell> cardCells;
 
     int amountOfCardsAllowedToPick;
     int maxCards;
+
     boolean readyBool;
+    boolean goBool;
+
 
     Label cardsPickedDisplay;
     Label instructionLabel;
     String updateButtonString;
 
-    public GUIDeck(Skin skin){
+    public GUIDeck(Skin skin, List<ProgramCard> pgCards){
 
         this.skin = skin;
         this.assignedGUICards = new ArrayList<GUICard>();
@@ -53,7 +58,10 @@ public class GUIDeck extends Table {
         // Default GUICard position
         this.defaults().left().size(140,200).expandY();
 
-        createCards();
+        this.pgCards = pgCards;
+
+        // USED FOR TESTING
+        //createCards(pgDeck);
 
         testDeck();
 
@@ -64,15 +72,17 @@ public class GUIDeck extends Table {
 
         ProgramCardDeck pgDeck = new ProgramCardDeck();
         pgDeck.shuffleDeck();
+        List<ProgramCard> cards = pgDeck.drawXCards(maxCards);
+        this.pgCards = cards;
 
-        for (int i = 0; i < maxCards; i++) {
-            ProgramCard pgCard = pgDeck.getTopCard();
-            GUICard guiCard = new GUICard(skin, pgCard);
+        for( ProgramCard card : cards){
+            GUICard guiCard = new GUICard(skin, card);
             Button cardButton = guiCard.getButton();
             this.addCardCounterUpdateListener(cardButton);
             buttonGroup.add(cardButton);
             this.assignedGUICards.add(guiCard);
         }
+
 
         /*for (int i = 0; i < maxCards-2; i++) {
             GUICard GUICard = new GUICard(skin);
@@ -99,6 +109,7 @@ public class GUIDeck extends Table {
 
 
     }
+
 
     /**
      * Creates a test deck.
@@ -152,12 +163,13 @@ public class GUIDeck extends Table {
         // DRAW THE THING
         drawDeck();
 
-
         for(GUICard tempGUICard : drawGUICards){
             addDragAndDropCard(tempGUICard);
         }
 
-
+        Button doneButton = new TextButton("DONE", skin);
+        addDoneActionButton(doneButton);
+        this.add(doneButton);
 
     }
 
@@ -180,11 +192,23 @@ public class GUIDeck extends Table {
 
         this.cardCells = cardCells;
 
+        // Adds the action buttons on the far right.
         addActionButton(this, updateButtonString);
         this.add(listenerButton).left().center().size(listenerButton.getWidth(), listenerButton.getHeight());
     }
 
-
+    /**
+     * Removes the GUI deck.
+     * pickedCards can now safely be retrieved in the correct order.
+     */
+    public void addDoneActionButton(Button listenerButton){
+        listenerButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                clearChildren();
+            }
+        });
+    }
 
     /**
      * The ready/undo button. Checks for button press.
@@ -198,18 +222,19 @@ public class GUIDeck extends Table {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 System.out.println("down");
-                // What to do if ready:
+                // What to do if "ready" is clicked:
                 if(readyBool){
-                    // CHANGE
                     readyBool = false;
                     GUIDeck.testDeck();
 
                     // Removes drag listeners :-)
-                    for(GUICard GUICard : drawGUICards){
-                        for(EventListener ill : GUICard.getListeners()){
+                    for(GUICard GUICard : drawGUICards) {
+                        for (EventListener ill : GUICard.getListeners()) {
                             GUICard.removeListener(ill);
                         }
                     }
+
+
 
                 }
                 // What to do if not ready(undo):
@@ -217,13 +242,17 @@ public class GUIDeck extends Table {
                     readyBool = true;
                     GUIDeck.pickDeckOrder();
 
+
                 }
 
             }
         });
     }
 
-
+    /**
+     * Updates the "cards picked" whenever a button in the button group is clicked.
+     * @param listenerButton
+     */
     public void addCardCounterUpdateListener(Button listenerButton){
 
         listenerButton.addListener(new ChangeListener() {
@@ -333,4 +362,27 @@ public class GUIDeck extends Table {
 
         });
     }
+
+    public List<ProgramCard> getProgramCards(){
+        return this.pgCards;
+    }
+
+    public void setProgramCards(List<ProgramCard> pgCards){
+        this.pgCards = pgCards;
+    }
+
+    public boolean getGoBool(){
+        return this.goBool;
+    }
+
+    public List<ProgramCard> getPickedProgramCards(){
+        List<ProgramCard> pickedPgCards = new ArrayList<ProgramCard>();
+
+        for(GUICard card : this.pickedGUICards){
+            pickedPgCards.add(card.getProgramCard());
+        }
+
+        return pickedPgCards;
+    }
+
 }

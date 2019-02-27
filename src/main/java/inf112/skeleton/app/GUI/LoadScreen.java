@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import inf112.skeleton.app.gameLogic.game.RoboRallyGame;
 
 import java.util.concurrent.TimeUnit;
 
@@ -58,7 +59,6 @@ public class LoadScreen implements Screen {
     @Override
     public void render(float v) {
 
-
         //camera.update();
 
         Gdx.gl.glClearColor(0.57f, 0.77f, 0.85f, 1);
@@ -71,7 +71,9 @@ public class LoadScreen implements Screen {
 
             Sound sound = Gdx.audio.newSound(Gdx.files.internal("sound/yeahEcho.mp3"));
 
-            game.setScreen(new MainGameScreen());
+            MainGameScreen mainGameScreen = new MainGameScreen();
+            game.setScreen(mainGameScreen);
+
             sound.play(0.5f);
             dispose();
         }
