@@ -12,6 +12,7 @@ public class Card extends Stack {
 
     private Label priorityValue;
     private Label cardAction; // Should be changed to picture in the future.
+    Table buttonTextLabels;
     private Button cardButton;
     Skin skin;
 
@@ -25,23 +26,21 @@ public class Card extends Stack {
     public Card(Skin skin){
 
             this.skin = skin;
+            this.buttonTextLabels = new Table();
 
-            getCardValues();
+
+            setCardValues("500", "R 180");
 
             // The main button added to the Stack.
             this.cardButton = new CardButton(this,skin);
-
             this.add(cardButton);
 
-            Table buttonTextLabels = new Table();
             buttonTextLabels.setFillParent(true);
             //buttonTextLabels.setDebug(true);
             buttonTextLabels.defaults().expandX().right();
 
-            // The card's priority value and action added to display.
-            buttonTextLabels.add(priorityValue).padRight(22);
-            buttonTextLabels.row();
-            buttonTextLabels.add(cardAction).padRight(15);
+            // Refresh the cards display values.
+            updateCard();
 
             // Click throughable
             buttonTextLabels.setTouchable(Touchable.disabled);
@@ -52,10 +51,25 @@ public class Card extends Stack {
 
         }
 
+    private void updateCard(){
+        // Always wipe first
+        buttonTextLabels.clearChildren();
+        // The card's priority value and action added to display.
+        buttonTextLabels.add(priorityValue).padRight(22);
+        buttonTextLabels.row();
+        buttonTextLabels.add(cardAction).padRight(15);
+    }
     private void getCardValues() {
-        // GAME LOGIC INSERT
-        this.priorityValue = new Label("1000", skin);
-        this.cardAction = new Label("MOVE 5", skin);
+        //; GAME LOGIC INSERT
+
+    }
+
+    public void setCardValues(String priorityValue, String cardAction){
+        this.priorityValue = new Label(priorityValue, skin);
+        this.cardAction = new Label( cardAction, skin);
+
+        updateCard();
+
     }
 
 }

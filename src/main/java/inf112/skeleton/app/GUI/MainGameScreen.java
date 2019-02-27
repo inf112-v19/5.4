@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -102,13 +103,14 @@ public class MainGameScreen implements Screen {
 	}
 
 	public void addPiecesTest(){
+
 		// Main table
 		Table game = new Table();
 		Table topBar = new Table();
 		Table bottomBar = new Table();
 
 		game.setFillParent(true);
-		game.setDebug(true);
+		//game.setDebug(true);
 		game.top().left();
 
 		// Create board.

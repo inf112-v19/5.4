@@ -1,4 +1,4 @@
-/*package inf112.skeleton.app.GUI.cards;
+/*package inf112.skeleton.app.GUI.assignedCards;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -14,7 +14,7 @@ public class ReadyButton extends TextButton {
         this.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 System.out.println("down");
-                deck.orderDeck();
+                deck.pickDeckOrder();
                 return true;
             }
         });
