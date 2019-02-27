@@ -5,15 +5,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class CardButton extends Button {
 
-    Card card;
+    GUICard GUICard;
 
-    public CardButton(Card card, Skin skin){
+    public CardButton(GUICard GUICard, Skin skin){
         super(skin);
-        this.card = card;
+        this.GUICard = GUICard;
     }
 
-    public Card getCard(){
-        return this.card;
+    public GUICard getGUICard(){
+        return this.GUICard;
     }
 
 

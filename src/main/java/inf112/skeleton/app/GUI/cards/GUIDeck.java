@@ -3,23 +3,24 @@ package inf112.skeleton.app.GUI.cards;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Array;
+import inf112.skeleton.app.gameLogic.ProgramCard;
+import inf112.skeleton.app.gameLogic.ProgramCardDeck;
 
 import java.util.ArrayList;
 
-public class Deck extends Table {
+public class GUIDeck extends Table {
 
     Skin skin;
     ButtonGroup buttonGroup;
     Button listenerButton;
 
-    ArrayList<Card> assignedCards;
-    ArrayList<Card> pickedCards;
-    ArrayList<Card> drawCards;
+    ArrayList<GUICard> assignedGUICards;
+    ArrayList<GUICard> pickedGUICards;
+    ArrayList<GUICard> drawGUICards;
 
     ArrayList<Cell> cardCells;
 
@@ -31,15 +32,16 @@ public class Deck extends Table {
     Label instructionLabel;
     String updateButtonString;
 
-    public Deck(Skin skin){
+    public GUIDeck(Skin skin){
 
         this.skin = skin;
-        this.assignedCards = new ArrayList<Card>();
-        this.drawCards = new ArrayList<Card>();
-        this.pickedCards = new ArrayList<Card>();
+        this.assignedGUICards = new ArrayList<GUICard>();
+        this.pickedGUICards = new ArrayList<GUICard>();
+        this.drawGUICards = new ArrayList<GUICard>();
 
         this.amountOfCardsAllowedToPick = 5;
         this.maxCards = 9;
+
         this.instructionLabel = new Label("Pick 5:", skin);
         instructionLabel.setWrap(true);
 
@@ -48,7 +50,7 @@ public class Deck extends Table {
         buttonGroup.setMaxCheckCount(5);
         buttonGroup.setMinCheckCount(0);
 
-        // Default card position
+        // Default GUICard position
         this.defaults().left().size(140,200).expandY();
 
         createCards();
@@ -59,27 +61,40 @@ public class Deck extends Table {
     }
 
     public void createCards() {
-        for (int i = 0; i < maxCards-2; i++) {
-            Card card = new Card(skin);
-            Button cardButton = card.getButton();
+
+        ProgramCardDeck pgDeck = new ProgramCardDeck();
+        pgDeck.shuffleDeck();
+
+        for (int i = 0; i < maxCards; i++) {
+            ProgramCard pgCard = pgDeck.getTopCard();
+            GUICard guiCard = new GUICard(skin, pgCard);
+            Button cardButton = guiCard.getButton();
             this.addCardCounterUpdateListener(cardButton);
             buttonGroup.add(cardButton);
-            this.assignedCards.add(card);
+            this.assignedGUICards.add(guiCard);
         }
 
-        Card testCard1 = new Card(skin);
-        testCard1.setCardValues("120", "move 3");
-        Card testCard2 = new Card(skin);
-        testCard2.setCardValues("230", "move 1");
-        ArrayList<Card> testCards = new ArrayList<>();
-        testCards.add(testCard1);
-        testCards.add(testCard2);
-        for(Card tempCard : testCards){
-            Button cardButton = tempCard.getButton();
+        /*for (int i = 0; i < maxCards-2; i++) {
+            GUICard GUICard = new GUICard(skin);
+            Button cardButton = GUICard.getButton();
             this.addCardCounterUpdateListener(cardButton);
             buttonGroup.add(cardButton);
-            this.assignedCards.add(tempCard);
+            this.assignedGUICards.add(GUICard);
         }
+
+        GUICard testGUICard1 = new GUICard(skin);
+        testGUICard1.setCardValues("120", "move 3");
+        GUICard testGUICard2 = new GUICard(skin);
+        testGUICard2.setCardValues("230", "move 1");
+        ArrayList<GUICard> testGUICards = new ArrayList<>();
+        testGUICards.add(testGUICard1);
+        testGUICards.add(testGUICard2);
+        for(GUICard tempGUICard : testGUICards){
+            Button cardButton = tempGUICard.getButton();
+            this.addCardCounterUpdateListener(cardButton);
+            buttonGroup.add(cardButton);
+            this.assignedGUICards.add(tempGUICard);
+        }*/
 
 
 
@@ -96,7 +111,7 @@ public class Deck extends Table {
         updateButtonString = "READY";
 
         // Which cards to draw
-        drawCards = assignedCards;
+        drawGUICards = assignedGUICards;
 
         drawDeck();
 
@@ -112,24 +127,24 @@ public class Deck extends Table {
         // DRAG AND DROP THESE BAD BOYS
         // Always clear first.
         this.clearChildren();
-        pickedCards.clear();
+        pickedGUICards.clear();
 
         // Making label.
         String instructions = "Order your cards:";
         instructionLabel.setText(instructions);
         this.add(instructionLabel).size(instructionLabel.getWidth(),instructionLabel.getHeight());
 
-        // Getting the clicked buttons, and fetch it's corresponding card.
+        // Getting the clicked buttons, and fetch it's corresponding GUICard.
         Array<CardButton> cardButtonArray = new Array<CardButton>(this.buttonGroup.getAllChecked());
 
         for(CardButton cardButton : cardButtonArray){
-            this.pickedCards.add(cardButton.getCard());
+            this.pickedGUICards.add(cardButton.getGUICard());
         }
 
         // Uncheck buttons
         this.buttonGroup.uncheckAll();
 
-        this.drawCards = this.pickedCards;
+        this.drawGUICards = this.pickedGUICards;
 
         // Add undo button
         this.updateButtonString = "UNDO";
@@ -138,8 +153,8 @@ public class Deck extends Table {
         drawDeck();
 
 
-        for(Card tempCard : drawCards){
-            addDragAndDropCard(tempCard);
+        for(GUICard tempGUICard : drawGUICards){
+            addDragAndDropCard(tempGUICard);
         }
 
 
@@ -154,12 +169,12 @@ public class Deck extends Table {
 
         this.add(instructionLabel).size(instructionLabel.getWidth(),instructionLabel.getHeight());
 
-        // Add new assignedCards to deck.
+        // Add new assignedGUICards to deck.
         ArrayList<Cell> cardCells = new ArrayList<Cell>();
-        // Adds all cards to the Deck table.
+        // Adds all cards to the GUIDeck table.
 
-        for(Card card : drawCards){
-            Cell cardCell = this.add(card);
+        for(GUICard GUICard : drawGUICards){
+            Cell cardCell = this.add(GUICard);
             cardCells.add(cardCell);
         }
 
@@ -175,7 +190,7 @@ public class Deck extends Table {
      * The ready/undo button. Checks for button press.
      *
      */
-    public void addActionButton(final Deck deck, String text){
+    public void addActionButton(final GUIDeck GUIDeck, String text){
 
         this.listenerButton = new TextButton(text, skin);
 
@@ -187,12 +202,12 @@ public class Deck extends Table {
                 if(readyBool){
                     // CHANGE
                     readyBool = false;
-                    deck.testDeck();
+                    GUIDeck.testDeck();
 
                     // Removes drag listeners :-)
-                    for(Card card: drawCards){
-                        for(EventListener ill : card.getListeners()){
-                            card.removeListener(ill);
+                    for(GUICard GUICard : drawGUICards){
+                        for(EventListener ill : GUICard.getListeners()){
+                            GUICard.removeListener(ill);
                         }
                     }
 
@@ -200,7 +215,7 @@ public class Deck extends Table {
                 // What to do if not ready(undo):
                 else{
                     readyBool = true;
-                    deck.pickDeckOrder();
+                    GUIDeck.pickDeckOrder();
 
                 }
 
@@ -225,30 +240,30 @@ public class Deck extends Table {
         return String.format("Picked: %d/%d", buttonGroup.getAllChecked().size, amountOfCardsAllowedToPick);
     }
 
-    public void addDragAndDropCard(final Card listenerCard){
+    public void addDragAndDropCard(final GUICard listenerGUICard){
 
-        listenerCard.addListener(new DragListener() {
+        listenerGUICard.addListener(new DragListener() {
 
-            float oldX = listenerCard.getX();
+            float oldX = listenerGUICard.getX();
 
 
             public void drag(InputEvent event, float x, float y, int pointer) {
-                listenerCard.moveBy(x - listenerCard.getWidth() / 2, y-listenerCard.getHeight() / 2);
+                listenerGUICard.moveBy(x - listenerGUICard.getWidth() / 2, y- listenerGUICard.getHeight() / 2);
             }
 
             @Override
             public void dragStart(InputEvent event, float x, float y, int pointer) {
-                oldX= listenerCard.getX();
+                oldX= listenerGUICard.getX();
 
-                // Making sure the dragged card is at the front. This appearently resets. 30 to be safe.
-                System.out.println(listenerCard.getZIndex());
-                listenerCard.setZIndex(30);
+                // Making sure the dragged GUICard is at the front. This appearently resets. 30 to be safe.
+                System.out.println(listenerGUICard.getZIndex());
+                listenerGUICard.setZIndex(30);
             }
 
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
-                float nowX = listenerCard.getX();
-                int pos = pickedCards.indexOf(listenerCard);
+                float nowX = listenerGUICard.getX();
+                int pos = pickedGUICards.indexOf(listenerGUICard);
 
                 System.out.println("OldX: " + oldX);
                 System.out.println("NowX: " + nowX);
@@ -257,60 +272,60 @@ public class Deck extends Table {
 
                 int widthChange = (int) (nowX-oldX);
                 System.out.println("WidthChange:" + widthChange);
-                int positionChanges = widthChange/(int)listenerCard.getWidth();
+                int positionChanges = widthChange/(int) listenerGUICard.getWidth();
                 System.out.println("Position changes: " + positionChanges);
                 System.out.println("Position: " + pos);
 
 
                 boolean tooFarLeft = !(pos+positionChanges>=0);
                 boolean moveLeft = (!tooFarLeft && widthChange<0);
-                boolean tooFarRight = !(pos+positionChanges <= pickedCards.size()-1);
+                boolean tooFarRight = !(pos+positionChanges <= pickedGUICards.size()-1);
                 boolean moveRight = (!tooFarRight && widthChange>0);
 
 
                 if( moveLeft || moveRight ){
-                    Card tempCard = drawCards.get(pos+positionChanges);
+                    GUICard tempGUICard = drawGUICards.get(pos+positionChanges);
                     System.out.println("MOVE");
-                    pickedCards.set(pos+positionChanges,listenerCard);
-                    pickedCards.set(pos, tempCard);
+                    pickedGUICards.set(pos+positionChanges, listenerGUICard);
+                    pickedGUICards.set(pos, tempGUICard);
                     oldX=nowX;
                 }
 
                 if(tooFarRight){
-                    int maxPos = pickedCards.size()-1;
-                    Card tempCard = drawCards.get(maxPos);
-                    pickedCards.set(maxPos, listenerCard);
-                    pickedCards.set(pos, tempCard);
+                    int maxPos = pickedGUICards.size()-1;
+                    GUICard tempGUICard = drawGUICards.get(maxPos);
+                    pickedGUICards.set(maxPos, listenerGUICard);
+                    pickedGUICards.set(pos, tempGUICard);
                     oldX=nowX;
                 }
 
                 if(tooFarLeft){
                     int minPos = 0;
-                    Card tempCard = drawCards.get(minPos);
-                    pickedCards.set(minPos, listenerCard);
-                    pickedCards.set(pos, tempCard);
+                    GUICard tempGUICard = drawGUICards.get(minPos);
+                    pickedGUICards.set(minPos, listenerGUICard);
+                    pickedGUICards.set(pos, tempGUICard);
                     oldX=nowX;
                 }
 
                 /*// Move left
                 if(widthChange<0 && pos-positionChanges>=0){
                     System.out.println("MOVE TO DA LEFT");
-                    Card tempCard = drawCards.get(pos+positionChanges);
-                    pickedCards.set(pos+positionChanges,listenerCard);
-                    pickedCards.set(pos, tempCard);
+                    GUICard tempCard = drawGUICards.get(pos+positionChanges);
+                    pickedGUICards.set(pos+positionChanges,listenerGUICard);
+                    pickedGUICards.set(pos, tempCard);
                     oldX=nowX;
                 }
 
                 // Move right
-                if(widthChange>0 && pos+positionChanges <= pickedCards.size()-1 ){
+                if(widthChange>0 && pos+positionChanges <= pickedGUICards.size()-1 ){
                     System.out.println("MOVE TO DA RIGHT");
-                    Card tempCard = drawCards.get(pos+positionChanges);
-                    pickedCards.set(pos+positionChanges,listenerCard);
-                    pickedCards.set(pos, tempCard);
+                    GUICard tempCard = drawGUICards.get(pos+positionChanges);
+                    pickedGUICards.set(pos+positionChanges,listenerGUICard);
+                    pickedGUICards.set(pos, tempCard);
                     oldX=nowX;
                 }*/
 
-                drawCards = pickedCards;
+                drawGUICards = pickedGUICards;
                 drawDeck();
 
             }

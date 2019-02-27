@@ -1,17 +1,20 @@
 package inf112.skeleton.app.GUI.cards;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
+import inf112.skeleton.app.gameLogic.ProgramCard;
+import inf112.skeleton.app.gameLogic.enums.ActionType;
 
-// Card needs to turn into a Stack that hold two tables or actors - one for the button, and a table that hold the text and image.
 
-public class Card extends Stack {
+// GUICard needs to turn into a Stack that hold two tables or actors - one for the button, and a table that hold the text and image.
 
-    private Label priorityValue;
-    private Label cardAction; // Should be changed to picture in the future.
+public class GUICard extends Stack {
+
+    private int priorityValue;
+    private Label priorityValueLabel;
+    private String cardAction;
+    private Label cardActionLabel; // Should be changed to picture in the future.
     Table buttonTextLabels;
     private Button cardButton;
     Skin skin;
@@ -23,13 +26,17 @@ public class Card extends Stack {
 
     public Button getButton(){return this.cardButton;};
 
-    public Card(Skin skin){
+    public GUICard(Skin skin, ProgramCard pgCard){
 
             this.skin = skin;
             this.buttonTextLabels = new Table();
 
 
-            setCardValues("500", "R 180");
+            // TEST
+            //setCardValues("500", "R 180");
+
+
+            setCardValues(pgCard.getPriority(),pgCard.getCardType().getDescription());
 
             // The main button added to the Stack.
             this.cardButton = new CardButton(this,skin);
@@ -54,19 +61,21 @@ public class Card extends Stack {
     private void updateCard(){
         // Always wipe first
         buttonTextLabels.clearChildren();
-        // The card's priority value and action added to display.
-        buttonTextLabels.add(priorityValue).padRight(22);
+        // The GUICard's priority value and action added to display.
+        buttonTextLabels.add(priorityValueLabel).padRight(22);
         buttonTextLabels.row();
-        buttonTextLabels.add(cardAction).padRight(15);
+        buttonTextLabels.add(cardActionLabel).padRight(15);
     }
     private void getCardValues() {
         //; GAME LOGIC INSERT
 
     }
 
-    public void setCardValues(String priorityValue, String cardAction){
-        this.priorityValue = new Label(priorityValue, skin);
-        this.cardAction = new Label( cardAction, skin);
+    public void setCardValues(int priorityValue, String cardAction){
+        this.priorityValueLabel = new Label(Integer.toString(priorityValue),skin);
+        this.cardActionLabel = new Label( cardAction, skin);
+        //priorityValueLabel.setWrap(true);
+        //cardActionLabel.setWrap(true);
 
         updateCard();
 

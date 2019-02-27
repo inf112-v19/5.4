@@ -6,16 +6,14 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import inf112.skeleton.app.GUI.board.Board;
 import inf112.skeleton.app.GUI.board.Stats;
+import inf112.skeleton.app.GUI.cards.GUIDeck;
 import inf112.skeleton.app.GUI.pieces.Laser;
 import inf112.skeleton.app.GUI.pieces.Robot;
-import inf112.skeleton.app.GUI.cards.Deck;
 import inf112.skeleton.app.GUI.pieces.GUIWall;
 import inf112.skeleton.app.GUI.player.MovableRobot;
 import inf112.skeleton.app.gameLogic.board.pieces.Wall;
@@ -135,7 +133,7 @@ public class MainGameScreen implements Screen {
 		// BOARD CREATION AND SETUP
 
 		// Create cards
-		Deck deck = new Deck(skin);
+		GUIDeck GUIDeck = new GUIDeck(skin);
 		Stats stats = new Stats(skin);
 
 		// Add everything to the main table.
@@ -148,8 +146,8 @@ public class MainGameScreen implements Screen {
 		game.add(topBar).expandX();
 		game.row();
 
-		// Add the bottom bar and deck
-		bottomBar.add(deck).bottom().padBottom(30).padLeft(50).colspan(3);
+		// Add the bottom bar and GUIDeck
+		bottomBar.add(GUIDeck).bottom().padBottom(30).padLeft(50).colspan(3);
 		game.add(bottomBar).expand().fillY();
 
 		// BASE ASSET TEST

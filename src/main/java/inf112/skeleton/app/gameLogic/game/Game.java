@@ -14,7 +14,7 @@ public class Game {
     private int startHealth = 10;
     private ProgramCardDeck deck;
 
-    public void setupGame() {
+    public Game() {
         this.deck = new ProgramCardDeck();  // Deck of cards in the game
         players = new Player[totalPlayers];
         for (int i = 0; i < players.length; i++) {
