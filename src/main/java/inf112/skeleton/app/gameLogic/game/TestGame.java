@@ -1,8 +1,6 @@
 package inf112.skeleton.app.gameLogic.game;
 
-import inf112.skeleton.app.gameLogic.enums.ActionType;
 import inf112.skeleton.app.gameLogic.Player;
-
 import java.util.*;
 
 
@@ -15,37 +13,36 @@ public class TestGame {
         actionList = new LinkedList<>();
     }
 
-    public void addPlayerToList() {
-
-    }
-
-    public boolean actionListIsEmpty() {
-        return actionList.isEmpty();
-    }
-
-    public boolean playerListIsEmpty() {
-        return playerList.isEmpty();
-    }
-
-    public void doAction() {
-        if (!actionListIsEmpty()) {
-            Action action = actionList.poll();
-            switch (action.getActionType()) {
-                case DAMAGE:
-                    action.getPlayer().takeDamage(action.getAmount());
-                    break;
-                case MOVE:
-                    action.getPlayer().move(action.getAmount());
-                    break;
-                case TURN:
-                    if (action.getRotation() != null) {
-                        action.getPlayer().rotate(action.getRotation());
-                    }
-                    break;
-            }
-        } else {
-            System.out.println("actionList Empty");
+    public void doAllActions() {
+        while (actionListIsNotEmpty()) {
+            doAction(actionList.poll());
         }
+    }
+
+    public void doAction(Action action) {
+        switch (action.getActionType().getActionTypeType()) {
+            case MOVE:
+                action.getPlayer().move(action.getActionType().getValue());
+                break;
+            case DAMAGE:
+                action.getPlayer().takeDamage(action.getActionType().getValue());
+                break;
+            case ROTATE:
+                action.getPlayer().rotate(action.getActionType().getRotation());
+                break;
+        }
+    }
+
+    public void addActionToList(Action action) {
+        actionList.add(action);
+    }
+
+    public boolean actionListIsNotEmpty() {
+        return !actionList.isEmpty();
+    }
+
+    public boolean playerListIsNotEmpty() {
+        return !playerList.isEmpty();
     }
 
     public List<Player> getPlayerList() {
@@ -60,8 +57,5 @@ public class TestGame {
         }
     }
 
-    public void addActionToList(Action action) {
-        actionList.add(action);
-    }
 
 }
