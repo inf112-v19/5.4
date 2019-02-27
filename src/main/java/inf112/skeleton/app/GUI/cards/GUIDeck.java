@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Array;
 import inf112.skeleton.app.gameLogic.ProgramCard;
-import inf112.skeleton.app.gameLogic.ProgramCardDeck;
 
 import java.util.*;
 import java.util.List;
@@ -61,21 +60,21 @@ public class GUIDeck extends Table {
         this.pgCards = pgCards;
 
         // USED FOR TESTING
-        //createCards(pgDeck);
+        //createGUICards(pgDeck);
 
-        testDeck();
 
 
     }
 
-    public void createCards() {
+    public void createGUICards() {
 
-        ProgramCardDeck pgDeck = new ProgramCardDeck();
+        /*ProgramCardDeck pgDeck = new ProgramCardDeck();
         pgDeck.shuffleDeck();
         List<ProgramCard> cards = pgDeck.drawXCards(maxCards);
-        this.pgCards = cards;
+        this.pgCards = cards; */
 
-        for( ProgramCard card : cards){
+        System.out.println(this.pgCards + " HEI JEG HETER CREATE GUICARDS");
+        for( ProgramCard card : this.pgCards){
             GUICard guiCard = new GUICard(skin, card);
             Button cardButton = guiCard.getButton();
             this.addCardCounterUpdateListener(cardButton);
@@ -110,12 +109,16 @@ public class GUIDeck extends Table {
 
     }
 
+    /**
+     *
+     */
 
     /**
-     * Creates a test deck.
+     * Creates a the "card picking" setup.
      */
-    public void testDeck(){
+    public void pickCardsSetup(){
 
+        createGUICards();
         // Set instruction label.
         String instructions = "Pick " + amountOfCardsAllowedToPick + ":";
         instructionLabel.setText(instructions);
@@ -133,7 +136,7 @@ public class GUIDeck extends Table {
     /**
      * Pick which order your deck is in!
      */
-    public void pickDeckOrder(){
+    public void orderDeckSetup(){
 
         // DRAG AND DROP THESE BAD BOYS
         // Always clear first.
@@ -175,6 +178,8 @@ public class GUIDeck extends Table {
 
     public void drawDeck(){
 
+        System.out.println("Drawing the GUI cards");
+
         // Always clear first.
         this.clearChildren();
         this.left().bottom();
@@ -188,6 +193,7 @@ public class GUIDeck extends Table {
         for(GUICard GUICard : drawGUICards){
             Cell cardCell = this.add(GUICard);
             cardCells.add(cardCell);
+            System.out.println("we in this loop");
         }
 
         this.cardCells = cardCells;
@@ -225,7 +231,7 @@ public class GUIDeck extends Table {
                 // What to do if "ready" is clicked:
                 if(readyBool){
                     readyBool = false;
-                    GUIDeck.testDeck();
+                    GUIDeck.pickCardsSetup();
 
                     // Removes drag listeners :-)
                     for(GUICard GUICard : drawGUICards) {
@@ -240,7 +246,7 @@ public class GUIDeck extends Table {
                 // What to do if not ready(undo):
                 else{
                     readyBool = true;
-                    GUIDeck.pickDeckOrder();
+                    GUIDeck.orderDeckSetup();
 
 
                 }
@@ -369,6 +375,7 @@ public class GUIDeck extends Table {
 
     public void setProgramCards(List<ProgramCard> pgCards){
         this.pgCards = pgCards;
+        System.out.println(pgCards);
     }
 
     public boolean getGoBool(){

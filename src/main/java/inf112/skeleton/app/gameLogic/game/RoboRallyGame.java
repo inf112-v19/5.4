@@ -54,10 +54,11 @@ public class RoboRallyGame {
         cardsToDraw -= damageTokens;
 
         List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
+        System.out.println(cards + " hei jeg heter prePlay");
 
             // TODO take cards from deck and assign them to the player
 
-        System.out.println(guiScreen.pickCardPhase(cards));
+        //System.out.println(guiScreen.pickCardPhase(cards));
 
         }
 

@@ -23,7 +23,6 @@ import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.game.RoboRallyGame;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class MainGameScreen implements Screen {
 	private Stage stage;
@@ -53,7 +52,7 @@ public class MainGameScreen implements Screen {
 
 		addPiecesTest();
 
-        RoboRallyGame roboRallyGame = new RoboRallyGame(this);
+        //RoboRallyGame roboRallyGame = new RoboRallyGame(this);
 
 		Gdx.input.setInputProcessor(stage);
 	}
@@ -182,6 +181,8 @@ public class MainGameScreen implements Screen {
 		stage.setKeyboardFocus(hans);
 
 		testMoveStuff(hans, GUIDeck);
+
+		pickCardPhase(new ProgramCardDeck().drawXCards(9));
 	}
 
 
@@ -195,10 +196,17 @@ public class MainGameScreen implements Screen {
 
     }
 
+    /**
+     *
+     * Pick which cards touse
+     * @param pgCards cards to pick from, usually 9
+     * @return picked cards, usually 5
+     */
     public List<ProgramCard> pickCardPhase(List<ProgramCard> pgCards){
-        this.guiDeck = new GUIDeck(skin, pgCards);
-        guiDeck.setProgramCards(pgCards);
-        guiDeck.testDeck();
+        System.out.println(pgCards);
+        //this.guiDeck = new GUIDeck(skin, pgCards);
+        this.guiDeck.setProgramCards(pgCards);
+        this.guiDeck.pickCardsSetup();
 
         /*while(!guiDeck.getGoBool()){
             try {
