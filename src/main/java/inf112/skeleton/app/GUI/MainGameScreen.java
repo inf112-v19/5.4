@@ -132,6 +132,9 @@ public class MainGameScreen implements Screen {
 		board.addPiece(8, 4, new GUIConveyor(new Conveyor(Direction.EAST)));
 		board.addPiece(8, 5, new GUIConveyor(new Conveyor(Direction.SOUTH)));
 		board.addPiece(8, 6, new GUIConveyor(new Conveyor(Direction.WEST)));
+		board.addPiece(7, 6, new GUIFlag());
+		board.addPiece(5, 7, new GUIRepair());
+
 		MovableRobot hans = new MovableRobot(1);
 		board.addPiece(5,5, hans);
 
