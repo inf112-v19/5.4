@@ -49,6 +49,7 @@ public class MovableRobot extends Robot {
                        break;
                    case Input.Keys.UP:
                        doAction(ActionTypeType.MOVE, Direction.NORTH);
+                       doAction(ActionTypeType.ROTATE, Direction.NORTH);
                        break;
                }
 
@@ -79,34 +80,36 @@ public class MovableRobot extends Robot {
                    case NORTH:
                        System.out.println("WWWAHASHDABSD");
                        moveAction.setAmount(0f, getHeight());
-                       MovableRobot.this.addAction(sequence(moveAction, new RunnableAction(){
-                           @Override
-                           public void run() {
-                               System.out.println("COMPLETE!");
-                           }
-                       }));
+
                        break;
                    case EAST:
                        moveAction.setAmount(getWidth(), 0f);
-                       MovableRobot.this.addAction(moveAction);
                        break;
                    case WEST:
                        moveAction.setAmount(-getWidth(), 0);
-                       MovableRobot.this.addAction(moveAction);
 
                        break;
                    case SOUTH:
                        moveAction.setAmount(0f, -getHeight());
-                       MovableRobot.this.addAction(moveAction);
                        break;
+
                }
+
+               MovableRobot.this.addAction(sequence(moveAction, new DelayAction(1000), new RunnableAction(){
+                   @Override
+                   public void run() {
+                       System.out.println("COMPLETE!");
+                   }
+               }));
 
                break;
            case ROTATE:
 
+               System.out.println("rotating boys"
+               );
                RotateByAction rotateByAction = new RotateByAction();
-               //rotateByAction.setAmount(-getWidth(), 0);
-               //MovableRobot.this.addAction(moveAction);
+               rotateByAction.setAmount(90f);
+               MovableRobot.this.addAction(rotateByAction);
                break;
 
        }

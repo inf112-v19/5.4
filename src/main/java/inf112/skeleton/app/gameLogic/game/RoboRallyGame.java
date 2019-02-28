@@ -1,5 +1,9 @@
 package inf112.skeleton.app.gameLogic.game;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import inf112.skeleton.app.GUI.MainGameScreen;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
@@ -18,6 +22,7 @@ public class RoboRallyGame {
     private Player[] players;       // Players in the game
     private int startHealth = 10;
     private ProgramCardDeck deck;
+    private Player currentPlayer;
 
     public RoboRallyGame(MainGameScreen guiScreen) {
 
@@ -35,20 +40,20 @@ public class RoboRallyGame {
 
     public void playGame(){
         deck.shuffleDeck();
-        System.out.println("We in there");
-        for (Player currentPlayer : players) {
-            System.out.println("playayay");
-            prePlay(currentPlayer);
-        }
-        play();
-        postPlay();
+        //TESTING
+        this.currentPlayer = players[0];
+//        for (Player currentPlayer : players) {
+//            prePlay(currentPlayer);
+//        }
+//        //play();
+//        //postPlay();
     }
 
     /**
      * First phase in the game
      * Here the player will get to draw and pick cards
      */
-    private void prePlay(Player currentPlayer) {
+    public void prePlay() {
         int damageTokens = currentPlayer.getDamageTokens();
         int cardsToDraw = 9;
         cardsToDraw -= damageTokens;
@@ -57,8 +62,9 @@ public class RoboRallyGame {
         System.out.println(cards + " hei jeg heter prePlay");
 
             // TODO take cards from deck and assign them to the player
-
-        //System.out.println(guiScreen.pickCardPhase(cards));
+        this.currentPlayer =currentPlayer;
+        Button donebutton;
+        this.guiScreen.pickCardPhase(cards);
 
         }
 
@@ -73,5 +79,17 @@ public class RoboRallyGame {
 
     private void postPlay() {
 
+    }
+
+    /**
+     * Atm just does actions.
+     * @param pickedProgramCards
+     */
+    public void postPick(List<ProgramCard> pickedProgramCards) {
+        for(ProgramCard card: pickedProgramCards){
+            System.out.println("Inni postpick gang");
+            currentPlayer.setRobot(guiScreen.gimmeRobotTest());
+            currentPlayer.doAction(card.getCardType().getActionType().getActionTypeType());
+        }
     }
 }

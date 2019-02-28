@@ -5,9 +5,10 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import inf112.skeleton.app.GUI.board.Board;
 import inf112.skeleton.app.GUI.board.Stats;
@@ -31,10 +32,13 @@ public class MainGameScreen implements Screen {
 	ExtendViewport viewport;
 	Music music;
 
+	RoboRallyGame roboRallyGame;
+
 	List<ProgramCard> pgCards;
 	MovableRobot overallHans;
 
 	GUIDeck guiDeck;
+	Cell guiDeckCell;
 
 	public MainGameScreen(){
 
@@ -50,11 +54,13 @@ public class MainGameScreen implements Screen {
 		skin = new Skin(Gdx.files.internal("rusty-robot/skin/rusty-robot-ui.json"));
 		skin.getFont("font").getData().setScale(1.6f,1.6f);
 
+		this.roboRallyGame = new RoboRallyGame(this);
+		roboRallyGame.playGame();
+
 		addPiecesTest();
-
-        //RoboRallyGame roboRallyGame = new RoboRallyGame(this);
-
 		Gdx.input.setInputProcessor(stage);
+
+		roboRallyGame.prePlay();
 	}
 
 
@@ -66,12 +72,6 @@ public class MainGameScreen implements Screen {
 	public void render (float delta) {
 		Gdx.gl.glClearColor(0.57f, 0.77f, 0.85f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        /*for( ProgramCard card : this.pgCards){
-            overallHans.doAction(card.getCardType().getActionType().getActionTypeType(),Direction.NORTH);
-            //System.out.println(card.toString());
-
-        }*/
 
 		stage.draw();
 		stage.act(Gdx.graphics.getDeltaTime());
@@ -143,6 +143,7 @@ public class MainGameScreen implements Screen {
 		board.addPiece(4,3, new Laser());
 		board.addPiece(5,3, new Laser());
 		MovableRobot hans = new MovableRobot(1);
+		this.overallHans = hans;
 		board.addPiece(5,5, hans);
 		board.addPiece(1, 2, new GUIWall(new Wall(Direction.WEST)));
 		board.addPiece(1, 3, new GUIWall(new Wall(Direction.NORTH)));
@@ -152,9 +153,7 @@ public class MainGameScreen implements Screen {
 
 		// BOARD CREATION AND SETUP
 
-		// Create cards
-		GUIDeck GUIDeck = new GUIDeck(skin, pgCards);
-        this.guiDeck = GUIDeck;
+
 
 		Stats stats = new Stats(skin);
 
@@ -169,7 +168,7 @@ public class MainGameScreen implements Screen {
 		game.row();
 
 		// Add the bottom bar and GUIDeck
-		bottomBar.add(GUIDeck).bottom().padBottom(30).padLeft(50).colspan(3);
+		this.guiDeckCell = bottomBar.add().bottom().padBottom(30).padLeft(50).colspan(3);
 		game.add(bottomBar).expand().fillY();
 
 		// BASE ASSET TEST
@@ -180,21 +179,10 @@ public class MainGameScreen implements Screen {
 
 		stage.setKeyboardFocus(hans);
 
-		testMoveStuff(hans, GUIDeck);
+		//testMoveStuff(hans, GUIDeck);
 
-		pickCardPhase(new ProgramCardDeck().drawXCards(9));
+		//pickCardPhase(new ProgramCardDeck().drawXCards(9));
 	}
-
-
-
-    private void testMoveStuff(MovableRobot hans, GUIDeck guiDeck) {
-
-        List<ProgramCard> programCards = guiDeck.getProgramCards();
-        this.pgCards = programCards;
-        this.overallHans = hans;
-
-
-    }
 
     /**
      *
@@ -202,21 +190,31 @@ public class MainGameScreen implements Screen {
      * @param pgCards cards to pick from, usually 9
      * @return picked cards, usually 5
      */
-    public List<ProgramCard> pickCardPhase(List<ProgramCard> pgCards){
-        System.out.println(pgCards);
-        //this.guiDeck = new GUIDeck(skin, pgCards);
+    public void pickCardPhase(List<ProgramCard> pgCards){
+    	Button doneButton = new TextButton("DONE", skin);
+        this.guiDeck = new GUIDeck(skin, pgCards, doneButton);
         this.guiDeck.setProgramCards(pgCards);
+		this.guiDeckCell.setActor(guiDeck);
+		addPostPickListener(doneButton);
+
         this.guiDeck.pickCardsSetup();
 
-        /*while(!guiDeck.getGoBool()){
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }*/
-
-        return guiDeck.getPickedProgramCards();
     }
+
+
+	private void addPostPickListener(Button doneButton) {
+		doneButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+
+				roboRallyGame.postPick(guiDeck.getPickedProgramCards());
+			}
+		});
+
+	}
+
+	public MovableRobot gimmeRobotTest(){
+    	return this.overallHans;
+	}
 
 }

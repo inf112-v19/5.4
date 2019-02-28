@@ -3,6 +3,7 @@ package inf112.skeleton.app.gameLogic;
 import inf112.skeleton.app.GUI.player.MovableRobot;
 import inf112.skeleton.app.gameLogic.enums.*;
 import inf112.skeleton.app.GUI.player.Position;
+import inf112.skeleton.app.gameLogic.game.Action;
 
 import java.util.List;
 import java.util.Stack;
@@ -29,7 +30,7 @@ public class Player implements IPlayer {
         this.health = health;
         this.maxHealth = health;
         this.damageTokens = 0;
-        this.robot = new MovableRobot(1);
+        this.robot = robot;
     }
 
     @Override
@@ -41,6 +42,19 @@ public class Player implements IPlayer {
         return playerDeck;
     }
 
+    /**
+     * TEST VERSION NOT FINAL
+     * @param att
+     */
+    public void doAction(ActionTypeType att){
+        switch (att){
+            case MOVE:
+                this.move(1);
+                break;
+            case ROTATE:
+                this.rotate(Rotation.R);
+        }
+    }
 
     /**
      * The piece moves i times in the direction it's facing
@@ -124,6 +138,7 @@ public class Player implements IPlayer {
         else {
             throw new IllegalArgumentException("Not a valid rotation!");
         }
+        robot.doAction(ActionTypeType.ROTATE, dir);
     }
 
     /**
@@ -162,6 +177,10 @@ public class Player implements IPlayer {
     @Override
     public boolean isAlive() {
         return this.health > 0;
+    }
+
+    public void setRobot(MovableRobot hans){
+        this.robot = hans;
     }
 
 }
