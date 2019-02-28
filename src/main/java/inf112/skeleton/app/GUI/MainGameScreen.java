@@ -17,6 +17,7 @@ import inf112.skeleton.app.GUI.player.MovableRobot;
 import inf112.skeleton.app.gameLogic.board.activeCells.Conveyor;
 import inf112.skeleton.app.gameLogic.board.pieces.Wall;
 import inf112.skeleton.app.gameLogic.enums.Direction;
+import inf112.skeleton.app.gameLogic.enums.Rotation;
 
 public class MainGameScreen implements Screen {
 	private Stage stage;
@@ -134,6 +135,10 @@ public class MainGameScreen implements Screen {
 		board.addPiece(8, 6, new GUIConveyor(new Conveyor(Direction.WEST)));
 		board.addPiece(7, 6, new GUIFlag());
 		board.addPiece(5, 7, new GUIRepair());
+		board.addPiece(6, 8, new GUIGear(Rotation.R));
+		board.addPiece(8, 9, new GUIGear(Rotation.L));
+
+
 
 		MovableRobot hans = new MovableRobot(1);
 		board.addPiece(5,5, hans);
