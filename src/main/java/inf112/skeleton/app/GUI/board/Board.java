@@ -62,7 +62,6 @@ public class Board extends Table {
         // FIlls in all values.
         for (int y = 0; y < yGridSize; y++) {
             for (int x = 0; x < xGridSize; x++) {
-                //this.add(new Tile()).size(unitSize);
                 this.add(boardMap[y][x]).size(unitSize);
             }
             this.row();
