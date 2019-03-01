@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.DelayAction;
@@ -13,9 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import inf112.skeleton.app.GUI.pieces.Robot;
-import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.enums.ActionType;
-import inf112.skeleton.app.gameLogic.enums.ActionTypeType;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
@@ -39,17 +36,17 @@ public class MovableRobot extends Robot {
 
                switch (keycode) {
                    case Input.Keys.RIGHT:
-                       doAction(ActionTypeType.MOVE, Direction.EAST);
+                       doAction(ActionType.MOVE, Direction.EAST);
                        break;
                    case Input.Keys.LEFT:
-                       doAction(ActionTypeType.MOVE, Direction.WEST);
+                       doAction(ActionType.MOVE, Direction.WEST);
                        break;
                    case Input.Keys.DOWN:
-                       doAction(ActionTypeType.MOVE, Direction.SOUTH);
+                       doAction(ActionType.MOVE, Direction.SOUTH);
                        break;
                    case Input.Keys.UP:
-                       doAction(ActionTypeType.MOVE, Direction.NORTH);
-                       doAction(ActionTypeType.ROTATE, Direction.NORTH);
+                       doAction(ActionType.MOVE, Direction.NORTH);
+                       doAction(ActionType.ROTATE, Direction.NORTH);
                        break;
                }
 
@@ -59,7 +56,7 @@ public class MovableRobot extends Robot {
 
    }
 
-   public void doAction(ActionTypeType att, Direction faceDir){
+   public void doAction(ActionType att, Direction faceDir){
        setOrigin(getWidth() / 2, getHeight() / 2);
 
        switch (att) {

@@ -6,39 +6,39 @@ import java.util.*;
 
 public class TestGame {
     private List<Player> playerList;
-    private Queue<Action> actionList;
+    private Queue<PlayerAction> playerActionList;
 
     public TestGame() {
         playerList = new ArrayList<>();
-        actionList = new LinkedList<>();
+        playerActionList = new LinkedList<>();
     }
 
     public void doAllActions() {
         while (actionListIsNotEmpty()) {
-            doAction(actionList.poll());
+            doAction(playerActionList.poll());
         }
     }
 
-    public void doAction(Action action) {
-        switch (action.getActionType().getActionTypeType()) {
+    public void doAction(PlayerAction playerAction) {
+        switch (playerAction.getAction().getActionType()) {
             case MOVE:
-                action.getPlayer().move(action.getActionType().getValue());
+                playerAction.getPlayer().move(playerAction.getAction().getValue());
                 break;
             case DAMAGE:
-                action.getPlayer().takeDamage(action.getActionType().getValue());
+                playerAction.getPlayer().takeDamage(playerAction.getAction().getValue());
                 break;
             case ROTATE:
-                action.getPlayer().rotate(action.getActionType().getRotation());
+                playerAction.getPlayer().rotate(playerAction.getAction().getRotation());
                 break;
         }
     }
 
-    public void addActionToList(Action action) {
-        actionList.add(action);
+    public void addActionToList(PlayerAction playerAction) {
+        playerActionList.add(playerAction);
     }
 
     public boolean actionListIsNotEmpty() {
-        return !actionList.isEmpty();
+        return !playerActionList.isEmpty();
     }
 
     public boolean playerListIsNotEmpty() {

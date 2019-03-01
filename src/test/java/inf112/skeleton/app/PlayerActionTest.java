@@ -1,11 +1,11 @@
 package inf112.skeleton.app;
 
 import inf112.skeleton.app.GUI.player.Position;
+import inf112.skeleton.app.gameLogic.enums.Action;
+import inf112.skeleton.app.gameLogic.game.PlayerAction;
 import inf112.skeleton.app.gameLogic.game.TestGame;
-import inf112.skeleton.app.gameLogic.enums.ActionType;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.Player;
-import inf112.skeleton.app.gameLogic.game.Action;
 import inf112.skeleton.app.gameLogic.ProgramCardDeck;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import org.junit.Before;
@@ -15,7 +15,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 
-public class ActionTest {
+public class PlayerActionTest {
 
     private Player player;
     private TestGame game;
@@ -29,8 +29,8 @@ public class ActionTest {
     @Test
     public void testActionPlayerGetsADamageToken() {
         assertEquals(0, player.getDamageTokens());
-        Action action = new Action(player, ActionType.DAMAGE_1);
-        game.addActionToList(action);
+        PlayerAction playerAction = new PlayerAction(player, Action.DAMAGE_1);
+        game.addActionToList(playerAction);
         game.doAllActions();
         assertEquals(1, player.getDamageTokens());
     }
@@ -38,8 +38,8 @@ public class ActionTest {
     @Test
     public void testActionTurnLeft() {
         assertEquals(Direction.NORTH, player.getDirection());
-        Action action = new Action(player, ActionType.ROTATE_L);
-        game.addActionToList(action);
+        PlayerAction playerAction = new PlayerAction(player, Action.ROTATE_L);
+        game.addActionToList(playerAction);
         game.doAllActions();
         assertEquals(Direction.WEST, player.getDirection());
     }
@@ -47,8 +47,8 @@ public class ActionTest {
     @Test
     public void testActionTurnRight() {
         assertEquals(Direction.NORTH, player.getDirection());
-        Action action = new Action(player, ActionType.ROTATE_R);
-        game.addActionToList(action);
+        PlayerAction playerAction = new PlayerAction(player, Action.ROTATE_R);
+        game.addActionToList(playerAction);
         game.doAllActions();
         assertEquals(Direction.EAST, player.getDirection());
     }
@@ -56,8 +56,8 @@ public class ActionTest {
     @Test
     public void testActionTurnU() {
         assertEquals(Direction.NORTH, player.getDirection());
-        Action action = new Action(player, ActionType.ROTATE_U);
-        game.addActionToList(action);
+        PlayerAction playerAction = new PlayerAction(player, Action.ROTATE_U);
+        game.addActionToList(playerAction);
         game.doAllActions();
         assertEquals(Direction.SOUTH, player.getDirection());
     }
@@ -67,8 +67,8 @@ public class ActionTest {
         ProgramCardDeck deck = new ProgramCardDeck();
         for (int i = 0; i < 2; i++) {
             ProgramCard tempCard = deck.getTopCard();
-            Action action = new Action(player, tempCard.getCardType().getActionType());
-            game.addActionToList(action);
+            PlayerAction playerAction = new PlayerAction(player, tempCard.getCardType().getAction());
+            game.addActionToList(playerAction);
         }
 
         game.doAllActions();
@@ -90,8 +90,8 @@ public class ActionTest {
             for (int i = 0; i < cardsForPlayer; i++) {
                 ProgramCard tempCard = deck.getTopCard();
                 System.out.println(tempCard.toString());
-                Action action = new Action(currPlayer, tempCard.getCardType().getActionType());
-                game.addActionToList(action);
+                PlayerAction playerAction = new PlayerAction(currPlayer, tempCard.getCardType().getAction());
+                game.addActionToList(playerAction);
             }
         }
 

@@ -1,6 +1,6 @@
 package inf112.skeleton.app.gameLogic.board.activeCells;
 
-import inf112.skeleton.app.gameLogic.enums.ActionType;
+import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.board.IActiveCell;
 
@@ -47,7 +47,7 @@ public class Conveyor implements IActiveCell {
     }
 
     @Override
-    public ActionType getActionType() {
+    public Action getAction() {
         return null;
     }
 }
