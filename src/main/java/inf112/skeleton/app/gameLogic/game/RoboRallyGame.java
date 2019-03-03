@@ -8,6 +8,7 @@ import inf112.skeleton.app.gameLogic.ProgramCardDeck;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import java.util.List;
+import java.util.Stack;
 
 public class RoboRallyGame {
 
@@ -15,13 +16,12 @@ public class RoboRallyGame {
     private MainGameScreen guiScreen;
 
     private int totalPlayers = 2;   // Total players in the game
-    private Player[] players;       // Players in the game
+    public Player[] players;       // Players in the game
     private int startHealth = 10;
-    private ProgramCardDeck deck;
+    public ProgramCardDeck deck;
     private Player currentPlayer;
 
     public RoboRallyGame(MainGameScreen guiScreen) {
-
         this.guiScreen = guiScreen;
 
         this.deck = new ProgramCardDeck();  // Deck of cards in the game
@@ -30,44 +30,60 @@ public class RoboRallyGame {
             Position position = new Position(i, 0);
             players[i] = new Player(position, Direction.NORTH, startHealth);
         }
+    }
 
-        playGame();
+    public RoboRallyGame() {
+        this.deck = new ProgramCardDeck();  // Deck of cards in the game
+        players = new Player[totalPlayers];
+        for (int i = 0; i < players.length; i++) {
+            Position position = new Position(i, 0);
+            players[i] = new Player(position, Direction.NORTH, startHealth);
+        }
     }
 
     public void playGame(){
-        deck.shuffleDeck();
-        //TESTING
-//        this.currentPlayer = players[0];
+        this.deck.shuffleDeck();
         for (Player currentPlayer : players) {
+            this.currentPlayer = currentPlayer;
             prePlay(currentPlayer);
         }
-//        //play();
-//        //postPlay();
+//        play();
+//        postPlay();
     }
 
     /**
      * First phase in the game
-     * Here the player will get to draw and pick cards
+     * Here the players will get to draw and pick cards
+     * @param currentPlayer The player in the game
      */
-    public void prePlay(Player currentPlayer) {
+    private void prePlay(Player currentPlayer) {
         int damageTokens = currentPlayer.getDamageTokens();
         int cardsToDraw = 9;            // All players starts with the opportunity to draw nine cards
         cardsToDraw -= damageTokens;    // The player looses one card for each damage token
 
-        assignAllCards(currentPlayer, cardsToDraw);     // Deal cards to the player
+        chooseCards(currentPlayer, cardsToDraw);     // Deal cards to the player
 
-        List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
-//        System.out.println(cards + " hei jeg heter prePlay");
 
-            // TODO take cards from deck and assign them to the player
+//        List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
+
 //        this.currentPlayer = currentPlayer;
-        this.guiScreen.pickCardPhase(cards);
+//        this.guiScreen.pickCardPhase(cards);
 
         }
 
-    private void assignAllCards(Player currentPlayer, int cardsToDraw) {
+    private void chooseCards(Player currentPlayer, int cardsToDraw) {
+//        playerPickCards(currentPlayer);                 // Each player picks the cards and arrange them
         for (int i = 0; i < cardsToDraw; i++) {
-            currentPlayer.addProgramCard(deck.getTopCard());
+            currentPlayer.addProgramCard(this.deck.getTopCard());
+        }
+        playerPickCards(currentPlayer);
+    }
+
+    // TODO each player have to pick the cards to play, and arrange them in the order the player wants to
+    private void playerPickCards(Player currentPlayer) {
+        Stack<ProgramCard> playerDeck = currentPlayer.returnDeck();
+        for (ProgramCard card : playerDeck) {
+            currentPlayer.doAction(card.getCardType().getAction().getActionType());
         }
     }
 
@@ -78,6 +94,10 @@ public class RoboRallyGame {
      */
     private void play() {
 
+//        for (Player player : players) {
+//            player.popCard();
+//            break;
+//        }
     }
 
     private void postPlay() {
