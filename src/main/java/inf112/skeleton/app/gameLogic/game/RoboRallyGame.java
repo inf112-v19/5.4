@@ -49,7 +49,7 @@ public class RoboRallyGame {
             this.currentPlayer = currentPlayer;
             prePlay(currentPlayer);
         }
-//        play();
+        play();
 //        postPlay();
     }
 
@@ -88,14 +88,14 @@ public class RoboRallyGame {
         while (playerDeck.size() > 0) {
             ProgramCard card = playerDeck.pop();
 //            currentPlayer.doAction(card.getCardType().getAction().getActionType());
-//        }
+        }
     }
 
     /**
      * Second phase in the game
      * Here the game will execute the cards the player picked, check death, flags and conveyor
      */
-    public void play() {
+    private void play() {
         // get all the cards for each register
         for (Player player : players) {
             ProgramCard card = player.getPlayerCard();
