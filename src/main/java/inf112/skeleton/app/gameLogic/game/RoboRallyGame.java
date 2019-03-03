@@ -12,7 +12,7 @@ import java.util.List;
 public class RoboRallyGame {
 
     // The GUI.
-    MainGameScreen guiScreen;
+    private MainGameScreen guiScreen;
 
     private int totalPlayers = 2;   // Total players in the game
     private Player[] players;       // Players in the game
@@ -37,10 +37,10 @@ public class RoboRallyGame {
     public void playGame(){
         deck.shuffleDeck();
         //TESTING
-        this.currentPlayer = players[0];
-//        for (Player currentPlayer : players) {
-//            prePlay(currentPlayer);
-//        }
+//        this.currentPlayer = players[0];
+        for (Player currentPlayer : players) {
+            prePlay(currentPlayer);
+        }
 //        //play();
 //        //postPlay();
     }
@@ -49,19 +49,27 @@ public class RoboRallyGame {
      * First phase in the game
      * Here the player will get to draw and pick cards
      */
-    public void prePlay() {
+    public void prePlay(Player currentPlayer) {
         int damageTokens = currentPlayer.getDamageTokens();
-        int cardsToDraw = 9;
-        cardsToDraw -= damageTokens;
+        int cardsToDraw = 9;            // All players starts with the opportunity to draw nine cards
+        cardsToDraw -= damageTokens;    // The player looses one card for each damage token
+
+        assignAllCards(currentPlayer, cardsToDraw);     // Deal cards to the player
 
         List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
-        System.out.println(cards + " hei jeg heter prePlay");
+//        System.out.println(cards + " hei jeg heter prePlay");
 
             // TODO take cards from deck and assign them to the player
-        this.currentPlayer =currentPlayer;
+//        this.currentPlayer = currentPlayer;
         this.guiScreen.pickCardPhase(cards);
 
         }
+
+    private void assignAllCards(Player currentPlayer, int cardsToDraw) {
+        for (int i = 0; i < cardsToDraw; i++) {
+            currentPlayer.addProgramCard(deck.getTopCard());
+        }
+    }
 
 
     /**
@@ -78,7 +86,7 @@ public class RoboRallyGame {
 
     /**
      * Atm just does actions.
-     * @param pickedProgramCards
+     * @param pickedProgramCards cards that's picked
      */
     public void postPick(List<ProgramCard> pickedProgramCards) {
         for(ProgramCard card: pickedProgramCards){
