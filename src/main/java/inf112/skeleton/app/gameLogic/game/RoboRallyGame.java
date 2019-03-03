@@ -95,12 +95,13 @@ public class RoboRallyGame {
      * Second phase in the game
      * Here the game will execute the cards the player picked, check death, flags and conveyor
      */
-    private void play() {
-
-//        for (Player player : players) {
-//            player.popCard();
-//            break;
-//        }
+    public void play() {
+        // get all the cards for each register
+        for (Player player : players) {
+            ProgramCard card = player.getPlayerCard();
+            int cardPriority = card.getPriority();
+            CardType cardType = card.getCardType();
+        }
     }
 
     private void postPlay() {
