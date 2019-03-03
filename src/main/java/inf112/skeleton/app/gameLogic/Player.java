@@ -21,8 +21,6 @@ public class Player implements IPlayer {
     private MovableRobot robot;
     private int playerDeckSize;
 
-
-
     /**
      * Constructs a player object with position, direction and health
      */
@@ -53,6 +51,11 @@ public class Player implements IPlayer {
 
     public boolean playerDeckIsEmpty() {
         return playerDeck.isEmpty();
+    }
+
+    public ProgramCard getPlayerCard() {
+        playerDeckSize--;
+        return playerDeck.pop();
     }
 
     /**
