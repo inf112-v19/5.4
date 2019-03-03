@@ -27,9 +27,25 @@ class RoboRallyGameTest {
     }
 
     @Test
-    void prePlayTest() {
+    void chooseCardsTest() {
         Player currentPlayer = game.players[0];
         assertEquals(0, currentPlayer.getPlayerDeckSize());
-        assertTrue(currentPlayer.isAlive());
+
+        game.chooseCards(currentPlayer, 9);
+        assertEquals(9, currentPlayer.getPlayerDeckSize());
+    }
+
+    @Test
+    void playerPickCardsTest() {
+        Player currentPlayer = game.players[1];
+        game.playerPickCards(currentPlayer);
+        game.chooseCards(currentPlayer, 9);
+        game.playerPickCards(currentPlayer);
+    }
+
+    @Test
+    void getCardsForEachRegister() {
+
+//        game.play();
     }
 }
