@@ -20,6 +20,7 @@ public class RoboRallyGame {
     private int startHealth = 10;
     public ProgramCardDeck deck;
     private Player currentPlayer;
+    private Direction startDirection = Direction.NORTH;
 
     public RoboRallyGame(MainGameScreen guiScreen) {
         this.guiScreen = guiScreen;
@@ -28,7 +29,7 @@ public class RoboRallyGame {
         players = new Player[totalPlayers];
         for (int i = 0; i < players.length; i++) {
             Position position = new Position(i, 0);
-            players[i] = new Player(position, Direction.NORTH, startHealth);
+            players[i] = new Player(position, startDirection, startHealth);
         }
     }
 
@@ -37,7 +38,7 @@ public class RoboRallyGame {
         players = new Player[totalPlayers];
         for (int i = 0; i < players.length; i++) {
             Position position = new Position(i, 0);
-            players[i] = new Player(position, Direction.NORTH, startHealth);
+            players[i] = new Player(position, startDirection, startHealth);
         }
     }
 
