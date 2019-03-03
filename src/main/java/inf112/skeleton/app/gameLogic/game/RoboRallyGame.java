@@ -5,6 +5,7 @@ import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.ProgramCardDeck;
+import inf112.skeleton.app.gameLogic.enums.CardType;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import java.util.List;
@@ -63,6 +64,7 @@ public class RoboRallyGame {
         cardsToDraw -= damageTokens;    // The player looses one card for each damage token
 
         chooseCards(currentPlayer, cardsToDraw);     // Deal cards to the player
+        playerPickCards(currentPlayer);
 
 
 //        List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
@@ -72,22 +74,22 @@ public class RoboRallyGame {
 
         }
 
-    private void chooseCards(Player currentPlayer, int cardsToDraw) {
+    public void chooseCards(Player currentPlayer, int cardsToDraw) {
 //        playerPickCards(currentPlayer);                 // Each player picks the cards and arrange them
         for (int i = 0; i < cardsToDraw; i++) {
             currentPlayer.addProgramCard(this.deck.getTopCard());
         }
-        playerPickCards(currentPlayer);
+//        playerPickCards(currentPlayer);
     }
 
-    // TODO each player have to pick the cards to play, and arrange them in the order the player wants to
-    private void playerPickCards(Player currentPlayer) {
+    // TODO fix Null Pointer Exception in .doAction()
+    public void playerPickCards(Player currentPlayer) {
         Stack<ProgramCard> playerDeck = currentPlayer.returnDeck();
-        for (ProgramCard card : playerDeck) {
-            currentPlayer.doAction(card.getCardType().getAction().getActionType());
+        while (playerDeck.size() > 0) {
+            ProgramCard card = playerDeck.pop();
+//            currentPlayer.doAction(card.getCardType().getAction().getActionType());
         }
     }
-
 
     /**
      * Second phase in the game
