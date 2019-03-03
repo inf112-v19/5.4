@@ -25,4 +25,11 @@ class RoboRallyGameTest {
         assertEquals(new Position(1,0), game.players[1].getPos());
         assertEquals(84, game.deck.numCardsLeftInDeck());
     }
+
+    @Test
+    void prePlayTest() {
+        Player currentPlayer = game.players[0];
+        assertEquals(0, currentPlayer.getPlayerDeckSize());
+        assertTrue(currentPlayer.isAlive());
+    }
 }
