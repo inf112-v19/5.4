@@ -36,36 +36,38 @@ public class RoboRallyGame {
         playGame();
     }
 
-//    public RoboRallyGame() {
-//        this.deck = new ProgramCardDeck();  // Deck of cards in the game
-//        players = new Player[totalPlayers];
-//        for (int i = 0; i < players.length; i++) {
-//            Position position = new Position(i, 0);
-//            players[i] = new Player(position, startDirection, startHealth);
-//        }
-//    }
-
     public void playGame(){
-        this.deck.shuffleDeck();
+        deck.shuffleDeck();
+        //TESTING
+//        this.currentPlayer = players[0];
         for (Player currentPlayer : players) {
             this.currentPlayer = currentPlayer;
+            prePlay(currentPlayer);
         }
-//        play();
-//        postPlay();
+//        //play();
+//        //postPlay();
     }
 
     /**
      * First phase in the game
      * Here the players will get to draw and pick cards
      */
-    public void prePlay() {
+    public void prePlay(Player currentPlayer) {
         int damageTokens = currentPlayer.getDamageTokens();
         int cardsToDraw = 9;            // All players starts with the opportunity to draw nine cards
         cardsToDraw -= damageTokens;    // The player looses one card for each damage token
 
+        assignAllCards(currentPlayer, cardsToDraw);     // Deal cards to the player
+
         // Pick cards, done in the GUI
         List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
         this.guiScreen.pickCardPhase(cards);
+    }
+
+    private void assignAllCards(Player currentPlayer, int cardsToDraw) {
+        for (int i = 0; i < cardsToDraw; i++) {
+            currentPlayer.addProgramCard(deck.getTopCard());
+        }
     }
 
     /**
