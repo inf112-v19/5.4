@@ -10,6 +10,7 @@ import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Stack;
 
 public class RoboRallyGame {
 
@@ -37,36 +38,45 @@ public class RoboRallyGame {
     }
 
     public void playGame(){
-        deck.shuffleDeck();
-        //TESTING
-//        this.currentPlayer = players[0];
+        this.deck.shuffleDeck();
         for (Player currentPlayer : players) {
             this.currentPlayer = currentPlayer;
             prePlay(currentPlayer);
         }
-//        //play();
-//        //postPlay();
+//        play();
+//        postPlay();
     }
 
     /**
      * First phase in the game
      * Here the players will get to draw and pick cards
+     * @param currentPlayer The player in the game
      */
-    public void prePlay(Player currentPlayer) {
+    private void prePlay(Player currentPlayer) {
         int damageTokens = currentPlayer.getDamageTokens();
         int cardsToDraw = 9;            // All players starts with the opportunity to draw nine cards
         cardsToDraw -= damageTokens;    // The player looses one card for each damage token
 
-        assignAllCards(currentPlayer, cardsToDraw);     // Deal cards to the player
+        chooseCards(currentPlayer, cardsToDraw);     // Deal cards to the player
 
         // Pick cards, done in the GUI
         List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
         this.guiScreen.pickCardPhase(cards);
     }
 
-    private void assignAllCards(Player currentPlayer, int cardsToDraw) {
+    private void chooseCards(Player currentPlayer, int cardsToDraw) {
+//        playerPickCards(currentPlayer);                 // Each player picks the cards and arrange them
         for (int i = 0; i < cardsToDraw; i++) {
-            currentPlayer.addProgramCard(deck.getTopCard());
+            currentPlayer.addProgramCard(this.deck.getTopCard());
+        }
+        playerPickCards(currentPlayer);
+    }
+
+    // TODO each player have to pick the cards to play, and arrange them in the order the player wants to
+    private void playerPickCards(Player currentPlayer) {
+        Stack<ProgramCard> playerDeck = currentPlayer.returnDeck();
+        for (ProgramCard card : playerDeck) {
+            currentPlayer.doAction(card.getCardType().getAction().getActionType());
         }
     }
 
