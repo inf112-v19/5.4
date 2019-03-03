@@ -70,7 +70,7 @@ public class RoboRallyGame {
         for (int i = 0; i < cardsToDraw; i++) {
             currentPlayer.addProgramCard(this.deck.getTopCard());
         }
-//        playerPickCards(currentPlayer);
+        playerPickCards(currentPlayer);
     }
 
     // TODO fix Null Pointer Exception in .doAction()
@@ -79,7 +79,7 @@ public class RoboRallyGame {
         while (playerDeck.size() > 0) {
             ProgramCard card = playerDeck.pop();
 //            currentPlayer.doAction(card.getCardType().getAction().getActionType());
-        }
+//        }
     }
 
     /**
