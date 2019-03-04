@@ -1,9 +1,5 @@
 package inf112.skeleton.app.gameLogic.game;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import inf112.skeleton.app.GUI.MainGameScreen;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
@@ -63,7 +59,6 @@ public class RoboRallyGame {
 
             // TODO take cards from deck and assign them to the player
         this.currentPlayer =currentPlayer;
-        Button donebutton;
         this.guiScreen.pickCardPhase(cards);
 
         }
@@ -89,7 +84,7 @@ public class RoboRallyGame {
         for(ProgramCard card: pickedProgramCards){
             System.out.println("Inni postpick gang");
             currentPlayer.setRobot(guiScreen.gimmeRobotTest());
-            currentPlayer.doAction(card.getCardType().getActionType().getActionTypeType());
+            currentPlayer.doAction(card.getCardType().getAction().getActionType());
         }
     }
 }

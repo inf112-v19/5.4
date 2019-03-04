@@ -1,14 +1,14 @@
 package inf112.skeleton.app.gameLogic.board.activeCells;
 
-import inf112.skeleton.app.gameLogic.enums.ActionType;
+import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.board.IActiveCell ;
 
 public class Gears implements IActiveCell {
 
-    private ActionType actionType;
+    private Action action;
 
-    public Gears(ActionType rotation){
-        this.actionType = rotation;
+    public Gears(Action rotation){
+        this.action = rotation;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class Gears implements IActiveCell {
     }
 
     @Override
-    public ActionType getActionType() {
-        return actionType;
+    public Action getAction() {
+        return action;
     }
 }

@@ -3,7 +3,6 @@ package inf112.skeleton.app.gameLogic;
 import inf112.skeleton.app.GUI.player.MovableRobot;
 import inf112.skeleton.app.gameLogic.enums.*;
 import inf112.skeleton.app.GUI.player.Position;
-import inf112.skeleton.app.gameLogic.game.Action;
 
 import java.util.List;
 import java.util.Stack;
@@ -46,7 +45,7 @@ public class Player implements IPlayer {
      * TEST VERSION NOT FINAL
      * @param att
      */
-    public void doAction(ActionTypeType att){
+    public void doAction(ActionType att){
         switch (att){
             case MOVE:
                 this.move(1);
@@ -78,7 +77,7 @@ public class Player implements IPlayer {
                 case WEST: this.pos = this.pos.east(); break;
             }
         }
-        robot.doAction(ActionTypeType.MOVE, this.dir);
+        robot.doAction(ActionType.MOVE, this.dir);
     }
 
     /**
@@ -138,7 +137,7 @@ public class Player implements IPlayer {
         else {
             throw new IllegalArgumentException("Not a valid rotation!");
         }
-        robot.doAction(ActionTypeType.ROTATE, dir);
+        robot.doAction(ActionType.ROTATE, dir);
     }
 
     /**
