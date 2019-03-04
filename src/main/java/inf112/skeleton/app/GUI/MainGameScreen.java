@@ -30,7 +30,6 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import inf112.skeleton.app.GUI.board.Board;
 import inf112.skeleton.app.GUI.board.Stats;
 import inf112.skeleton.app.GUI.pieces.*;
-import inf112.skeleton.app.GUI.cards.Deck;
 import inf112.skeleton.app.GUI.player.MovableRobot;
 import inf112.skeleton.app.gameLogic.board.activeCells.Conveyor;
 import inf112.skeleton.app.gameLogic.board.pieces.Wall;

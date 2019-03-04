@@ -42,10 +42,6 @@ public class Conveyor implements IActiveCell {
     }
 
 
-    public String getAction() {
-        return null;
-    }
-
     @Override
     public Action getAction() {
         return null;

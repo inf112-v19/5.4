@@ -10,11 +10,7 @@ public enum Action {
     MOVE_BACK("MOVE BACK", ActionType.MOVE, -1),
     ROTATE_L("TURN LEFT", ActionType.ROTATE, Rotation.L),
     ROTATE_R("TURN RIGHT", ActionType.ROTATE, Rotation.R),
-    ROTATE_U("U TURN", ActionType.ROTATE, Rotation.U),
-    PUSH_NORTH("PUSH NORTH", ActionType.PUSH, Direction.NORTH),
-    PUSH_SOUTH("PUSH SOUTH", ActionType.PUSH, Direction.SOUTH),
-    PUSH_EAST("PUSH EAST", ActionType.PUSH, Direction.EAST),
-    PUSH_WEST("PUSH WEST", ActionType.PUSH, Direction.WEST);
+    ROTATE_U("U TURN", ActionType.ROTATE, Rotation.U);
 
     private String description;
     private ActionType actionType;
