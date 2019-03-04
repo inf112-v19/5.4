@@ -109,6 +109,7 @@ public class MovableRobot extends Robot {
                );
                RotateByAction rotateByAction = new RotateByAction();
                rotateByAction.setAmount(90f);
+               rotateByAction.setDuration(0.3f);
                MovableRobot.this.addAction(rotateByAction);
                break;
 
