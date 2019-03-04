@@ -64,7 +64,7 @@ public class MainGameScreen implements Screen {
 		addPiecesTest();
 		Gdx.input.setInputProcessor(stage);
 
-//		roboRallyGame.prePlay(); // Commented this out, because playGame() calls this function with the right arguments
+		roboRallyGame.prePlay();
 	}
 
 
