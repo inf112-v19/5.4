@@ -25,21 +25,4 @@ class RoboRallyGameTest {
         assertEquals(new Position(1,0), game.players[1].getPos());
         assertEquals(84, game.deck.numCardsLeftInDeck());
     }
-
-    @Test
-    void chooseCardsTest() {
-        Player currentPlayer = game.players[0];
-        assertEquals(0, currentPlayer.getPlayerDeckSize());
-
-        game.chooseCards(currentPlayer, 9);
-        assertEquals(9, currentPlayer.getPlayerDeckSize());
-    }
-
-    @Test
-    void playerPickCardsTest() {
-        Player currentPlayer = game.players[1];
-        game.playerPickCards(currentPlayer);
-        game.chooseCards(currentPlayer, 9);
-        game.playerPickCards(currentPlayer);
-    }
 }

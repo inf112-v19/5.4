@@ -10,7 +10,6 @@ import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Stack;
 
 public class RoboRallyGame {
 
@@ -37,11 +36,19 @@ public class RoboRallyGame {
         playGame();
     }
 
+//    public RoboRallyGame() {
+//        this.deck = new ProgramCardDeck();  // Deck of cards in the game
+//        players = new Player[totalPlayers];
+//        for (int i = 0; i < players.length; i++) {
+//            Position position = new Position(i, 0);
+//            players[i] = new Player(position, startDirection, startHealth);
+//        }
+//    }
+
     public void playGame(){
         this.deck.shuffleDeck();
         for (Player currentPlayer : players) {
             this.currentPlayer = currentPlayer;
-            prePlay(currentPlayer);
         }
         play();
 //        postPlay();
@@ -50,36 +57,15 @@ public class RoboRallyGame {
     /**
      * First phase in the game
      * Here the players will get to draw and pick cards
-     * @param currentPlayer The player in the game
      */
-    private void prePlay(Player currentPlayer) {
+    public void prePlay() {
         int damageTokens = currentPlayer.getDamageTokens();
         int cardsToDraw = 9;            // All players starts with the opportunity to draw nine cards
         cardsToDraw -= damageTokens;    // The player looses one card for each damage token
 
-        chooseCards(currentPlayer, cardsToDraw);     // Deal cards to the player
-        playerPickCards(currentPlayer);
-
         // Pick cards, done in the GUI
         List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
         this.guiScreen.pickCardPhase(cards);
-    }
-
-    public void chooseCards(Player currentPlayer, int cardsToDraw) {
-//        playerPickCards(currentPlayer);                 // Each player picks the cards and arrange them
-        for (int i = 0; i < cardsToDraw; i++) {
-            currentPlayer.addProgramCard(this.deck.getTopCard());
-        }
-        playerPickCards(currentPlayer);
-    }
-
-    // TODO fix Null Pointer Exception in .doAction()
-    public void playerPickCards(Player currentPlayer) {
-        Stack<ProgramCard> playerDeck = currentPlayer.returnDeck();
-        while (playerDeck.size() > 0) {
-            ProgramCard card = playerDeck.pop();
-//            currentPlayer.doAction(card.getCardType().getAction().getActionType());
-        }
     }
 
     /**
@@ -95,6 +81,7 @@ public class RoboRallyGame {
             CardType cardType = card.getCardType();
             this.registerCards.put(cardType, cardPriority);
         }
+
         while (this.registerCards.size() > 0) {
             int highestPriority = 0;
             for (int i = 0; i < registerCards.size(); i++) {
