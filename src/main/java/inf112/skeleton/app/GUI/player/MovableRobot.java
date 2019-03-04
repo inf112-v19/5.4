@@ -21,7 +21,9 @@ public class MovableRobot extends Robot {
 
 
    public MovableRobot(int robotnr){
+
        super(robotnr);
+//       this.setScale(0.8f);
        setBounds(getX(), getY(), getWidth(), getHeight());
 
        addListener(new DragListener() {

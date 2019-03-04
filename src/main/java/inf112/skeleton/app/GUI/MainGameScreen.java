@@ -24,6 +24,18 @@ import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.game.RoboRallyGame;
 
 import java.util.List;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import inf112.skeleton.app.GUI.board.Board;
+import inf112.skeleton.app.GUI.board.Stats;
+import inf112.skeleton.app.GUI.pieces.*;
+import inf112.skeleton.app.GUI.cards.Deck;
+import inf112.skeleton.app.GUI.player.MovableRobot;
+import inf112.skeleton.app.gameLogic.board.activeCells.Conveyor;
+import inf112.skeleton.app.gameLogic.board.pieces.Wall;
+import inf112.skeleton.app.gameLogic.enums.Direction;
+import inf112.skeleton.app.gameLogic.enums.Rotation;
 
 public class MainGameScreen implements Screen {
 	private Stage stage;
@@ -142,14 +154,26 @@ public class MainGameScreen implements Screen {
 		board.addPiece(2,3, new Laser());
 		board.addPiece(4,3, new Laser());
 		board.addPiece(5,3, new Laser());
-		MovableRobot hans = new MovableRobot(1);
-		this.overallHans = hans;
-		board.addPiece(5,5, hans);
+		
 		board.addPiece(1, 2, new GUIWall(new Wall(Direction.WEST)));
 		board.addPiece(1, 3, new GUIWall(new Wall(Direction.NORTH)));
 		board.addPiece(1, 4, new GUIWall(new Wall(Direction.EAST)));
 		board.addPiece(1, 5, new GUIWall(new Wall(Direction.SOUTH)));
+		board.addPiece(0,0, new GUIHole());
+		board.addPiece(1,0, new GUIHole());
+		board.addPiece(6,2, new GUIHole());
+		board.addPiece(8, 3, new GUIConveyor(new Conveyor(Direction.NORTH)));
+		board.addPiece(8, 4, new GUIConveyor(new Conveyor(Direction.EAST)));
+		board.addPiece(8, 5, new GUIConveyor(new Conveyor(Direction.SOUTH)));
+		board.addPiece(8, 6, new GUIConveyor(new Conveyor(Direction.WEST)));
+		board.addPiece(7, 6, new GUIFlag());
+		board.addPiece(5, 7, new GUIRepair());
+		board.addPiece(6, 8, new GUIGear(Rotation.R));
+		board.addPiece(8, 9, new GUIGear(Rotation.L));
 
+		MovableRobot hans = new MovableRobot(1);
+		this.overallHans = hans;
+		board.addPiece(5,5, hans);
 
 		// BOARD CREATION AND SETUP
 
