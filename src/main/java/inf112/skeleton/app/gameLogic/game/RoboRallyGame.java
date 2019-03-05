@@ -63,9 +63,6 @@ public class RoboRallyGame {
         int cardsToDraw = 9;            // All players starts with the opportunity to draw nine cards
         cardsToDraw -= damageTokens;    // The player looses one card for each damage token
 
-        // Pick cards, done in the GUI
-        List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
-        this.guiScreen.pickCardPhase(cards);
     }
 
     /**
