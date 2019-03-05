@@ -22,7 +22,6 @@ public class RoboRallyGame {
     public ProgramCardDeck deck;
     private Player currentPlayer;
     private Direction startDirection = Direction.NORTH;
-    private HashMap<CardType, Integer> registerCards;   // cards to be used in the register
 
     public RoboRallyGame(MainGameScreen guiScreen) {
         this.guiScreen = guiScreen;
@@ -73,23 +72,9 @@ public class RoboRallyGame {
      * Here the game will execute the cards the player picked, check death, flags and conveyor
      */
     public void play() {
-        // get all the cards for each register
-        this.registerCards = new HashMap<>();
-        for (Player player : players) {
-            ProgramCard card = player.getPlayerCard();
-            int cardPriority = card.getPriority();      // Each card has a priority, the higher value, more priority
-            CardType cardType = card.getCardType();
-            this.registerCards.put(cardType, cardPriority);
-        }
-        while (this.registerCards.size() > 0) {
-            int highestPriority = 0;
-            for (int i = 0; i < registerCards.size(); i++) {
-                if (registerCards.get(i) > highestPriority) highestPriority = registerCards.get(i);
-            }
+        registerCards = getCardForRegister();   // get all the cards for the current reigster
+        checkMoves(currentPlayer, );
 
-        }
-
-        this.registerCards.clear();     // clear the list, make it ready for next register.
     }
 
     private void postPlay() {
@@ -106,5 +91,47 @@ public class RoboRallyGame {
             currentPlayer.setRobot(guiScreen.gimmeRobotTest());
             currentPlayer.doAction(card.getCardType().getAction().getActionType());
         }
+    }
+
+    public HashMap<Integer, CardType> getCardForRegister() {
+        HashMap<Integer, CardType> registerCards = new HashMap<>();   // cards to be used in the register
+
+        registerCards = new HashMap<>();
+        for (Player player : players) {
+            ProgramCard card = player.getPlayerCard();
+            int cardPriority = card.getPriority();      // Each card has a priority, the higher value, more priority
+            CardType cardType = card.getCardType();
+            registerCards.put(cardPriority, cardType);
+        }
+        return registerCards;
+    }
+    // TODO check if player can move to the next position
+    private void checkMoves(Player movingPlayer, int movingSteps) {
+        if (movingPlayer.isAlive()) {
+            movingPlayer.move(movingSteps);
+        }
+    }
+
+    private boolean checkIfPlayerCanMove(Player movingPlayer, Direction directionToMove) {
+        if (movingPlayer.isAlive()) {
+            Position playerPosition = movingPlayer.getPos();
+
+            int playerPositionX = playerPosition.getX();
+            int playerPositionY = playerPosition.getY();
+
+            if (directionToMove == Direction.NORTH) {
+                playerPositionY += 1;
+            }
+            if (directionToMove == Direction.SOUTH) {
+                playerPositionY -= 1;
+            }
+            if (directionToMove == Direction.WEST) {
+                playerPositionX -= 1;
+            }
+            if (directionToMove == Direction.EAST) {
+                playerPositionX += 1;
+            }
+        }
+        return false;
     }
 }
