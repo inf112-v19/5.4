@@ -1,7 +1,10 @@
 package inf112.skeleton.app.gameLogic.board.activeCells;
 
+import inf112.skeleton.app.gameLogic.board.IPiece;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.board.IActiveCell ;
+
+import java.util.List;
 
 public class Gears implements IActiveCell {
 
@@ -29,5 +32,9 @@ public class Gears implements IActiveCell {
     @Override
     public Action getAction() {
         return action;
+    }
+
+    public List<IPiece> getPiecesInCell() {
+        return null;
     }
 }

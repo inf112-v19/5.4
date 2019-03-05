@@ -1,8 +1,11 @@
 package inf112.skeleton.app.gameLogic.board.activeCells;
 
+import inf112.skeleton.app.gameLogic.board.IPiece;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.board.IActiveCell;
+
+import java.util.List;
 
 public class Conveyor implements IActiveCell {
 
@@ -43,6 +46,9 @@ public class Conveyor implements IActiveCell {
 
     @Override
     public Action getAction() {
+        return null;
+    }
+    public List<IPiece> getPiecesInCell() {
         return null;
     }
 }

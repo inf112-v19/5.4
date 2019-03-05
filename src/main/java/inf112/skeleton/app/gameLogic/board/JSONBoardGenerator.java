@@ -27,10 +27,10 @@ public class JSONBoardGenerator {
             JSONObject jsonBoardFile = (JSONObject) boardFile;
             int jsonSize = jsonBoardFile.size();
             int jsonSide = jsonSize / jsonSize;
-            jsonBoardPieceList2 = new ICell[jsonSide][jsonSide];
+            jsonBoardPieceList2 = new ICell[10][10];
             System.out.println(jsonBoardFile);
-            for (int x = 0; x <= jsonSide; x++) {
-                for (int y = 0; y <= jsonSide; y++) {
+            for (int x = 0; x <= 9; x++) {
+                for (int y = 0; y <= 9; y++) {
 
                     String intX = Integer.toString(x);
                     String intY = Integer.toString(y);
@@ -87,11 +87,11 @@ public class JSONBoardGenerator {
                                 break;
                             case "FlagTwo":
                                 System.out.println("Making flag number 2");
-                                new Flag(2);
+                                tempCell.addPiece(new Flag(2));
                                 break;
                             case "FlagThree":
                                 System.out.println("Making flag number 3");
-                                new Flag(3);
+                                tempCell.addPiece(new Flag(3));
                                 break;
                         }
                     }
