@@ -1,11 +1,5 @@
 package inf112.skeleton.app.gameLogic.board;
 
-import inf112.skeleton.app.gameLogic.enums.Direction;
-import inf112.skeleton.app.gameLogic.board.activeCells.Conveyor;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class Board implements IBoard {
 
     String boardName;

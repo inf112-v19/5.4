@@ -1,4 +1,4 @@
-package inf112.skeleton.app.gameLogic.board.activeCells;
+package inf112.skeleton.app.gameLogic.board.pieces;
 
 import inf112.skeleton.app.gameLogic.board.IPiece;
 import inf112.skeleton.app.gameLogic.enums.Action;
@@ -7,7 +7,7 @@ import inf112.skeleton.app.gameLogic.board.IActiveCell;
 
 import java.util.List;
 
-public class Conveyor implements IActiveCell {
+public class Conveyor implements IPiece {
 
     private Direction direction;
     private int speed = 1;
@@ -21,7 +21,7 @@ public class Conveyor implements IActiveCell {
     }
 
     @Override
-    public IActiveCell getType() {
+    public IPiece getType() {
         return null;
     }
 
@@ -44,11 +44,7 @@ public class Conveyor implements IActiveCell {
         return direction;
     }
 
-    @Override
     public Action getAction() {
-        return null;
-    }
-    public List<IPiece> getPiecesInCell() {
         return null;
     }
 }
