@@ -13,7 +13,7 @@ public class GUIGear extends Piece{
                 sprite = new Sprite(new Texture(Gdx.files.internal("board/left_gear.png")));
                 break;
             case R:
-                sprite = new Sprite(new Texture(Gdx.files.internal("board/right_gear.png")));
+                sprite = new Sprite(new Texture(Gdx.files.internal("board/right_gea.png")));
 
         }
     }
