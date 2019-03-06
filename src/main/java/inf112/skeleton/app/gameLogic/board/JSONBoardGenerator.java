@@ -114,6 +114,54 @@ public class JSONBoardGenerator {
                                 tempCell.addPiece(new Gears(Action.ROTATE_L));
                                 break;
 
+                            case "LaserShooterNorth1":
+                                System.out.println("Making northfacing lasershooter");
+                                tempCell.addPiece(new LaserShooter(Direction.NORTH, 1));
+
+                            case "LaserShooterNorth2":
+                                System.out.println("Making northfacing lasershooter");
+                                tempCell.addPiece(new LaserShooter(Direction.NORTH, 2));
+
+                            case "LaserShooterNorth3":
+                                System.out.println("Making northfacing lasershooter");
+                                tempCell.addPiece(new LaserShooter(Direction.NORTH, 3));
+
+                            case "LaserShooterEast1":
+                                System.out.println("Making northfacing lasershooter");
+                                tempCell.addPiece(new LaserShooter(Direction.EAST, 1));
+
+                            case "LaserShooterEast2":
+                                System.out.println("Making northfacing lasershooter");
+                                tempCell.addPiece(new LaserShooter(Direction.EAST, 2));
+
+                            case "LaserShooterEast3":
+                                System.out.println("Making northfacing lasershooter");
+                                tempCell.addPiece(new LaserShooter(Direction.EAST, 3));
+
+                            case "LaserShooterSouth1":
+                                System.out.println("Making northfacing lasershooter");
+                                tempCell.addPiece(new LaserShooter(Direction.SOUTH, 1));
+
+                            case "LaserShooterSouth2":
+                                System.out.println("Making northfacing lasershooter");
+                                tempCell.addPiece(new LaserShooter(Direction.SOUTH, 2));
+
+                            case "LaserShooterSouth3":
+                                System.out.println("Making northfacing lasershooter");
+                                tempCell.addPiece(new LaserShooter(Direction.SOUTH, 3));
+
+                            case "LaserShooterWest1":
+                                System.out.println("Making northfacing lasershooter");
+                                tempCell.addPiece(new LaserShooter(Direction.WEST, 1));
+
+                            case "LaserShooterWest2":
+                                System.out.println("Making northfacing lasershooter");
+                                tempCell.addPiece(new LaserShooter(Direction.WEST, 2));
+
+                            case "LaserShooterWest3":
+                                System.out.println("Making northfacing lasershooter");
+                                tempCell.addPiece(new LaserShooter(Direction.WEST, 3));
+
                         }
                     }
                 }
