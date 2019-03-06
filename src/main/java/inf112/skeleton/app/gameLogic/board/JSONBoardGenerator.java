@@ -20,18 +20,18 @@ public class JSONBoardGenerator {
 
     public ICell[][] generateJsonBoard(String filepath) {
 
-        ICell[][] jsonBoardPieceList2 = null;
+        ICell[][] jsonBoardPieceList = null;
 
         try {
             Object boardFile = parser.parse(new FileReader(filepath));
             JSONObject jsonBoardFile = (JSONObject) boardFile;
             int jsonSize = jsonBoardFile.size();
             int jsonSide = jsonSize / jsonSize;
-            jsonBoardPieceList2 = new ICell[10][10];
+            jsonBoardPieceList = new ICell[10][10];
             System.out.println(jsonBoardFile);
             for (int x = 0; x <= 9; x++) {
                 for (int y = 0; y <= 9; y++) {
-
+                    Cell tempCell = new Cell();
                     String intX = Integer.toString(x);
                     String intY = Integer.toString(y);
 
@@ -39,8 +39,8 @@ public class JSONBoardGenerator {
                     JSONArray yCord = (JSONArray) xCord.get(intY);
                     Iterator<String> iterator = yCord.iterator();
                     while (iterator.hasNext()) {
-                        Cell tempCell = new Cell();
-                        jsonBoardPieceList2[x][y] = tempCell;
+
+                        jsonBoardPieceList[x][y] = tempCell;
                         String jsonIterator = iterator.next();
                         System.out.println(jsonIterator);
                         switch (jsonIterator) {
@@ -104,6 +104,6 @@ public class JSONBoardGenerator {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return jsonBoardPieceList2;
+        return jsonBoardPieceList;
     }
 }
