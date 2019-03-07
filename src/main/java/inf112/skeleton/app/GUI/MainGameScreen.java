@@ -3,6 +3,7 @@ package inf112.skeleton.app.GUI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -27,7 +28,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import inf112.skeleton.app.GUI.pieces.*;
 import inf112.skeleton.app.GUI.player.MovableRobot;
-import inf112.skeleton.app.gameLogic.board.activeCells.Conveyor;
 import inf112.skeleton.app.gameLogic.board.pieces.Wall;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.board.pieces.Conveyor;
@@ -50,7 +50,7 @@ public class MainGameScreen implements Screen {
 
 	public MainGameScreen(){
 
-		//playMusic();
+		playMusic();
 
 		// Main stage
 		camera = new OrthographicCamera();
@@ -61,6 +61,7 @@ public class MainGameScreen implements Screen {
 		// Main skin
 		skin = new Skin(Gdx.files.internal("rusty-robot/skin/rusty-robot-ui.json"));
 		skin.getFont("font").getData().setScale(1.6f,1.6f);
+		skin.getFont("font").setColor(Color.BLUE);
 
 		this.roboRallyGame = new RoboRallyGame(this);
 		roboRallyGame.playGame();

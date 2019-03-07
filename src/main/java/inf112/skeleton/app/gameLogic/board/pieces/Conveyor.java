@@ -44,8 +44,6 @@ public class Conveyor implements IPiece {
         return direction;
     }
 
-
-    @Override
     public Action getAction() {
         return null;
     }
