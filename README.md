@@ -12,10 +12,6 @@
 
 ----
 
-## General information
-
-See our Wiki for more information about the game!
-
 ## Links
 
 
