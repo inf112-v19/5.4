@@ -18,7 +18,6 @@ import inf112.skeleton.app.GUI.pieces.Robot;
 import inf112.skeleton.app.GUI.pieces.GUIWall;
 import inf112.skeleton.app.GUI.player.MovableRobot;
 import inf112.skeleton.app.gameLogic.ProgramCard;
-import inf112.skeleton.app.gameLogic.ProgramCardDeck;
 import inf112.skeleton.app.gameLogic.board.pieces.Wall;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.game.RoboRallyGame;
@@ -26,14 +25,12 @@ import inf112.skeleton.app.gameLogic.game.RoboRallyGame;
 import java.util.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import inf112.skeleton.app.GUI.board.Board;
-import inf112.skeleton.app.GUI.board.Stats;
 import inf112.skeleton.app.GUI.pieces.*;
 import inf112.skeleton.app.GUI.player.MovableRobot;
 import inf112.skeleton.app.gameLogic.board.activeCells.Conveyor;
 import inf112.skeleton.app.gameLogic.board.pieces.Wall;
 import inf112.skeleton.app.gameLogic.enums.Direction;
+import inf112.skeleton.app.gameLogic.board.pieces.Conveyor;
 import inf112.skeleton.app.gameLogic.enums.Rotation;
 
 public class MainGameScreen implements Screen {
@@ -132,7 +129,6 @@ public class MainGameScreen implements Screen {
 
 	public void addPiecesTest(){
 
-
 		// Main table
 		Table game = new Table();
 		Table topBar = new Table();
@@ -154,6 +150,7 @@ public class MainGameScreen implements Screen {
 		board.addPiece(4,3, new Laser());
 		board.addPiece(5,3, new Laser());
 		
+
 		board.addPiece(1, 2, new GUIWall(new Wall(Direction.WEST)));
 		board.addPiece(1, 3, new GUIWall(new Wall(Direction.NORTH)));
 		board.addPiece(1, 4, new GUIWall(new Wall(Direction.EAST)));
@@ -174,9 +171,10 @@ public class MainGameScreen implements Screen {
 		this.overallHans = hans;
 		board.addPiece(5,5, hans);
 
+
+
+
 		// BOARD CREATION AND SETUP
-
-
 
 		Stats stats = new Stats(skin);
 

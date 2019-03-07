@@ -2,11 +2,12 @@ package inf112.skeleton.app.gameLogic;
 
 
 import inf112.skeleton.app.GUI.player.Position;
+import inf112.skeleton.app.gameLogic.board.IPiece;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.enums.Rotation;
 
 
-interface IPlayer {
+interface IPlayer extends IPiece {
 
     /**
      * Add programCards to the player

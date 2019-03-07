@@ -3,7 +3,7 @@ package inf112.skeleton.app.GUI.pieces;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import inf112.skeleton.app.gameLogic.board.activeCells.Conveyor;
+import inf112.skeleton.app.gameLogic.board.pieces.Conveyor;
 
 public class GUIConveyor extends Piece {
 
