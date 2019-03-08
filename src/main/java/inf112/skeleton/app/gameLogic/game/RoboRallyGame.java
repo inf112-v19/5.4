@@ -72,6 +72,7 @@ public class RoboRallyGame {
      * Second phase in the game
      * Here the game will execute the cards the player picked, check death, flags and conveyor
      */
+
     public void play() {
         // get all the cards for each register
         this.registerCards = new HashMap<>();
