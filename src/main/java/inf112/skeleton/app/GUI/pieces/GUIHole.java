@@ -7,6 +7,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 public class GUIHole extends Piece {
 
     public GUIHole() {
-        sprite = new Sprite(new Texture(Gdx.files.internal("board/hole_tile.png")));
+        sprite = new Sprite(new Texture(Gdx.files.internal("board/hole.png")));
     }
 }
