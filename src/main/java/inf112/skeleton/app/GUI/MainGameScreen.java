@@ -3,6 +3,7 @@ package inf112.skeleton.app.GUI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -26,7 +27,10 @@ import java.util.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import inf112.skeleton.app.GUI.pieces.*;
-import inf112.skeleton.app.gameLogic.board.activeCells.Conveyor;
+import inf112.skeleton.app.GUI.player.MovableRobot;
+import inf112.skeleton.app.gameLogic.board.pieces.Wall;
+import inf112.skeleton.app.gameLogic.enums.Direction;
+import inf112.skeleton.app.gameLogic.board.pieces.Conveyor;
 import inf112.skeleton.app.gameLogic.enums.Rotation;
 
 public class MainGameScreen implements Screen {
@@ -46,7 +50,7 @@ public class MainGameScreen implements Screen {
 
 	public MainGameScreen(){
 
-		//playMusic();
+		playMusic();
 
 		// Main stage
 		camera = new OrthographicCamera();
@@ -57,6 +61,7 @@ public class MainGameScreen implements Screen {
 		// Main skin
 		skin = new Skin(Gdx.files.internal("rusty-robot/skin/rusty-robot-ui.json"));
 		skin.getFont("font").getData().setScale(1.6f,1.6f);
+		skin.getFont("font").setColor(Color.BLUE);
 
 		this.roboRallyGame = new RoboRallyGame(this);
 		roboRallyGame.playGame();
@@ -145,6 +150,7 @@ public class MainGameScreen implements Screen {
 		board.addPiece(2,3, new Laser());
 		board.addPiece(4,3, new Laser());
 		board.addPiece(5,3, new Laser());
+		
 
 		board.addPiece(1, 2, new GUIWall(new Wall(Direction.WEST)));
 		board.addPiece(1, 3, new GUIWall(new Wall(Direction.NORTH)));

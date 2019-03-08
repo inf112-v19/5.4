@@ -1,11 +1,5 @@
 package inf112.skeleton.app.gameLogic.board;
 
-import inf112.skeleton.app.gameLogic.enums.Direction;
-import inf112.skeleton.app.gameLogic.board.activeCells.Conveyor;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class Board implements IBoard {
 
     String boardName;
@@ -22,10 +16,13 @@ public class Board implements IBoard {
 
     }
 
+    /**
+     * Method for displaying the cells in the Board
+     */
     public void displayBoard() {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
-                System.out.print(" | " + brett[i][j]);
+                System.out.print(" | " + board[i][j]);
             }
             System.out.print(" | ");
             System.out.println();
@@ -43,6 +40,9 @@ public class Board implements IBoard {
     }
 
     @Override
+    /**
+     * Method for retrieving a Cell from a specific coordinate on the board
+     */
     public ICell getCellAt(int x, int y) {
         return board[x][y];
     }

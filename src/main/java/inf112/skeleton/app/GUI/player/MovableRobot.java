@@ -72,14 +72,11 @@ public class MovableRobot extends Robot {
                MoveByAction moveAction = new MoveByAction();
                moveAction.setDuration(0.3f);
                moveAction.setInterpolation(Interpolation.pow3);
-               System.out.println("YEEEE");
 
 
                switch(faceDir) {
                    case NORTH:
-                       System.out.println("WWWAHASHDABSD");
                        moveAction.setAmount(0f, getHeight());
-
                        break;
                    case EAST:
                        moveAction.setAmount(getWidth(), 0f);
@@ -104,10 +101,10 @@ public class MovableRobot extends Robot {
                break;
            case ROTATE:
 
-               System.out.println("rotating boys"
-               );
+               System.out.println("Robot rotating");
                RotateByAction rotateByAction = new RotateByAction();
                rotateByAction.setAmount(90f);
+               rotateByAction.setDuration(0.3f);
                MovableRobot.this.addAction(rotateByAction);
                break;
 

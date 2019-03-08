@@ -55,7 +55,6 @@ public class RoboRallyGame {
         cardsToDraw -= damageTokens;
 
         List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
-        System.out.println(cards + " hei jeg heter prePlay");
 
             // TODO take cards from deck and assign them to the player
         this.currentPlayer =currentPlayer;
@@ -82,7 +81,7 @@ public class RoboRallyGame {
      */
     public void postPick(List<ProgramCard> pickedProgramCards) {
         for(ProgramCard card: pickedProgramCards){
-            System.out.println("Inni postpick gang");
+
             currentPlayer.setRobot(guiScreen.gimmeRobotTest());
             currentPlayer.doAction(card.getCardType().getAction().getActionType());
         }
