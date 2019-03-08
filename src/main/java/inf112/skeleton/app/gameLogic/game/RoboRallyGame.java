@@ -50,7 +50,7 @@ public class RoboRallyGame {
         for (Player currentPlayer : players) {
             this.currentPlayer = currentPlayer;
         }
-        play();
+//        play();
 //        postPlay();
     }
 
@@ -63,6 +63,9 @@ public class RoboRallyGame {
         int cardsToDraw = 9;            // All players starts with the opportunity to draw nine cards
         cardsToDraw -= damageTokens;    // The player looses one card for each damage token
 
+        // Pick cards, done in the GUI
+        List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
+        this.guiScreen.pickCardPhase(cards);
     }
 
     /**
@@ -79,7 +82,6 @@ public class RoboRallyGame {
             CardType cardType = card.getCardType();
             this.registerCards.put(cardType, cardPriority);
         }
-
         while (this.registerCards.size() > 0) {
             int highestPriority = 0;
             for (int i = 0; i < registerCards.size(); i++) {
