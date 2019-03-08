@@ -3,6 +3,7 @@ package inf112.skeleton.app.gameLogic;
 import inf112.skeleton.app.GUI.player.MovableRobot;
 import inf112.skeleton.app.gameLogic.board.IPiece;
 import inf112.skeleton.app.GUI.player.Position;
+import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.ActionType;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.enums.Rotation;
