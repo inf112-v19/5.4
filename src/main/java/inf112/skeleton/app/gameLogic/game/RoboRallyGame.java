@@ -35,14 +35,12 @@ public class RoboRallyGame {
     }
 
     public void playGame(){
-        deck.shuffleDeck();
-        //TESTING
-        this.currentPlayer = players[0];
-//        for (Player currentPlayer : players) {
-//            prePlay(currentPlayer);
-//        }
-//        //play();
-//        //postPlay();
+        this.deck.shuffleDeck();
+        for (Player currentPlayer : players) {
+            this.currentPlayer = currentPlayer;
+        }
+//        play();
+//        postPlay();
     }
 
     /**
@@ -61,7 +59,10 @@ public class RoboRallyGame {
         this.guiScreen.pickCardPhase(cards);
 
         }
-
+        // Pick cards, done in the GUI
+        List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
+        this.guiScreen.pickCardPhase(cards);
+    }
 
     /**
      * Second phase in the game
@@ -83,7 +84,7 @@ public class RoboRallyGame {
         for(ProgramCard card: pickedProgramCards){
 
             currentPlayer.setRobot(guiScreen.gimmeRobotTest());
-            currentPlayer.doAction(card.getCardType().getAction().getActionType());
+            currentPlayer.doAction(card.getCardType().getAction());
         }
     }
 }

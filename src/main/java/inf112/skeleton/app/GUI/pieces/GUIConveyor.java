@@ -9,7 +9,7 @@ public class GUIConveyor extends Piece {
 
     public GUIConveyor(Conveyor conveyor) {
 
-        sprite = new Sprite(new Texture(Gdx.files.internal("board/8bit_conveyor.png")));
+        sprite = new Sprite(new Texture(Gdx.files.internal("board/conveyor.png")));
         sprite.setOrigin(getWidth() / 2, getHeight() / 2);
         switch (conveyor.getRotation()) {
             case WEST:

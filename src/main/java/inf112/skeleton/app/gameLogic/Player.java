@@ -2,8 +2,12 @@ package inf112.skeleton.app.gameLogic;
 
 import inf112.skeleton.app.GUI.player.MovableRobot;
 import inf112.skeleton.app.gameLogic.board.IPiece;
-import inf112.skeleton.app.gameLogic.enums.*;
 import inf112.skeleton.app.GUI.player.Position;
+import inf112.skeleton.app.gameLogic.enums.Action;
+import inf112.skeleton.app.gameLogic.enums.ActionType;
+import inf112.skeleton.app.gameLogic.enums.Direction;
+import inf112.skeleton.app.gameLogic.enums.Rotation;
+import inf112.skeleton.app.gameLogic.game.Checker;
 
 import java.util.List;
 import java.util.Stack;
@@ -44,12 +48,13 @@ public class Player implements IPlayer {
 
     /**
      * TEST VERSION NOT FINAL
+     *
      * @param att
      */
-    public void doAction(ActionType att){
-        switch (att){
+    public void doAction(Action att) {
+        switch (att.getActionType()) {
             case MOVE:
-                this.move(1);
+                this.move(dir, att.getValue());
                 break;
             case ROTATE:
                 this.rotate(Rotation.R);
@@ -57,28 +62,28 @@ public class Player implements IPlayer {
     }
 
     /**
-     * The piece moves i times in the direction it's facing
-     * @param steps
+     * @param dir The direction the piece should move
      */
     @Override
-    public void move(int steps) {
-        for (int j = 0; j < steps; j++) {
-            switch (this.dir) {
-                case NORTH: this.pos = this.pos.north(); break;
-                case EAST: this.pos = this.pos.east(); break;
-                case SOUTH: this.pos = this.pos.south(); break;
-                case WEST: this.pos = this.pos.west(); break;
+    public void move(Direction dir, int i) {
+        for (int j = 0; j < i; j++) {
+            switch (dir) {
+                case NORTH:
+                    this.pos = this.pos.north();
+                    break;
+                case EAST:
+                    this.pos = this.pos.east();
+                    break;
+                case SOUTH:
+                    this.pos = this.pos.south();
+                    break;
+                case WEST:
+                    this.pos = this.pos.west();
+                    break;
             }
+            //Comment this out if you want the tests to work
+            robot.doAction(ActionType.MOVE, dir);
         }
-        if (steps == -1) {
-            switch (this.dir) {
-                case NORTH: this.pos = this.pos.south(); break;
-                case EAST: this.pos = this.pos.west(); break;
-                case SOUTH: this.pos = this.pos.north(); break;
-                case WEST: this.pos = this.pos.east(); break;
-            }
-        }
-        robot.doAction(ActionType.MOVE, this.dir);
     }
 
     /**
@@ -86,8 +91,8 @@ public class Player implements IPlayer {
      */
     @Override
     public void takeDamage(int amountOfDamage) {
-        if(damageTokens + amountOfDamage < 10){
-            damageTokens+=amountOfDamage;
+        if (damageTokens + amountOfDamage < 10) {
+            damageTokens += amountOfDamage;
         } else {
             damageTokens = 0;
             health--;
@@ -99,7 +104,7 @@ public class Player implements IPlayer {
      */
     @Override
     public void repair() {
-        if(damageTokens > 0){
+        if (damageTokens > 0) {
             damageTokens--;
         }
     }
@@ -107,37 +112,60 @@ public class Player implements IPlayer {
 
     /**
      * The piece rotates in the designated direction
+     *
      * @param r
      */
     @Override
     public void rotate(Rotation r) {
         if (r == Rotation.R) {
             switch (this.dir) {
-                case NORTH: this.dir = Direction.EAST; break;
-                case EAST: this.dir = Direction.SOUTH; break;
-                case SOUTH: this.dir = Direction.WEST; break;
-                case WEST: this.dir = Direction.NORTH; break;
+                case NORTH:
+                    this.dir = Direction.EAST;
+                    break;
+                case EAST:
+                    this.dir = Direction.SOUTH;
+                    break;
+                case SOUTH:
+                    this.dir = Direction.WEST;
+                    break;
+                case WEST:
+                    this.dir = Direction.NORTH;
+                    break;
             }
-        }
-        else if (r == Rotation.L) {
+        } else if (r == Rotation.L) {
             switch (this.dir) {
-                case NORTH: this.dir = Direction.WEST; break;
-                case EAST: this.dir = Direction.NORTH; break;
-                case SOUTH: this.dir = Direction.EAST; break;
-                case WEST: this.dir = Direction.SOUTH; break;
+                case NORTH:
+                    this.dir = Direction.WEST;
+                    break;
+                case EAST:
+                    this.dir = Direction.NORTH;
+                    break;
+                case SOUTH:
+                    this.dir = Direction.EAST;
+                    break;
+                case WEST:
+                    this.dir = Direction.SOUTH;
+                    break;
             }
-        }
-        else if (r == Rotation.U) {
+        } else if (r == Rotation.U) {
             switch (this.dir) {
-                case NORTH: this.dir = Direction.SOUTH; break;
-                case EAST: this.dir = Direction.WEST; break;
-                case SOUTH: this.dir = Direction.NORTH; break;
-                case WEST: this.dir = Direction.EAST; break;
+                case NORTH:
+                    this.dir = Direction.SOUTH;
+                    break;
+                case EAST:
+                    this.dir = Direction.WEST;
+                    break;
+                case SOUTH:
+                    this.dir = Direction.NORTH;
+                    break;
+                case WEST:
+                    this.dir = Direction.EAST;
+                    break;
             }
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Not a valid rotation!");
         }
+        //Comment this out if you want the tests to work
         robot.doAction(ActionType.ROTATE, dir);
     }
 
@@ -179,7 +207,7 @@ public class Player implements IPlayer {
         return this.health > 0;
     }
 
-    public void setRobot(MovableRobot hans){
+    public void setRobot(MovableRobot hans) {
         this.robot = hans;
     }
 

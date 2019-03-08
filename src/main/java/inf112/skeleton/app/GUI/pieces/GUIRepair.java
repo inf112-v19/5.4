@@ -7,6 +7,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 public class GUIRepair extends Piece {
 
     public GUIRepair() {
-        sprite = new Sprite(new Texture(Gdx.files.internal("board/rapair.png")));
+        sprite = new Sprite(new Texture(Gdx.files.internal("board/repair.png")));
     }
 }
