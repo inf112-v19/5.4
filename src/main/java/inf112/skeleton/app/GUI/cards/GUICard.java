@@ -1,8 +1,13 @@
 package inf112.skeleton.app.GUI.cards;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 
 
@@ -13,7 +18,7 @@ public class GUICard extends Stack {
     private int priorityValue;
     private Label priorityValueLabel;
     private String cardAction;
-    private Label cardActionLabel; // Should be changed to picture in the future.
+    Label cardActionLabel; // Should be changed to picture in the future.
     Table buttonTextLabels;
     private Button cardButton;
     Skin skin;
@@ -35,6 +40,15 @@ public class GUICard extends Stack {
 
 
             setCardValues(pgCard.getPriority(),pgCard.getCardType().getDescription());
+
+            // Trying to make newlines
+            /*cardActionLabel.setWrap(true);
+            cardActionLabel.pack();
+            cardActionLabel.setWidth(this.getWidth());
+            cardActionLabel.pack();
+            cardActionLabel.setWidth(this.getWidth());*/
+
+            cardActionLabel.setColor(Color.WHITE);
 
             // The main button added to the Stack.
             this.cardButton = new CardButton(this,skin);

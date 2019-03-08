@@ -29,22 +29,4 @@ public class Position {
     public Position east() {
         return new Position(xPos+1, yPos);
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Position position = (Position) o;
-
-        if (xPos != position.xPos) return false;
-        return yPos == position.yPos;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = xPos;
-        result = 31 * result + yPos;
-        return result;
-    }
 }

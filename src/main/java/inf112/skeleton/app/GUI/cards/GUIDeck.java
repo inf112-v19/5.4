@@ -170,8 +170,6 @@ public class GUIDeck extends Table {
 
     public void drawDeck(){
 
-        System.out.println("Drawing the GUI cards");
-
         // Always clear first.
         this.clearChildren();
         this.left().bottom();
@@ -185,7 +183,6 @@ public class GUIDeck extends Table {
         for(GUICard GUICard : drawGUICards){
             Cell cardCell = this.add(GUICard);
             cardCells.add(cardCell);
-            System.out.println("we in this loop");
         }
 
         this.cardCells = cardCells;
@@ -193,7 +190,6 @@ public class GUIDeck extends Table {
 
 
         for(Button btn : actionButtons){
-            System.out.println(btn);
             this.add(btn).left().center().size(btn.getWidth(), btn.getHeight());
         }
 
@@ -284,7 +280,6 @@ public class GUIDeck extends Table {
                 oldX= listenerGUICard.getX();
 
                 // Making sure the dragged GUICard is at the front. This appearently resets. 30 to be safe.
-                System.out.println(listenerGUICard.getZIndex());
                 listenerGUICard.setZIndex(30);
             }
 

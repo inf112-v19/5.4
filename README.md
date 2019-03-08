@@ -6,15 +6,12 @@
 ## How to run (IntelliJ)
 
 1. Clone and open project in IntelliJ.
-2. Go to Run > Edit Configurations.
-3. Set "Working directory" to "...\src\main\java\inf112\skeleton\app\assets".
-4. Run!
+2. Try to run Main (and fail).
+3. Go to Run > Edit Configurations.
+4. Set "Working directory" to "...\src\main\java\inf112\skeleton\app\assets".
+5. Run successfully!
 
 ----
-
-## General information
-
-See our Wiki for more information about the game!
 
 ## Links
 
