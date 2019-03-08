@@ -2,8 +2,10 @@ package inf112.skeleton.app.gameLogic;
 
 import inf112.skeleton.app.GUI.player.MovableRobot;
 import inf112.skeleton.app.gameLogic.board.IPiece;
-import inf112.skeleton.app.gameLogic.enums.*;
 import inf112.skeleton.app.GUI.player.Position;
+import inf112.skeleton.app.gameLogic.enums.ActionType;
+import inf112.skeleton.app.gameLogic.enums.Direction;
+import inf112.skeleton.app.gameLogic.enums.Rotation;
 import inf112.skeleton.app.gameLogic.game.Checker;
 
 import java.util.List;
@@ -19,7 +21,7 @@ public class Player implements IPlayer {
     private Stack<ProgramCard> playerDeck;
     private List<ProgramCard> playerRegister;
     private MovableRobot robot;
-
+    private int playerDeckSize;
 
     /**
      * Constructs a player object with position, direction and health
@@ -31,15 +33,31 @@ public class Player implements IPlayer {
         this.maxHealth = health;
         this.damageTokens = 0;
         this.robot = robot;
+        this.playerDeck = new Stack<>();
+        this.playerDeckSize = 0;
     }
 
     @Override
     public void addProgramCard(ProgramCard programCard) {
-        this.playerDeck.push(programCard);
+        playerDeck.add(programCard);
+        playerDeckSize++;
     }
 
     public Stack<ProgramCard> returnDeck() {
         return playerDeck;
+    }
+
+    public int getPlayerDeckSize() {
+        return playerDeckSize;
+    }
+
+    public boolean playerDeckIsEmpty() {
+        return playerDeck.isEmpty();
+    }
+
+    public ProgramCard getPlayerCard() {
+        playerDeckSize--;
+        return playerDeck.pop();
     }
 
     /**
