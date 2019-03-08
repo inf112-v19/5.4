@@ -46,6 +46,9 @@ public class Checker {
                     player.move(goingDir);
                     return true;
                 }
+                else {
+                    return false;
+                }
             }
         }
         return true;
