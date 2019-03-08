@@ -1,5 +1,7 @@
 package inf112.skeleton.app.gameLogic.board;
 
+import inf112.skeleton.app.gameLogic.enums.Direction;
+
 public class Board implements IBoard {
 
     String boardName;
@@ -45,5 +47,24 @@ public class Board implements IBoard {
      */
     public ICell getCellAt(int x, int y) {
         return board[x][y];
+    }
+
+    public ICell getNextCell(int x, int y, Direction dir) {
+        ICell cell = new Cell();
+        switch (dir) {
+            case NORTH:
+                cell = board[x][y+1];
+                break;
+            case SOUTH:
+                cell = board[x][y-1];
+                break;
+            case EAST:
+                cell = board[x+1][y];
+                break;
+            case WEST:
+                cell = board[x-1][y];
+                break;
+        }
+        return cell;
     }
 }

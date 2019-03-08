@@ -49,7 +49,7 @@ public class Player implements IPlayer {
     public void doAction(ActionType att){
         switch (att){
             case MOVE:
-                this.move(1);
+                this.move(dir);
                 break;
             case ROTATE:
                 this.rotate(Rotation.R);
@@ -57,28 +57,17 @@ public class Player implements IPlayer {
     }
 
     /**
-     * The piece moves i times in the direction it's facing
-     * @param steps
+     * @param dir The direction the piece should move
      */
     @Override
-    public void move(int steps) {
-        for (int j = 0; j < steps; j++) {
-            switch (this.dir) {
+    public void move(Direction dir) {
+            switch (dir) {
                 case NORTH: this.pos = this.pos.north(); break;
                 case EAST: this.pos = this.pos.east(); break;
                 case SOUTH: this.pos = this.pos.south(); break;
                 case WEST: this.pos = this.pos.west(); break;
             }
-        }
-        if (steps == -1) {
-            switch (this.dir) {
-                case NORTH: this.pos = this.pos.south(); break;
-                case EAST: this.pos = this.pos.west(); break;
-                case SOUTH: this.pos = this.pos.north(); break;
-                case WEST: this.pos = this.pos.east(); break;
-            }
-        }
-        robot.doAction(ActionType.MOVE, this.dir);
+        robot.doAction(ActionType.MOVE, dir);
     }
 
     /**
@@ -113,26 +102,50 @@ public class Player implements IPlayer {
     public void rotate(Rotation r) {
         if (r == Rotation.R) {
             switch (this.dir) {
-                case NORTH: this.dir = Direction.EAST; break;
-                case EAST: this.dir = Direction.SOUTH; break;
-                case SOUTH: this.dir = Direction.WEST; break;
-                case WEST: this.dir = Direction.NORTH; break;
+                case NORTH:
+                    this.dir = Direction.EAST;
+                    break;
+                case EAST:
+                    this.dir = Direction.SOUTH;
+                    break;
+                case SOUTH:
+                    this.dir = Direction.WEST;
+                    break;
+                case WEST:
+                    this.dir = Direction.NORTH;
+                    break;
             }
         }
         else if (r == Rotation.L) {
             switch (this.dir) {
-                case NORTH: this.dir = Direction.WEST; break;
-                case EAST: this.dir = Direction.NORTH; break;
-                case SOUTH: this.dir = Direction.EAST; break;
-                case WEST: this.dir = Direction.SOUTH; break;
+                case NORTH:
+                    this.dir = Direction.WEST;
+                    break;
+                case EAST:
+                    this.dir = Direction.NORTH;
+                    break;
+                case SOUTH:
+                    this.dir = Direction.EAST;
+                    break;
+                case WEST:
+                    this.dir = Direction.SOUTH;
+                    break;
             }
         }
         else if (r == Rotation.U) {
             switch (this.dir) {
-                case NORTH: this.dir = Direction.SOUTH; break;
-                case EAST: this.dir = Direction.WEST; break;
-                case SOUTH: this.dir = Direction.NORTH; break;
-                case WEST: this.dir = Direction.EAST; break;
+                case NORTH:
+                    this.dir = Direction.SOUTH;
+                    break;
+                case EAST:
+                    this.dir = Direction.WEST;
+                    break;
+                case SOUTH:
+                    this.dir = Direction.NORTH;
+                    break;
+                case WEST:
+                    this.dir = Direction.EAST;
+                    break;
             }
         }
         else {

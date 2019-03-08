@@ -22,7 +22,7 @@ public class TestGame {
     public void doAction(PlayerAction playerAction) {
         switch (playerAction.getAction().getActionType()) {
             case MOVE:
-                playerAction.getPlayer().move(playerAction.getAction().getValue());
+                playerAction.getPlayer().move(playerAction.getPlayer().getDirection());
                 break;
             case DAMAGE:
                 playerAction.getPlayer().takeDamage(playerAction.getAction().getValue());

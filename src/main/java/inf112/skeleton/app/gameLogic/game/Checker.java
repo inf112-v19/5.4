@@ -2,6 +2,7 @@ package inf112.skeleton.app.gameLogic.game;
 
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
+import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.board.ICell;
 import inf112.skeleton.app.gameLogic.board.IPiece;
 import inf112.skeleton.app.gameLogic.board.pieces.Wall;
@@ -14,11 +15,12 @@ public class Checker {
     private Position position;
     private Action playersAction;
     private List<Action> actionList;
+    private Board board;
 
-    public Checker(Player player, Action action) {
+    public Checker(Player player, Action action, Board board) {
         this.position = player.getPos();
         this.playersAction = action;
-
+        this.board = board;
     }
 
     public boolean canMove(Direction goingDir, ICell currCell, ICell nextCell) {
@@ -32,15 +34,18 @@ public class Checker {
         Direction oppositeDir = goingDir.oppositeDir(goingDir);
         for (IPiece piece : piecesInNextCell) {
             if (piece instanceof Wall && piece.getRotation() == oppositeDir) {
-                if(piece instanceof Player){
-                    /*
-                    Torjus sin makeRecursiveCollision();
-                    For å styre spilleren
-                    Player player = (Player) piece;
-                    player.move();
-                    */
-                }
+
                 return false;
+            }
+
+        }
+        for (IPiece piece : piecesInNextCell) {
+            if(piece instanceof Player){
+                Player player = (Player) piece;
+                if (canMove(goingDir, nextCell, board.getNextCell(player.getPos().getX(), player.getPos().getY(), goingDir))) {
+                    player.move(goingDir);
+                    return true;
+                }
             }
         }
         return true;

@@ -16,10 +16,10 @@ interface IPlayer extends IPiece {
     void addProgramCard(ProgramCard programCard);
 
     /**
-     * @param steps
-     *          Times the player moves in the direction it's facing
+     * @param dir
+     *          The direction the player should move
      */
-    void move(int steps);
+    void move(Direction dir);
 
 
 

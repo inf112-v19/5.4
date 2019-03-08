@@ -74,11 +74,16 @@ public class PlayerTest {
 
     @Test
     public void testThatYourPositionCorrectlyChangesWhenMoving() {
-        Player player = new Player(new Position(4,3), Direction.SOUTH, 1);
 
-        player.move(3);
+        Player player = new Player(new Position(4,3), Direction.SOUTH, 1);
+        for (int i = 0; i < 3; i++) {
+            player.move(player.getDirection());
+        }
         player.rotate(Rotation.L);
-        player.move(3);
+
+        for (int i = 0; i < 3; i++) {
+            player.move(player.getDirection());
+        }
 
         assertEquals(7, player.getPos().getX());
         assertEquals(0, player.getPos().getY());
