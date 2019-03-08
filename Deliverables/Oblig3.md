@@ -80,18 +80,28 @@ mappen Minutes-of-meeting.
 
 ### Faktiske oppgaver
 
+#### Mål for perioden
+
+- Videreutvikle en smart spill-logikk som er effektiv og god å jobbe med framover.
+
+- Videreutvikle GUI og introdusere ny grafikk. Lære mer om LibGdx.
+
+- Kunne kjøre spillet og teste hvordan grafikken og lyden ser ut i praksis.
+
+(Logikken og GUI jobber enda i stor grad individuelt, da vi som gruppe har tenkt at det er bedre å få på plass god funksjonalitet individuelt før vi får dem til å kommunisere sammen. Vi har som mål til neste periode/innlevering å få på plass dette og å få kjørt ordentlige runder etc.)
+
 #### Vi har hatt fokus på:
 
 - Spill struktur, komme i gang med alle fasene.
 
-- Board, JSON generator osm lager en board array fra en json fil som
-  skal inheolde startbrettet.
+- Board, JSON generator som lager en board array fra en json fil som
+  skal inneholde startbrettet.
 
 - Actions, kortene har actions og at det går an å utføre disse
 
-- GUI,
+- GUI, få på plass grafikk og lyd, design av elementer fra spillet som feks. kort
 
-- Oppdatere Wiki: Vi har hatt fokus på å oppdatere informasjoen om hver fase. 
+- Oppdatere Wiki: Vi har hatt fokus på å oppdatere informasjoen om hver fase.
 
 #### Krav fra kunde
 
