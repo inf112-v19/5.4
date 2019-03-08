@@ -15,7 +15,7 @@ public class Robot extends Piece {
                                 path += "rolobot-alpha/rolobot-alpha.png";
                                 break;
                         case 1:
-                                path += "sputnik/sputnik.png";
+                                path += "sputnik/yellow_robot.png";
                                 break;
                 }
 
