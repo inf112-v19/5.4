@@ -105,7 +105,7 @@ public class RoboRallyGame {
         for(ProgramCard card: pickedProgramCards){
             System.out.println("Inni postpick gang");
             currentPlayer.setRobot(guiScreen.gimmeRobotTest());
-            currentPlayer.doAction(card.getCardType().getAction().getActionType());
+            currentPlayer.doAction(card.getCardType().getAction());
         }
     }
 }

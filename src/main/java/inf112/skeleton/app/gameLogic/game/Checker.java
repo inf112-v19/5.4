@@ -1,5 +1,6 @@
 package inf112.skeleton.app.gameLogic.game;
 
+import inf112.skeleton.app.GUI.player.MovableRobot;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.board.Board;
@@ -16,11 +17,13 @@ public class Checker {
     private Action playersAction;
     private List<Action> actionList;
     private Board board;
+    private MovableRobot robot;
 
-    public Checker(Player player, Action action, Board board) {
+    public Checker(Player player, Action action, Board board, MovableRobot robot) {
         this.position = player.getPos();
         this.playersAction = action;
         this.board = board;
+        this.robot = robot;
     }
 
     public boolean canMove(Direction goingDir, ICell currCell, ICell nextCell) {
@@ -43,7 +46,7 @@ public class Checker {
             if(piece instanceof Player){
                 Player player = (Player) piece;
                 if (canMove(goingDir, nextCell, board.getNextCell(player.getPos().getX(), player.getPos().getY(), goingDir))) {
-                    player.move(goingDir);
+                    player.move(goingDir, 1);
                     return true;
                 }
                 else {
