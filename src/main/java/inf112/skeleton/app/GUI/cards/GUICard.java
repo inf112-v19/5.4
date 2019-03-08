@@ -42,11 +42,11 @@ public class GUICard extends Stack {
             setCardValues(pgCard.getPriority(),pgCard.getCardType().getDescription());
 
             // Trying to make newlines
-            cardActionLabel.setWrap(true);
+            /*cardActionLabel.setWrap(true);
             cardActionLabel.pack();
             cardActionLabel.setWidth(this.getWidth());
             cardActionLabel.pack();
-            cardActionLabel.setWidth(this.getWidth());
+            cardActionLabel.setWidth(this.getWidth());*/
 
             cardActionLabel.setColor(Color.WHITE);
 
@@ -76,7 +76,7 @@ public class GUICard extends Stack {
         // The GUICard's priority value and action added to display.
         buttonTextLabels.add(priorityValueLabel).padRight(22);
         buttonTextLabels.row();
-        buttonTextLabels.add(cardActionLabel).padRight(15).left();
+        buttonTextLabels.add(cardActionLabel).padRight(15);
     }
     private void getCardValues() {
         //; GAME LOGIC INSERT
