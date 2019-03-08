@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import inf112.skeleton.app.GUI.pieces.Robot;
+import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.ActionType;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
@@ -20,98 +21,118 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 public class MovableRobot extends Robot {
 
 
-   public MovableRobot(int robotnr){
+    public MovableRobot(int robotnr) {
 
-       super(robotnr);
+        super(robotnr);
 //       this.setScale(0.8f);
-       setBounds(getX(), getY(), getWidth(), getHeight());
+        setBounds(getX(), getY(), getWidth(), getHeight());
 
-       addListener(new DragListener() {
-           public void drag(InputEvent event, float x, float y, int pointer) {
-               moveBy(x - getWidth()/2, y - getHeight()/2);
-           }
-       });
+        addListener(new DragListener() {
+            public void drag(InputEvent event, float x, float y, int pointer) {
+                moveBy(x - getWidth() / 2, y - getHeight() / 2);
+            }
+        });
 
-       addListener(new InputListener() {
-           @Override
-           public boolean keyDown(InputEvent event, int keycode) {
+        addListener(new InputListener() {
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
 
-               switch (keycode) {
-                   case Input.Keys.RIGHT:
-                       doAction(ActionType.MOVE, Direction.EAST);
-                       break;
-                   case Input.Keys.LEFT:
-                       doAction(ActionType.MOVE, Direction.WEST);
-                       break;
-                   case Input.Keys.DOWN:
-                       doAction(ActionType.MOVE, Direction.SOUTH);
-                       break;
-                   case Input.Keys.UP:
-                       doAction(ActionType.MOVE, Direction.NORTH);
-                       doAction(ActionType.ROTATE, Direction.NORTH);
-                       break;
-               }
+                switch (keycode) {
+                    case Input.Keys.RIGHT:
+                        fullAction(Action.MOVE_1, Direction.EAST);
+                        break;
+                    case Input.Keys.LEFT:
+                        fullAction(Action.MOVE_1, Direction.WEST);
+                        break;
+                    case Input.Keys.DOWN:
+                        fullAction(Action.MOVE_1, Direction.SOUTH);
+                        break;
+                    case Input.Keys.UP:
+                        fullAction(Action.MOVE_1, Direction.NORTH);
+                        break;
+                    case Input.Keys.R:
+                        fullAction(Action.ROTATE_R, Direction.NORTH);
+                        break;
+                    case Input.Keys.L:
+                        fullAction(Action.ROTATE_L, Direction.NORTH);
+                        break;
+                    case Input.Keys.U:
+                        fullAction(Action.ROTATE_U, Direction.NORTH);
+                        break;
+                }
 
-               return true;
-           }
-       });
+                return true;
+            }
+        });
 
-   }
+    }
 
-   public void doAction(ActionType att, Direction faceDir){
-       setOrigin(getWidth() / 2, getHeight() / 2);
+    public void fullAction(Action action, Direction dir) {
+        if (action.getActionType() == ActionType.MOVE) {
+            int numTimes = action.getValue();
+            for (int i = 0; i < numTimes; i++) {
+                doAction(action.getActionType(), dir);
+            }
+        } else {
+            doAction(action.getActionType(), dir);
+        }
 
-       switch (att) {
-           case MOVE:
+    }
 
-               // Move sound
-               Sound moveSound = Gdx.audio.newSound(Gdx.files.internal("sound/move.mp3"));
-               moveSound.play(0.4f,0.5f,1);
+    public void doAction(ActionType actionType, Direction faceDir) {
+        setOrigin(getWidth() / 2, getHeight() / 2);
 
-               // The move sound
-               MoveByAction moveAction = new MoveByAction();
-               moveAction.setDuration(0.3f);
-               moveAction.setInterpolation(Interpolation.pow3);
-               System.out.println("YEEEE");
+        switch (actionType) {
+            case MOVE:
+
+                // Move sound
+                Sound moveSound = Gdx.audio.newSound(Gdx.files.internal("sound/move.mp3"));
+                moveSound.play(0.4f, 0.5f, 1);
+
+                // The move sound
+                MoveByAction moveAction = new MoveByAction();
+                moveAction.setDuration(0.3f);
+                moveAction.setInterpolation(Interpolation.pow3);
+                System.out.println("MOVE");
 
 
-               switch(faceDir) {
-                   case NORTH:
-                       System.out.println("WWWAHASHDABSD");
-                       moveAction.setAmount(0f, getHeight());
+                switch (faceDir) {
+                    case NORTH:
+                        System.out.println("WWWAHASHDABSD");
+                        moveAction.setAmount(0f, getHeight());
 
-                       break;
-                   case EAST:
-                       moveAction.setAmount(getWidth(), 0f);
-                       break;
-                   case WEST:
-                       moveAction.setAmount(-getWidth(), 0);
+                        break;
+                    case EAST:
+                        moveAction.setAmount(getWidth(), 0f);
+                        break;
+                    case WEST:
+                        moveAction.setAmount(-getWidth(), 0);
 
-                       break;
-                   case SOUTH:
-                       moveAction.setAmount(0f, -getHeight());
-                       break;
+                        break;
+                    case SOUTH:
+                        moveAction.setAmount(0f, -getHeight());
+                        break;
 
-               }
+                }
 
-               MovableRobot.this.addAction(sequence(moveAction, new DelayAction(1000), new RunnableAction(){
-                   @Override
-                   public void run() {
-                       System.out.println("COMPLETE!");
-                   }
-               }));
+                MovableRobot.this.addAction(sequence(moveAction, new DelayAction(1000), new RunnableAction() {
+                    @Override
+                    public void run() {
+                        System.out.println("COMPLETE!");
+                    }
+                }));
 
-               break;
-           case ROTATE:
+                break;
+            case ROTATE:
 
-               System.out.println("rotating boys"
-               );
-               RotateByAction rotateByAction = new RotateByAction();
-               rotateByAction.setAmount(90f);
-               MovableRobot.this.addAction(rotateByAction);
-               break;
+                System.out.println("rotating boys"
+                );
+                RotateByAction rotateByAction = new RotateByAction();
+                rotateByAction.setAmount(90f);
+                MovableRobot.this.addAction(rotateByAction);
+                break;
 
-       }
-   }
+        }
+    }
 
 }
