@@ -1,7 +1,10 @@
 package inf112.skeleton.app.gameLogic;
 
 import inf112.skeleton.app.GUI.player.MovableRobot;
+import inf112.skeleton.app.gameLogic.board.Board;
+import inf112.skeleton.app.gameLogic.board.ICell;
 import inf112.skeleton.app.gameLogic.board.IPiece;
+import inf112.skeleton.app.gameLogic.board.pieces.Wall;
 import inf112.skeleton.app.gameLogic.enums.*;
 import inf112.skeleton.app.GUI.player.Position;
 
@@ -18,19 +21,19 @@ public class Player implements IPlayer {
     private Stack<ProgramCard> playerDeck;
     private List<ProgramCard> playerRegister;
     private MovableRobot robot;
-
+    private Board board;
 
 
     /**
      * Constructs a player object with position, direction and health
      */
-    public Player(Position pos, Direction dir, int health) {
+    public Player(Position pos, Direction dir, int health, Board board) {
         this.pos = pos;
         this.dir = dir;
         this.health = health;
         this.maxHealth = health;
         this.damageTokens = 0;
-        this.robot = robot;
+        this.board = board;
     }
 
     @Override
@@ -44,10 +47,11 @@ public class Player implements IPlayer {
 
     /**
      * TEST VERSION NOT FINAL
+     *
      * @param att
      */
-    public void doAction(ActionType att){
-        switch (att){
+    public void doAction(ActionType att) {
+        switch (att) {
             case MOVE:
                 this.move(dir);
                 break;
@@ -61,13 +65,59 @@ public class Player implements IPlayer {
      */
     @Override
     public void move(Direction dir) {
-            switch (dir) {
-                case NORTH: this.pos = this.pos.north(); break;
-                case EAST: this.pos = this.pos.east(); break;
-                case SOUTH: this.pos = this.pos.south(); break;
-                case WEST: this.pos = this.pos.west(); break;
+        switch (dir) {
+            case NORTH:
+                if (canMove(dir, board.getCellAt(this.pos))) {
+                    this.pos = this.pos.north();
+                }
+                break;
+            case EAST:
+                if (canMove(dir, board.getCellAt(this.pos))) {
+                    this.pos = this.pos.east();
+                }
+                break;
+            case SOUTH:
+                if (canMove(dir, board.getCellAt(this.pos))) {
+                    this.pos = this.pos.south();
+                }
+                break;
+            case WEST:
+                if (canMove(dir, board.getCellAt(this.pos))) {
+                    this.pos = this.pos.west();
+                }
+                break;
+        }
+        //robot.doAction(ActionType.MOVE, dir);
+    }
+
+    @SuppressWarnings("ALL")
+    private boolean canMove(Direction goingDir, ICell currCell) {
+        List<IPiece> piecesInCurrCell = board.getCellAt(pos).getPiecesInCell();
+        List<IPiece> piecesInNextCell = board.getNextCell(pos, goingDir).getPiecesInCell();
+        for (IPiece piece : piecesInCurrCell) {
+            if (piece instanceof Wall && piece.getRotation() == goingDir) {
+                return false;
             }
-        robot.doAction(ActionType.MOVE, dir);
+        }
+        Direction oppositeDir = goingDir.oppositeDir(goingDir);
+        for (IPiece piece : piecesInNextCell) {
+            if (piece instanceof Wall && piece.getRotation() == oppositeDir) {
+
+                return false;
+            }
+        }
+        for (IPiece piece : piecesInNextCell) {
+            if (piece instanceof Player) {
+                Player player = (Player) piece;
+                if (canMove(goingDir, board.getNextCell(pos, goingDir))) {
+                    player.move(goingDir);
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**
@@ -75,8 +125,8 @@ public class Player implements IPlayer {
      */
     @Override
     public void takeDamage(int amountOfDamage) {
-        if(damageTokens + amountOfDamage < 10){
-            damageTokens+=amountOfDamage;
+        if (damageTokens + amountOfDamage < 10) {
+            damageTokens += amountOfDamage;
         } else {
             damageTokens = 0;
             health--;
@@ -88,7 +138,7 @@ public class Player implements IPlayer {
      */
     @Override
     public void repair() {
-        if(damageTokens > 0){
+        if (damageTokens > 0) {
             damageTokens--;
         }
     }
@@ -96,6 +146,7 @@ public class Player implements IPlayer {
 
     /**
      * The piece rotates in the designated direction
+     *
      * @param r
      */
     @Override
@@ -115,8 +166,7 @@ public class Player implements IPlayer {
                     this.dir = Direction.NORTH;
                     break;
             }
-        }
-        else if (r == Rotation.L) {
+        } else if (r == Rotation.L) {
             switch (this.dir) {
                 case NORTH:
                     this.dir = Direction.WEST;
@@ -131,8 +181,7 @@ public class Player implements IPlayer {
                     this.dir = Direction.SOUTH;
                     break;
             }
-        }
-        else if (r == Rotation.U) {
+        } else if (r == Rotation.U) {
             switch (this.dir) {
                 case NORTH:
                     this.dir = Direction.SOUTH;
@@ -147,11 +196,10 @@ public class Player implements IPlayer {
                     this.dir = Direction.EAST;
                     break;
             }
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Not a valid rotation!");
         }
-        robot.doAction(ActionType.ROTATE, dir);
+        //robot.doAction(ActionType.ROTATE, dir);
     }
 
     /**
@@ -192,7 +240,7 @@ public class Player implements IPlayer {
         return this.health > 0;
     }
 
-    public void setRobot(MovableRobot hans){
+    public void setRobot(MovableRobot hans) {
         this.robot = hans;
     }
 

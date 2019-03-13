@@ -1,5 +1,6 @@
 package inf112.skeleton.app.gameLogic.board;
 
+import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
 public class Board implements IBoard {
@@ -53,16 +54,39 @@ public class Board implements IBoard {
         ICell cell = new Cell();
         switch (dir) {
             case NORTH:
-                cell = board[x][y+1];
+                cell = board[x][y + 1];
                 break;
             case SOUTH:
-                cell = board[x][y-1];
+                cell = board[x][y - 1];
                 break;
             case EAST:
-                cell = board[x+1][y];
+                cell = board[x + 1][y];
                 break;
             case WEST:
-                cell = board[x-1][y];
+                cell = board[x - 1][y];
+                break;
+        }
+        return cell;
+    }
+
+    public ICell getCellAt(Position pos) {
+        return board[pos.getX()][pos.getY()];
+    }
+
+    public ICell getNextCell(Position pos, Direction dir) {
+        ICell cell = new Cell();
+        switch (dir) {
+            case NORTH:
+                cell = board[pos.getX()][pos.getY() + 1];
+                break;
+            case SOUTH:
+                cell = board[pos.getX()][pos.getY() - 1];
+                break;
+            case EAST:
+                cell = board[pos.getX() + 1][pos.getY()];
+                break;
+            case WEST:
+                cell = board[pos.getX() - 1][pos.getY()];
                 break;
         }
         return cell;

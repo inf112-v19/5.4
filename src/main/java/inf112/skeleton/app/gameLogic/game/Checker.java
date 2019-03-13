@@ -16,14 +16,17 @@ public class Checker {
     private Action playersAction;
     private List<Action> actionList;
     private Board board;
+    private Player player;
 
     public Checker(Player player, Action action, Board board) {
+        this.player = player;
         this.position = player.getPos();
         this.playersAction = action;
         this.board = board;
     }
 
-    public boolean canMove(Direction goingDir, ICell currCell, ICell nextCell) {
+    @SuppressWarnings("ALL")
+    private boolean canMove(Direction goingDir, ICell currCell, ICell nextCell) {
         List<IPiece> piecesInCurrCell = currCell.getPiecesInCell();
         List<IPiece> piecesInNextCell = nextCell.getPiecesInCell();
         for (IPiece piece : piecesInCurrCell) {

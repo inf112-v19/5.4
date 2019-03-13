@@ -18,10 +18,10 @@ public class Position {
     }
 
     public Position north() {
-        return new Position(xPos, yPos+1);
+        return new Position(xPos, yPos-1);
     }
     public Position south() {
-        return new Position(xPos, yPos-1);
+        return new Position(xPos, yPos+1);
     }
     public Position west() {
         return new Position(xPos-1, yPos);

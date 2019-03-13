@@ -1,10 +1,12 @@
 package inf112.skeleton.app.gameLogic.game;
 
 import inf112.skeleton.app.GUI.MainGameScreen;
+import inf112.skeleton.app.GUI.player.MovableRobot;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.ProgramCardDeck;
+import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import java.util.List;
@@ -19,16 +21,17 @@ public class RoboRallyGame {
     private int startHealth = 10;
     private ProgramCardDeck deck;
     private Player currentPlayer;
+    private Board board;
 
     public RoboRallyGame(MainGameScreen guiScreen) {
 
         this.guiScreen = guiScreen;
-
+        this.board = new Board("TestBoard", "/Users/oyvind/IdeaProjects/inf112-v19/BeTheBee/DankBoard.json");
         this.deck = new ProgramCardDeck();  // Deck of cards in the game
         players = new Player[totalPlayers];
         for (int i = 0; i < players.length; i++) {
             Position position = new Position(i, 0);
-            players[i] = new Player(position, Direction.NORTH, startHealth);
+            players[i] = new Player(position, Direction.NORTH, startHealth, this.board);
         }
 
         playGame();
