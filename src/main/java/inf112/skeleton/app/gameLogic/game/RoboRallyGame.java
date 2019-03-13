@@ -27,13 +27,13 @@ public class RoboRallyGame {
 
         this.guiScreen = guiScreen;
         this.board = new Board("TestBoard", "/Users/oyvind/IdeaProjects/inf112-v19/BeTheBee/DankBoard.json");
+        board.displayBoard();
         this.deck = new ProgramCardDeck();  // Deck of cards in the game
         players = new Player[totalPlayers];
         for (int i = 0; i < players.length; i++) {
             Position position = new Position(i, 0);
             players[i] = new Player(position, Direction.NORTH, startHealth, this.board);
         }
-
         playGame();
     }
 

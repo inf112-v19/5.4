@@ -50,10 +50,10 @@ public class Player implements IPlayer {
      *
      * @param att
      */
-    public void doAction(ActionType att) {
-        switch (att) {
+    public void doAction(Action att) {
+        switch (att.getActionType()) {
             case MOVE:
-                this.move(dir);
+                this.move(dir, att.getValue());
                 break;
             case ROTATE:
                 this.rotate(Rotation.R);
@@ -64,34 +64,42 @@ public class Player implements IPlayer {
      * @param dir The direction the piece should move
      */
     @Override
-    public void move(Direction dir) {
-        switch (dir) {
-            case NORTH:
-                if (canMove(dir, board.getCellAt(this.pos))) {
-                    this.pos = this.pos.north();
-                }
-                break;
-            case EAST:
-                if (canMove(dir, board.getCellAt(this.pos))) {
-                    this.pos = this.pos.east();
-                }
-                break;
-            case SOUTH:
-                if (canMove(dir, board.getCellAt(this.pos))) {
-                    this.pos = this.pos.south();
-                }
-                break;
-            case WEST:
-                if (canMove(dir, board.getCellAt(this.pos))) {
-                    this.pos = this.pos.west();
-                }
-                break;
+    public void move(Direction dir, int numSteps) {
+        for (int i = 0; i < numSteps; i++) {
+            switch (dir) {
+                case NORTH:
+                    if (canMove(dir, board.getCellAt(this.pos))) {
+                        this.pos = this.pos.north();
+                    }
+                    break;
+                case EAST:
+                    if (canMove(dir, board.getCellAt(this.pos))) {
+                        this.pos = this.pos.east();
+                    }
+                    break;
+                case SOUTH:
+                    if (canMove(dir, board.getCellAt(this.pos))) {
+                        this.pos = this.pos.south();
+                    }
+                    break;
+                case WEST:
+                    if (canMove(dir, board.getCellAt(this.pos))) {
+                        this.pos = this.pos.west();
+                    }
+                    break;
+            }
         }
-        //robot.doAction(ActionType.MOVE, dir);
+        robot.doAction(ActionType.MOVE, dir);
     }
 
     @SuppressWarnings("ALL")
     private boolean canMove(Direction goingDir, ICell currCell) {
+        if(currCell == null){
+            return true;
+        }
+        if(board.getNextCell(pos, goingDir) == null){
+            return true;
+        }
         List<IPiece> piecesInCurrCell = board.getCellAt(pos).getPiecesInCell();
         List<IPiece> piecesInNextCell = board.getNextCell(pos, goingDir).getPiecesInCell();
         for (IPiece piece : piecesInCurrCell) {
@@ -110,7 +118,7 @@ public class Player implements IPlayer {
             if (piece instanceof Player) {
                 Player player = (Player) piece;
                 if (canMove(goingDir, board.getNextCell(pos, goingDir))) {
-                    player.move(goingDir);
+                    player.move(goingDir, 1);
                     return true;
                 } else {
                     return false;
@@ -199,7 +207,7 @@ public class Player implements IPlayer {
         } else {
             throw new IllegalArgumentException("Not a valid rotation!");
         }
-        //robot.doAction(ActionType.ROTATE, dir);
+        robot.doAction(ActionType.ROTATE, dir);
     }
 
     /**
