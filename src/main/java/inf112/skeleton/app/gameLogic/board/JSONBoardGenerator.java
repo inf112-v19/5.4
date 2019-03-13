@@ -26,11 +26,10 @@ public class JSONBoardGenerator {
             Object boardFile = parser.parse(new FileReader(filepath));
             JSONObject jsonBoardFile = (JSONObject) boardFile;
             int jsonSize = jsonBoardFile.size();
-            int jsonSide = jsonSize / jsonSize;
-            jsonBoardPieceList = new ICell[12][12];
+            jsonBoardPieceList = new ICell[jsonSize][jsonSize];
             System.out.println(jsonBoardFile);
-            for (int x = 0; x <= 11; x++) {
-                for (int y = 0; y <= 11; y++) {
+            for (int x = 0; x <= jsonSize-1; x++) {
+                for (int y = 0; y <= jsonSize-1; y++) {
                     Cell tempCell = new Cell();
                     String intX = Integer.toString(x);
                     String intY = Integer.toString(y);
