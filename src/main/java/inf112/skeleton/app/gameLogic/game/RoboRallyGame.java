@@ -54,13 +54,8 @@ public class RoboRallyGame {
 
         List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
 
-            // TODO take cards from deck and assign them to the player
+        // TODO take cards from deck and assign them to the player
         this.currentPlayer =currentPlayer;
-        this.guiScreen.pickCardPhase(cards);
-
-        }
-        // Pick cards, done in the GUI
-        List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
         this.guiScreen.pickCardPhase(cards);
     }
 
