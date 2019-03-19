@@ -14,7 +14,6 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import inf112.skeleton.app.GUI.board.GUIBoard;
 import inf112.skeleton.app.GUI.board.Stats;
 import inf112.skeleton.app.GUI.cards.GUIDeck;
-import inf112.skeleton.app.GUI.pieces.GUIBest;
 import inf112.skeleton.app.GUI.player.MovableGUIRobot;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.board.Board;
@@ -34,7 +33,7 @@ public class MainGameScreen implements Screen {
 	RoboRallyGame roboRallyGame;
 
 	List<ProgramCard> pgCards;
-	MovableGUIRobot overallHans;
+	MovableGUIRobot currentMovableRobot;
 
 	GUIDeck guiDeck;
 	Cell guiDeckCell;
@@ -163,7 +162,7 @@ public class MainGameScreen implements Screen {
 //		GUIBoard.addGUIPiece(8, 9, new GUIGear(Rotation.L));
 
 		MovableGUIRobot hans = new MovableGUIRobot(1);
-		this.overallHans = hans;
+		this.currentMovableRobot = hans;
 		GUIBoard.addGUIPiece(5,5, hans);
 		//GUIBoard.addGUIPiece(5,5, new GUIBest());
 
@@ -226,7 +225,7 @@ public class MainGameScreen implements Screen {
 	}
 
 	public MovableGUIRobot gimmeRobotTest(){
-    	return this.overallHans;
+    	return this.currentMovableRobot;
 	}
 
 }
