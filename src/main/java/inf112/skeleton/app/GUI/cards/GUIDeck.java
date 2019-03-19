@@ -18,6 +18,7 @@ public class GUIDeck extends Table {
     ButtonGroup buttonGroup;
     Button listenerButton;
     Button doneButton;
+    CardButtonStyle cardButtonStyle;
 
     ArrayList<GUICard> assignedGUICards;
     ArrayList<GUICard> pickedGUICards;
@@ -42,6 +43,8 @@ public class GUIDeck extends Table {
     public GUIDeck(Skin skin, List<ProgramCard> pgCards, Button doneButton){
 
         this.skin = skin;
+
+        this.cardButtonStyle = new CardButtonStyle();
         this.assignedGUICards = new ArrayList<GUICard>();
         this.pickedGUICards = new ArrayList<GUICard>();
         this.drawGUICards = new ArrayList<GUICard>();
@@ -83,7 +86,7 @@ public class GUIDeck extends Table {
 
         System.out.println(this.pgCards + " HEI JEG HETER CREATE GUICARDS");
         for( ProgramCard card : this.pgCards){
-            GUICard guiCard = new GUICard(skin, card);
+            GUICard guiCard = new GUICard(skin, card, this.cardButtonStyle);
             Button cardButton = guiCard.getButton();
             this.addCardCounterUpdateListener(cardButton);
             buttonGroup.add(cardButton);
@@ -187,8 +190,7 @@ public class GUIDeck extends Table {
 
         this.cardCells = cardCells;
 
-
-
+        // Adds all the cards at the bottom
         for(Button btn : actionButtons){
             this.add(btn).left().center().size(btn.getWidth(), btn.getHeight());
         }

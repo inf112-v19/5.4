@@ -51,7 +51,8 @@ public class MainGameScreen implements Screen {
 		// Main skin
 		skin = new Skin(Gdx.files.internal("rusty-robot/skin/rusty-robot-ui.json"));
 		skin.getFont("font").getData().setScale(1.6f,1.6f);
-		skin.getFont("font").setColor(Color.BLUE);
+		skin.get(Label.LabelStyle.class).fontColor = Color.WHITE;
+
 
 		this.roboRallyGame = new RoboRallyGame(this);
 		roboRallyGame.playGame();
