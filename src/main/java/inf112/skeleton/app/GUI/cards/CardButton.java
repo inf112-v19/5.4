@@ -7,18 +7,19 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class CardButton extends Button {
 
     GUICard GUICard;
-    //Sprite sprite;
 
-    public CardButton(GUICard GUICard, Skin skin){
-        super(skin);
+    public CardButton(GUICard GUICard, CardButtonStyle buttonStyle){
+
+        this.setStyle(buttonStyle);
         this.GUICard = GUICard;
-     // Custom card texture
-       //this.sprite = new Sprite(new Texture(Gdx.files.internal("roborally_programCard.png")));
+        // Custom card texture
     }
 
 

@@ -20,7 +20,8 @@ public class GUICard extends Stack {
     private String cardAction;
     Label cardActionLabel; // Should be changed to picture in the future.
     Table buttonTextLabels;
-    private Button cardButton;
+    Button cardButton;
+    CardButtonStyle cardButtonStyle;
     Skin skin;
 
     ProgramCard pgCard;
@@ -32,12 +33,12 @@ public class GUICard extends Stack {
 
     public Button getButton(){return this.cardButton;};
 
-    public GUICard(Skin skin, ProgramCard pgCard){
+    public GUICard(Skin skin, ProgramCard pgCard, CardButtonStyle cardButtonStyle){
 
             this.skin = skin;
+            this.cardButtonStyle = cardButtonStyle;
             this.buttonTextLabels = new Table();
             this.pgCard = pgCard;
-
 
             setCardValues(pgCard.getPriority(),pgCard.getCardType().getDescription());
 
@@ -51,7 +52,7 @@ public class GUICard extends Stack {
             cardActionLabel.setColor(Color.WHITE);
 
             // The main button added to the Stack.
-            this.cardButton = new CardButton(this,skin);
+            this.cardButton = new CardButton(this, cardButtonStyle);
             this.add(cardButton);
 
             buttonTextLabels.setFillParent(true);
@@ -74,9 +75,9 @@ public class GUICard extends Stack {
         // Always wipe first
         buttonTextLabels.clearChildren();
         // The GUICard's priority value and action added to display.
-        buttonTextLabels.add(priorityValueLabel).padRight(22);
+        buttonTextLabels.add(priorityValueLabel).width(this.getWidth()).padLeft(22);
         buttonTextLabels.row();
-        buttonTextLabels.add(cardActionLabel).padRight(15);
+        buttonTextLabels.add(cardActionLabel).width(this.getWidth()).padLeft(15);
     }
     private void getCardValues() {
         //; GAME LOGIC INSERT
@@ -86,8 +87,10 @@ public class GUICard extends Stack {
     public void setCardValues(int priorityValue, String cardAction){
         this.priorityValueLabel = new Label(Integer.toString(priorityValue),skin);
         this.cardActionLabel = new Label( cardAction, skin);
-        //priorityValueLabel.setWrap(true);
-        //cardActionLabel.setWrap(true);
+        this.priorityValueLabel.setColor(Color.BLUE);
+
+        this.cardActionLabel.setColor(Color.BLUE);
+        this.cardActionLabel.setWrap(true);
 
         updateCard();
 
