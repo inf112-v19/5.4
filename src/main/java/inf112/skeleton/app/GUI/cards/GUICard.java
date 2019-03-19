@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 
 
@@ -42,12 +43,6 @@ public class GUICard extends Stack {
 
             setCardValues(pgCard.getPriority(),pgCard.getCardType().getDescription());
 
-            // Trying to make newlines
-            /*cardActionLabel.setWrap(true);
-            cardActionLabel.pack();
-            cardActionLabel.setWidth(this.getWidth());
-            cardActionLabel.pack();
-            cardActionLabel.setWidth(this.getWidth());*/
 
             cardActionLabel.setColor(Color.WHITE);
 
@@ -55,9 +50,12 @@ public class GUICard extends Stack {
             this.cardButton = new CardButton(this, cardButtonStyle);
             this.add(cardButton);
 
-            buttonTextLabels.setFillParent(true);
+
             //buttonTextLabels.setDebug(true);
-            buttonTextLabels.defaults().expandX().right();
+
+            buttonTextLabels.setFillParent(false);
+            buttonTextLabels.top().right();
+            //buttonTextLabels.setDebug(true);
 
             // Refresh the cards display values.
             updateCard();
@@ -67,17 +65,24 @@ public class GUICard extends Stack {
 
             this.add(buttonTextLabels);
 
-
-
         }
 
+    // This needs to be run whenever the card's content changes.
     private void updateCard(){
         // Always wipe first
         buttonTextLabels.clearChildren();
         // The GUICard's priority value and action added to display.
-        buttonTextLabels.add(priorityValueLabel).width(this.getWidth()).padLeft(22);
+
+        buttonTextLabels.left();
+
+        // Tuned to be top right.
+        buttonTextLabels.add(priorityValueLabel).top().right().padRight(24).padTop(15) ;
         buttonTextLabels.row();
-        buttonTextLabels.add(cardActionLabel).width(this.getWidth()).padLeft(15);
+
+        // Tuned to be in the middle.
+        int textAreaWidth = 96;
+        buttonTextLabels.add(cardActionLabel).width(textAreaWidth).expandY().center().padLeft(24).padRight(20).padBottom(20);
+
     }
     private void getCardValues() {
         //; GAME LOGIC INSERT
@@ -86,8 +91,12 @@ public class GUICard extends Stack {
 
     public void setCardValues(int priorityValue, String cardAction){
         this.priorityValueLabel = new Label(Integer.toString(priorityValue),skin);
+        this.priorityValueLabel.setAlignment(Align.center);
+        this.priorityValueLabel.setFontScale(1.2f);
         this.cardActionLabel = new Label( cardAction, skin);
-        this.priorityValueLabel.setColor(Color.BLUE);
+        this.cardActionLabel.setAlignment(Align.center);
+
+        this.priorityValueLabel.setColor(Color.FIREBRICK);
 
         this.cardActionLabel.setColor(Color.BLUE);
         this.cardActionLabel.setWrap(true);

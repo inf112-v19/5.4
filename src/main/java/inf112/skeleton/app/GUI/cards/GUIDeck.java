@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Array;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 
+import javax.smartcardio.Card;
 import java.util.*;
 import java.util.List;
 
@@ -103,6 +104,8 @@ public class GUIDeck extends Table {
      */
     public void pickCardsSetup(){
 
+        // You can click the cards!
+        setClickingDisabled(false);
 
         // Set instruction label.
         String instructions = "Pick " + amountOfCardsAllowedToPick + ":";
@@ -122,6 +125,8 @@ public class GUIDeck extends Table {
         this.add(cardsPickedDisplay).pad(20);
     }
 
+
+
     /**
      * Pick which order your deck is in!
      */
@@ -131,6 +136,9 @@ public class GUIDeck extends Table {
         // Always clear first.
         this.clearChildren();
         pickedGUICards.clear();
+
+        // Makes sure one can't click the cards.
+        setClickingDisabled(true);
 
         // Making label.
         String instructions = "Order your cards:";
@@ -169,6 +177,13 @@ public class GUIDeck extends Table {
 
 
 
+    }
+
+    private void setClickingDisabled(boolean clickBool) {
+        Array<CardButton> currCardButtons = this.buttonGroup.getButtons();
+        for( CardButton currBtn : currCardButtons){
+            currBtn.setDisabled(clickBool);
+        }
     }
 
     public void drawDeck(){
