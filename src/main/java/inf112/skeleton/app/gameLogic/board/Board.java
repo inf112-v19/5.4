@@ -1,5 +1,6 @@
 package inf112.skeleton.app.gameLogic.board;
 
+import inf112.skeleton.app.GUI.pieces.Piece;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
@@ -25,7 +26,14 @@ public class Board implements IBoard {
     public void displayBoard() {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
-                System.out.print(" | " + board[i][j]);
+                System.out.print(" | ");
+                if (board[i][j] == null) {
+                    System.out.print("empty");
+                } else {
+                    for (IPiece p : board[i][j].getPiecesInCell()) {
+                        System.out.print(p.getName() + "-" + p.getRotation() + " ");
+                    }
+                }
             }
             System.out.print(" | ");
             System.out.println();
@@ -70,7 +78,8 @@ public class Board implements IBoard {
     }
 
     public ICell getCellAt(Position pos) {
-        return board[pos.getX()][pos.getY()];
+        //Byttet om disse, var board[pos.getX()][pos.getY()];
+        return board[pos.getY()][pos.getX()];
     }
 
     public ICell getNextCell(Position pos, Direction dir) {

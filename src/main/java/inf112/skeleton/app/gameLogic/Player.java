@@ -65,49 +65,37 @@ public class Player implements IPlayer {
      */
     @Override
     public void move(Direction dir, int numSteps) {
+        //System.out.println("Dir: " + dir + " Pre: " + pos.getX() + " " + pos.getY());
         for (int i = 0; i < numSteps; i++) {
-            switch (dir) {
-                case NORTH:
-                    if (canMove(dir, board.getCellAt(this.pos))) {
-                        this.pos = this.pos.north();
-                    }
-                    break;
-                case EAST:
-                    if (canMove(dir, board.getCellAt(this.pos))) {
-                        this.pos = this.pos.east();
-                    }
-                    break;
-                case SOUTH:
-                    if (canMove(dir, board.getCellAt(this.pos))) {
-                        this.pos = this.pos.south();
-                    }
-                    break;
-                case WEST:
-                    if (canMove(dir, board.getCellAt(this.pos))) {
-                        this.pos = this.pos.west();
-                    }
-                    break;
+            if (canMove(dir, board.getCellAt(this.pos))){
+                this.pos = this.pos.changePos(dir);
             }
         }
+        //System.out.println("Post :" + pos.getX() +" "+ pos.getY());
         robot.doAction(ActionType.MOVE, dir);
+
     }
 
-    @SuppressWarnings("ALL")
     private boolean canMove(Direction goingDir, ICell currCell) {
-        if(currCell == null){
+        if (currCell == null) {
             return true;
         }
-        if(board.getNextCell(pos, goingDir) == null){
-            return true;
-        }
+
         List<IPiece> piecesInCurrCell = board.getCellAt(pos).getPiecesInCell();
-        List<IPiece> piecesInNextCell = board.getNextCell(pos, goingDir).getPiecesInCell();
         for (IPiece piece : piecesInCurrCell) {
+            //System.out.println(piece.getName() +"-"+ piece.getRotation());
             if (piece instanceof Wall && piece.getRotation() == goingDir) {
+                //System.out.println("hit wall");
                 return false;
             }
         }
+
         Direction oppositeDir = goingDir.oppositeDir(goingDir);
+        if (board.getNextCell(pos, goingDir) == null) {
+            return true;
+        }
+        List<IPiece> piecesInNextCell = board.getNextCell(pos, goingDir).getPiecesInCell();
+
         for (IPiece piece : piecesInNextCell) {
             if (piece instanceof Wall && piece.getRotation() == oppositeDir) {
 
