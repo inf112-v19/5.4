@@ -1,4 +1,4 @@
-package inf112.skeleton.app.GUI;
+package inf112.skeleton.app.GUI.pieces;
 
 
 import com.badlogic.gdx.Gdx;
@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class BaseAsset extends Actor {
+public class BaseAsset extends GUIPiece {
 
     Sprite sprite = new Sprite(new Texture(Gdx.files.internal("badlogic.jpg")));
 

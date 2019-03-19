@@ -5,10 +5,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 
-public class Robot extends Piece {
+public class GUIRobot extends GUIPiece {
         String path = "bots/";
 
-        public Robot(int robotNumber){
+        public GUIRobot(int robotNumber){
 
                 switch (robotNumber){
                         case 0:

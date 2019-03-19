@@ -11,17 +11,17 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
-import inf112.skeleton.app.GUI.pieces.Robot;
+import inf112.skeleton.app.GUI.pieces.GUIRobot;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.ActionType;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
-public class MovableRobot extends Robot {
+public class MovableGUIRobot extends GUIRobot {
 
 
-    public MovableRobot(int robotnr) {
+    public MovableGUIRobot(int robotnr) {
 
         super(robotnr);
 //       this.setScale(0.8f);
@@ -115,7 +115,7 @@ public class MovableRobot extends Robot {
 
                 }
 
-                MovableRobot.this.addAction(sequence(moveAction, new DelayAction(1000), new RunnableAction() {
+                MovableGUIRobot.this.addAction(sequence(moveAction, new DelayAction(1000), new RunnableAction() {
                     @Override
                     public void run() {
                         System.out.println("COMPLETE!");
@@ -129,7 +129,7 @@ public class MovableRobot extends Robot {
                 );
                 RotateByAction rotateByAction = new RotateByAction();
                 rotateByAction.setAmount(90f);
-                MovableRobot.this.addAction(rotateByAction);
+                MovableGUIRobot.this.addAction(rotateByAction);
                 break;
 
         }

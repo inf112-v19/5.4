@@ -1,6 +1,6 @@
 package inf112.skeleton.app.gameLogic.game;
 
-import inf112.skeleton.app.GUI.player.MovableRobot;
+import inf112.skeleton.app.GUI.player.MovableGUIRobot;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.board.Board;
@@ -17,9 +17,9 @@ public class Checker {
     private Action playersAction;
     private List<Action> actionList;
     private Board board;
-    private MovableRobot robot;
+    private MovableGUIRobot robot;
 
-    public Checker(Player player, Action action, Board board, MovableRobot robot) {
+    public Checker(Player player, Action action, Board board, MovableGUIRobot robot) {
         this.position = player.getPos();
         this.playersAction = action;
         this.board = board;
@@ -30,13 +30,13 @@ public class Checker {
         List<IPiece> piecesInCurrCell = currCell.getPiecesInCell();
         List<IPiece> piecesInNextCell = nextCell.getPiecesInCell();
         for (IPiece piece : piecesInCurrCell) {
-            if (piece instanceof Wall && piece.getRotation() == goingDir) {
+            if (piece instanceof Wall && piece.getPieceDirection() == goingDir) {
                 return false;
             }
         }
         Direction oppositeDir = goingDir.oppositeDir(goingDir);
         for (IPiece piece : piecesInNextCell) {
-            if (piece instanceof Wall && piece.getRotation() == oppositeDir) {
+            if (piece instanceof Wall && piece.getPieceDirection() == oppositeDir) {
 
                 return false;
             }

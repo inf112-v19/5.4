@@ -1,13 +1,14 @@
 package inf112.skeleton.app.gameLogic;
 
-import inf112.skeleton.app.GUI.player.MovableRobot;
+import inf112.skeleton.app.GUI.pieces.GUIPiece;
+import inf112.skeleton.app.GUI.pieces.GUIRobot;
+import inf112.skeleton.app.GUI.player.MovableGUIRobot;
 import inf112.skeleton.app.gameLogic.board.IPiece;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.ActionType;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.enums.Rotation;
-import inf112.skeleton.app.gameLogic.game.Checker;
 
 import java.util.List;
 import java.util.Stack;
@@ -21,7 +22,7 @@ public class Player implements IPlayer {
     private Position pos;
     private Stack<ProgramCard> playerDeck;
     private List<ProgramCard> playerRegister;
-    private MovableRobot robot;
+    private MovableGUIRobot robot;
 
 
 
@@ -207,7 +208,7 @@ public class Player implements IPlayer {
         return this.health > 0;
     }
 
-    public void setRobot(MovableRobot hans) {
+    public void setRobot(MovableGUIRobot hans) {
         this.robot = hans;
     }
 
@@ -227,7 +228,12 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public Direction getRotation() {
+    public Direction getPieceDirection() {
         return null;
+    }
+
+    @Override
+    public GUIPiece getGUIPiece() {
+        return new GUIRobot(1);
     }
 }

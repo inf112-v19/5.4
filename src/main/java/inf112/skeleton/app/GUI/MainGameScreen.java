@@ -11,27 +11,17 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import inf112.skeleton.app.GUI.board.Board;
+import inf112.skeleton.app.GUI.board.GUIBoard;
 import inf112.skeleton.app.GUI.board.Stats;
 import inf112.skeleton.app.GUI.cards.GUIDeck;
-import inf112.skeleton.app.GUI.pieces.Laser;
-import inf112.skeleton.app.GUI.pieces.Robot;
-import inf112.skeleton.app.GUI.pieces.GUIWall;
-import inf112.skeleton.app.GUI.player.MovableRobot;
+import inf112.skeleton.app.GUI.player.MovableGUIRobot;
 import inf112.skeleton.app.gameLogic.ProgramCard;
-import inf112.skeleton.app.gameLogic.board.pieces.Wall;
-import inf112.skeleton.app.gameLogic.enums.Direction;
+import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.game.RoboRallyGame;
 
 import java.util.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import inf112.skeleton.app.GUI.pieces.*;
-import inf112.skeleton.app.GUI.player.MovableRobot;
-import inf112.skeleton.app.gameLogic.board.pieces.Wall;
-import inf112.skeleton.app.gameLogic.enums.Direction;
-import inf112.skeleton.app.gameLogic.board.pieces.Conveyor;
-import inf112.skeleton.app.gameLogic.enums.Rotation;
 
 public class MainGameScreen implements Screen {
 	private Stage stage;
@@ -43,7 +33,7 @@ public class MainGameScreen implements Screen {
 	RoboRallyGame roboRallyGame;
 
 	List<ProgramCard> pgCards;
-	MovableRobot overallHans;
+	MovableGUIRobot overallHans;
 
 	GUIDeck guiDeck;
 	Cell guiDeckCell;
@@ -139,38 +129,42 @@ public class MainGameScreen implements Screen {
 		//game.setDebug(true);
 		game.top().left();
 
-		// Create board.
-		Board board = new Board(90, 10, 10);
-		//board.setDebug(true);
+		// Create GUIBoard.
+		//GUIBoard GUIBoard = new GUIBoard(90, 10, 10);
+		Board board = new Board("etamat", "DankBoard.json");
+		board.displayBoard();
+		int testBoardHeightUnitSize = board.getBoardHeight();
+		GUIBoard GUIBoard = new GUIBoard(board);
+		//GUIBoard.setDebug(true);
 
-		// Add some pieces to the board.
-		//board.addPiece(3,3, new Robot(1));
-		board.addPiece(3,3, new Robot(0));
-		board.addPiece(1,3, new Laser());
-		board.addPiece(2,3, new Laser());
-		board.addPiece(4,3, new Laser());
-		board.addPiece(5,3, new Laser());
-		
+		// Add some pieces to the GUIBoard.
+		//GUIBoard.addGUIPiece(3,3, new GUIRobot(1));
+//		GUIBoard.addGUIPiece(3,3, new GUIRobot(0));
+//		GUIBoard.addGUIPiece(1,3, new GUILaser());
+//		GUIBoard.addGUIPiece(2,3, new GUILaser());
+//		GUIBoard.addGUIPiece(4,3, new GUILaser());
+//		GUIBoard.addGUIPiece(5,3, new GUILaser());
+//
+//
+//		GUIBoard.addGUIPiece(1, 2, new GUIWall(Direction.WEST));
+//		GUIBoard.addGUIPiece(1, 3, new GUIWall(Direction.NORTH));
+//		GUIBoard.addGUIPiece(1, 4, new GUIWall(Direction.EAST));
+//		GUIBoard.addGUIPiece(1, 5, new GUIWall(Direction.SOUTH));
+//		GUIBoard.addGUIPiece(0,0, new GUIHole());
+//		GUIBoard.addGUIPiece(1,0, new GUIHole());
+//		GUIBoard.addGUIPiece(6,2, new GUIHole());
+//		GUIBoard.addGUIPiece(8, 3, new GUIConveyor(Direction.NORTH));
+//		GUIBoard.addGUIPiece(8, 4, new GUIConveyor(Direction.EAST));
+//		GUIBoard.addGUIPiece(8, 5, new GUIConveyor(Direction.SOUTH));
+//		GUIBoard.addGUIPiece(8, 6, new GUIConveyor(Direction.WEST));
+//		GUIBoard.addGUIPiece(7, 6, new GUIFlag());
+//		GUIBoard.addGUIPiece(5, 7, new GUIRepair());
+//		GUIBoard.addGUIPiece(6, 8, new GUIGear(Rotation.R));
+//		GUIBoard.addGUIPiece(8, 9, new GUIGear(Rotation.L));
 
-		board.addPiece(1, 2, new GUIWall(new Wall(Direction.WEST)));
-		board.addPiece(1, 3, new GUIWall(new Wall(Direction.NORTH)));
-		board.addPiece(1, 4, new GUIWall(new Wall(Direction.EAST)));
-		board.addPiece(1, 5, new GUIWall(new Wall(Direction.SOUTH)));
-		board.addPiece(0,0, new GUIHole());
-		board.addPiece(1,0, new GUIHole());
-		board.addPiece(6,2, new GUIHole());
-		board.addPiece(8, 3, new GUIConveyor(new Conveyor(Direction.NORTH)));
-		board.addPiece(8, 4, new GUIConveyor(new Conveyor(Direction.EAST)));
-		board.addPiece(8, 5, new GUIConveyor(new Conveyor(Direction.SOUTH)));
-		board.addPiece(8, 6, new GUIConveyor(new Conveyor(Direction.WEST)));
-		board.addPiece(7, 6, new GUIFlag());
-		board.addPiece(5, 7, new GUIRepair());
-		board.addPiece(6, 8, new GUIGear(Rotation.R));
-		board.addPiece(8, 9, new GUIGear(Rotation.L));
-
-		MovableRobot hans = new MovableRobot(1);
+		MovableGUIRobot hans = new MovableGUIRobot(1);
 		this.overallHans = hans;
-		board.addPiece(5,5, hans);
+		GUIBoard.addGUIPiece(5,5, hans);
 
 
 
@@ -181,8 +175,8 @@ public class MainGameScreen implements Screen {
 
 		// Add everything to the main table.
 		topBar.add().prefWidth(200);
-		// Board add
-		topBar.add(board).top().center().expandX().padTop(30);
+		// GUIBoard add
+		topBar.add(GUIBoard).top().center().expandX().padTop(30);
 		// Stat add
 		topBar.add(stats).top().left().pad(70);
 
@@ -235,7 +229,7 @@ public class MainGameScreen implements Screen {
 
 	}
 
-	public MovableRobot gimmeRobotTest(){
+	public MovableGUIRobot gimmeRobotTest(){
     	return this.overallHans;
 	}
 
