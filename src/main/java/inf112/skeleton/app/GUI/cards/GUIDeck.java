@@ -143,7 +143,6 @@ public class GUIDeck extends Table {
         // Making label.
         String instructions = "Order your cards:";
         instructionLabel.setText(instructions);
-        this.add(instructionLabel).size(instructionLabel.getWidth(),instructionLabel.getHeight());
 
         // Getting the clicked buttons, and fetch it's corresponding GUICard.
         Array<CardButton> cardButtonArray = new Array<CardButton>(this.buttonGroup.getAllChecked());
@@ -192,7 +191,7 @@ public class GUIDeck extends Table {
         this.clearChildren();
         this.left().bottom();
 
-        this.add(instructionLabel).size(instructionLabel.getWidth(),instructionLabel.getHeight());
+        this.add(instructionLabel).size(instructionLabel.getWidth(),instructionLabel.getHeight()).padRight(10);
 
         // Add new assignedGUICards to deck.
         ArrayList<Cell> cardCells = new ArrayList<Cell>();

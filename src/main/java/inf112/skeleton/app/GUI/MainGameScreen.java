@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import inf112.skeleton.app.GUI.board.GUIBoard;
 import inf112.skeleton.app.GUI.board.Stats;
 import inf112.skeleton.app.GUI.cards.GUIDeck;
+import inf112.skeleton.app.GUI.pieces.GUIBest;
 import inf112.skeleton.app.GUI.player.MovableGUIRobot;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.board.Board;
@@ -132,10 +133,8 @@ public class MainGameScreen implements Screen {
 
 		// Create GUIBoard.
 		//GUIBoard GUIBoard = new GUIBoard(90, 10, 10);
-		Board board = new Board("etamat", "DankBoard.json");
-		board.displayBoard();
-		int testBoardHeightUnitSize = board.getBoardHeight();
-		GUIBoard GUIBoard = new GUIBoard(board);
+		Board gameLogicBoard = new Board("etamat", "DankBoard.json");
+		GUIBoard GUIBoard = new GUIBoard(gameLogicBoard);
 		//GUIBoard.setDebug(true);
 
 		// Add some pieces to the GUIBoard.
@@ -166,9 +165,7 @@ public class MainGameScreen implements Screen {
 		MovableGUIRobot hans = new MovableGUIRobot(1);
 		this.overallHans = hans;
 		GUIBoard.addGUIPiece(5,5, hans);
-
-
-
+		//GUIBoard.addGUIPiece(5,5, new GUIBest());
 
 		// BOARD CREATION AND SETUP
 
@@ -177,7 +174,7 @@ public class MainGameScreen implements Screen {
 		// Add everything to the main table.
 		topBar.add().prefWidth(200);
 		// GUIBoard add
-		topBar.add(GUIBoard).top().center().expandX().padTop(30);
+		topBar.add(GUIBoard).top().center().expandX().padTop(30).height(900);
 		// Stat add
 		topBar.add(stats).top().left().pad(70);
 
@@ -195,8 +192,6 @@ public class MainGameScreen implements Screen {
 		stage.addActor(game);
 
 		stage.setKeyboardFocus(hans);
-
-		//testMoveStuff(hans, GUIDeck);
 
 		//pickCardPhase(new ProgramCardDeck().drawXCards(9));
 	}

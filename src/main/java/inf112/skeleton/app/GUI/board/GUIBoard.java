@@ -16,6 +16,7 @@ public class GUIBoard extends Table {
     // How many X and Y tiles are generated.
     int xGridSize;
     int yGridSize;
+    int boardHeight;
 
     // Size of each square (currently even, i.e unitSize 64 means 64x64 px).
     float unitSize;
@@ -27,11 +28,15 @@ public class GUIBoard extends Table {
 
     public GUIBoard(int xGridSize, int yGridSize){
 
+        this.boardHeight = 900;
+
         this.xGridSize = xGridSize;
         this.yGridSize = yGridSize;
 
+
         // Probably a stupid way to do it.
-        this.unitSize = 900/xGridSize;
+        this.unitSize = boardHeight/yGridSize;
+        //this.unitSize = 900/xGridSize;
 
         boardMap = new Tile[yGridSize][xGridSize];
 
@@ -52,9 +57,6 @@ public class GUIBoard extends Table {
 
         int boardHeight = board.getBoardHeight();
         int boardWidth = board.getBoardWidth();
-
-
-
 
         for(int y=0; y<boardHeight; y++){
             for(int x = 0; x<boardWidth; x++ ){

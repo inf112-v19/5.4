@@ -27,11 +27,11 @@ public class MovableGUIRobot extends GUIRobot {
 //       this.setScale(0.8f);
         setBounds(getX(), getY(), getWidth(), getHeight());
 
-        addListener(new DragListener() {
+        /*addListener(new DragListener() {
             public void drag(InputEvent event, float x, float y, int pointer) {
                 moveBy(x - getWidth() / 2, y - getHeight() / 2);
             }
-        });
+        });*/
 
         addListener(new InputListener() {
             @Override
@@ -100,14 +100,12 @@ public class MovableGUIRobot extends GUIRobot {
                     case NORTH:
                         System.out.println("WWWAHASHDABSD");
                         moveAction.setAmount(0f, getHeight());
-
                         break;
                     case EAST:
                         moveAction.setAmount(getWidth(), 0f);
                         break;
                     case WEST:
                         moveAction.setAmount(-getWidth(), 0);
-
                         break;
                     case SOUTH:
                         moveAction.setAmount(0f, -getHeight());
