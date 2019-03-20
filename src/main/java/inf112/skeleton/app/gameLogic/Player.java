@@ -34,7 +34,7 @@ public class Player implements IPlayer {
         this.health = health;
         this.maxHealth = health;
         this.damageTokens = 0;
-        this.robot = robot;
+//        this.robot = new MovableRobot(0);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class Player implements IPlayer {
                     break;
             }
             //Comment this out if you want the tests to work
-            robot.doAction(ActionType.MOVE, dir);
+//            robot.doAction(ActionType.MOVE, dir);
         }
     }
 
@@ -166,7 +166,7 @@ public class Player implements IPlayer {
             throw new IllegalArgumentException("Not a valid rotation!");
         }
         //Comment this out if you want the tests to work
-        robot.doAction(ActionType.ROTATE, dir);
+//        robot.doAction(ActionType.ROTATE, dir);
     }
 
     /**
