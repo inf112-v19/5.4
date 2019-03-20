@@ -3,6 +3,9 @@ package inf112.skeleton.app.GUI.board;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
+import inf112.skeleton.app.GUI.pieces.GUIRobot;
+import inf112.skeleton.app.GUI.player.MovableGUIRobot;
+import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.board.ICell;
 import inf112.skeleton.app.gameLogic.board.IPiece;
@@ -110,6 +113,13 @@ public class GUIBoard extends Table {
                 this.add(boardMap[y][x]).size(unitSize);
             }
             this.row();
+        }
+    }
+
+    public void addPlayers(Player[] players){
+        for(Player currPlayer : players){
+            System.out.println("adding stuff");
+            this.addGUIPiece(currPlayer.getPos().getX(),currPlayer.getPos().getY(), currPlayer.getRobot());
         }
     }
 

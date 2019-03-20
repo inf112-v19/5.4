@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Array;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 
 import javax.smartcardio.Card;
+import javax.xml.soap.Text;
 import java.util.*;
 import java.util.List;
 
@@ -73,8 +74,6 @@ public class GUIDeck extends Table {
 
         // USED FOR TESTING
         //createGUICards(pgDeck);
-
-
 
     }
 
@@ -220,6 +219,21 @@ public class GUIDeck extends Table {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 clearChildren();
+
+                TextButton againBtn = new TextButton("Pick again", skin);
+                addPickAgainButton(againBtn);
+
+                add(againBtn);
+
+            }
+        });
+    }
+
+    public void addPickAgainButton(TextButton listenerButton){
+        listenerButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent changeEvent, Actor actor) {
+                pickCardsSetup();
             }
         });
     }

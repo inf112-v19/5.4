@@ -14,6 +14,7 @@ import inf112.skeleton.app.gameLogic.enums.ActionType;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.enums.Rotation;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Stack;
 
@@ -41,6 +42,7 @@ public class Player implements IPlayer {
         this.maxHealth = health;
         this.damageTokens = 0;
         this.board = board;
+        this.robot = new MovableGUIRobot(1);
     }
 
     @Override
@@ -244,9 +246,6 @@ public class Player implements IPlayer {
         return this.health > 0;
     }
 
-    public void setRobot(MovableGUIRobot hans) {
-        this.robot = hans;
-    }
 
     @Override
     public IPiece getType() {
@@ -272,4 +271,9 @@ public class Player implements IPlayer {
     public GUIPiece getGUIPiece() {
         return new GUIRobot(1);
     }
+
+    public void setRobot(MovableGUIRobot robot) {
+        this.robot = robot;
+    }
+    public MovableGUIRobot getRobot(){return this.robot;}
 }

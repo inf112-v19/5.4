@@ -15,6 +15,7 @@ import inf112.skeleton.app.GUI.board.GUIBoard;
 import inf112.skeleton.app.GUI.board.Stats;
 import inf112.skeleton.app.GUI.cards.GUIDeck;
 import inf112.skeleton.app.GUI.player.MovableGUIRobot;
+import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.game.RoboRallyGame;
@@ -31,6 +32,7 @@ public class MainGameScreen implements Screen {
 	Music music;
 
 	RoboRallyGame roboRallyGame;
+	Player[] players;
 
 	List<ProgramCard> pgCards;
 	MovableGUIRobot currentMovableRobot;
@@ -55,6 +57,10 @@ public class MainGameScreen implements Screen {
 
 
 		this.roboRallyGame = new RoboRallyGame(this);
+
+		// Get the players from the game.
+        this.players = roboRallyGame.getPlayers();
+
 		roboRallyGame.playGame();
 
 		addPiecesTest();
@@ -134,6 +140,7 @@ public class MainGameScreen implements Screen {
 		//GUIBoard GUIBoard = new GUIBoard(90, 10, 10);
 		Board gameLogicBoard = new Board("etamat", "DankBoard.json");
 		GUIBoard GUIBoard = new GUIBoard(gameLogicBoard);
+		GUIBoard.addPlayers(players);
 		//GUIBoard.setDebug(true);
 
 		// Add some pieces to the GUIBoard.
@@ -162,8 +169,8 @@ public class MainGameScreen implements Screen {
 //		GUIBoard.addGUIPiece(8, 9, new GUIGear(Rotation.L));
 
 		MovableGUIRobot hans = new MovableGUIRobot(1);
-		this.currentMovableRobot = hans;
-		GUIBoard.addGUIPiece(5,5, hans);
+		//this.currentMovableRobot = hans;
+		//GUIBoard.addGUIPiece(5,5, hans);
 		//GUIBoard.addGUIPiece(5,5, new GUIBest());
 
 		// BOARD CREATION AND SETUP
