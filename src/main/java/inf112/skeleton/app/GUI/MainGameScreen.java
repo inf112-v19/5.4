@@ -170,7 +170,7 @@ public class MainGameScreen implements Screen {
 
 		MovableRobot hans = new MovableRobot(1);
 		this.overallHans = hans;
-		board.addPiece(5,5, hans);
+		board.addPiece(0,0, hans);
 
 
 

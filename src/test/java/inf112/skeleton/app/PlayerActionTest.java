@@ -1,6 +1,7 @@
 package inf112.skeleton.app;
 
 import inf112.skeleton.app.GUI.player.Position;
+import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.game.PlayerAction;
 import inf112.skeleton.app.gameLogic.game.TestGame;
@@ -19,10 +20,12 @@ public class PlayerActionTest {
 
     private Player player;
     private TestGame game;
+    private Board board;
 
     @Before
     public void setupActionTest() {
-        player = new Player(new Position(3, 3), Direction.NORTH, 3);
+        this.board = new Board("DummbyBoard", "DankBoard.json");
+        player = new Player(new Position(3, 3), Direction.NORTH, 3, board);
         game = new TestGame();
     }
 
@@ -80,7 +83,7 @@ public class PlayerActionTest {
 
     @Test
     public void testTwoPlayersMoving() {
-        Player player2 = new Player(new Position(0, 0), Direction.NORTH, 3);
+        Player player2 = new Player(new Position(0, 0), Direction.NORTH, 3, board);
         ProgramCardDeck deck = new ProgramCardDeck();
         int cardsForPlayer = 2;
         game.addPlayerToList(player);

@@ -3,8 +3,9 @@ package inf112.skeleton.app.gameLogic.board;
 
 import inf112.skeleton.app.gameLogic.board.pieces.*;
 import inf112.skeleton.app.gameLogic.enums.Action;
-import inf112.skeleton.app.gameLogic.enums.Direction ;
+import inf112.skeleton.app.gameLogic.enums.Direction;
 import org.json.simple.JSONArray;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -26,11 +27,10 @@ public class JSONBoardGenerator {
             Object boardFile = parser.parse(new FileReader(filepath));
             JSONObject jsonBoardFile = (JSONObject) boardFile;
             int jsonSize = jsonBoardFile.size();
-            int jsonSide = jsonSize / jsonSize;
-            jsonBoardPieceList = new ICell[12][12];
+            jsonBoardPieceList = new ICell[jsonSize][jsonSize];
             System.out.println(jsonBoardFile);
-            for (int x = 0; x <= 11; x++) {
-                for (int y = 0; y <= 11; y++) {
+            for (int x = 0; x <= jsonSize - 1; x++) {
+                for (int y = 0; y <= jsonSize - 1; y++) {
                     Cell tempCell = new Cell();
                     String intX = Integer.toString(x);
                     String intY = Integer.toString(y);
@@ -69,7 +69,7 @@ public class JSONBoardGenerator {
                                 tempCell.addPiece(new Wall(Direction.WEST));
                                 break;
 
-                             case "ConveyorNorth":
+                            case "ConveyorNorth":
                                 System.out.println("Making northfacing conveyor!");
                                 tempCell.addPiece(new Conveyor(Direction.NORTH));
                                 break;
@@ -161,7 +161,6 @@ public class JSONBoardGenerator {
                             case "LaserShooterWest3":
                                 System.out.println("Making northfacing lasershooter");
                                 tempCell.addPiece(new LaserShooter(Direction.WEST, 3));
-
                         }
                     }
                 }
