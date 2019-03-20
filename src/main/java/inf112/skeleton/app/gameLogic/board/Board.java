@@ -1,5 +1,7 @@
 package inf112.skeleton.app.gameLogic.board;
 
+import inf112.skeleton.app.GUI.pieces.Piece;
+import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import java.util.Iterator;
@@ -32,8 +34,15 @@ public class Board implements IBoard {
      */
     public void displayBoard() {
         for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                System.out.print(" | " + board[i][j]);
+            for (int j = 0; j < board.length; j++) {
+                System.out.print(" | ");
+                if (board[i][j] == null) {
+                    System.out.print("empty");
+                } else {
+                    for (IPiece p : board[i][j].getPiecesInCell()) {
+                        System.out.print(p.getName() + "-" + p.getRotation() + " ");
+                    }
+                }
             }
             System.out.print(" | ");
             System.out.println();
@@ -62,16 +71,40 @@ public class Board implements IBoard {
         ICell cell = new Cell();
         switch (dir) {
             case NORTH:
-                cell = board[x][y+1];
+                cell = board[x][y + 1];
                 break;
             case SOUTH:
-                cell = board[x][y-1];
+                cell = board[x][y - 1];
                 break;
             case EAST:
-                cell = board[x+1][y];
+                cell = board[x + 1][y];
                 break;
             case WEST:
-                cell = board[x-1][y];
+                cell = board[x - 1][y];
+                break;
+        }
+        return cell;
+    }
+
+    public ICell getCellAt(Position pos) {
+        //Byttet om disse, var board[pos.getX()][pos.getY()];
+        return board[pos.getY()][pos.getX()];
+    }
+
+    public ICell getNextCell(Position pos, Direction dir) {
+        ICell cell = new Cell();
+        switch (dir) {
+            case NORTH:
+                cell = board[pos.getX()][pos.getY() + 1];
+                break;
+            case SOUTH:
+                cell = board[pos.getX()][pos.getY() - 1];
+                break;
+            case EAST:
+                cell = board[pos.getX() + 1][pos.getY()];
+                break;
+            case WEST:
+                cell = board[pos.getX() - 1][pos.getY()];
                 break;
         }
         return cell;
