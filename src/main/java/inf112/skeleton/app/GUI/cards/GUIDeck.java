@@ -150,7 +150,7 @@ public class GUIDeck extends Table {
         for(CardButton cardButton : cardButtonArray){
             this.pickedGUICards.add(cardButton.getGUICard());
         }
-        
+
         // Uncheck buttons
         this.buttonGroup.uncheckAll();
 

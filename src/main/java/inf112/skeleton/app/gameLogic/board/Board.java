@@ -1,6 +1,6 @@
 package inf112.skeleton.app.gameLogic.board;
 
-import inf112.skeleton.app.GUI.pieces.Piece;
+import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
@@ -40,7 +40,7 @@ public class Board implements IBoard {
                     System.out.print("empty");
                 } else {
                     for (IPiece p : board[i][j].getPiecesInCell()) {
-                        System.out.print(p.getName() + "-" + p.getRotation() + " ");
+                        System.out.print(p.getName() + "-" + p.getPieceDirection() + " ");
                     }
                 }
             }
@@ -64,7 +64,7 @@ public class Board implements IBoard {
      * Method for retrieving a Cell from a specific coordinate on the board
      */
     public ICell getCellAt(int x, int y) {
-        return board[x][y];
+        return board[y][x];
     }
 
     public ICell getNextCell(int x, int y, Direction dir) {

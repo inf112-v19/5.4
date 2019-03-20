@@ -3,7 +3,6 @@ package inf112.skeleton.app.gameLogic;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.GUI.pieces.GUIRobot;
 import inf112.skeleton.app.GUI.player.MovableGUIRobot;
-import inf112.skeleton.app.GUI.player.MovableRobot;
 import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.board.ICell;
 import inf112.skeleton.app.gameLogic.board.IPiece;
@@ -90,8 +89,8 @@ public class Player implements IPlayer {
 
         List<IPiece> piecesInCurrCell = board.getCellAt(pos).getPiecesInCell();
         for (IPiece piece : piecesInCurrCell) {
-            System.out.println(piece.getName() +"-"+ piece.getRotation());
-            if (piece instanceof Wall && piece.getRotation() == goingDir) {
+            System.out.println(piece.getName() +"-"+ piece.getPieceDirection());
+            if (piece instanceof Wall && piece.getPieceDirection() == goingDir) {
                 System.out.println("hit wall");
                 return false;
             }
@@ -104,7 +103,7 @@ public class Player implements IPlayer {
         List<IPiece> piecesInNextCell = board.getNextCell(pos, goingDir).getPiecesInCell();
 
         for (IPiece piece : piecesInNextCell) {
-            if (piece instanceof Wall && piece.getRotation() == oppositeDir) {
+            if (piece instanceof Wall && piece.getPieceDirection() == oppositeDir) {
 
                 return false;
             }
