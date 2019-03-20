@@ -3,6 +3,7 @@ package inf112.skeleton.app.gameLogic.board;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.enums.Direction;
+import javafx.geometry.Pos;
 
 import java.util.Iterator;
 
@@ -68,6 +69,7 @@ public class Board implements IBoard {
     }
 
     public ICell getNextCell(int x, int y, Direction dir) {
+
         ICell cell = new Cell();
         switch (dir) {
             case NORTH:
@@ -95,10 +97,10 @@ public class Board implements IBoard {
         ICell cell = new Cell();
         switch (dir) {
             case NORTH:
-                cell = board[pos.getX()][pos.getY() + 1];
+                cell = board[pos.getX()][pos.getY() - 1];
                 break;
             case SOUTH:
-                cell = board[pos.getX()][pos.getY() - 1];
+                cell = board[pos.getX()][pos.getY() + 1];
                 break;
             case EAST:
                 cell = board[pos.getX() + 1][pos.getY()];
@@ -108,6 +110,18 @@ public class Board implements IBoard {
                 break;
         }
         return cell;
+    }
+
+    public boolean insideBoard(Position playerPos, Direction playerDir){
+        Position posAfterMove = playerPos.changePos(playerDir);
+        System.out.println("Pos after theoretical move " + posAfterMove.toString());
+        if(posAfterMove.getY() >= boardHeight || posAfterMove.getY() < 0){
+            return false;
+        }
+        if (posAfterMove.getX() >= boardWidth || posAfterMove.getX() < 0){
+            return false;
+        }
+        return true;
     }
 
     public int getBoardWidth(){

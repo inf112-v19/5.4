@@ -21,7 +21,7 @@ public class RoboRallyGame {
 
     private int totalPlayers = 1;   // Total players in the game
     private Player[] players;       // Players in the game
-    private int startHealth = 10;
+    private int startHealth = 3;
     private ProgramCardDeck deck;
     private Player currentPlayer;
     private Board board;
@@ -34,13 +34,19 @@ public class RoboRallyGame {
         this.deck = new ProgramCardDeck();  // Deck of cards in the game
         players = new Player[totalPlayers];
         for (int i = 0; i < players.length; i++) {
-            Position position = new Position(i+2, 0);
+            Position position = new Position(i+0, 0);
             players[i] = new Player(position, Direction.NORTH, startHealth, this.board);
             System.out.println("player made!!");
             System.out.println(players[i].getPos().getX() + " " + players[i].getPos().getY());
-            for(IPiece p : board.getCellAt(position).getPiecesInCell()){
-                System.out.println(p.getName()+"-"+p.getPieceDirection());
-            }
+
+//            try{
+//                for(IPiece p : board.getCellAt(position).getPiecesInCell()){
+//                    System.out.println(p.getName()+"-"+p.getPieceDirection());
+//                }
+//            } catch (NullPointerException e){
+//                System.out.println("wooops nullpointer, but noone cares");
+//            }
+
         }
         playGame();
     }
