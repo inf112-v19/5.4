@@ -65,15 +65,14 @@ public class Player implements IPlayer {
      */
     @Override
     public void move(Direction dir, int numSteps) {
-        //System.out.println("Dir: " + dir + " Pre: " + pos.getX() + " " + pos.getY());
+        System.out.println("Dir: " + dir + " Pre: " + pos.getX() + " " + pos.getY());
         for (int i = 0; i < numSteps; i++) {
             if (canMove(dir, board.getCellAt(this.pos))){
                 this.pos = this.pos.changePos(dir);
+                robot.doAction(ActionType.MOVE, dir);
             }
         }
-        //System.out.println("Post :" + pos.getX() +" "+ pos.getY());
-        robot.doAction(ActionType.MOVE, dir);
-
+        System.out.println("Post :" + pos.getX() +" "+ pos.getY());
     }
 
     private boolean canMove(Direction goingDir, ICell currCell) {
@@ -83,9 +82,9 @@ public class Player implements IPlayer {
 
         List<IPiece> piecesInCurrCell = board.getCellAt(pos).getPiecesInCell();
         for (IPiece piece : piecesInCurrCell) {
-            //System.out.println(piece.getName() +"-"+ piece.getRotation());
+            System.out.println(piece.getName() +"-"+ piece.getRotation());
             if (piece instanceof Wall && piece.getRotation() == goingDir) {
-                //System.out.println("hit wall");
+                System.out.println("hit wall");
                 return false;
             }
         }
@@ -119,6 +118,8 @@ public class Player implements IPlayer {
     /**
      * Player gets one damageToken
      */
+
+
     @Override
     public void takeDamage(int amountOfDamage) {
         if (damageTokens + amountOfDamage < 10) {

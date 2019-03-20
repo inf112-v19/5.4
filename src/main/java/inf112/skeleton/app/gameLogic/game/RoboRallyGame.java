@@ -6,6 +6,7 @@ import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.ProgramCardDeck;
 import inf112.skeleton.app.gameLogic.board.Board;
+import inf112.skeleton.app.gameLogic.board.IPiece;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import java.util.List;
@@ -32,10 +33,10 @@ public class RoboRallyGame {
         for (int i = 0; i < players.length; i++) {
             Position position = new Position(i+2, 0);
             players[i] = new Player(position, Direction.NORTH, startHealth, this.board);
-            //System.out.println(players[i].getPos().getX() + " " + players[i].getPos().getY());
-//            for(IPiece p : board.getCellAt(position).getPiecesInCell()){
-//                System.out.println(p.getName()+"-"+p.getRotation());
-//            }
+            System.out.println(players[i].getPos().getX() + " " + players[i].getPos().getY());
+            for(IPiece p : board.getCellAt(position).getPiecesInCell()){
+                System.out.println(p.getName()+"-"+p.getRotation());
+            }
         }
         playGame();
     }
