@@ -1,5 +1,7 @@
 package inf112.skeleton.app.gameLogic.board.pieces;
 
+import inf112.skeleton.app.GUI.pieces.GUILaser;
+import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.board.IPiece;
 
@@ -27,7 +29,7 @@ public class Laser implements IPiece {
 
     @Override
     public String getName() {
-        return "Laser";
+        return "GUILaser";
     }
 
     @Override
@@ -36,7 +38,12 @@ public class Laser implements IPiece {
     }
 
     @Override
-    public Direction getRotation() {
+    public Direction getPieceDirection() {
         return direction;
+    }
+
+    @Override
+    public GUIPiece getGUIPiece() {
+        return new GUILaser();
     }
 }

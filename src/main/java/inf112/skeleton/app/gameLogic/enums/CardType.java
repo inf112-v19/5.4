@@ -1,7 +1,7 @@
 package inf112.skeleton.app.gameLogic.enums;
 
 public enum CardType {
-    ROTATE_U("U-Turn", Action.ROTATE_U, 6),
+    ROTATE_U("U Turn", Action.ROTATE_U, 6),
     ROTATE_LEFT("Rotate Left", Action.ROTATE_L, 18),
     ROTATE_RIGHT("Rotate Right", Action.ROTATE_R, 18),
     BACK_UP("Back Up", Action.MOVE_BACK, 6),

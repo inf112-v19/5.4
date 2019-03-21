@@ -6,6 +6,7 @@ import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import org.json.simple.JSONArray;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -24,6 +25,8 @@ public class JSONBoardGenerator {
         ICell[][] jsonBoardPieceList = null;
 
         try {
+
+            //System.out.println(new File("xxxxxxxx.").getAbsoluteFile());
             Object boardFile = parser.parse(new FileReader(filepath));
             JSONObject jsonBoardFile = (JSONObject) boardFile;
             int jsonSize = jsonBoardFile.size();

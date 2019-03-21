@@ -9,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Array;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 
+import javax.smartcardio.Card;
+import javax.xml.soap.Text;
 import java.util.*;
 import java.util.List;
 
@@ -18,6 +20,7 @@ public class GUIDeck extends Table {
     ButtonGroup buttonGroup;
     Button listenerButton;
     Button doneButton;
+    CardButtonStyle cardButtonStyle;
 
     ArrayList<GUICard> assignedGUICards;
     ArrayList<GUICard> pickedGUICards;
@@ -42,6 +45,8 @@ public class GUIDeck extends Table {
     public GUIDeck(Skin skin, List<ProgramCard> pgCards, Button doneButton){
 
         this.skin = skin;
+
+        this.cardButtonStyle = new CardButtonStyle();
         this.assignedGUICards = new ArrayList<GUICard>();
         this.pickedGUICards = new ArrayList<GUICard>();
         this.drawGUICards = new ArrayList<GUICard>();
@@ -70,8 +75,6 @@ public class GUIDeck extends Table {
         // USED FOR TESTING
         //createGUICards(pgDeck);
 
-
-
     }
 
     public void createGUICards() {
@@ -83,7 +86,7 @@ public class GUIDeck extends Table {
 
         System.out.println(this.pgCards + " HEI JEG HETER CREATE GUICARDS");
         for( ProgramCard card : this.pgCards){
-            GUICard guiCard = new GUICard(skin, card);
+            GUICard guiCard = new GUICard(skin, card, this.cardButtonStyle);
             Button cardButton = guiCard.getButton();
             this.addCardCounterUpdateListener(cardButton);
             buttonGroup.add(cardButton);
@@ -100,6 +103,8 @@ public class GUIDeck extends Table {
      */
     public void pickCardsSetup(){
 
+        // You can click the cards!
+        setClickingDisabled(false);
 
         // Set instruction label.
         String instructions = "Pick " + amountOfCardsAllowedToPick + ":";
@@ -119,6 +124,8 @@ public class GUIDeck extends Table {
         this.add(cardsPickedDisplay).pad(20);
     }
 
+
+
     /**
      * Pick which order your deck is in!
      */
@@ -129,10 +136,12 @@ public class GUIDeck extends Table {
         this.clearChildren();
         pickedGUICards.clear();
 
+        // Makes sure one can't click the cards.
+        setClickingDisabled(true);
+
         // Making label.
         String instructions = "Order your cards:";
         instructionLabel.setText(instructions);
-        this.add(instructionLabel).size(instructionLabel.getWidth(),instructionLabel.getHeight());
 
         // Getting the clicked buttons, and fetch it's corresponding GUICard.
         Array<CardButton> cardButtonArray = new Array<CardButton>(this.buttonGroup.getAllChecked());
@@ -168,13 +177,20 @@ public class GUIDeck extends Table {
 
     }
 
+    private void setClickingDisabled(boolean clickBool) {
+        Array<CardButton> currCardButtons = this.buttonGroup.getButtons();
+        for( CardButton currBtn : currCardButtons){
+            currBtn.setDisabled(clickBool);
+        }
+    }
+
     public void drawDeck(){
 
         // Always clear first.
         this.clearChildren();
         this.left().bottom();
 
-        this.add(instructionLabel).size(instructionLabel.getWidth(),instructionLabel.getHeight());
+        this.add(instructionLabel).size(instructionLabel.getWidth(),instructionLabel.getHeight()).padRight(10);
 
         // Add new assignedGUICards to deck.
         ArrayList<Cell> cardCells = new ArrayList<Cell>();
@@ -187,8 +203,7 @@ public class GUIDeck extends Table {
 
         this.cardCells = cardCells;
 
-
-
+        // Adds all the cards at the bottom
         for(Button btn : actionButtons){
             this.add(btn).left().center().size(btn.getWidth(), btn.getHeight());
         }
@@ -204,6 +219,21 @@ public class GUIDeck extends Table {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 clearChildren();
+
+                TextButton againBtn = new TextButton("Pick again", skin);
+                addPickAgainButton(againBtn);
+
+                add(againBtn);
+
+            }
+        });
+    }
+
+    public void addPickAgainButton(TextButton listenerButton){
+        listenerButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent changeEvent, Actor actor) {
+                pickCardsSetup();
             }
         });
     }

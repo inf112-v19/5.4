@@ -10,7 +10,8 @@ import inf112.skeleton.app.GUI.MainGameScreen;
 public class Main {
     public static void main(String[] args) {
 
-        //new Board("Gooblepoops", "C:\\Users\\Morten\\Desktop\\UiB\\INF112\\First Oblig\\TestBoard.json").displayBoard();
+        // Do we have the board file somewhere?
+        //new GUIBoard("Gooblepoops", "C:\\Users\\Morten\\Desktop\\UiB\\INF112\\First Oblig\\TestBoard.json").displayBoard();
 
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
         cfg.title = "Robo Rally Rampage";

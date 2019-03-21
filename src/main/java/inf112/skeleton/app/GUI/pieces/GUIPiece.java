@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class Piece extends Actor {
+public class GUIPiece extends Actor {
 
     public Sprite sprite;
     float rotation;

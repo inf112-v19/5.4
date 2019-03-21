@@ -1,11 +1,10 @@
 package inf112.skeleton.app.gameLogic.board.pieces;
 
+import inf112.skeleton.app.GUI.pieces.GUIConveyor;
+import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.gameLogic.board.IPiece;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
-import inf112.skeleton.app.gameLogic.board.IActiveCell;
-
-import java.util.List;
 
 public class Conveyor implements IPiece {
 
@@ -40,11 +39,15 @@ public class Conveyor implements IPiece {
         }
     }
 
-    public Direction getRotation() {
+    public Direction getPieceDirection() {
         return direction;
     }
+
 
     public Action getAction() {
         return null;
     }
+
+    @Override
+    public GUIPiece getGUIPiece() { return new GUIConveyor(this.getPieceDirection()); }
 }

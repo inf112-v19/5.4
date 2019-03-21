@@ -15,6 +15,7 @@ public class Cell implements ICell {
      * Method for getting the list of pieces in the cell
      * @return List of pieces
      */
+    @Override
     public List<IPiece> getPiecesInCell() {
         return piecesInCell;
     }
