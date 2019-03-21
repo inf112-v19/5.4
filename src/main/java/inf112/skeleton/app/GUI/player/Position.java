@@ -40,4 +40,9 @@ public class Position {
     public Position east() {
         return new Position(xPos+1, yPos);
     }
+
+    @Override
+    public String toString() {
+        return ("x: " + this.xPos + " y: " + this.yPos);
+    }
 }

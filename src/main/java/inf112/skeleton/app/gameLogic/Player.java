@@ -7,14 +7,12 @@ import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.board.ICell;
 import inf112.skeleton.app.gameLogic.board.IPiece;
 import inf112.skeleton.app.gameLogic.board.pieces.Wall;
-import inf112.skeleton.app.gameLogic.enums.*;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.ActionType;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.enums.Rotation;
 
-import java.awt.*;
 import java.util.List;
 import java.util.Stack;
 
@@ -23,11 +21,12 @@ public class Player implements IPlayer {
     private int health;
     private final int maxHealth;
     private int damageTokens;
-    private Direction dir;
+    private Direction facingDir;
     private Position pos;
     private Stack<ProgramCard> playerDeck;
     private List<ProgramCard> playerRegister;
     private MovableGUIRobot robot;
+    private Position respawnPoint;
 
     private Board board;
 
@@ -37,12 +36,13 @@ public class Player implements IPlayer {
      */
     public Player(Position pos, Direction dir, int health, Board board) {
         this.pos = pos;
-        this.dir = dir;
+        this.facingDir = dir;
         this.health = health;
         this.maxHealth = health;
         this.damageTokens = 0;
         this.board = board;
         this.robot = new MovableGUIRobot(1);
+        this.respawnPoint = pos;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class Player implements IPlayer {
     public void doAction(Action att) {
         switch (att.getActionType()) {
             case MOVE:
-                this.move(dir, att.getValue());
+                this.move(facingDir, att.getValue());
                 break;
             case ROTATE:
                 this.rotate(Rotation.R);
@@ -76,52 +76,68 @@ public class Player implements IPlayer {
     public void move(Direction dir, int numSteps) {
         System.out.println("Dir: " + dir + " Pre: " + pos.getX() + " " + pos.getY());
         for (int i = 0; i < numSteps; i++) {
-            if (canMove(dir, board.getCellAt(this.pos))){
+            if (canMove(dir, board.getCellAt(this.pos))) {
                 this.pos = this.pos.changePos(dir);
                 robot.doAction(ActionType.MOVE, dir);
             }
         }
-        System.out.println("Post :" + pos.getX() +" "+ pos.getY());
+        System.out.println("Post :" + pos.getX() + " " + pos.getY());
     }
 
     private boolean canMove(Direction goingDir, ICell currCell) {
-        if (currCell == null) {
-            return true;
-        }
-
-        List<IPiece> piecesInCurrCell = board.getCellAt(pos).getPiecesInCell();
-        for (IPiece piece : piecesInCurrCell) {
-            System.out.println(piece.getName() +"-"+ piece.getPieceDirection());
-            if (piece instanceof Wall && piece.getPieceDirection() == goingDir) {
-                System.out.println("hit wall");
-                return false;
-            }
-        }
-
-        Direction oppositeDir = goingDir.oppositeDir(goingDir);
-        if (board.getNextCell(pos, goingDir) == null) {
-            return true;
-        }
-        List<IPiece> piecesInNextCell = board.getNextCell(pos, goingDir).getPiecesInCell();
-
-        for (IPiece piece : piecesInNextCell) {
-            if (piece instanceof Wall && piece.getPieceDirection() == oppositeDir) {
-
-                return false;
-            }
-        }
-        for (IPiece piece : piecesInNextCell) {
-            if (piece instanceof Player) {
-                Player player = (Player) piece;
-                if (canMove(goingDir, board.getNextCell(pos, goingDir))) {
-                    player.move(goingDir, 1);
-                    return true;
-                } else {
+        //Checks walls in current tile
+        if (currCell != null) {
+            List<IPiece> piecesInCurrCell = board.getCellAt(pos).getPiecesInCell();
+            for (IPiece piece : piecesInCurrCell) {
+                System.out.println(piece.getName() + "-" + piece.getPieceDirection());
+                if (piece instanceof Wall && piece.getPieceDirection() == goingDir) {
+                    System.out.println("hit wall");
                     return false;
                 }
             }
         }
+
+        Direction oppositeDir = goingDir.oppositeDir(goingDir);
+
+        // Checks if player goes outside board, and should die.
+        if(!board.insideBoard(pos, goingDir)){
+            //System.out.println("");
+            this.die();
+            return false;
+        }
+
+        //Checks walls in next tile
+        //System.out.println("yeehW " + goingDir );
+        if (board.getNextCell(pos, goingDir) != null) {
+            List<IPiece> piecesInNextCell = board.getNextCell(pos, goingDir).getPiecesInCell();
+
+            for (IPiece piece : piecesInNextCell) {
+                if (piece instanceof Wall && piece.getPieceDirection() == oppositeDir) {
+                    return false;
+                }
+            }
+            //checks for player in next tile
+            for (IPiece piece : piecesInNextCell) {
+                if (piece instanceof Player) {
+                    Player player = (Player) piece;
+                    if (canMove(goingDir, board.getNextCell(pos, goingDir))) {
+                        player.move(goingDir, 1);
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        }
+
+
         return true;
+    }
+
+    private void die() {
+        this.health--;
+        System.out.println("YOU LOST HP, NEW HP: " + this.health);
+        this.pos = respawnPoint;
     }
 
     /**
@@ -158,54 +174,54 @@ public class Player implements IPlayer {
     @Override
     public void rotate(Rotation r) {
         if (r == Rotation.R) {
-            switch (this.dir) {
+            switch (this.facingDir) {
                 case NORTH:
-                    this.dir = Direction.EAST;
+                    this.facingDir = Direction.EAST;
                     break;
                 case EAST:
-                    this.dir = Direction.SOUTH;
+                    this.facingDir = Direction.SOUTH;
                     break;
                 case SOUTH:
-                    this.dir = Direction.WEST;
+                    this.facingDir = Direction.WEST;
                     break;
                 case WEST:
-                    this.dir = Direction.NORTH;
+                    this.facingDir = Direction.NORTH;
                     break;
             }
         } else if (r == Rotation.L) {
-            switch (this.dir) {
+            switch (this.facingDir) {
                 case NORTH:
-                    this.dir = Direction.WEST;
+                    this.facingDir = Direction.WEST;
                     break;
                 case EAST:
-                    this.dir = Direction.NORTH;
+                    this.facingDir = Direction.NORTH;
                     break;
                 case SOUTH:
-                    this.dir = Direction.EAST;
+                    this.facingDir = Direction.EAST;
                     break;
                 case WEST:
-                    this.dir = Direction.SOUTH;
+                    this.facingDir = Direction.SOUTH;
                     break;
             }
         } else if (r == Rotation.U) {
-            switch (this.dir) {
+            switch (this.facingDir) {
                 case NORTH:
-                    this.dir = Direction.SOUTH;
+                    this.facingDir = Direction.SOUTH;
                     break;
                 case EAST:
-                    this.dir = Direction.WEST;
+                    this.facingDir = Direction.WEST;
                     break;
                 case SOUTH:
-                    this.dir = Direction.NORTH;
+                    this.facingDir = Direction.NORTH;
                     break;
                 case WEST:
-                    this.dir = Direction.EAST;
+                    this.facingDir = Direction.EAST;
                     break;
             }
         } else {
             throw new IllegalArgumentException("Not a valid rotation!");
         }
-        robot.doAction(ActionType.ROTATE, dir);
+        robot.doAction(ActionType.ROTATE, facingDir);
     }
 
     /**
@@ -230,7 +246,7 @@ public class Player implements IPlayer {
      */
     @Override
     public Direction getDirection() {
-        return this.dir;
+        return this.facingDir;
     }
 
     @Override
@@ -275,5 +291,8 @@ public class Player implements IPlayer {
     public void setRobot(MovableGUIRobot robot) {
         this.robot = robot;
     }
-    public MovableGUIRobot getRobot(){return this.robot;}
+
+    public MovableGUIRobot getRobot() {
+        return this.robot;
+    }
 }
