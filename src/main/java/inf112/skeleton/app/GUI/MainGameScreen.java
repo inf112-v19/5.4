@@ -175,7 +175,7 @@ public class MainGameScreen implements Screen {
 
 		// BOARD CREATION AND SETUP
 
-		Stats stats = new Stats(skin);
+		Stats stats = new Stats(skin, players[0]);
 
 		// Add everything to the main table.
 		topBar.add().prefWidth(200);
