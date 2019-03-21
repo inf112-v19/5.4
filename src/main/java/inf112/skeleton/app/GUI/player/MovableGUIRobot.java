@@ -11,27 +11,27 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
-import inf112.skeleton.app.GUI.pieces.Robot;
+import inf112.skeleton.app.GUI.pieces.GUIRobot;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.ActionType;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
-public class MovableRobot extends Robot {
+public class MovableGUIRobot extends GUIRobot {
 
 
-    public MovableRobot(int robotnr) {
+    public MovableGUIRobot(int robotnr) {
 
         super(robotnr);
 //       this.setScale(0.8f);
         setBounds(getX(), getY(), getWidth(), getHeight());
 
-        addListener(new DragListener() {
+        /*addListener(new DragListener() {
             public void drag(InputEvent event, float x, float y, int pointer) {
                 moveBy(x - getWidth() / 2, y - getHeight() / 2);
             }
-        });
+        });*/
 
         addListener(new InputListener() {
             @Override
@@ -100,14 +100,12 @@ public class MovableRobot extends Robot {
                     case NORTH:
                         System.out.println("WWWAHASHDABSD");
                         moveAction.setAmount(0f, getHeight());
-
                         break;
                     case EAST:
                         moveAction.setAmount(getWidth(), 0f);
                         break;
                     case WEST:
                         moveAction.setAmount(-getWidth(), 0);
-
                         break;
                     case SOUTH:
                         moveAction.setAmount(0f, -getHeight());
@@ -115,7 +113,7 @@ public class MovableRobot extends Robot {
 
                 }
 
-                MovableRobot.this.addAction(sequence(moveAction, new DelayAction(1000), new RunnableAction() {
+                MovableGUIRobot.this.addAction(sequence(moveAction, new DelayAction(1000), new RunnableAction() {
                     @Override
                     public void run() {
                         System.out.println("COMPLETE!");
@@ -129,7 +127,7 @@ public class MovableRobot extends Robot {
                 );
                 RotateByAction rotateByAction = new RotateByAction();
                 rotateByAction.setAmount(90f);
-                MovableRobot.this.addAction(rotateByAction);
+                MovableGUIRobot.this.addAction(rotateByAction);
                 break;
 
         }

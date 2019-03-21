@@ -42,8 +42,8 @@ public class RoboRallyGame {
                     action.getPlayer().move(action.getAmount());
                     break;
                 case TURN:
-                    if (action.getRotation() != null) {
-                        action.getPlayer().rotate(action.getRotation());
+                    if (action.getPieceDirection() != null) {
+                        action.getPlayer().rotate(action.getPieceDirection());
                     }
                     break;
             }

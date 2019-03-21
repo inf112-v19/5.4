@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
-import inf112.skeleton.app.GUI.pieces.Piece;
+import inf112.skeleton.app.GUI.pieces.GUIPiece;
 
 public class Tile extends Stack {
 
@@ -23,15 +23,15 @@ public class Tile extends Stack {
         }
 
         this.add(new BaseTile());
-        //this.add(new Robot());
+        //this.add(new GUIRobot());
     }
 
-    public void addPiece(Piece piece) {
+    public void addPiece(GUIPiece GUIPiece) {
         // REMOVE
-        this.add(piece);
+        this.add(GUIPiece);
     }
 
-    public void removePiece(Piece piece){
-        this.removeActor(piece);
+    public void removePiece(GUIPiece GUIPiece){
+        this.removeActor(GUIPiece);
     }
 }

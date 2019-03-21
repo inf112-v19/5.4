@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Laser extends Piece {
+public class GUILaser extends GUIPiece {
 
     Texture laserSheet = new Texture(Gdx.files.internal("board/lasersheet.png"));
 
@@ -16,7 +16,7 @@ public class Laser extends Piece {
     Animation<TextureRegion> laserAnimation;
     float animationTime;
 
-    public Laser () {
+    public GUILaser() {
 
         TextureRegion[][] tmp = TextureRegion.split(laserSheet,
                 laserSheet.getWidth() / FRAME_COLS,
