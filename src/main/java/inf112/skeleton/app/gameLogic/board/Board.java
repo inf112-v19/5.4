@@ -97,16 +97,16 @@ public class Board implements IBoard {
         ICell cell = new Cell();
         switch (dir) {
             case NORTH:
-                cell = board[pos.getY()][pos.getX() - 1];
+                cell = board[pos.getY() - 1][pos.getX()];
                 break;
             case SOUTH:
-                cell = board[pos.getY()][pos.getX() + 1];
-                break;
-            case EAST:
                 cell = board[pos.getY() + 1][pos.getX()];
                 break;
+            case EAST:
+                cell = board[pos.getY()][pos.getX() + 1];
+                break;
             case WEST:
-                cell = board[pos.getY() - 1][pos.getX()];
+                cell = board[pos.getY()][pos.getX() - 1];
                 break;
         }
         return cell;

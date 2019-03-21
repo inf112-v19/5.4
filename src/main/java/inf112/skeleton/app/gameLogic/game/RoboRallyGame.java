@@ -34,7 +34,7 @@ public class RoboRallyGame {
         this.deck = new ProgramCardDeck();  // Deck of cards in the game
         players = new Player[totalPlayers];
         for (int i = 0; i < players.length; i++) {
-            Position position = new Position(i+0, 0);
+            Position position = new Position(i+4, 6);
             players[i] = new Player(position, Direction.NORTH, startHealth, this.board);
             System.out.println("player made!!");
             System.out.println(players[i].getPos().getX() + " " + players[i].getPos().getY());
