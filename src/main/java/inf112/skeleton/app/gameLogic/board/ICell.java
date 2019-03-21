@@ -21,6 +21,8 @@ public interface ICell {
      */
     char getSymbol();
 
+    public void addPiece(IPiece piece);
+
     List<IPiece> getPiecesInCell();
 
 }

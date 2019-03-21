@@ -19,10 +19,11 @@ import org.json.simple.parser.ParseException;
 public class JSONBoardGenerator {
 
     JSONParser parser = new JSONParser();
+    ICell[][] jsonBoardPieceList;
 
     public ICell[][] generateJsonBoard(String filepath) {
 
-        ICell[][] jsonBoardPieceList = null;
+
 
         try {
 
@@ -32,9 +33,18 @@ public class JSONBoardGenerator {
             int jsonSize = jsonBoardFile.size();
             jsonBoardPieceList = new ICell[jsonSize][jsonSize];
             System.out.println(jsonBoardFile);
+
             for (int x = 0; x <= jsonSize - 1; x++) {
                 for (int y = 0; y <= jsonSize - 1; y++) {
                     Cell tempCell = new Cell();
+                    jsonBoardPieceList[x][y] = tempCell;
+                }
+            }
+
+            // Add all pieces.
+            for (int x = 0; x <= jsonSize - 1; x++) {
+                for (int y = 0; y <= jsonSize - 1; y++) {
+                    ICell tempCell = jsonBoardPieceList[x][y];
                     String intX = Integer.toString(x);
                     String intY = Integer.toString(y);
 
@@ -43,7 +53,6 @@ public class JSONBoardGenerator {
                     Iterator<String> iterator = yCord.iterator();
                     while (iterator.hasNext()) {
 
-                        jsonBoardPieceList[x][y] = tempCell;
                         String jsonIterator = iterator.next();
                         System.out.println(jsonIterator);
                         switch (jsonIterator) {
@@ -55,21 +64,25 @@ public class JSONBoardGenerator {
                             case "NorthWall":
                                 System.out.println("Making northfacing wall!");
                                 tempCell.addPiece(new Wall(Direction.NORTH));
+                                addOppositeWall(x,y+1,Direction.SOUTH);
                                 break;
 
                             case "EastWall":
                                 System.out.println("Making eastfacing wall!");
                                 tempCell.addPiece(new Wall(Direction.EAST));
+                                addOppositeWall(x+1,y,Direction.WEST);
                                 break;
 
                             case "SouthWall":
                                 System.out.println("Making southfacing wall!");
                                 tempCell.addPiece(new Wall(Direction.SOUTH));
+                                addOppositeWall(x,y+1, Direction.NORTH);
                                 break;
 
                             case "WestWall":
                                 System.out.println("Making westfacing wall!");
                                 tempCell.addPiece(new Wall(Direction.WEST));
+                                addOppositeWall(x-1,y,Direction.EAST);
                                 break;
 
                             case "ConveyorNorth":
@@ -176,5 +189,33 @@ public class JSONBoardGenerator {
             e.printStackTrace();
         }
         return jsonBoardPieceList;
+    }
+
+    public void addOppositeWall(int newX, int newY, Direction newWallDirection){
+        if(newY < jsonBoardPieceList.length && newY >= 0){
+            if(newX < jsonBoardPieceList[newX].length && newX >= 0){
+                if(jsonBoardPieceList[newX][newY] != null) {
+                    ICell newCell = jsonBoardPieceList[newX][newY];
+                    if (!containsOppositeWall(newCell, newWallDirection)) {
+                        System.out.println("I AM AT " + newX + ", " + newY);
+                        System.out.println("I'M PLACING A " + newWallDirection + " WALL AT " + newX + ", " + newY);
+                        newCell.addPiece(new Wall(newWallDirection));
+                    }
+                }
+            }
+        }
+    }
+
+    public boolean containsOppositeWall(ICell newCell, Direction newWallDirection){
+        // Checks if the new cell has a wall.
+
+        for(IPiece piece : newCell.getPiecesInCell()){
+            if(piece instanceof Wall){
+                if(piece.getPieceDirection() == newWallDirection){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
