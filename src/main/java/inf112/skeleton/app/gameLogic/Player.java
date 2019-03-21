@@ -40,6 +40,7 @@ public class Player implements IPlayer {
         this.health = health;
         this.maxHealth = health;
         this.damageTokens = 0;
+//        this.robot = new MovableRobot(0);
         this.board = board;
         this.robot = new MovableGUIRobot(1);
         this.respawnPoint = pos;
@@ -80,6 +81,8 @@ public class Player implements IPlayer {
                 this.pos = this.pos.changePos(dir);
                 robot.doAction(ActionType.MOVE, dir);
             }
+            //Comment this out if you want the tests to work
+//            robot.doAction(ActionType.MOVE, dir);
         }
         System.out.println("Post :" + pos.getX() + " " + pos.getY());
     }
@@ -221,6 +224,8 @@ public class Player implements IPlayer {
         } else {
             throw new IllegalArgumentException("Not a valid rotation!");
         }
+        //Comment this out if you want the tests to work
+//        robot.doAction(ActionType.ROTATE, dir);
         robot.doAction(ActionType.ROTATE, facingDir);
     }
 
