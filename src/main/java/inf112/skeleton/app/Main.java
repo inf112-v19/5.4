@@ -13,9 +13,7 @@ public class Main {
         // Do we have the board file somewhere?
         //new GUIBoard("Gooblepoops", "C:\\Users\\Morten\\Desktop\\UiB\\INF112\\First Oblig\\TestBoard.json").displayBoard();
 
-        RoboServer roboServer = new RoboServer();
         RoboClient roboClient = new RoboClient();
-
         roboClient.tryConnection("localhost", 8000);
 
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();

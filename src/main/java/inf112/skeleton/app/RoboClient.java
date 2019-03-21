@@ -9,6 +9,7 @@ public class RoboClient {
         try (Socket roboClient = new Socket(ip, port)) {
 
             System.out.println("Connection accepted! Do some shit.");
+
         }
     }
 }
