@@ -6,6 +6,9 @@ import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.ProgramCardDeck;
 import inf112.skeleton.app.gameLogic.board.Board;
+import inf112.skeleton.app.gameLogic.board.IPiece;
+import inf112.skeleton.app.gameLogic.board.pieces.Flag;
+
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import java.util.List;
@@ -13,7 +16,7 @@ import java.util.List;
 public class RoboRallyGame {
 
     // The GUI.
-    MainGameScreen guiScreen;
+    private MainGameScreen guiScreen;
 
     private int totalPlayers = 3;   // Total players in the game
     private Player[] players;       // Players in the game
@@ -47,12 +50,9 @@ public class RoboRallyGame {
 
     public void playGame(){
         this.deck.shuffleDeck();
-        this.currentPlayer = players[0];
-//        for (Player currentPlayer : players) {
-//            this.currentPlayer = currentPlayer;
-//        }
-//        play();
-//        postPlay();
+        for (Player currentPlayer : players) {
+            this.currentPlayer = currentPlayer;
+        }
     }
 
     /**
@@ -66,10 +66,7 @@ public class RoboRallyGame {
 
         List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
 
-        // TODO take cards from deck and assign them to the player
-        //this.currentPlayer =currentPlayer;
         this.guiScreen.pickCardPhase(cards);
-
     }
 
     /**
