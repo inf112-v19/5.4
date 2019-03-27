@@ -75,10 +75,6 @@ public class RoboRallyGame {
         this.currentPlayer =currentPlayer;
         this.guiScreen.pickCardPhase(cards);
 
-
-        // Pick cards, done in the GUI
-        List<ProgramCard> cardss = deck.drawXCards(cardsToDraw);
-        this.guiScreen.pickCardPhase(cards);
     }
 
     /**

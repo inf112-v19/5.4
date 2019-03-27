@@ -132,3 +132,7 @@ mappen Minutes-of-meeting.
 
 - Få nye kort til ny runde: Almost done
 
+#### Forløpig klassediagram
+
+![RoboRallyDiagram](https://user-images.githubusercontent.com/38794357/54684655-30678d80-4b15-11e9-8eab-d1bbeb20aed9.png)
+

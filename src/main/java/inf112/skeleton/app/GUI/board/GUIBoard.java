@@ -61,6 +61,8 @@ public class GUIBoard extends Table {
         int boardHeight = board.getBoardHeight();
         int boardWidth = board.getBoardWidth();
 
+
+
         for(int y=0; y<boardHeight; y++){
             for(int x = 0; x<boardWidth; x++ ){
                 System.out.println(x + " --- " + y);
