@@ -9,9 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Array;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 
-import javax.smartcardio.Card;
-import javax.xml.soap.Text;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GUIDeck extends Table {

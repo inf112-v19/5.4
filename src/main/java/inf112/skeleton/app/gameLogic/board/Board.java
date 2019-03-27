@@ -1,11 +1,7 @@
 package inf112.skeleton.app.gameLogic.board;
 
-import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.enums.Direction;
-import javafx.geometry.Pos;
-
-import java.util.Iterator;
 
 public class Board implements IBoard {
 
