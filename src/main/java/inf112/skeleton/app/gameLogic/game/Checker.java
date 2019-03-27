@@ -45,7 +45,7 @@ public class Checker {
                 System.out.println("moving");
                 player.move(movePlayerInDir);
                 //Move player robot here, player needs to have a GUI robot
-                player.getRobot().doAction(ActionType.MOVE, movePlayerInDir);
+                //player.getRobot().doAction(ActionType.MOVE, movePlayerInDir);
             }
             //Comment this out if you want the tests to work
 //            robot.doAction(ActionType.MOVE, dir);
