@@ -67,6 +67,7 @@ public class RoboRallyGame {
         cardsToDraw -= damageTokens;
 
         List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
+
         this.guiScreen.pickCardPhase(cards);
     }
 
