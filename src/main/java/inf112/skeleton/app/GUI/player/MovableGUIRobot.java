@@ -70,6 +70,7 @@ public class MovableGUIRobot extends GUIRobot {
     public void fullAction(Action action, Direction dir) {
         if (action.getActionType() == ActionType.MOVE) {
             int numTimes = action.getValue();
+                
             for (int i = 0; i < numTimes; i++) {
                 doAction(action.getActionType(), dir);
             }
@@ -93,12 +94,9 @@ public class MovableGUIRobot extends GUIRobot {
                 MoveByAction moveAction = new MoveByAction();
                 moveAction.setDuration(0.3f);
                 moveAction.setInterpolation(Interpolation.pow3);
-                System.out.println("MOVE");
-
 
                 switch (faceDir) {
                     case NORTH:
-                        System.out.println("WWWAHASHDABSD");
                         moveAction.setAmount(0f, getHeight());
                         break;
                     case EAST:
@@ -113,7 +111,9 @@ public class MovableGUIRobot extends GUIRobot {
 
                 }
 
-                MovableGUIRobot.this.addAction(sequence(moveAction, new DelayAction(1000), new RunnableAction() {
+                System.out.println("WE OUT HERE MAYNNNEEE");
+
+                addAction(sequence(moveAction, new DelayAction(1), new RunnableAction() {
                     @Override
                     public void run() {
                         System.out.println("COMPLETE!");
