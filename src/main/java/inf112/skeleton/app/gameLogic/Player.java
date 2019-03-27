@@ -40,7 +40,6 @@ public class Player implements IPlayer {
         this.health = health;
         this.maxHealth = health;
         this.damageTokens = 0;
-//        this.robot = new MovableRobot(0);
         this.board = board;
         this.robot = new MovableGUIRobot(1);
         this.respawnPoint = pos;
@@ -55,89 +54,96 @@ public class Player implements IPlayer {
         return playerDeck;
     }
 
-    /**
-     * TEST VERSION NOT FINAL
-     *
-     * @param att
-     */
-    public void doAction(Action att) {
-        switch (att.getActionType()) {
-            case MOVE:
-                this.move(facingDir, att.getValue());
-                break;
-            case ROTATE:
-                this.rotate(Rotation.R);
-        }
-    }
-
-    /**
-     * @param dir The direction the piece should move
-     */
     @Override
-    public void move(Direction dir, int numSteps) {
-        System.out.println("Dir: " + dir + " Pre: " + pos.getX() + " " + pos.getY());
-        for (int i = 0; i < numSteps; i++) {
-            if (canMove(dir, board.getCellAt(this.pos))) {
-                this.pos = this.pos.changePos(dir);
-                robot.doAction(ActionType.MOVE, dir);
-            }
-            //Comment this out if you want the tests to work
-//            robot.doAction(ActionType.MOVE, dir);
-        }
-        System.out.println("Post :" + pos.getX() + " " + pos.getY());
+    public void move(Direction dir) {
+        pos = pos.changePos(dir);
     }
 
-    private boolean canMove(Direction goingDir, ICell currCell) {
-        //Checks walls in current tile
-        if (currCell != null) {
-            List<IPiece> piecesInCurrCell = board.getCellAt(pos).getPiecesInCell();
-            for (IPiece piece : piecesInCurrCell) {
-                System.out.println(piece.getName() + "-" + piece.getPieceDirection());
-                if (piece instanceof Wall && piece.getPieceDirection() == goingDir) {
-                    System.out.println("hit wall");
-                    return false;
-                }
-            }
-        }
+    //    /**
+//     * TEST VERSION NOT FINAL
+//     *
+//     * @param att
+//     */
+//    public void doAction(Action att) {
+//        switch (att.getActionType()) {
+//            case MOVE:
+//                this.move(facingDir, att.getValue());
+//                break;
+//            case ROTATE:
+//                this.rotate(Rotation.R);
+//        }
+//    }
+//
+//    /**
+//     * @param dir The direction the piece should move
+//     */
+//
+//
+//    @Override
+//    public void move(Direction dir, int numSteps) {
+//        System.out.println("Dir: " + dir + " Pre: " + pos.getX() + " " + pos.getY());
+//        for (int i = 0; i < numSteps; i++) {
+//            if (canMove(dir, board.getCellAt(this.pos))) {
+//                this.pos = this.pos.changePos(dir);
+//                robot.doAction(ActionType.MOVE, dir);
+//            }
+//            //Comment this out if you want the tests to work
+////            robot.doAction(ActionType.MOVE, dir);
+//        }
+//        System.out.println("Post :" + pos.getX() + " " + pos.getY());
+//    }
+//
+//    private boolean canMove(Direction goingDir, ICell currCell) {
+//        //Checks walls in current tile
+//        if (currCell != null) {
+//            List<IPiece> piecesInCurrCell = board.getCellAt(pos).getPiecesInCell();
+//            for (IPiece piece : piecesInCurrCell) {
+//                System.out.println(piece.getName() + "-" + piece.getPieceDirection());
+//                if (piece instanceof Wall && piece.getPieceDirection() == goingDir) {
+//                    System.out.println("hit wall");
+//                    return false;
+//                }
+//            }
+//        }
+//
+//        Direction oppositeDir = goingDir.oppositeDir(goingDir);
+//
+//        // Checks if player goes outside board, and should die.
+//        if(!board.insideBoard(pos, goingDir)){
+//            //System.out.println("");
+//            this.die();
+//            return false;
+//        }
+//
+//        //Checks walls in next tile
+//        //System.out.println("yeehW " + goingDir );
+//        if (board.getNextCell(pos, goingDir) != null) {
+//            List<IPiece> piecesInNextCell = board.getNextCell(pos, goingDir).getPiecesInCell();
+//
+//            for (IPiece piece : piecesInNextCell) {
+//                if (piece instanceof Wall && piece.getPieceDirection() == oppositeDir) {
+//                    return false;
+//                }
+//            }
+//            //checks for player in next tile
+//            for (IPiece piece : piecesInNextCell) {
+//                if (piece instanceof Player) {
+//                    Player player = (Player) piece;
+//                    if (canMove(goingDir, board.getNextCell(pos, goingDir))) {
+//                        player.move(goingDir, 1);
+//                        return true;
+//                    } else {
+//                        return false;
+//                    }
+//                }
+//            }
+//        }
+//
+//
+//        return true;
+//    }
 
-        Direction oppositeDir = goingDir.oppositeDir(goingDir);
-
-        // Checks if player goes outside board, and should die.
-        if(!board.insideBoard(pos, goingDir)){
-            //System.out.println("");
-            this.die();
-            return false;
-        }
-
-        //Checks walls in next tile
-        //System.out.println("yeehW " + goingDir );
-        if (board.getNextCell(pos, goingDir) != null) {
-            List<IPiece> piecesInNextCell = board.getNextCell(pos, goingDir).getPiecesInCell();
-
-            for (IPiece piece : piecesInNextCell) {
-                if (piece instanceof Wall && piece.getPieceDirection() == oppositeDir) {
-                    return false;
-                }
-            }
-            //checks for player in next tile
-            for (IPiece piece : piecesInNextCell) {
-                if (piece instanceof Player) {
-                    Player player = (Player) piece;
-                    if (canMove(goingDir, board.getNextCell(pos, goingDir))) {
-                        player.move(goingDir, 1);
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-            }
-        }
-
-
-        return true;
-    }
-
-    private void die() {
+    public void die() {
         this.health--;
         System.out.println("YOU LOST HP, NEW HP: " + this.health);
         this.pos = respawnPoint;

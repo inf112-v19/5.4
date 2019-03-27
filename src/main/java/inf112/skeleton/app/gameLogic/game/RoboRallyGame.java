@@ -99,8 +99,10 @@ public class RoboRallyGame {
      */
     public void postPick(List<ProgramCard> pickedProgramCards) {
         for(ProgramCard card: pickedProgramCards){
-
-            currentPlayer.doAction(card.getCardType().getAction());
+            //nye checker
+            Checker checker = new Checker(currentPlayer, card.getCardType().getAction(), board);
+            checker.doAction();
+            //currentPlayer.doAction(card.getCardType().getAction());
         }
     }
 
