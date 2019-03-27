@@ -63,6 +63,10 @@ public class Player implements IPlayer {
     public void doAction(Action att) {
         switch (att.getActionType()) {
             case MOVE:
+                if (att == Action.MOVE_BACK) {
+                    this.move(facingDir.oppositeDir(facingDir), att.getValue());
+                    break;
+                }
                 this.move(facingDir, att.getValue());
                 break;
             case ROTATE:
@@ -75,6 +79,7 @@ public class Player implements IPlayer {
      */
     @Override
     public void move(Direction dir, int numSteps) {
+        numSteps = Math.abs(numSteps);
         System.out.println("Dir: " + dir + " Pre: " + pos.getX() + " " + pos.getY());
         for (int i = 0; i < numSteps; i++) {
             if (canMove(dir, board.getCellAt(this.pos))) {
