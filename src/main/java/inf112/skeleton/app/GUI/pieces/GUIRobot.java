@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 
-public class GUIRobot extends GUIPiece {
+public class    GUIRobot extends GUIPiece {
         String path = "bots/";
 
         public GUIRobot(int robotNumber){
