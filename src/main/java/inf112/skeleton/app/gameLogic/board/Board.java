@@ -68,6 +68,7 @@ public class Board implements IBoard {
         return board[y][x];
     }
 
+    /*
     public ICell getNextCell(int x, int y, Direction dir) {
 
         ICell cell = new Cell();
@@ -86,7 +87,7 @@ public class Board implements IBoard {
                 break;
         }
         return cell;
-    }
+    } */
 
     public ICell getCellAt(Position pos) {
         //Byttet om disse, var board[pos.getX()][pos.getY()];
