@@ -6,9 +6,12 @@ import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.ProgramCardDeck;
 import inf112.skeleton.app.gameLogic.board.Board;
+<<<<<<< HEAD
 import inf112.skeleton.app.gameLogic.board.IPiece;
 import inf112.skeleton.app.gameLogic.board.pieces.Flag;
 
+=======
+>>>>>>> Refactored RoboRallyGame
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import java.util.List;
@@ -70,7 +73,10 @@ public class RoboRallyGame {
         cardsToDraw -= damageTokens;
 
         List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
+<<<<<<< HEAD
 
+=======
+>>>>>>> Refactored RoboRallyGame
         this.guiScreen.pickCardPhase(cards);
     }
 
