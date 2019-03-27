@@ -99,4 +99,20 @@ public class RoboRallyGame {
         return this.players;
     }
     public Board getBoard(){return this.board;}
+
+    public int getTotalPlayers() {
+        return this.totalPlayers;
+    }
+
+    public int getStartHealth() {
+        return this.startHealth;
+    }
+
+    public Player getCurrentPlayer() {
+        return this.currentPlayer;
+    }
+
+    public ProgramCardDeck getDeck() {
+        return this.deck;
+    }
 }
