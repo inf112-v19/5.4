@@ -66,7 +66,7 @@ public class Player implements IPlayer {
                 this.move(facingDir, att.getValue());
                 break;
             case ROTATE:
-                this.rotate(Rotation.R);
+                this.rotate(att.getRotation());
         }
     }
 
