@@ -95,4 +95,20 @@ public class RoboRallyGame {
     public Player[] getPlayers(){
         return this.players;
     }
+
+    public int getTotalPlayers() {
+        return this.totalPlayers;
+    }
+
+    public int getStartHealth() {
+        return this.startHealth;
+    }
+
+    public Player getCurrentPlayer() {
+        return this.currentPlayer;
+    }
+
+    public ProgramCardDeck getDeck() {
+        return this.deck;
+    }
 }
