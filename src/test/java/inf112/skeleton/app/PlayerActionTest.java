@@ -13,6 +13,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 
+import java.io.File;
+
 import static org.junit.Assert.assertEquals;
 
 
@@ -24,7 +26,8 @@ public class PlayerActionTest {
 
     @Before
     public void setupActionTest() {
-        this.board = new Board("DummbyBoard", "DankBoard.json");
+        System.out.println(new File("DankBoard.json").getAbsoluteFile());
+        this.board = new Board("Captain Hook", "DankBoard.json");
         player = new Player(new Position(3, 3), Direction.NORTH, 3, board);
         game = new TestGame();
     }

@@ -24,5 +24,6 @@ public class Main {
         cfg.height = 800;
 
         new LwjglApplication(new GUIMain(), cfg);
+        
     }
 }
