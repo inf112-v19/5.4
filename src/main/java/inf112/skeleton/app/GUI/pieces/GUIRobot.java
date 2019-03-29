@@ -14,7 +14,8 @@ public class    GUIRobot extends GUIPiece {
 
         public GUIRobot(int robotNumber){
                 System.out.println("YEEEHAAAW");
-                System.out.println(Gdx.files.getLocalStoragePath());
+                //System.out.println(Gdx.files.getLocalStoragePath());
+                //danceSheet = new Texture(Gdx.files.internal("board/dancething.png"));
                 danceSheet = new Texture(Gdx.files.internal("board/dancething.png"));
 
 //                switch (robotNumber){
