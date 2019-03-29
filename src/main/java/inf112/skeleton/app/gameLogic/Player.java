@@ -12,6 +12,7 @@ import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.ActionType;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.enums.Rotation;
+import inf112.skeleton.app.gameLogic.game.RespawnPoint;
 
 import java.util.List;
 import java.util.Stack;
@@ -26,7 +27,7 @@ public class Player implements IPlayer {
     private Stack<ProgramCard> playerDeck;
     private List<ProgramCard> playerRegister;
     private MovableGUIRobot robot;
-    private Position respawnPoint;
+    private RespawnPoint respawnPoint;
 
     private Board board;
 
@@ -42,8 +43,8 @@ public class Player implements IPlayer {
         this.damageTokens = 0;
         this.board = board;
         //Kommenter ut linjen under for at testene skal kjøre
-        //this.robot = new MovableGUIRobot(1);
-        this.respawnPoint = pos;
+        this.robot = new MovableGUIRobot(1);
+        this.respawnPoint = new RespawnPoint(pos, 1);
     }
 
     @Override
@@ -63,7 +64,7 @@ public class Player implements IPlayer {
     public void die() {
         this.health--;
         System.out.println("YOU LOST HP, NEW HP: " + this.health);
-        this.pos = respawnPoint;
+        this.pos = respawnPoint.getPos();
     }
 
     /**
@@ -149,6 +150,14 @@ public class Player implements IPlayer {
         }
         //Comment this out if you want the tests to work
         //robot.doAction(ActionType.ROTATE, facingDir);
+    }
+
+    public void setRespawnPoint() {
+        respawnPoint.setPos(pos);
+    }
+
+    public RespawnPoint getRespawnPoint() {
+        return respawnPoint;
     }
 
     /**

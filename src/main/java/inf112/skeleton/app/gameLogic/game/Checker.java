@@ -2,13 +2,11 @@ package inf112.skeleton.app.gameLogic.game;
 
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
-import inf112.skeleton.app.gameLogic.board.Board;
-import inf112.skeleton.app.gameLogic.board.ICell;
-import inf112.skeleton.app.gameLogic.board.IPiece;
-import inf112.skeleton.app.gameLogic.board.pieces.Wall;
+import inf112.skeleton.app.gameLogic.board.*;
+import inf112.skeleton.app.gameLogic.board.pieces.*;
 import inf112.skeleton.app.gameLogic.enums.Action;
-import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.enums.ActionType;
+import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import java.util.List;
 
@@ -34,6 +32,32 @@ public class Checker {
         }
     }
 
+    /*
+    public boolean checkPieceInCurrentCell(IPiece checkForPiece) {
+        ICell currCell = board.getCellAt(player.getPos());
+        if (currCell != null) {
+            List<IPiece> piecesInCurrCell = board.getCellAt(player.getPos()).getPiecesInCell();
+            for (IPiece piece : piecesInCurrCell) {
+                System.out.println(piece.getName() + "-" + piece.getPieceDirection());
+                if (piece instanceof Flag) {
+                    return true;
+                }
+                if (piece instanceof Conveyor) {
+                    return true;
+                }
+                if (piece instanceof Gears) {
+                    return true;
+                }
+                if (piece instanceof Hole) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    */
+
+
     /**
      * @param numSteps The direction the piece should move
      */
@@ -43,9 +67,18 @@ public class Checker {
         for (int i = 0; i < numSteps; i++) {
             if (canMove(movePlayerInDir, board.getCellAt(player.getPos()))) {
                 System.out.println("moving");
+                //playerActionSequence.add(Action.MOVE_1);
+                Position tempPos = player.getPos();
+
                 player.move(movePlayerInDir);
+
+                if (board.getCellAt(tempPos).getPiecesInCell().contains(player)) {
+                    board.getCellAt(tempPos).getPiecesInCell().remove(player);
+                    board.getNextCell(tempPos, movePlayerInDir).addPiece(player);
+                }
+
                 //Move player robot here, player needs to have a GUI robot
-                //player.getRobot().doAction(ActionType.MOVE, movePlayerInDir);
+                player.getRobot().doAction(ActionType.MOVE, movePlayerInDir);
             }
             //Comment this out if you want the tests to work
 //            robot.doAction(ActionType.MOVE, dir);
@@ -89,9 +122,10 @@ public class Checker {
             //checks for player in next tile
             for (IPiece piece : piecesInNextCell) {
                 if (piece instanceof Player) {
-                    Player player = (Player) piece;
-                    if (canMove(goingDir, board.getNextCell(player.getPos(), goingDir))) {
-                        player.move(goingDir);
+                    Player otherPlayer = (Player) piece;
+                    Checker checker = new Checker(otherPlayer, Action.MOVE_1, board);
+                    if (checker.canMove(goingDir, board.getNextCell(otherPlayer.getPos(), goingDir))) {
+                        checker.move(goingDir, 1);
                         return true;
                     } else {
                         return false;
