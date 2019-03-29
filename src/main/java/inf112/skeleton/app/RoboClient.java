@@ -12,6 +12,11 @@ public class RoboClient {
     private DataInputStream in;
     private DataOutputStream out;
 
+    /**
+     * Constructor for opening a client and connecting it to a server
+     * @param ip The IP you want to connect to e.g "localhost"
+     * @param port The port you want to connect to e.g 8000
+     */
     public RoboClient( String ip, int port){
         try {
             System.out.println("Attempting connection to " + ip + " on port " + port);

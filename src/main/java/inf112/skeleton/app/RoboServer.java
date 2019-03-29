@@ -11,10 +11,19 @@ public class RoboServer extends Thread {
     private DataInputStream in;
     private DataOutputStream out;
 
+    /**
+     * Constructor for creating server
+     * @param port The port to run the server on
+     * @throws IOException
+     */
     public RoboServer (int port) throws IOException {
         roboServer = new ServerSocket(port);
         roboServer.setSoTimeout(100000);
     }
+
+    /**
+     * Method for running the server
+     */
     public void runServer() {
         while (true) {
             try {
