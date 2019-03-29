@@ -1,5 +1,8 @@
 package inf112.skeleton.app;
 
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import inf112.skeleton.app.GUI.GUIMain;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.enums.Action;
@@ -13,6 +16,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 
+import java.io.File;
+
 import static org.junit.Assert.assertEquals;
 
 
@@ -23,6 +28,10 @@ public class PlayerActionTest {
 
     @Before
     public void setupActionTest() {
+        System.out.println(new File("DankBoard.json").getAbsoluteFile());
+        //new LwjglApplication(new GUIMain());
+        this.board = new Board("Captain Hook", "DankBoard.json");
+        player = new Player(new Position(3, 3), Direction.NORTH, 3, board);
         game = new TestGame();
         player = new Player(new Position(7, 7), Direction.NORTH, 3, game.getBoard());
     }

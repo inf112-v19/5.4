@@ -115,6 +115,7 @@ public class Player implements IPlayer {
                     this.facingDir = Direction.NORTH;
                     break;
             }
+            robot.fullAction(Action.ROTATE_R, facingDir);
         } else if (r == Rotation.L) {
             switch (this.facingDir) {
                 case NORTH:
@@ -130,6 +131,7 @@ public class Player implements IPlayer {
                     this.facingDir = Direction.SOUTH;
                     break;
             }
+            robot.fullAction(Action.ROTATE_L, facingDir);
         } else if (r == Rotation.U) {
             switch (this.facingDir) {
                 case NORTH:
@@ -145,6 +147,7 @@ public class Player implements IPlayer {
                     this.facingDir = Direction.EAST;
                     break;
             }
+            robot.fullAction(Action.ROTATE_U, facingDir);
         } else {
             throw new IllegalArgumentException("Not a valid rotation!");
         }

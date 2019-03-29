@@ -9,6 +9,8 @@ public class GUIPiece extends Actor {
     public Sprite sprite;
     float rotation;
 
+    
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(sprite,getX(),getY(),getWidth()/2,getHeight()/2,getWidth(),getHeight(),getScaleX(),getScaleY(),rotation);
