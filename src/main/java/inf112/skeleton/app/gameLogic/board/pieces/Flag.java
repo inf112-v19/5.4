@@ -2,6 +2,7 @@ package inf112.skeleton.app.gameLogic.board.pieces;
 
 import inf112.skeleton.app.GUI.pieces.GUIFlag;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
+import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.board.IPiece;
 
@@ -40,4 +41,8 @@ public class Flag implements IPiece {
 
     @Override
     public GUIPiece getGUIPiece() { return new GUIFlag(); }
+
+    public boolean isNextFlag(Player player) {
+        return player.getRespawnPoint().getNextFlag() == number;
+    }
 }

@@ -25,15 +25,14 @@ public class PlayerActionTest {
 
     private Player player;
     private TestGame game;
-    private Board board;
 
     @Before
     public void setupActionTest() {
         System.out.println(new File("DankBoard.json").getAbsoluteFile());
         //new LwjglApplication(new GUIMain());
         this.board = new Board("Captain Hook", "DankBoard.json");
-        player = new Player(new Position(3, 3), Direction.NORTH, 3, board);
         game = new TestGame();
+        player = new Player(new Position(7, 7), Direction.NORTH, 3, game.getBoard());
     }
 
     @Test
@@ -84,13 +83,13 @@ public class PlayerActionTest {
         game.doAllActions();
 
         assertEquals(Direction.NORTH, player.getDirection());
-        assertEquals(3, player.getPos().getX());
-        assertEquals(9, player.getPos().getY());
+        assertEquals(7, player.getPos().getX());
+        assertEquals(1, player.getPos().getY());
     }
 
     @Test
     public void testTwoPlayersMoving() {
-        Player player2 = new Player(new Position(0, 0), Direction.NORTH, 3, board);
+        Player player2 = new Player(new Position(6, 6), Direction.NORTH, 3, game.getBoard());
         ProgramCardDeck deck = new ProgramCardDeck();
         int cardsForPlayer = 2;
         game.addPlayerToList(player);
@@ -108,12 +107,12 @@ public class PlayerActionTest {
         game.doAllActions();
 
         assertEquals(Direction.NORTH, player.getDirection());
-        assertEquals(3, player.getPos().getX());
-        assertEquals(9, player.getPos().getY());
+        assertEquals(7, player.getPos().getX());
+        assertEquals(1, player.getPos().getY());
 
         assertEquals(Direction.NORTH, player2.getDirection());
-        assertEquals(0, player2.getPos().getX());
-        assertEquals(6, player2.getPos().getY());
+        assertEquals(6, player2.getPos().getX());
+        assertEquals(0, player2.getPos().getY());
     }
 
 }
