@@ -55,7 +55,7 @@ public class Board implements IBoard {
      * Method for retrieving a Cell from a specific coordinate on the board
      */
     public ICell getCellAt(int x, int y) {
-        return board[x][y];
+        return board[y][x];
     }
 
     public ICell getNextCell(int x, int y, Direction dir) {
