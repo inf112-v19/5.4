@@ -5,7 +5,6 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglFiles;
 import com.badlogic.gdx.backends.lwjgl.LwjglNativesLoader;
 import inf112.skeleton.app.GUI.GUIMain;
-import inf112.skeleton.app.GUI.MainGameScreen;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.board.Board;
@@ -20,6 +19,8 @@ import java.io.File;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GameLogicTest extends GameTest {
 
@@ -51,5 +52,4 @@ public class GameLogicTest extends GameTest {
         RoboRallyGame rrgame = new RoboRallyGame();
 
     }
-
 }
