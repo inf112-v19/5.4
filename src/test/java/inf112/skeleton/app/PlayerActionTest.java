@@ -26,7 +26,6 @@ public class PlayerActionTest extends GameTest {
 
     private Player player;
     private TestGame game;
-    private Board board;
 
     @Before
     public void setupActionTest() {
@@ -36,7 +35,6 @@ public class PlayerActionTest extends GameTest {
 
         System.out.println(new File("DankBoard.json").getAbsoluteFile());
         //new LwjglApplication(new GUIMain());
-        this.board = new Board("Captain Hook", "DankBoard.json");
         game = new TestGame();
         player = new Player(new Position(7, 7), Direction.NORTH, 3, game.getBoard());
     }
