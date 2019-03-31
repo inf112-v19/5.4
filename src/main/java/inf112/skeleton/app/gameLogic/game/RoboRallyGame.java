@@ -24,7 +24,13 @@ public class RoboRallyGame {
 
     public RoboRallyGame(MainGameScreen guiScreen) {
 
+        this();
         this.guiScreen = guiScreen;
+        playGame();
+
+    }
+
+    public RoboRallyGame() {
         //Testing with FlagBoard
         //this.board = new Board("Captain Hook", "DankBoard.json");
         this.board = new Board("Captain Hook", "FlagBoard.json");
@@ -47,7 +53,6 @@ public class RoboRallyGame {
 //            }
 
         }
-        playGame();
     }
 
     public void playGame(){
