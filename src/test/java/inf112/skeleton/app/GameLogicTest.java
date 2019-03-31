@@ -33,9 +33,7 @@ public class GameLogicTest extends GameTest {
         game = new TestGame();
         player = new Player(new Position(7, 7), Direction.NORTH, 3, game.getBoard());
 
-
-        MainGameScreen mgs = new MainGameScreen();
-        RoboRallyGame game = new RoboRallyGame(mgs);
+        RoboRallyGame rrgame = new RoboRallyGame();
     }
 
 }
