@@ -113,7 +113,7 @@ public class MainGameScreen implements Screen {
 
 	public void playMusic(){
 		// Play music
-		music = Gdx.audio.newMusic(Gdx.files.internal("audio/Rally_Roller.mp3"));
+		music = Gdx.audio.newMusic(Gdx.files.internal("sound/music/Rally_Roller.mp3"));
 		//music = Gdx.audio.newMusic(Gdx.files.internal("sound/demoMarbles.mp3"));
 		music.setVolume(0.32f);                 // sets the volume to half the maximum volume
 		music.setLooping(true);                // will repeat playback until music.stop() is called

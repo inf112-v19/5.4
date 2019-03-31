@@ -92,7 +92,7 @@ public class RoboRallyGame {
             checker.doAction();
 
             //for testin purpuss
-            checker.lookForFlag();
+            checker.checkForFlag();
         }
     }
 
