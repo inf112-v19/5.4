@@ -15,7 +15,7 @@
 
 ## Be the Bee Homie Tutorial: How to fix your tests:
 
-1. In your *pom.xml*, between *<dependencies>* *</dependencies>*, add this:
+1. In your *pom.xml*, between *\<dependencies>* *\</dependencies>*, add this:
 ```java
 <dependency>
       <groupId>org.mockito</groupId>
@@ -41,7 +41,7 @@
 2. Make a GameTest class:
 https://github.com/inf112-v19/BeTheBee/blob/jarleDev/src/test/java/inf112/skeleton/app/GameTest.java
 
-3. When making tests, extend GameTest, a la:
+3. When making tests, extend GameTest, a la
 ` public class PlayerActionTest extends GameTest {}`
 
 ## Links
