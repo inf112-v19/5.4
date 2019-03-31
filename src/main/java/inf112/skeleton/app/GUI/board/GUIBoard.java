@@ -54,6 +54,10 @@ public class GUIBoard extends Table {
 
     }
 
+    /**
+     * This constructor makes a GUIBoard based on a game logic Board.
+     * @param board
+     */
     public GUIBoard(Board board){
 
         this(board.getBoardHeight(), board.getBoardWidth());

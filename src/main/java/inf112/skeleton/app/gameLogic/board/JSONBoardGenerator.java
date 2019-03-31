@@ -1,11 +1,13 @@
 package inf112.skeleton.app.gameLogic.board;
 
 
+import com.badlogic.gdx.Gdx;
 import inf112.skeleton.app.gameLogic.board.pieces.*;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import org.json.simple.JSONArray;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -26,8 +28,13 @@ public class JSONBoardGenerator {
 
         try {
 
-            //System.out.println(new File("xxxxxxxx.").getAbsoluteFile());
+            System.out.println(new File("xxxxxxxx.").getAbsoluteFile());
+
+
+            //Object boardFile = Gdx.files.internal(filepath);
+
             Object boardFile = parser.parse(new FileReader(filepath));
+
             JSONObject jsonBoardFile = (JSONObject) boardFile;
             int jsonSize = jsonBoardFile.size();
             jsonBoardPieceList = new ICell[jsonSize][jsonSize];
@@ -186,11 +193,13 @@ public class JSONBoardGenerator {
                     }
                 }
             }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            e.printStackTrace();
+            } catch (ParseException e) {
+            e.printStackTrace();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
             e.printStackTrace();
         }
         return jsonBoardPieceList;
