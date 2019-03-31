@@ -8,8 +8,8 @@ public class GameLogicTest extends GameTest {
 
     @Test
     public void setup() {
-//        MainGameScreen mgs = new MainGameScreen();
-//        RoboRallyGame game = new RoboRallyGame(mgs);
+        MainGameScreen mgs = new MainGameScreen();
+        RoboRallyGame game = new RoboRallyGame(mgs);
 
     }
 }
