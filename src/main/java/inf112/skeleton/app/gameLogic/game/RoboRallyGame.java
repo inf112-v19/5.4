@@ -84,7 +84,7 @@ public class RoboRallyGame {
 
     /**
      * Atm just does actions.
-     * @param pickedProgramCards
+     * @param pickedProgramCards programcard current player has picked out
      */
     public void postPick(List<ProgramCard> pickedProgramCards) {
         for(ProgramCard card: pickedProgramCards){
