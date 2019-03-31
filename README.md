@@ -15,7 +15,7 @@
 
 ## Be the Bee Homie Tutorial: How to fix your tests:
 
-1. In your *pom.xml*, between *<dependencies> </dependencies>*, add this:
+1. In your *pom.xml*, between *<dependencies>* *</dependencies>*, add this:
 ```java
 <dependency>
       <groupId>org.mockito</groupId>
