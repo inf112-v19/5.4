@@ -8,10 +8,15 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 
-public class GUIRobot extends GUIPiece {
+public class    GUIRobot extends GUIPiece {
         String path = "bots/";
+        Texture danceSheet;
 
         public GUIRobot(int robotNumber){
+                System.out.println("YEEEHAAAW");
+                //System.out.println(Gdx.files.getLocalStoragePath());
+                //danceSheet = new Texture(Gdx.files.internal("board/dancething.png"));
+                danceSheet = new Texture(Gdx.files.internal("board/dancething.png"));
 
 //                switch (robotNumber){
 //                        case 0:
@@ -43,7 +48,6 @@ public class GUIRobot extends GUIPiece {
 
         }
 
-        Texture danceSheet = new Texture(Gdx.files.internal("board/dancething.png"));
 
         private static final int FRAME_COLS = 1, FRAME_ROWS = 94;
 

@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Array;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 
 import javax.smartcardio.Card;
+import javax.xml.soap.Text;
 import java.util.*;
 import java.util.List;
 
@@ -73,8 +74,6 @@ public class GUIDeck extends Table {
 
         // USED FOR TESTING
         //createGUICards(pgDeck);
-
-
 
     }
 
@@ -220,6 +219,21 @@ public class GUIDeck extends Table {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 clearChildren();
+
+                TextButton againBtn = new TextButton("Pick again", skin);
+                addPickAgainButton(againBtn);
+
+                add(againBtn);
+
+            }
+        });
+    }
+
+    public void addPickAgainButton(TextButton listenerButton){
+        listenerButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent changeEvent, Actor actor) {
+                pickCardsSetup();
             }
         });
     }
@@ -301,68 +315,57 @@ public class GUIDeck extends Table {
 
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
+
+                // Change this to
+
+                // Starting position
                 float nowX = listenerGUICard.getX();
-                int pos = pickedGUICards.indexOf(listenerGUICard);
-
-                System.out.println("OldX: " + oldX);
-                System.out.println("NowX: " + nowX);
-
-                System.out.println("DENNE I VARIABELEN: " + pos);
+                int startPos = pickedGUICards.indexOf(listenerGUICard);
 
                 int widthChange = (int) (nowX-oldX);
-                System.out.println("WidthChange:" + widthChange);
                 int positionChanges = widthChange/(int) listenerGUICard.getWidth();
-                System.out.println("Position changes: " + positionChanges);
-                System.out.println("Position: " + pos);
+                int dropPos = startPos+positionChanges;
+
+                boolean movedRight = (widthChange>0);
+                boolean movedLeft = (widthChange<0);
+                boolean tooFarLeft = dropPos<0;
+                boolean tooFarRight = dropPos > pickedGUICards.size()-1;
 
 
-                boolean tooFarLeft = !(pos+positionChanges>=0);
-                boolean moveLeft = (!tooFarLeft && widthChange<0);
-                boolean tooFarRight = !(pos+positionChanges <= pickedGUICards.size()-1);
-                boolean moveRight = (!tooFarRight && widthChange>0);
+                if( movedLeft || movedRight ){
 
+                    GUICard tempGUICard;
+                    GUICard lastCard = listenerGUICard;
 
-                if( moveLeft || moveRight ){
-                    GUICard tempGUICard = drawGUICards.get(pos+positionChanges);
+                    // Checks if the player drags the card too long.
+                    if(tooFarRight){
+                        dropPos = pickedGUICards.size()-1;
+                    }
+                    else if(tooFarLeft){
+                        dropPos = 0;
+                    }
+
+                    // If moving to the left, it need to iterate from i.e 2 to 4.
+                    if(movedLeft){
+                        for(int currPos = dropPos; currPos<startPos; currPos++){
+                            tempGUICard = drawGUICards.get(currPos);
+                            pickedGUICards.set(currPos, lastCard);
+                            lastCard = tempGUICard;
+                        }
+                    }
+
+                    // If moving to the left, it need to iterate from i.e 7 to 3.
+                    else if(movedRight){
+                        for(int currPos = dropPos; currPos>startPos; currPos--){
+                            tempGUICard = drawGUICards.get(currPos);
+                            pickedGUICards.set(currPos, lastCard);
+                            lastCard = tempGUICard;
+                        }
+                    }
+                    pickedGUICards.set(startPos,lastCard);
                     System.out.println("MOVE");
-                    pickedGUICards.set(pos+positionChanges, listenerGUICard);
-                    pickedGUICards.set(pos, tempGUICard);
                     oldX=nowX;
                 }
-
-                if(tooFarRight){
-                    int maxPos = pickedGUICards.size()-1;
-                    GUICard tempGUICard = drawGUICards.get(maxPos);
-                    pickedGUICards.set(maxPos, listenerGUICard);
-                    pickedGUICards.set(pos, tempGUICard);
-                    oldX=nowX;
-                }
-
-                if(tooFarLeft){
-                    int minPos = 0;
-                    GUICard tempGUICard = drawGUICards.get(minPos);
-                    pickedGUICards.set(minPos, listenerGUICard);
-                    pickedGUICards.set(pos, tempGUICard);
-                    oldX=nowX;
-                }
-
-                /*// Move left
-                if(widthChange<0 && pos-positionChanges>=0){
-                    System.out.println("MOVE TO DA LEFT");
-                    GUICard tempCard = drawGUICards.get(pos+positionChanges);
-                    pickedGUICards.set(pos+positionChanges,listenerGUICard);
-                    pickedGUICards.set(pos, tempCard);
-                    oldX=nowX;
-                }
-
-                // Move right
-                if(widthChange>0 && pos+positionChanges <= pickedGUICards.size()-1 ){
-                    System.out.println("MOVE TO DA RIGHT");
-                    GUICard tempCard = drawGUICards.get(pos+positionChanges);
-                    pickedGUICards.set(pos+positionChanges,listenerGUICard);
-                    pickedGUICards.set(pos, tempCard);
-                    oldX=nowX;
-                }*/
 
                 drawGUICards = pickedGUICards;
                 drawDeck();

@@ -1,12 +1,17 @@
 package inf112.skeleton.app.gameLogic.game;
 
 import inf112.skeleton.app.GUI.MainGameScreen;
+import inf112.skeleton.app.GUI.pieces.GUIRobot;
+import inf112.skeleton.app.GUI.player.MovableGUIRobot;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.ProgramCardDeck;
+import inf112.skeleton.app.gameLogic.board.Board;
+import inf112.skeleton.app.gameLogic.board.IPiece;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RoboRallyGame {
@@ -14,23 +19,35 @@ public class RoboRallyGame {
     // The GUI.
     MainGameScreen guiScreen;
 
-    private int totalPlayers = 2;   // Total players in the game
+    private int totalPlayers = 1;   // Total players in the game
     private Player[] players;       // Players in the game
-    private int startHealth = 10;
+    private int startHealth = 3;
     private ProgramCardDeck deck;
     private Player currentPlayer;
+    private Board board;
 
     public RoboRallyGame(MainGameScreen guiScreen) {
 
         this.guiScreen = guiScreen;
-
+        this.board = new Board("Captain Hook", "DankBoard.json");
+        //board.displayBoard();
         this.deck = new ProgramCardDeck();  // Deck of cards in the game
         players = new Player[totalPlayers];
         for (int i = 0; i < players.length; i++) {
-            Position position = new Position(i, 0);
-            players[i] = new Player(position, Direction.NORTH, startHealth);
-        }
+            Position position = new Position(i+0, 0);
+            players[i] = new Player(position, Direction.NORTH, startHealth, this.board);
+            System.out.println("player made!!");
+            System.out.println(players[i].getPos().getX() + " " + players[i].getPos().getY());
 
+//            try{
+//                for(IPiece p : board.getCellAt(position).getPiecesInCell()){
+//                    System.out.println(p.getName()+"-"+p.getPieceDirection());
+//                }
+//            } catch (NullPointerException e){
+//                System.out.println("wooops nullpointer, but noone cares");
+//            }
+
+        }
         playGame();
     }
 
@@ -57,6 +74,7 @@ public class RoboRallyGame {
         // TODO take cards from deck and assign them to the player
         this.currentPlayer =currentPlayer;
         this.guiScreen.pickCardPhase(cards);
+
     }
 
     /**
@@ -78,8 +96,11 @@ public class RoboRallyGame {
     public void postPick(List<ProgramCard> pickedProgramCards) {
         for(ProgramCard card: pickedProgramCards){
 
-            currentPlayer.setRobot(guiScreen.gimmeRobotTest());
             currentPlayer.doAction(card.getCardType().getAction());
         }
+    }
+
+    public Player[] getPlayers(){
+        return this.players;
     }
 }

@@ -1,6 +1,9 @@
 package inf112.skeleton.app.gameLogic.board;
 
+import inf112.skeleton.app.GUI.pieces.GUIPiece;
+import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.enums.Direction;
+import javafx.geometry.Pos;
 
 import java.util.Iterator;
 
@@ -32,8 +35,15 @@ public class Board implements IBoard {
      */
     public void displayBoard() {
         for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                System.out.print(" | " + board[i][j]);
+            for (int j = 0; j < board.length; j++) {
+                System.out.print(" | ");
+                if (board[i][j] == null) {
+                    System.out.print("empty");
+                } else {
+                    for (IPiece p : board[i][j].getPiecesInCell()) {
+                        System.out.print(p.getName() + "-" + p.getPieceDirection() + " ");
+                    }
+                }
             }
             System.out.print(" | ");
             System.out.println();
@@ -58,23 +68,61 @@ public class Board implements IBoard {
         return board[y][x];
     }
 
+    /*
     public ICell getNextCell(int x, int y, Direction dir) {
+
         ICell cell = new Cell();
         switch (dir) {
             case NORTH:
-                cell = board[x][y+1];
+                cell = board[x][y + 1];
                 break;
             case SOUTH:
-                cell = board[x][y-1];
+                cell = board[x][y - 1];
                 break;
             case EAST:
-                cell = board[x+1][y];
+                cell = board[x + 1][y];
                 break;
             case WEST:
-                cell = board[x-1][y];
+                cell = board[x - 1][y];
                 break;
         }
         return cell;
+    } */
+
+    public ICell getCellAt(Position pos) {
+        //Byttet om disse, var board[pos.getX()][pos.getY()];
+        return board[pos.getY()][pos.getX()];
+    }
+
+    public ICell getNextCell(Position pos, Direction dir) {
+        ICell cell = new Cell();
+        switch (dir) {
+            case NORTH:
+                cell = board[pos.getY() - 1][pos.getX()];
+                break;
+            case SOUTH:
+                cell = board[pos.getY() + 1][pos.getX()];
+                break;
+            case EAST:
+                cell = board[pos.getY()][pos.getX() + 1];
+                break;
+            case WEST:
+                cell = board[pos.getY()][pos.getX() - 1];
+                break;
+        }
+        return cell;
+    }
+
+    public boolean insideBoard(Position playerPos, Direction playerDir){
+        Position posAfterMove = playerPos.changePos(playerDir);
+        System.out.println("Pos after theoretical move " + posAfterMove.toString());
+        if(posAfterMove.getY() >= boardHeight || posAfterMove.getY() < 0){
+            return false;
+        }
+        if (posAfterMove.getX() >= boardWidth || posAfterMove.getX() < 0){
+            return false;
+        }
+        return true;
     }
 
     public int getBoardWidth(){
