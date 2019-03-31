@@ -128,7 +128,7 @@ public class PlayerActionTest extends GameTest {
         //PlayerAction playerAction = new PlayerAction(player, Action.MOVE_1);
         Checker checker = new Checker(player, Action.MOVE_1, game.getBoard());
         checker.doAction();
-        checker.lookForFlag();
+        checker.checkForFlag();
         assertEquals(2, player.getRespawnPoint().getNextFlag());
     }
 
@@ -140,7 +140,7 @@ public class PlayerActionTest extends GameTest {
         for(int i = 0; i < 2; i++){
             Checker checker = new Checker(player, Action.MOVE_1, game.getBoard());
             checker.doAction();
-            checker.lookForFlag();
+            checker.checkForFlag();
         }
         assertEquals(3, player.getRespawnPoint().getNextFlag());
     }
