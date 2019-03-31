@@ -42,7 +42,7 @@
 https://github.com/inf112-v19/BeTheBee/blob/jarleDev/src/test/java/inf112/skeleton/app/GameTest.java
 
 3. When making tests, extend GameTest, a la
-` public class PlayerActionTest extends GameTest {}`
+` public class PlayerActionTest extends GameTest {}`.
 
 ## Links
 
