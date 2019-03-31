@@ -9,6 +9,7 @@ import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.ProgramCardDeck;
 import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.board.IPiece;
+import inf112.skeleton.app.gameLogic.board.pieces.Flag;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import java.util.ArrayList;
@@ -29,7 +30,9 @@ public class RoboRallyGame {
     public RoboRallyGame(MainGameScreen guiScreen) {
 
         this.guiScreen = guiScreen;
-        this.board = new Board("Captain Hook", "DankBoard.json");
+        //Testing with FlagBoard
+        //this.board = new Board("Captain Hook", "DankBoard.json");
+        this.board = new Board("Captain Hook", "FlagBoard.json");
         //board.displayBoard();
         this.deck = new ProgramCardDeck();  // Deck of cards in the game
         players = new Player[totalPlayers];
@@ -98,6 +101,24 @@ public class RoboRallyGame {
         for(ProgramCard card: pickedProgramCards){
             Checker checker = new Checker(currentPlayer, card.getCardType().getAction(), board);
             checker.doAction();
+
+            //for testin purpuss
+            System.out.println("Looking for flag " + currentPlayer.getRespawnPoint().getNextFlag());
+            for(IPiece piece : board.getCellAt(currentPlayer.getPos()).getPiecesInCell()){
+                if(piece instanceof Flag){
+                    Flag flag = (Flag) piece;
+                    if(flag.isLastFlag(currentPlayer, 2)){
+                        System.out.println("GOT THE LAST FLAG!!! " + currentPlayer.getRespawnPoint().getNextFlag());
+                        System.exit(0);
+                    }
+                    if(flag.isNextFlag(currentPlayer)){
+                        System.out.println("Found flag " + currentPlayer.getRespawnPoint().getNextFlag());
+                        currentPlayer.setNextFlag();
+                        System.out.println("Next Flag is " + currentPlayer.getRespawnPoint().getNextFlag());
+                    }
+
+                }
+            }
         }
     }
 

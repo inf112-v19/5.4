@@ -156,6 +156,14 @@ public class Player implements IPlayer {
         respawnPoint.setPos(pos);
     }
 
+
+
+
+    public void setNextFlag(){
+        setRespawnPoint();
+        respawnPoint.setNextFlag();
+    }
+
     public RespawnPoint getRespawnPoint() {
         return respawnPoint;
     }

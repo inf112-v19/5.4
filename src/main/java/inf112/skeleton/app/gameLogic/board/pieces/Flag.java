@@ -45,4 +45,9 @@ public class Flag implements IPiece {
     public boolean isNextFlag(Player player) {
         return player.getRespawnPoint().getNextFlag() == number;
     }
+
+    public boolean isLastFlag(Player player, int numberOfFlags){
+        return isNextFlag(player) && number == numberOfFlags;
+    }
+
 }
