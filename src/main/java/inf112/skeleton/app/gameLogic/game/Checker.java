@@ -137,7 +137,7 @@ public class Checker {
         System.out.println("can move");
         return true;
     }
-    public void lookForFlag(){
+    public void checkForFlag(){
         System.out.println("Looking for flag " + player.getRespawnPoint().getNextFlag());
         for(IPiece piece : board.getCellAt(player.getPos()).getPiecesInCell()){
             if(piece instanceof Flag){
@@ -156,5 +156,7 @@ public class Checker {
             }
         }
     }
+
+
 
 }
