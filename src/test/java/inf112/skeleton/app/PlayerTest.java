@@ -1,5 +1,8 @@
 package inf112.skeleton.app;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.backends.lwjgl.LwjglFiles;
+import com.badlogic.gdx.backends.lwjgl.LwjglNativesLoader;
 import inf112.skeleton.app.GUI.player.*;
 import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.enums.Direction;
@@ -15,6 +18,9 @@ public class PlayerTest extends GameTest {
 
     @Before
     public void setupActionTest() {
+
+        LwjglNativesLoader.load();
+        Gdx.files = new LwjglFiles();
         game = new TestGame();
     }
 
