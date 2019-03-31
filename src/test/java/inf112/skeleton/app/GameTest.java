@@ -6,7 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.mockito.Mocito;
+import org.mockito.Mockito;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 
 public class GameTest {
