@@ -43,8 +43,7 @@ public class Player implements IPlayer {
         this.maxHealth = health;
         this.damageTokens = 0;
         this.board = board;
-        //Comment out line below for the tests to run
-        //this.robot = new MovableGUIRobot(1);
+        this.robot = new MovableGUIRobot(1);
         this.respawnPoint = new RespawnPoint(pos, 1);
     }
 
@@ -62,6 +61,7 @@ public class Player implements IPlayer {
         pos = pos.changePos(dir);
         //Comment out line below for the tests to run
         //this.getRobot().doAction(ActionType.MOVE, dir);
+        this.getRobot().fullAction(Action.MOVE_1, dir);
     }
 
     public void die() {
