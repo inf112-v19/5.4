@@ -5,7 +5,6 @@ import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.board.*;
 import inf112.skeleton.app.gameLogic.board.pieces.*;
 import inf112.skeleton.app.gameLogic.enums.Action;
-import inf112.skeleton.app.gameLogic.enums.ActionType;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import java.util.List;
@@ -18,6 +17,12 @@ public class Checker {
     public Checker(Player player, Action action, Board board) {
         this.player = player;
         this.playersAction = action;
+        this.board = board;
+    }
+
+    public Checker(Player player, Board board) {
+        this.player = player;
+        this.playersAction = null;
         this.board = board;
     }
 
@@ -76,12 +81,7 @@ public class Checker {
                     board.getCellAt(tempPos).getPiecesInCell().remove(player);
                     board.getNextCell(tempPos, movePlayerInDir).addPiece(player);
                 }
-
-                //Move player robot here, player needs to have a GUI robot
-                player.getRobot().doAction(ActionType.MOVE, movePlayerInDir);
             }
-            //Comment this out if you want the tests to work
-//            robot.doAction(ActionType.MOVE, dir);
         }
         System.out.println("Post :" + player.getPos().getX() + " " + player.getPos().getY());
     }
@@ -137,4 +137,24 @@ public class Checker {
         System.out.println("can move");
         return true;
     }
+    public void lookForFlag(){
+        System.out.println("Looking for flag " + player.getRespawnPoint().getNextFlag());
+        for(IPiece piece : board.getCellAt(player.getPos()).getPiecesInCell()){
+            if(piece instanceof Flag){
+                Flag flag = (Flag) piece;
+                if(player.isLastFlag(flag, 3)){
+                    System.out.println("GOT THE LAST FLAG!!! " + player.getRespawnPoint().getNextFlag());
+                    System.exit(0);
+                }
+                if(player.isNextFlag(flag)){
+                    System.out.println("Found flag " + player.getRespawnPoint().getNextFlag());
+                    player.setNextFlag();
+                    System.out.println("Next Flag is " + player.getRespawnPoint().getNextFlag());
+                }
+
+
+            }
+        }
+    }
+
 }

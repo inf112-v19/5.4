@@ -6,6 +6,7 @@ import inf112.skeleton.app.GUI.player.MovableGUIRobot;
 import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.board.ICell;
 import inf112.skeleton.app.gameLogic.board.IPiece;
+import inf112.skeleton.app.gameLogic.board.pieces.Flag;
 import inf112.skeleton.app.gameLogic.board.pieces.Wall;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.enums.Action;
@@ -42,8 +43,8 @@ public class Player implements IPlayer {
         this.maxHealth = health;
         this.damageTokens = 0;
         this.board = board;
-        //Kommenter ut linjen under for at testene skal kjøre
-        this.robot = new MovableGUIRobot(1);
+        //Comment out line below for the tests to run
+        //this.robot = new MovableGUIRobot(1);
         this.respawnPoint = new RespawnPoint(pos, 1);
     }
 
@@ -59,6 +60,8 @@ public class Player implements IPlayer {
     @Override
     public void move(Direction dir) {
         pos = pos.changePos(dir);
+        //Comment out line below for the tests to run
+        //this.getRobot().doAction(ActionType.MOVE, dir);
     }
 
     public void die() {
@@ -148,7 +151,7 @@ public class Player implements IPlayer {
         } else {
             throw new IllegalArgumentException("Not a valid rotation!");
         }
-        //Comment this out if you want the tests to work
+        //Coment out line below for the tests to run
         //robot.doAction(ActionType.ROTATE, facingDir);
     }
 
@@ -156,8 +159,13 @@ public class Player implements IPlayer {
         respawnPoint.setPos(pos);
     }
 
+    public boolean isNextFlag(Flag flag) {
+        return this.getRespawnPoint().getNextFlag() == flag.getNumber();
+    }
 
-
+    public boolean isLastFlag(Flag flag, int numberOfFlags){
+        return isNextFlag(flag) && flag.getNumber() == numberOfFlags;
+    }
 
     public void setNextFlag(){
         setRespawnPoint();

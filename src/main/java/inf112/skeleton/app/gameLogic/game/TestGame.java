@@ -2,6 +2,8 @@ package inf112.skeleton.app.gameLogic.game;
 
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.board.Board;
+import inf112.skeleton.app.gameLogic.board.IPiece;
+import inf112.skeleton.app.gameLogic.board.pieces.Flag;
 import inf112.skeleton.app.gameLogic.enums.ActionType;
 
 import java.util.*;
@@ -13,9 +15,9 @@ public class TestGame {
     private Board board;
 
     public TestGame() {
-        playerList = new ArrayList<>();
-        playerActionList = new LinkedList<>();
-        board = new Board("TestBoard", "TestBoard.json");
+        this.playerList = new ArrayList<>();
+        this.playerActionList = new LinkedList<>();
+        this.board = new Board("TestBoard", "TestBoard.json");
     }
 
     public void doAllActions() {
@@ -28,6 +30,7 @@ public class TestGame {
             Checker checker = new Checker(playerAction.getPlayer(), playerAction.getAction(), board);
             checker.doAction();
         }
+
     }
 
     /*

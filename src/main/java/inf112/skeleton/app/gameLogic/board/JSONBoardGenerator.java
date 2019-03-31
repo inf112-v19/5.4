@@ -111,7 +111,7 @@ public class JSONBoardGenerator {
                                 break;
 
                             case "FlagOne":
-                                System.out.println("Making flag number 1");
+                                System.out.println("Making flag number 1 " + x + " " + y);
                                 tempCell.addPiece(new Flag(1));
                                 break;
 

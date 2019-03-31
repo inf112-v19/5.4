@@ -103,22 +103,7 @@ public class RoboRallyGame {
             checker.doAction();
 
             //for testin purpuss
-            System.out.println("Looking for flag " + currentPlayer.getRespawnPoint().getNextFlag());
-            for(IPiece piece : board.getCellAt(currentPlayer.getPos()).getPiecesInCell()){
-                if(piece instanceof Flag){
-                    Flag flag = (Flag) piece;
-                    if(flag.isLastFlag(currentPlayer, 2)){
-                        System.out.println("GOT THE LAST FLAG!!! " + currentPlayer.getRespawnPoint().getNextFlag());
-                        System.exit(0);
-                    }
-                    if(flag.isNextFlag(currentPlayer)){
-                        System.out.println("Found flag " + currentPlayer.getRespawnPoint().getNextFlag());
-                        currentPlayer.setNextFlag();
-                        System.out.println("Next Flag is " + currentPlayer.getRespawnPoint().getNextFlag());
-                    }
-
-                }
-            }
+            checker.lookForFlag();
         }
     }
 
