@@ -26,7 +26,13 @@ public class RoboRallyGame {
 
     public RoboRallyGame(MainGameScreen guiScreen) {
 
+        this();
         this.guiScreen = guiScreen;
+        playGame();
+
+    }
+
+    public RoboRallyGame() {
         //Testing with FlagBoard
         //this.board = new Board("Captain Hook", "DankBoard.json");
         this.board = new Board("Captain Hook", boardPath);
@@ -42,7 +48,6 @@ public class RoboRallyGame {
             System.out.println(players[i].getPos().getX() + " " + players[i].getPos().getY());
 
         }
-        playGame();
     }
 
     public void playGame(){
