@@ -170,7 +170,9 @@ public class Checker {
         if(player.getPos().equals(board.getFlags().getFlagPos(player.getRespawnPoint().nextFlag))){
             System.out.println("Found flag " + player.getRespawnPoint().getNextFlag());
             if(player.getRespawnPoint().nextFlag == board.getFlags().getNumberOfFlags()){
-                System.out.println("GOT THE LAST FLAG!!! Flag: " + player.getRespawnPoint().getNextFlag());
+                for(int i = 0; i < 10; i++){
+                    System.out.println("GOT THE LAST FLAG!!! Flag: " + player.getRespawnPoint().getNextFlag());
+                }
             } else {
                 player.setNextFlag();
                 System.out.println("Next Flag is " + player.getRespawnPoint().getNextFlag());
