@@ -36,17 +36,10 @@ public class RoboRallyGame {
         for (int i = 0; i < players.length; i++) {
             Position position = new Position(i+5, 7);
             players[i] = new Player(position, Direction.NORTH, startHealth, this.board);
-            board.addPiece(position, players[i]);
+            //board.getCellAt(position).addPiece(players[i]);
+            //board.addPiece(position, players[i]);
             System.out.println("player made!!");
             System.out.println(players[i].getPos().getX() + " " + players[i].getPos().getY());
-
-//            try{
-//                for(IPiece p : board.getCellAt(position).getPiecesInCell()){
-//                    System.out.println(p.getName()+"-"+p.getPieceDirection());
-//                }
-//            } catch (NullPointerException e){
-//                System.out.println("wooops nullpointer, but noone cares");
-//            }
 
         }
         playGame();
