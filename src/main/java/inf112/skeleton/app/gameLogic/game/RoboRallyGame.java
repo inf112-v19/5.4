@@ -19,7 +19,7 @@ public class RoboRallyGame {
     // The GUI.
     MainGameScreen guiScreen;
 
-    private int totalPlayers = 1;   // Total players in the game
+    private int totalPlayers = 2;   // Total players in the game
     private Player[] players;       // Players in the game
     private int startHealth = 3;
     private ProgramCardDeck deck;
@@ -35,7 +35,7 @@ public class RoboRallyGame {
         players = new Player[totalPlayers];
         for (int i = 0; i < players.length; i++) {
             Position position = new Position(i+4, 6);
-            players[i] = new Player(position, Direction.NORTH, startHealth, this.board);
+            players[i] = new Player(position, Direction.SOUTH, startHealth, this.board);
             System.out.println("player made!!");
             System.out.println(players[i].getPos().getX() + " " + players[i].getPos().getY());
 

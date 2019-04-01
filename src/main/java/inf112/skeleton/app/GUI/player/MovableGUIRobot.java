@@ -3,6 +3,8 @@ package inf112.skeleton.app.GUI.player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -20,12 +22,17 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 public class MovableGUIRobot extends GUIRobot {
 
+    TextureAtlas textureAtlas;
+    Sprite newSprite;
 
     public MovableGUIRobot(int robotnr) {
 
         super(robotnr);
 //       this.setScale(0.8f);
         setBounds(getX(), getY(), getWidth(), getHeight());
+
+
+        textureAtlas = new TextureAtlas("bots/yellowBot/yellow_bot_sprites.txt");
 
         /*addListener(new DragListener() {
             public void drag(InputEvent event, float x, float y, int pointer) {
@@ -82,7 +89,8 @@ public class MovableGUIRobot extends GUIRobot {
 
     public void doAction(ActionType actionType, Direction faceDir) {
         setOrigin(getWidth() / 2, getHeight() / 2);
-
+        System.out.println("testing maynnnne");
+        System.out.println(actionType);
         switch (actionType) {
             case MOVE:
 
@@ -123,14 +131,37 @@ public class MovableGUIRobot extends GUIRobot {
                 break;
             case ROTATE:
 
-                System.out.println("rotating boys"
-                );
-                RotateByAction rotateByAction = new RotateByAction();
-                rotateByAction.setAmount(90f);
-                MovableGUIRobot.this.addAction(rotateByAction);
+                System.out.println("rotating boys");
+                this.changeSprite(faceDir);
                 break;
+//                RotateByAction rotateByAction = new RotateByAction();
+//                rotateByAction.setAmount(90f);
+//                MovableGUIRobot.this.addAction(rotateByAction);
+//                break;
 
         }
+    }
+
+    public void changeSprite(Direction facingDir) {
+        String spriteString = "yellow_robot_";
+        switch (facingDir){
+            case NORTH:
+                spriteString += "back";
+                break;
+            case EAST:
+                spriteString += "right";
+                break;
+            case WEST:
+                spriteString += "left";
+                break;
+            case SOUTH:
+                spriteString += "front";
+                break;
+        }
+
+
+        super.sprite = textureAtlas.createSprite(spriteString);
+
     }
 
 }

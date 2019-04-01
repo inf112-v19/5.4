@@ -42,7 +42,7 @@ public class Player implements IPlayer {
         this.damageTokens = 0;
         this.board = board;
         //Kommenter ut linjen under for at testene skal kjøre
-        //this.robot = new MovableGUIRobot(1);
+        this.robot = new MovableGUIRobot(1);
         this.respawnPoint = pos;
     }
 
@@ -148,7 +148,7 @@ public class Player implements IPlayer {
             throw new IllegalArgumentException("Not a valid rotation!");
         }
         //Comment this out if you want the tests to work
-        //robot.doAction(ActionType.ROTATE, facingDir);
+        robot.doAction(ActionType.ROTATE, facingDir);
     }
 
     /**
