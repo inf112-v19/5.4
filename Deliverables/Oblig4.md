@@ -45,3 +45,4 @@ Se "gruppedynamikk"
 
 ### Notes
 Se "Oblig4 Notes" i wikien for mer info.
+
