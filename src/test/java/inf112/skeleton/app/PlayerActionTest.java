@@ -140,9 +140,8 @@ public class PlayerActionTest extends GameTest {
             checker.doAction();
             checker.checkForFlag();
         }
-        assertEquals(3, player.getRespawnPoint().getNextFlag());
+        assertEquals(2, game.getBoard().getFlags().getNumberOfFlags());
+        assertEquals(2, player.getRespawnPoint().getNextFlag());
     }
-
-
 
 }

@@ -137,6 +137,7 @@ public class Checker {
         System.out.println("can move");
         return true;
     }
+    /*
     public void checkForFlag(){
         System.out.println("Looking for flag " + player.getRespawnPoint().getNextFlag());
         for(IPiece piece : board.getCellAt(player.getPos()).getPiecesInCell()){
@@ -153,6 +154,21 @@ public class Checker {
                 }
 
 
+            }
+        }
+    }*/
+
+    public void checkForFlag(){
+        //checks if the players position is the same as the flag the player is looking for
+        //System.out.println("Looking for flag " + player.getRespawnPoint().getNextFlag());
+        System.out.println("Player: " + player.getPos() + " Flag: " + player.getRespawnPoint().getNextFlag() + " " + board.getFlags().getFlagPos(player.getRespawnPoint().nextFlag));
+        if(player.getPos().equals(board.getFlags().getFlagPos(player.getRespawnPoint().nextFlag))){
+            System.out.println("Found flag " + player.getRespawnPoint().getNextFlag());
+            if(player.getRespawnPoint().nextFlag == board.getFlags().getNumberOfFlags()){
+                System.out.println("GOT THE LAST FLAG!!! Flag: " + player.getRespawnPoint().getNextFlag());
+            } else {
+                player.setNextFlag();
+                System.out.println("Next Flag is " + player.getRespawnPoint().getNextFlag());
             }
         }
     }

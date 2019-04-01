@@ -1,16 +1,14 @@
 package inf112.skeleton.app.gameLogic.board;
 
-import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.enums.Direction;
-import javafx.geometry.Pos;
-
-import java.util.Iterator;
+import inf112.skeleton.app.gameLogic.game.FlagOrganizer;
 
 public class Board implements IBoard {
 
     String boardName;
     ICell[][] board;
+    private FlagOrganizer flags;
 
     // Assuming all boards are square for ease of use.
     // In the future we might make a MegaBoard or something.
@@ -18,9 +16,11 @@ public class Board implements IBoard {
     int boardHeight;
 
     public Board(String name, String path) {
+        flags = FlagOrganizer.getInstance();
         boardName = name;
-        board = new JSONBoardGenerator().generateJsonBoard(path);
-
+        JSONBoardGenerator jsonBoardGenerator = new JSONBoardGenerator();
+        board = jsonBoardGenerator.generateJsonBoard(path);
+        flags = jsonBoardGenerator.getFlags();
         // Again, assuming it's square. Might break in the future.
         boardHeight = board.length;
         boardWidth = board[0].length;
@@ -28,6 +28,10 @@ public class Board implements IBoard {
 
     public void generateBoard() {
 
+    }
+
+    public FlagOrganizer getFlags() {
+        return flags;
     }
 
     /**
