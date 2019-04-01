@@ -17,6 +17,7 @@ public class Main {
         RoboClient roboClient = new RoboClient();
         roboClient.tryConnection("localhost", 8000);
          */
+        //
 
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
         cfg.title = "Robo Rally Rampage";
