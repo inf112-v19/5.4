@@ -69,7 +69,7 @@ public class LoadScreen implements Screen {
 
         if (Gdx.input.isTouched()) {
 
-            Sound sound = Gdx.audio.newSound(Gdx.files.internal("sound/yeahEcho.mp3"));
+            Sound sound = Gdx.audio.newSound(Gdx.files.internal("audio/yeahEcho.mp3"));
 
             MainGameScreen mainGameScreen = new MainGameScreen();
             game.setScreen(mainGameScreen);

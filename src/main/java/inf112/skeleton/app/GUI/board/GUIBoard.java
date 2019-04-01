@@ -124,7 +124,7 @@ public class GUIBoard extends Table {
 
     public void addPlayers(Player[] players){
         for(Player currPlayer : players){
-            System.out.println("adding stuff");
+            System.out.println("Added guiplayer at " + currPlayer.getPos().toString());
             this.addGUIPiece(currPlayer.getPos().getX(),currPlayer.getPos().getY(), currPlayer.getRobot());
         }
     }

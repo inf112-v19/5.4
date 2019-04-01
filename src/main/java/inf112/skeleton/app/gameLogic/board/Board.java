@@ -72,6 +72,14 @@ public class Board implements IBoard {
         return board[y][x];
     }
 
+    public void addPiece(int x, int y, IPiece piece){
+        board[y][x].addPiece(piece);
+    }
+    public void addPiece(Position pos, IPiece piece){
+
+        this.addPiece(pos.getX(), pos.getY(), piece);
+    }
+
     /*
     public ICell getNextCell(int x, int y, Direction dir) {
 
@@ -136,36 +144,5 @@ public class Board implements IBoard {
     public int getBoardHeight(){
         return boardHeight;
     }
-
-
-
-   /*public Iterator<ICell> iterator() {
-        Iterator<ICell> it = new Iterator<ICell>() {
-
-            private int currX = 0;
-            private int currY = 0;
-
-            @Override
-            public boolean hasNext() {
-                return currY >= board.length && currX >= board[currY].length;
-            }
-
-            @Override
-            public ICell next() {
-                    if(currX >= board[currY].length){
-                        currY++;
-                        currX = 0;
-                    }
-
-                return board[currY][currX];
-            }
-
-            @Override
-            public void remove() {
-                throw new UnsupportedOperationException();
-            }
-        };
-        return it;
-    }*/
 
 }

@@ -18,6 +18,8 @@ public class RoboRallyGame {
     private int totalPlayers = 3;   // Total players in the game
     private Player[] players;       // Players in the game
     private int startHealth = 3;
+    private String boardPath = "DankBoard.json";
+
     private ProgramCardDeck deck;
     private Player currentPlayer;
     private Board board;
@@ -27,24 +29,17 @@ public class RoboRallyGame {
         this.guiScreen = guiScreen;
         //Testing with FlagBoard
         //this.board = new Board("Captain Hook", "DankBoard.json");
-        this.board = new Board("Captain Hook", "FlagBoard.json");
+        this.board = new Board("Captain Hook", boardPath);
         //board.displayBoard();
         this.deck = new ProgramCardDeck();  // Deck of cards in the game
         players = new Player[totalPlayers];
         for (int i = 0; i < players.length; i++) {
-            Position position = new Position(i+4, 6);
-            players[i] = new Player(position, Direction.SOUTH, startHealth, this.board);
-            board.getCellAt(position).addPiece(players[i]);
+            Position position = new Position(i+5, 7);
+            players[i] = new Player(position, Direction.NORTH, startHealth, this.board);
+            //board.getCellAt(position).addPiece(players[i]);
+            //board.addPiece(position, players[i]);
             System.out.println("player made!!");
             System.out.println(players[i].getPos().getX() + " " + players[i].getPos().getY());
-
-//            try{
-//                for(IPiece p : board.getCellAt(position).getPiecesInCell()){
-//                    System.out.println(p.getName()+"-"+p.getPieceDirection());
-//                }
-//            } catch (NullPointerException e){
-//                System.out.println("wooops nullpointer, but noone cares");
-//            }
 
         }
         playGame();
@@ -52,9 +47,10 @@ public class RoboRallyGame {
 
     public void playGame(){
         this.deck.shuffleDeck();
-        for (Player currentPlayer : players) {
-            this.currentPlayer = currentPlayer;
-        }
+        this.currentPlayer = players[0];
+//        for (Player currentPlayer : players) {
+//            this.currentPlayer = currentPlayer;
+//        }
 //        play();
 //        postPlay();
     }
@@ -71,7 +67,7 @@ public class RoboRallyGame {
         List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
 
         // TODO take cards from deck and assign them to the player
-        this.currentPlayer =currentPlayer;
+        //this.currentPlayer =currentPlayer;
         this.guiScreen.pickCardPhase(cards);
 
     }
@@ -105,4 +101,5 @@ public class RoboRallyGame {
     public Player[] getPlayers(){
         return this.players;
     }
+    public Board getBoard(){return this.board;}
 }

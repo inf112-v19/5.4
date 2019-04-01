@@ -11,6 +11,19 @@ public class Flag implements IPiece {
     private Direction direction = Direction.NORTH;
     private int number;
 
+    public enum FlagEnum{
+        FLAG_1(1),
+        FLAG_2(2),
+        FLAG_3(3),
+        FLAG_4(4);
+
+        int flagNr;
+
+        FlagEnum(int flagNr){
+            this.flagNr = flagNr;
+        }
+    }
+
     public Flag(int number){
         this.number = number;
     }
