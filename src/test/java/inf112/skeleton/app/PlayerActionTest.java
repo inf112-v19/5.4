@@ -1,8 +1,12 @@
 package inf112.skeleton.app;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.backends.lwjgl.LwjglFiles;
+import com.badlogic.gdx.backends.lwjgl.LwjglNativesLoader;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.enums.Action;
+import inf112.skeleton.app.gameLogic.game.Checker;
 import inf112.skeleton.app.gameLogic.game.PlayerAction;
 import inf112.skeleton.app.gameLogic.game.TestGame;
 import inf112.skeleton.app.gameLogic.enums.Direction;
@@ -13,16 +17,24 @@ import org.junit.Before;
 import org.junit.Test;
 
 
+import java.io.File;
+
 import static org.junit.Assert.assertEquals;
 
 
-public class PlayerActionTest {
+public class PlayerActionTest extends GameTest {
 
     private Player player;
     private TestGame game;
 
     @Before
     public void setupActionTest() {
+
+        LwjglNativesLoader.load();
+        Gdx.files = new LwjglFiles();
+
+        System.out.println(new File("DankBoard.json").getAbsoluteFile());
+        //new LwjglApplication(new GUIMain());
         game = new TestGame();
         player = new Player(new Position(7, 7), Direction.NORTH, 3, game.getBoard());
     }
@@ -105,6 +117,31 @@ public class PlayerActionTest {
         assertEquals(Direction.NORTH, player2.getDirection());
         assertEquals(6, player2.getPos().getX());
         assertEquals(0, player2.getPos().getY());
+    }
+
+    @Test
+    public void testStoppingOnFlagChangesNextFlag() {
+        player = new Player(new Position(0, 7), Direction.NORTH, 3, game.getBoard());
+        assertEquals(1, player.getRespawnPoint().getNextFlag());
+        //PlayerAction playerAction = new PlayerAction(player, Action.MOVE_1);
+        Checker checker = new Checker(player, Action.MOVE_1, game.getBoard());
+        checker.doAction();
+        checker.checkForFlag();
+        assertEquals(2, player.getRespawnPoint().getNextFlag());
+    }
+
+    @Test
+    public void testStoppingOnLastFlag() {
+        player = new Player(new Position(0, 7), Direction.NORTH, 3, game.getBoard());
+        assertEquals(1, player.getRespawnPoint().getNextFlag());
+        //PlayerAction playerAction = new PlayerAction(player, Action.MOVE_1);
+        for(int i = 0; i < 2; i++){
+            Checker checker = new Checker(player, Action.MOVE_1, game.getBoard());
+            checker.doAction();
+            checker.checkForFlag();
+        }
+        assertEquals(2, game.getBoard().getFlags().getNumberOfFlags());
+        assertEquals(2, player.getRespawnPoint().getNextFlag());
     }
 
 }

@@ -8,15 +8,15 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.actions.DelayAction;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
-import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
-import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
+import com.badlogic.gdx.scenes.scene2d.actions.*;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import inf112.skeleton.app.GUI.pieces.GUIRobot;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.ActionType;
 import inf112.skeleton.app.gameLogic.enums.Direction;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
@@ -75,22 +75,24 @@ public class MovableGUIRobot extends GUIRobot {
     }
 
     public void fullAction(Action action, Direction dir) {
-        if (action.getActionType() == ActionType.MOVE) {
-            int numTimes = action.getValue();
-                
-            for (int i = 0; i < numTimes; i++) {
-                doAction(action.getActionType(), dir);
-            }
-        } else {
-            doAction(action.getActionType(), dir);
+        int numTimes = action.getValue();
+        List<com.badlogic.gdx.scenes.scene2d.Action> toDoActions = new ArrayList<com.badlogic.gdx.scenes.scene2d.Action>();
+
+        for (int i = 0; i < numTimes; i++) {
+            toDoActions.add(
+                    new SequenceAction(getGUIAction(action.getActionType(), dir)
+                            , new DelayAction(1)));
+        }
+
+        for(com.badlogic.gdx.scenes.scene2d.Action act : toDoActions){
+            addAction(sequence(act));
         }
 
     }
 
-    public void doAction(ActionType actionType, Direction faceDir) {
+    public com.badlogic.gdx.scenes.scene2d.Action getGUIAction(ActionType actionType, Direction faceDir) {
         setOrigin(getWidth() / 2, getHeight() / 2);
-        System.out.println("testing maynnnne");
-        System.out.println(actionType);
+
         switch (actionType) {
             case MOVE:
 
@@ -121,25 +123,27 @@ public class MovableGUIRobot extends GUIRobot {
 
                 System.out.println("WE OUT HERE MAYNNNEEE");
 
-                addAction(sequence(moveAction, new DelayAction(1), new RunnableAction() {
+                /* addAction(sequence(moveAction, new DelayAction(1), new RunnableAction() {
                     @Override
                     public void run() {
                         System.out.println("COMPLETE!");
                     }
-                }));
+                })); */
 
-                break;
+                return moveAction;
             case ROTATE:
 
                 System.out.println("rotating boys");
                 this.changeSprite(faceDir);
-                break;
-//                RotateByAction rotateByAction = new RotateByAction();
-//                rotateByAction.setAmount(90f);
-//                MovableGUIRobot.this.addAction(rotateByAction);
-//                break;
+
+                // Remove this lol
+                RotateByAction rotateByAction = new RotateByAction();
+                rotateByAction.setAmount(90f);
+                //MovableGUIRobot.this.addAction(rotateByAction);
+                return rotateByAction;
 
         }
+        return null;
     }
 
     public void changeSprite(Direction facingDir) {

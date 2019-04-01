@@ -6,12 +6,14 @@ import inf112.skeleton.app.GUI.player.MovableGUIRobot;
 import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.board.ICell;
 import inf112.skeleton.app.gameLogic.board.IPiece;
+import inf112.skeleton.app.gameLogic.board.pieces.Flag;
 import inf112.skeleton.app.gameLogic.board.pieces.Wall;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.ActionType;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.enums.Rotation;
+import inf112.skeleton.app.gameLogic.game.RespawnPoint;
 
 import java.util.List;
 import java.util.Stack;
@@ -26,7 +28,7 @@ public class Player implements IPlayer {
     private Stack<ProgramCard> playerDeck;
     private List<ProgramCard> playerRegister;
     private MovableGUIRobot robot;
-    private Position respawnPoint;
+    private RespawnPoint respawnPoint;
 
     private Board board;
 
@@ -41,9 +43,8 @@ public class Player implements IPlayer {
         this.maxHealth = health;
         this.damageTokens = 0;
         this.board = board;
-        //Kommenter ut linjen under for at testene skal kjøre
         this.robot = new MovableGUIRobot(1);
-        this.respawnPoint = pos;
+        this.respawnPoint = new RespawnPoint(pos, 1);
     }
 
     @Override
@@ -58,12 +59,15 @@ public class Player implements IPlayer {
     @Override
     public void move(Direction dir) {
         pos = pos.changePos(dir);
+        //Comment out line below for the tests to run
+        //this.getRobot().doAction(ActionType.MOVE, dir);
+        this.getRobot().fullAction(Action.MOVE_1, dir);
     }
 
     public void die() {
         this.health--;
         System.out.println("YOU LOST HP, NEW HP: " + this.health);
-        this.pos = respawnPoint;
+        this.pos = respawnPoint.getPos();
     }
 
     /**
@@ -114,6 +118,7 @@ public class Player implements IPlayer {
                     this.facingDir = Direction.NORTH;
                     break;
             }
+            robot.fullAction(Action.ROTATE_R, facingDir);
         } else if (r == Rotation.L) {
             switch (this.facingDir) {
                 case NORTH:
@@ -129,6 +134,7 @@ public class Player implements IPlayer {
                     this.facingDir = Direction.SOUTH;
                     break;
             }
+            robot.fullAction(Action.ROTATE_L, facingDir);
         } else if (r == Rotation.U) {
             switch (this.facingDir) {
                 case NORTH:
@@ -144,11 +150,33 @@ public class Player implements IPlayer {
                     this.facingDir = Direction.EAST;
                     break;
             }
+            robot.fullAction(Action.ROTATE_U, facingDir);
         } else {
             throw new IllegalArgumentException("Not a valid rotation!");
         }
-        //Comment this out if you want the tests to work
-        robot.doAction(ActionType.ROTATE, facingDir);
+        //Coment out line below for the tests to run
+        //robot.doAction(ActionType.ROTATE, facingDir);
+    }
+
+    public void setRespawnPoint() {
+        respawnPoint.setPos(pos);
+    }
+
+    public boolean isNextFlag(Flag flag) {
+        return this.getRespawnPoint().getNextFlag() == flag.getNumber();
+    }
+
+    public boolean isLastFlag(Flag flag, int numberOfFlags){
+        return isNextFlag(flag) && flag.getNumber() == numberOfFlags;
+    }
+
+    public void setNextFlag(){
+        setRespawnPoint();
+        respawnPoint.setNextFlag();
+    }
+
+    public RespawnPoint getRespawnPoint() {
+        return respawnPoint;
     }
 
     /**

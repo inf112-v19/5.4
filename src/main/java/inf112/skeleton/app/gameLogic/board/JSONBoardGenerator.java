@@ -1,11 +1,14 @@
 package inf112.skeleton.app.gameLogic.board;
 
 
+import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.board.pieces.*;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
+import inf112.skeleton.app.gameLogic.game.FlagOrganizer;
 import org.json.simple.JSONArray;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,6 +22,7 @@ public class JSONBoardGenerator {
 
     JSONParser parser = new JSONParser();
     ICell[][] jsonBoardPieceList;
+    private FlagOrganizer flags = FlagOrganizer.getInstance();
 
     public ICell[][] generateJsonBoard(String filepath) {
 
@@ -26,8 +30,13 @@ public class JSONBoardGenerator {
 
         try {
 
-            //System.out.println(new File("xxxxxxxx.").getAbsoluteFile());
+            System.out.println(new File("xxxxxxxx.").getAbsoluteFile());
+
+
+            //Object boardFile = Gdx.files.internal(filepath);
+
             Object boardFile = parser.parse(new FileReader(filepath));
+
             JSONObject jsonBoardFile = (JSONObject) boardFile;
             int jsonSize = jsonBoardFile.size();
             jsonBoardPieceList = new ICell[jsonSize][jsonSize];
@@ -111,18 +120,27 @@ public class JSONBoardGenerator {
                                 break;
 
                             case "FlagOne":
-                                System.out.println("Making flag number 1");
+                                System.out.println("Making flag number 1 " + x + " " + y);
                                 tempCell.addPiece(new Flag(1));
+                                flags.setFlagAtPos(1, new Position(x, y));
                                 break;
 
                             case "FlagTwo":
                                 System.out.println("Making flag number 2");
                                 tempCell.addPiece(new Flag(2));
+                                flags.setFlagAtPos(2, new Position(x, y));
                                 break;
 
                             case "FlagThree":
                                 System.out.println("Making flag number 3");
                                 tempCell.addPiece(new Flag(3));
+                                flags.setFlagAtPos(3, new Position(x, y));
+                                break;
+
+                            case "FlagFour":
+                                System.out.println("Making flag number 3");
+                                tempCell.addPiece(new Flag(3));
+                                flags.setFlagAtPos(4, new Position(x, y));
                                 break;
 
                             case "GearRight":
@@ -186,11 +204,13 @@ public class JSONBoardGenerator {
                     }
                 }
             }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            e.printStackTrace();
+            } catch (ParseException e) {
+            e.printStackTrace();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
             e.printStackTrace();
         }
         return jsonBoardPieceList;
@@ -221,5 +241,9 @@ public class JSONBoardGenerator {
             }
         }
         return false;
+    }
+
+    public FlagOrganizer getFlags() {
+        return flags;
     }
 }

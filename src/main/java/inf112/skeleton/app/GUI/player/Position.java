@@ -45,4 +45,26 @@ public class Position {
     public String toString() {
         return ("x: " + this.xPos + " y: " + this.yPos);
     }
+
+    @Override
+    public boolean equals(Object other) {
+
+        // If the object is compared with itself then return true
+        if (other == this) {
+            return true;
+        }
+
+        /* Check if o is an instance of Complex or not
+          "null instanceof [type]" also returns false */
+        if (!(other instanceof Position)) {
+            return false;
+        }
+
+        // typecast o to Complex so that we can compare data members
+        Position cast = (Position) other;
+
+        // Compare the data members and return accordingly
+        return this.xPos == ((Position) other).getX()
+                && this.yPos == ((Position) other).getY();
+    }
 }
