@@ -1,5 +1,6 @@
 package inf112.skeleton.app.gameLogic.game;
 
+import com.badlogic.gdx.audio.Sound;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.board.*;
@@ -169,6 +170,7 @@ public class Checker {
         System.out.println("Player: " + player.getPos() + " Flag: " + player.getRespawnPoint().getNextFlag() + " " + board.getFlags().getFlagPos(player.getRespawnPoint().nextFlag));
         if(player.getPos().equals(board.getFlags().getFlagPos(player.getRespawnPoint().nextFlag))){
             System.out.println("Found flag " + player.getRespawnPoint().getNextFlag());
+            SoundPlayer.GameSound.FLAG_PICKUP.playSound();
             if(player.getRespawnPoint().nextFlag == board.getFlags().getNumberOfFlags()){
                 for(int i = 0; i < 10; i++){
                     System.out.println("GOT THE LAST FLAG!!! Flag: " + player.getRespawnPoint().getNextFlag());

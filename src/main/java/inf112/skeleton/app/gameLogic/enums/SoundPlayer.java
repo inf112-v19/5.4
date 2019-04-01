@@ -37,7 +37,7 @@ public class SoundPlayer {
             this.namePath = soundPath;
             this.som = som;
 
-            this.volume = 1f;
+            this.volume = 0.6f;
             this.pitch = pitch;
             this.pan = 1f;
         }
