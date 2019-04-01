@@ -12,6 +12,7 @@ import inf112.skeleton.app.GUI.pieces.GUIRobot;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.ActionType;
 import inf112.skeleton.app.gameLogic.enums.Direction;
+import inf112.skeleton.app.gameLogic.enums.SoundPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,11 +90,9 @@ public class MovableGUIRobot extends GUIRobot {
         switch (actionType) {
             case MOVE:
 
-                // Move sound
-                Sound moveSound = Gdx.audio.newSound(Gdx.files.internal("sound/move.mp3"));
-                moveSound.play(0.4f, 0.5f, 1);
+                SoundPlayer.GameSound.MOVE.playSound();
 
-                // The move sound
+                // The move audio
                 MoveByAction moveAction = new MoveByAction();
                 moveAction.setDuration(0.3f);
                 moveAction.setInterpolation(Interpolation.pow3);

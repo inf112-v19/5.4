@@ -6,6 +6,7 @@ import inf112.skeleton.app.gameLogic.board.*;
 import inf112.skeleton.app.gameLogic.board.pieces.*;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
+import inf112.skeleton.app.gameLogic.enums.SoundPlayer;
 
 import java.util.List;
 
@@ -138,8 +139,11 @@ public class Checker {
         return true;
     }
     public void checkForFlag(){
-        System.out.println("Looking for flag " + player.getRespawnPoint().getNextFlag());
+        System.out.println("Looking for flag number" + player.getRespawnPoint().getNextFlag());
+        System.out.println("The flag's position: " + player.getRespawnPoint().pos.toString());
+        System.out.println("The player's position: " + player.getPos().toString());
         for(IPiece piece : board.getCellAt(player.getPos()).getPiecesInCell()){
+            System.out.println(piece);
             if(piece instanceof Flag){
                 Flag flag = (Flag) piece;
                 if(player.isLastFlag(flag, 3)){
@@ -148,6 +152,7 @@ public class Checker {
                 }
                 if(player.isNextFlag(flag)){
                     System.out.println("Found flag " + player.getRespawnPoint().getNextFlag());
+                    SoundPlayer.GameSound.FLAG_PICKUP.playSound();
                     player.setNextFlag();
                     System.out.println("Next Flag is " + player.getRespawnPoint().getNextFlag());
                 }
