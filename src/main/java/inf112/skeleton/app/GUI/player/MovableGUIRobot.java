@@ -71,6 +71,7 @@ public class MovableGUIRobot extends GUIRobot {
     public void fullAction(Action action, Direction dir) {
         int numTimes = action.getValue();
         List<com.badlogic.gdx.scenes.scene2d.Action> toDoActions = new ArrayList<com.badlogic.gdx.scenes.scene2d.Action>();
+        System.out.println(numTimes);
 
         for (int i = 0; i < numTimes; i++) {
             toDoActions.add(
