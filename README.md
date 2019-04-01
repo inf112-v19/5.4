@@ -6,7 +6,7 @@
 ## How to run (IntelliJ)
 
 1. Clone and open project in IntelliJ.
-2. Try to run Main (and fail).
+2. Try to run Main/the tests (and fail).
 3. Go to Run > Edit Configurations.
 4. Set "Working directory" to "...\src\main\java\inf112\skeleton\app\assets".
 5. Run successfully!
