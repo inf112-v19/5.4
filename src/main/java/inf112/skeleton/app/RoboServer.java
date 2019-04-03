@@ -1,5 +1,8 @@
 package inf112.skeleton.app;
 
+import inf112.skeleton.app.gameLogic.Player;
+import inf112.skeleton.app.gameLogic.board.Board;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -10,6 +13,7 @@ public class RoboServer extends Thread {
     private ServerSocket roboServer;
     private DataInputStream in;
     private DataOutputStream out;
+    private ObjectInputStream ois;
 
     /**
      * Constructor for creating server
@@ -34,10 +38,16 @@ public class RoboServer extends Thread {
 
                 in = new DataInputStream(roboSocket.getInputStream());
                 out = new DataOutputStream(roboSocket.getOutputStream());
+                ois = new ObjectInputStream(roboSocket.getInputStream());
 
-                System.out.println(in.readUTF());
+                //System.out.println(in.readUTF());
 
-                out.writeUTF("This be from dat server fam.");
+                //out.writeUTF("This be from dat server fam.");
+
+                Board serverBoard = (Board)ois.readObject();
+                System.out.println(serverBoard);
+                System.out.println(serverBoard.getBoardHeight());
+                System.out.println(serverBoard.getCellAt(1,1).getPiecesInCell());
 
                 roboServer.close();
 
@@ -49,6 +59,12 @@ public class RoboServer extends Thread {
                 e.printStackTrace();
                 break;
             }
+
+            catch (ClassNotFoundException c) {
+                c.printStackTrace();
+                break;
+            }
+
         }
     }
     public static void main (String[] args) throws IOException {

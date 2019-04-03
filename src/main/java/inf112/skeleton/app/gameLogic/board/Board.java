@@ -5,9 +5,10 @@ import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import javafx.geometry.Pos;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
-public class Board implements IBoard {
+public class Board implements IBoard, Serializable {
 
     String boardName;
     ICell[][] board;

@@ -1,6 +1,9 @@
 package inf112.skeleton.app;
 
+import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
+import inf112.skeleton.app.gameLogic.board.Board;
+import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import java.io.*;
 import java.net.Socket;
@@ -11,6 +14,7 @@ public class RoboClient {
     private Socket roboClient;
     private DataInputStream in;
     private DataOutputStream out;
+    private ObjectOutputStream oos;
 
     /**
      * Constructor for opening a client and connecting it to a server
@@ -25,10 +29,17 @@ public class RoboClient {
 
             out = new DataOutputStream(roboClient.getOutputStream());
             in = new DataInputStream(roboClient.getInputStream());
+            oos = new ObjectOutputStream(roboClient.getOutputStream());
 
-            out.writeUTF("Schmell from client");
-            System.out.println("The server sends " + in.readUTF());
-            roboClient.close();
+            Board clientBoard = new Board("nutBoard", "DankBoard.json");
+
+            //out.writeUTF("Schmell from client");
+
+            System.out.println(roboClient.getOutputStream());
+            oos.writeObject(clientBoard);
+
+            //System.out.println("The server sends " + in.readUTF());
+            //roboClient.close();
         }
         catch (IOException e) {
             System.out.println(e);

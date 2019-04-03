@@ -5,7 +5,9 @@ import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.board.IPiece;
 
-public class LaserShooter implements IPiece {
+import java.io.Serializable;
+
+public class LaserShooter implements IPiece, Serializable {
 
     private Direction direction;
     private int damage;

@@ -1,9 +1,10 @@
 package inf112.skeleton.app.gameLogic.board;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Cell implements ICell {
+public class Cell implements ICell, Serializable {
 
     private List<IPiece> piecesInCell;
 

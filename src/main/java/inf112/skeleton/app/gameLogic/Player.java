@@ -15,9 +15,9 @@ import inf112.skeleton.app.gameLogic.enums.Rotation;
 
 import java.util.List;
 import java.util.Stack;
+import java.io.*;
 
-
-public class Player implements IPlayer {
+public class Player implements IPlayer, Serializable {
     private int health;
     private final int maxHealth;
     private int damageTokens;
