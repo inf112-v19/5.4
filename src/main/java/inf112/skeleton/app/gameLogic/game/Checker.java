@@ -78,14 +78,14 @@ public class Checker {
                 Position tempPos = player.getPos();
 
                 stepsMoved++;
-
+                player.move(playerMoveDir);
                 if (board.getCellAt(tempPos).getPiecesInCell().contains(player)) {
                     board.getCellAt(tempPos).getPiecesInCell().remove(player);
                     board.getNextCell(tempPos, playerMoveDir).addPiece(player);
                 }
             }
         }
-        player.move(playerMoveDir, stepsMoved);
+        player.moveRobot(playerMoveDir, stepsMoved);
         System.out.println("Post :" + player.getPos().getX() + " " + player.getPos().getY());
     }
 
