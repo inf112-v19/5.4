@@ -35,12 +35,10 @@ public class RoboRallyGame {
         players = new Player[totalPlayers];
         for (int i = 0; i < players.length; i++) {
             Position position = new Position(i+5, 7);
-            players[i] = new Player(position, Direction.NORTH, startHealth, this.board);
-            //board.getCellAt(position).addPiece(players[i]);
-            //board.addPiece(position, players[i]);
+            players[i] = new Player(position, Direction.SOUTH, startHealth, this.board);
+            board.addPiece(position, players[i]);
             System.out.println("player made!!");
             System.out.println(players[i].getPos().getX() + " " + players[i].getPos().getY());
-
         }
         playGame();
     }

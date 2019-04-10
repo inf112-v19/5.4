@@ -87,12 +87,12 @@ public class PlayerTest extends GameTest {
 
         Player player = new Player(new Position(4,3), Direction.SOUTH, 1, game.getBoard());
         for (int i = 0; i < 3; i++) {
-            player.move(player.getDirection());
+            player.move(player.getDirection(), 1);
         }
         player.rotate(Rotation.L);
 
         for (int i = 0; i < 3; i++) {
-            player.move(player.getDirection());
+            player.move(player.getDirection(),1);
         }
 
         assertEquals(7, player.getPos().getX());

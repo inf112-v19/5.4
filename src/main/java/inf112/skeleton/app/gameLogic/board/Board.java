@@ -1,8 +1,10 @@
 package inf112.skeleton.app.gameLogic.board;
 
 import inf112.skeleton.app.GUI.player.Position;
+import inf112.skeleton.app.gameLogic.board.pieces.Wall;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.game.FlagOrganizer;
+import javafx.geometry.Pos;
 
 public class Board implements IBoard {
 
@@ -76,7 +78,6 @@ public class Board implements IBoard {
         board[y][x].addPiece(piece);
     }
     public void addPiece(Position pos, IPiece piece){
-
         this.addPiece(pos.getX(), pos.getY(), piece);
     }
 
@@ -123,6 +124,19 @@ public class Board implements IBoard {
                 break;
         }
         return cell;
+    }
+
+    public boolean containsPieceDir(Position pos, Direction dir, Class piece){
+        for(IPiece currCell : this.getCellAt(pos).getPiecesInCell()){
+            if(currCell.getPieceDirection().equals(dir) && currCell.getClass().isInstance(piece)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean cointainsPiece(Position pos, IPiece piece){
+        return this.getCellAt(pos).getPiecesInCell().contains(piece);
     }
 
     public boolean insideBoard(Position playerPos, Direction playerDir){

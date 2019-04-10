@@ -57,11 +57,18 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public void move(Direction dir) {
-        pos = pos.changePos(dir);
+    public void move(Direction dir, int steps) {
+        for (int i = 0; i < steps; i++) {
+            pos = pos.changePos(dir);
+        }
+
         //Comment out line below for the tests to run
         //this.getRobot().doAction(ActionType.MOVE, dir);
-        this.getRobot().fullAction(Action.MOVE_1, dir);
+        switch (steps){
+            case 1 : this.getRobot().fullAction(Action.MOVE_1, dir);
+            case 2 : this.getRobot().fullAction(Action.MOVE_2, dir);
+            case 3 : this.getRobot().fullAction(Action.MOVE_3, dir);
+        }
     }
 
     public void die() {
