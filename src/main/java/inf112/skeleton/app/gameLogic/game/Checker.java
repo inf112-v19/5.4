@@ -69,15 +69,17 @@ public class Checker {
      */
 
     public void move(Direction playerMoveDir, int numSteps) {
+        System.out.println("numsteps" + numSteps);
         System.out.println("Dir: " + player.getDirection() + " Pre: " + player.getPos().getX() + " " + player.getPos().getY());
         int stepsMoved = 0;
         for (int i = 0; i < numSteps; i++) {
             if (canMove(playerMoveDir, board.getCellAt(player.getPos()))) {
-                System.out.println("moving");
+                System.out.println("moving " + player.hashCode());
                 //playerActionSequence.add(Action.MOVE_1);
                 Position tempPos = player.getPos();
 
                 stepsMoved++;
+                System.out.println("Stepsmoved "+ stepsMoved);
                 player.move(playerMoveDir);
                 if (board.getCellAt(tempPos).getPiecesInCell().contains(player)) {
                     board.getCellAt(tempPos).getPiecesInCell().remove(player);
