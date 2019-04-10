@@ -26,7 +26,6 @@ public class PlayerActionTest extends GameTest {
 
     private Player player;
     private TestGame game;
-    private Board board;
 
     @Before
     public void setupActionTest() {
@@ -36,7 +35,6 @@ public class PlayerActionTest extends GameTest {
 
         System.out.println(new File("DankBoard.json").getAbsoluteFile());
         //new LwjglApplication(new GUIMain());
-        this.board = new Board("Captain Hook", "DankBoard.json");
         game = new TestGame();
         player = new Player(new Position(7, 7), Direction.NORTH, 3, game.getBoard());
     }
@@ -142,9 +140,8 @@ public class PlayerActionTest extends GameTest {
             checker.doAction();
             checker.checkForFlag();
         }
-        assertEquals(3, player.getRespawnPoint().getNextFlag());
+        assertEquals(2, game.getBoard().getFlags().getNumberOfFlags());
+        assertEquals(2, player.getRespawnPoint().getNextFlag());
     }
-
-
 
 }

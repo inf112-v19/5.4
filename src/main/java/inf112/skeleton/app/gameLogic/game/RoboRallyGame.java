@@ -18,7 +18,7 @@ public class RoboRallyGame {
     private int totalPlayers = 3;   // Total players in the game
     private Player[] players;       // Players in the game
     private int startHealth = 3;
-    private String boardPath = "DankBoard.json";
+    private String boardPath = "FlagBoard.json";
 
     private ProgramCardDeck deck;
     private Player currentPlayer;
