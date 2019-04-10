@@ -68,22 +68,29 @@ public class MovableGUIRobot extends GUIRobot {
 
     }
 
-    public void fullAction(Action action, Direction dir) {
-        int numTimes = action.getValue();
-        List<com.badlogic.gdx.scenes.scene2d.Action> toDoActions = new ArrayList<com.badlogic.gdx.scenes.scene2d.Action>();
-        System.out.println(numTimes);
+        public void fullAction(Action action, Direction dir) {
+            int numTimes = action.getValue();
+            List<com.badlogic.gdx.scenes.scene2d.Action> toDoActions = new ArrayList<com.badlogic.gdx.scenes.scene2d.Action>();
+            System.out.println(numTimes);
 
-        for (int i = 0; i < numTimes; i++) {
-            toDoActions.add(
-                    new SequenceAction(getGUIAction(action.getActionType(), dir)
-                            , new DelayAction(1)));
+            for (int i = 0; i < numTimes; i++) {
+            //    toDoActions.add(
+            //            new SequenceAction(getGUIAction(action.getActionType(), dir)
+            //                    , new DelayAction(1)));
+                toDoActions.add(getGUIAction(action.getActionType(), dir));
+                toDoActions.add(new DelayAction(1));
+            }
+
+            SequenceAction sequenceAction = new SequenceAction();
+
+            for(com.badlogic.gdx.scenes.scene2d.Action currAction : toDoActions){
+                sequenceAction.addAction(currAction);
+            }
+
+            addAction(sequenceAction);
+
+
         }
-
-        for(com.badlogic.gdx.scenes.scene2d.Action act : toDoActions){
-            addAction(sequence(act));
-        }
-
-    }
 
     public com.badlogic.gdx.scenes.scene2d.Action getGUIAction(ActionType actionType, Direction faceDir) {
         setOrigin(getWidth() / 2, getHeight() / 2);
