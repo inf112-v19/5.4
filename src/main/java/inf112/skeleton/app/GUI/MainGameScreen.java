@@ -113,8 +113,8 @@ public class MainGameScreen implements Screen {
 
 	public void playMusic(){
 		// Play music
-		music = Gdx.audio.newMusic(Gdx.files.internal("sound/music/Rally_Roller.mp3"));
-		//music = Gdx.audio.newMusic(Gdx.files.internal("sound/demoMarbles.mp3"));
+		music = Gdx.audio.newMusic(Gdx.files.internal("audio/music/Rally_Roller.mp3"));
+		//music = Gdx.audio.newMusic(Gdx.files.internal("audio/demoMarbles.mp3"));
 		music.setVolume(0.32f);                 // sets the volume to half the maximum volume
 		music.setLooping(true);                // will repeat playback until music.stop() is called
 		//music.stop();                          // stops the playback
@@ -138,37 +138,12 @@ public class MainGameScreen implements Screen {
 
 		// Create GUIBoard.
 		//GUIBoard GUIBoard = new GUIBoard(90, 10, 10);
-		Board gameLogicBoard = new Board("etamat", "DankBoard.json");
-		GUIBoard GUIBoard = new GUIBoard(gameLogicBoard);
+
+		GUIBoard GUIBoard = new GUIBoard(this.roboRallyGame.getBoard());
 		GUIBoard.addPlayers(players);
 		//GUIBoard.setDebug(true);
 
-		// Add some pieces to the GUIBoard.
-		//GUIBoard.addGUIPiece(3,3, new GUIRobot(1));
-//		GUIBoard.addGUIPiece(3,3, new GUIRobot(0));
-//		GUIBoard.addGUIPiece(1,3, new GUILaser());
-//		GUIBoard.addGUIPiece(2,3, new GUILaser());
-//		GUIBoard.addGUIPiece(4,3, new GUILaser());
-//		GUIBoard.addGUIPiece(5,3, new GUILaser());
-//
-//
-//		GUIBoard.addGUIPiece(1, 2, new GUIWall(Direction.WEST));
-//		GUIBoard.addGUIPiece(1, 3, new GUIWall(Direction.NORTH));
-//		GUIBoard.addGUIPiece(1, 4, new GUIWall(Direction.EAST));
-//		GUIBoard.addGUIPiece(1, 5, new GUIWall(Direction.SOUTH));
-//		GUIBoard.addGUIPiece(0,0, new GUIHole());
-//		GUIBoard.addGUIPiece(1,0, new GUIHole());
-//		GUIBoard.addGUIPiece(6,2, new GUIHole());
-//		GUIBoard.addGUIPiece(8, 3, new GUIConveyor(Direction.NORTH));
-//		GUIBoard.addGUIPiece(8, 4, new GUIConveyor(Direction.EAST));
-//		GUIBoard.addGUIPiece(8, 5, new GUIConveyor(Direction.SOUTH));
-//		GUIBoard.addGUIPiece(8, 6, new GUIConveyor(Direction.WEST));
-//		GUIBoard.addGUIPiece(7, 6, new GUIFlag());
-//		GUIBoard.addGUIPiece(5, 7, new GUIRepair());
-//		GUIBoard.addGUIPiece(6, 8, new GUIGear(Rotation.R));
-//		GUIBoard.addGUIPiece(8, 9, new GUIGear(Rotation.L));
-
-		MovableGUIRobot hans = new MovableGUIRobot(1);
+		//MovableGUIRobot hans = new MovableGUIRobot(1);
 		//this.currentMovableRobot = hans;
 		//GUIBoard.addGUIPiece(5,5, hans);
 		//GUIBoard.addGUIPiece(5,5, new GUIBest());
@@ -197,7 +172,7 @@ public class MainGameScreen implements Screen {
 		// Add the main table - RoboRallyGame - to the stage.
 		stage.addActor(game);
 
-		stage.setKeyboardFocus(hans);
+		//stage.setKeyboardFocus(hans);
 
 		//pickCardPhase(new ProgramCardDeck().drawXCards(9));
 	}
@@ -231,8 +206,5 @@ public class MainGameScreen implements Screen {
 
 	}
 
-	public MovableGUIRobot gimmeRobotTest(){
-    	return this.currentMovableRobot;
-	}
 
 }

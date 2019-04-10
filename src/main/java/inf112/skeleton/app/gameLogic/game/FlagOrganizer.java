@@ -7,6 +7,8 @@ import java.util.HashMap;
 public class FlagOrganizer {
 
     //Class for keeping track of flags
+    //Class is singleton to avoid having multiple of flags.
+    //The flags are added to a HashMap to avoid multiple.
 
     private static FlagOrganizer single_instance = null;
 
