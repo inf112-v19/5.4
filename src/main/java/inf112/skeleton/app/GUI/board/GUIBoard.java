@@ -75,6 +75,10 @@ public class GUIBoard extends Table {
                     //ICell currCell = board.getCellAt(2, 0);
                     List<IPiece> pieces = currCell.getPiecesInCell();
                     for(IPiece currPiece : pieces){
+                        //does not add to guiPlayer to avoid duplicates
+                        if(currPiece instanceof Player){
+                            continue;
+                        }
                         // Finds the appropriate GUIPiece for the board piece.
                         this.addGUIPiece(x, y, currPiece.getGUIPiece());
                     }

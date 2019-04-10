@@ -3,8 +3,8 @@ package inf112.skeleton.app.gameLogic.enums;
 public enum Direction {
     NORTH, SOUTH, EAST, WEST;
 
-    public Direction oppositeDir(Direction dir) {
-        switch (dir) {
+    public Direction oppositeDir() {
+        switch (this) {
             case NORTH:
                 return Direction.SOUTH;
             case SOUTH:

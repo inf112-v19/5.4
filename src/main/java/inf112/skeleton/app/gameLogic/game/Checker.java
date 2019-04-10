@@ -1,6 +1,5 @@
 package inf112.skeleton.app.gameLogic.game;
 
-import com.badlogic.gdx.audio.Sound;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.board.*;
@@ -69,22 +68,24 @@ public class Checker {
      * @param numSteps The direction the piece should move
      */
 
-    public void move(Direction movePlayerInDir, int numSteps) {
+    public void move(Direction playerMoveDir, int numSteps) {
         System.out.println("Dir: " + player.getDirection() + " Pre: " + player.getPos().getX() + " " + player.getPos().getY());
+        int stepsMoved = 0;
         for (int i = 0; i < numSteps; i++) {
-            if (canMove(movePlayerInDir, board.getCellAt(player.getPos()))) {
+            if (canMove(playerMoveDir, board.getCellAt(player.getPos()))) {
                 System.out.println("moving");
                 //playerActionSequence.add(Action.MOVE_1);
                 Position tempPos = player.getPos();
 
-                player.move(movePlayerInDir);
+                stepsMoved++;
 
                 if (board.getCellAt(tempPos).getPiecesInCell().contains(player)) {
                     board.getCellAt(tempPos).getPiecesInCell().remove(player);
-                    board.getNextCell(tempPos, movePlayerInDir).addPiece(player);
+                    board.getNextCell(tempPos, playerMoveDir).addPiece(player);
                 }
             }
         }
+        player.move(playerMoveDir, stepsMoved);
         System.out.println("Post :" + player.getPos().getX() + " " + player.getPos().getY());
     }
 
@@ -101,7 +102,7 @@ public class Checker {
             }
         }
 
-        Direction oppositeDir = goingDir.oppositeDir(goingDir);
+        Direction oppositeDir = goingDir.oppositeDir();
 
         // Checks if player goes outside board, and should die.
         if (!board.insideBoard(player.getPos(), goingDir)) {
@@ -125,7 +126,7 @@ public class Checker {
             for (IPiece piece : piecesInNextCell) {
                 if (piece instanceof Player) {
                     Player otherPlayer = (Player) piece;
-                    Checker checker = new Checker(otherPlayer, Action.MOVE_1, board);
+                    Checker checker = new Checker(otherPlayer, board);
                     if (checker.canMove(goingDir, board.getNextCell(otherPlayer.getPos(), goingDir))) {
                         checker.move(goingDir, 1);
                         return true;
@@ -135,7 +136,6 @@ public class Checker {
                 }
             }
         }
-
         System.out.println("can move");
         return true;
     }
