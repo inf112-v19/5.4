@@ -54,12 +54,18 @@ public class GUIBoard extends Table {
 
     }
 
+    /**
+     * This constructor makes a GUIBoard based on a game logic Board.
+     * @param board
+     */
     public GUIBoard(Board board){
 
         this(board.getBoardHeight(), board.getBoardWidth());
 
         int boardHeight = board.getBoardHeight();
         int boardWidth = board.getBoardWidth();
+
+
 
         for(int y=0; y<boardHeight; y++){
             for(int x = 0; x<boardWidth; x++ ){
@@ -118,7 +124,7 @@ public class GUIBoard extends Table {
 
     public void addPlayers(Player[] players){
         for(Player currPlayer : players){
-            System.out.println("adding stuff");
+            System.out.println("Added guiplayer at " + currPlayer.getPos().toString());
             this.addGUIPiece(currPlayer.getPos().getX(),currPlayer.getPos().getY(), currPlayer.getRobot());
         }
     }

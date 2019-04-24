@@ -1,17 +1,14 @@
 package inf112.skeleton.app.gameLogic.board;
 
-import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.enums.Direction;
-import javafx.geometry.Pos;
+import inf112.skeleton.app.gameLogic.game.FlagOrganizer;
 
-import java.io.Serializable;
-import java.util.Iterator;
-
-public class Board implements IBoard, Serializable {
+public class Board implements IBoard {
 
     String boardName;
     ICell[][] board;
+    private FlagOrganizer flags;
 
     // Assuming all boards are square for ease of use.
     // In the future we might make a MegaBoard or something.
@@ -19,9 +16,11 @@ public class Board implements IBoard, Serializable {
     int boardHeight;
 
     public Board(String name, String path) {
+        flags = FlagOrganizer.getInstance();
         boardName = name;
-        board = new JSONBoardGenerator().generateJsonBoard(path);
-
+        JSONBoardGenerator jsonBoardGenerator = new JSONBoardGenerator();
+        board = jsonBoardGenerator.generateJsonBoard(path);
+        flags = jsonBoardGenerator.getFlags();
         // Again, assuming it's square. Might break in the future.
         boardHeight = board.length;
         boardWidth = board[0].length;
@@ -29,6 +28,10 @@ public class Board implements IBoard, Serializable {
 
     public void generateBoard() {
 
+    }
+
+    public FlagOrganizer getFlags() {
+        return flags;
     }
 
     /**
@@ -69,6 +72,15 @@ public class Board implements IBoard, Serializable {
         return board[y][x];
     }
 
+    public void addPiece(int x, int y, IPiece piece){
+        board[y][x].addPiece(piece);
+    }
+    public void addPiece(Position pos, IPiece piece){
+
+        this.addPiece(pos.getX(), pos.getY(), piece);
+    }
+
+    /*
     public ICell getNextCell(int x, int y, Direction dir) {
 
         ICell cell = new Cell();
@@ -87,7 +99,7 @@ public class Board implements IBoard, Serializable {
                 break;
         }
         return cell;
-    }
+    } */
 
     public ICell getCellAt(Position pos) {
         //Byttet om disse, var board[pos.getX()][pos.getY()];
@@ -132,36 +144,5 @@ public class Board implements IBoard, Serializable {
     public int getBoardHeight(){
         return boardHeight;
     }
-
-
-
-   /*public Iterator<ICell> iterator() {
-        Iterator<ICell> it = new Iterator<ICell>() {
-
-            private int currX = 0;
-            private int currY = 0;
-
-            @Override
-            public boolean hasNext() {
-                return currY >= board.length && currX >= board[currY].length;
-            }
-
-            @Override
-            public ICell next() {
-                    if(currX >= board[currY].length){
-                        currY++;
-                        currX = 0;
-                    }
-
-                return board[currY][currX];
-            }
-
-            @Override
-            public void remove() {
-                throw new UnsupportedOperationException();
-            }
-        };
-        return it;
-    }*/
 
 }

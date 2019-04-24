@@ -25,6 +25,7 @@ public class Cell implements ICell, Serializable {
      * Method for adding pieces to the list of pieces in the Cell
      * @param piece the piece you want to add
      */
+    @Override
     public void addPiece(IPiece piece) {
         piecesInCell.add(piece);
     }

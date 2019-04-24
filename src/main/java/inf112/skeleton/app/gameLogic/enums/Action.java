@@ -29,7 +29,7 @@ public enum Action {
     Action(String description, ActionType actionType, Rotation rotation) {
             this.description = description;
         this.actionType = actionType;
-            this.value = 0;
+            this.value = 1;
             this.direction = null;
             this.rotation = rotation;
 
