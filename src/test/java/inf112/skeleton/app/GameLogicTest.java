@@ -18,10 +18,6 @@ import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.File;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 public class GameLogicTest extends GameTest {
 
     private Player player;
