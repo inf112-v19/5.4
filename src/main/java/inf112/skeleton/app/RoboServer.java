@@ -54,12 +54,19 @@ public class RoboServer extends Thread {
                 oos = new ObjectOutputStream(roboSocket.getOutputStream());
 
                 Boolean gameOver = false;
-                while (gameOver = false) {
+                while (!gameOver) {
                     // Write server deck and board to client(s)
                     oos.writeObject(serverDeck);
                     oos.writeObject(serverBoard);
 
-
+                    Boolean roundsOver = false;
+                    while (!roundsOver) {
+                        serverDeck = (ProgramCardDeck)ois.readObject();
+                        serverBoard = (Board)ois.readObject();
+                        roundsOver = true;
+                    }
+                    //Perform game logic
+                    gameOver = true;
                 }
 
                 //System.out.println(in.readUTF());
@@ -69,9 +76,9 @@ public class RoboServer extends Thread {
                 Board serverBoardzz = (Board)ois.readObject();
 
 
-                System.out.println(serverBoard);
-                System.out.println(serverBoard.getBoardHeight());
-                System.out.println(serverBoard.getCellAt(1,1).getPiecesInCell());
+                System.out.println(serverBoardzz);
+                System.out.println(serverBoardzz.getBoardHeight());
+                System.out.println(serverBoardzz.getCellAt(1,1).getPiecesInCell());
 
                 roboServer.close();
 
