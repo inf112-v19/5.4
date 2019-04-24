@@ -68,7 +68,9 @@ public class RoboServer extends Thread {
         }
     }
     public static void main (String[] args) throws IOException {
+
         RoboServer roboServer = new RoboServer(8000);
         roboServer.runServer();
+
     }
 }
