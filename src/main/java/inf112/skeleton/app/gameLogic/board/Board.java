@@ -1,8 +1,13 @@
 package inf112.skeleton.app.gameLogic.board;
 
 import inf112.skeleton.app.GUI.player.Position;
+import inf112.skeleton.app.gameLogic.board.pieces.Wall;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.game.FlagOrganizer;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class Board implements IBoard {
 
@@ -145,4 +150,25 @@ public class Board implements IBoard {
         return boardHeight;
     }
 
+    public void sortBoard() {
+
+        for (int y = 0; y < boardHeight; y++) {
+            for (int x = 0; x < boardWidth; x++) {
+                List<IPiece> currPieces = board[x][y].getPiecesInCell();
+                int j = currPieces.size()-1;
+                for (int i = currPieces.size()-1; i >= 0 ; i--) {
+                    if (currPieces.get(i) instanceof Wall) {
+                        if (i == j) continue;
+                        IPiece wall = currPieces.get(i);
+                        IPiece otherObject = currPieces.get(j);
+                        currPieces.remove(wall);
+                        currPieces.remove(otherObject);
+                        currPieces.add(i, otherObject);
+                        currPieces.add(j, wall);
+                        j--;
+                    }
+                }
+            }
+        }
+    }
 }

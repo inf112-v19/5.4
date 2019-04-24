@@ -18,7 +18,7 @@ public class RoboRallyGame {
     private int totalPlayers = 3;   // Total players in the game
     private Player[] players;       // Players in the game
     private int startHealth = 3;
-    private String boardPath = "FlagBoard.json";
+    private String boardPath = "DankBoard.json";
 
     private ProgramCardDeck deck;
     private Player currentPlayer;
@@ -30,6 +30,7 @@ public class RoboRallyGame {
         //Testing with FlagBoard
         //this.board = new Board("Captain Hook", "DankBoard.json");
         this.board = new Board("Captain Hook", boardPath);
+        board.sortBoard();
         //board.displayBoard();
         this.deck = new ProgramCardDeck();  // Deck of cards in the game
         players = new Player[totalPlayers];
