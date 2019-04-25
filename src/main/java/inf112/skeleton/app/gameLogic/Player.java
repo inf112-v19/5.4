@@ -20,6 +20,7 @@ import java.util.Stack;
 
 
 public class Player implements IPlayer {
+    private String name;
     private int health;
     private final int maxHealth;
     private int damageTokens;
@@ -36,7 +37,8 @@ public class Player implements IPlayer {
     /**
      * Constructs a player object with position, direction and health
      */
-    public Player(Position pos, Direction dir, int health, Board board) {
+    public Player(String name, Position pos, Direction dir, int health, Board board) {
+        this.name = name;
         this.pos = pos;
         this.facingDir = dir;
         this.health = health;
@@ -233,7 +235,7 @@ public class Player implements IPlayer {
 
     @Override
     public String getName() {
-        return null;
+        return this.name;
     }
 
     @Override

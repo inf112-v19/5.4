@@ -8,7 +8,9 @@ import inf112.skeleton.app.gameLogic.ProgramCardDeck;
 import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class RoboRallyGame {
 
@@ -24,7 +26,10 @@ public class RoboRallyGame {
     private Player currentPlayer;
     private Board board;
 
+    private Queue<PlayerAction> playerActionQueue;
+
     public RoboRallyGame(MainGameScreen guiScreen) {
+        this.playerActionQueue = new LinkedList<>();
 
         this.guiScreen = guiScreen;
         //Testing with FlagBoard
@@ -35,7 +40,7 @@ public class RoboRallyGame {
         players = new Player[totalPlayers];
         for (int i = 0; i < players.length; i++) {
             Position position = new Position(i+5, 7);
-            players[i] = new Player(position, Direction.SOUTH, startHealth, this.board);
+            players[i] = new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, this.board);
             board.addPiece(position, players[i]);
             System.out.println("player made!!");
             System.out.println(players[i].getPos().getX() + " " + players[i].getPos().getY());
@@ -88,9 +93,12 @@ public class RoboRallyGame {
      */
     public void postPick(List<ProgramCard> pickedProgramCards) {
         for(ProgramCard card: pickedProgramCards){
-            Checker checker = new Checker(currentPlayer, card.getCardType().getAction(), board);
-            checker.doAction();
 
+            Checker checker = new Checker(currentPlayer, card.getCardType().getAction(), board, playerActionQueue);
+            checker.doAction();
+            System.out.println("Actions in actionList: ");
+            viewActionList();
+            System.out.println("Length of actionList: " + playerActionQueue.size());
             //for testin purpuss
             checker.checkForFlag();
         }
@@ -100,4 +108,10 @@ public class RoboRallyGame {
         return this.players;
     }
     public Board getBoard(){return this.board;}
+
+    public void viewActionList(){
+        for(PlayerAction pa : playerActionQueue){
+            System.out.println("Pl: " + pa.getPlayer().getName() + " " + pa.getAction().getDescription());
+        }
+    }
 }

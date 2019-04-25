@@ -9,11 +9,20 @@ import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.enums.SoundPlayer;
 
 import java.util.List;
+import java.util.Queue;
 
 public class Checker {
     private Action playersAction;
     private Board board;
     private Player player;
+    private Queue<PlayerAction> playerActionList;
+
+    public Checker(Player player, Action action, Board board, Queue<PlayerAction> playerActionList) {
+        this.player = player;
+        this.playersAction = action;
+        this.board = board;
+        this.playerActionList = playerActionList;
+    }
 
     public Checker(Player player, Action action, Board board) {
         this.player = player;
@@ -21,10 +30,11 @@ public class Checker {
         this.board = board;
     }
 
-    public Checker(Player player, Board board) {
+    public Checker(Player player, Board board, Queue<PlayerAction> playerActionList) {
         this.player = player;
         this.playersAction = null;
         this.board = board;
+        this.playerActionList = playerActionList;
     }
 
     public void doAction() {
@@ -35,6 +45,7 @@ public class Checker {
                 break;
             case ROTATE:
                 player.rotate(att.getRotation());
+                playerActionList.add(new PlayerAction(player, att));
         }
     }
 
@@ -81,6 +92,7 @@ public class Checker {
                 stepsMoved++;
                 System.out.println("Stepsmoved "+ stepsMoved);
                 player.move(playerMoveDir);
+                playerActionList.add(new PlayerAction(player, Action.MOVE_1));
                 if (board.getCellAt(tempPos).getPiecesInCell().contains(player)) {
                     board.getCellAt(tempPos).getPiecesInCell().remove(player);
                     board.getNextCell(tempPos, playerMoveDir).addPiece(player);
@@ -128,7 +140,7 @@ public class Checker {
             for (IPiece piece : piecesInNextCell) {
                 if (piece instanceof Player) {
                     Player otherPlayer = (Player) piece;
-                    Checker checker = new Checker(otherPlayer, board);
+                    Checker checker = new Checker(otherPlayer, board, playerActionList);
                     if (checker.canMove(goingDir, board.getNextCell(otherPlayer.getPos(), goingDir))) {
                         checker.move(goingDir, 1);
                         return true;
