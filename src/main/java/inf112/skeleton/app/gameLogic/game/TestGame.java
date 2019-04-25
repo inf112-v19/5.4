@@ -12,9 +12,11 @@ import java.util.*;
 public class TestGame {
     private List<Player> playerList;
     private Queue<PlayerAction> playerActionList;
+    private Queue<PlayerAction> GUIplayeractionList;
     private Board board;
 
     public TestGame() {
+        this.GUIplayeractionList = new LinkedList<>();
         this.playerList = new ArrayList<>();
         this.playerActionList = new LinkedList<>();
         this.board = new Board("TestBoard", "TestBoard.json");
@@ -27,7 +29,7 @@ public class TestGame {
             if (playerAction.getAction().getActionType() == ActionType.DAMAGE){
                 playerAction.getPlayer().takeDamage(playerAction.getAction().getValue());
             }
-            Checker checker = new Checker(playerAction.getPlayer(), playerAction.getAction(), board);
+            Checker checker = new Checker(playerAction.getPlayer(), playerAction.getAction(), board, GUIplayeractionList);
             checker.doAction();
         }
 

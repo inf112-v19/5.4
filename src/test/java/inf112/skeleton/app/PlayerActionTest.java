@@ -18,6 +18,8 @@ import org.junit.Test;
 
 
 import java.io.File;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import static org.junit.Assert.assertEquals;
 
@@ -124,7 +126,8 @@ public class PlayerActionTest extends GameTest {
         player = new Player("1", new Position(0, 7), Direction.NORTH, 3, game.getBoard());
         assertEquals(1, player.getRespawnPoint().getNextFlag());
         //PlayerAction playerAction = new PlayerAction(player, Action.MOVE_1);
-        Checker checker = new Checker(player, Action.MOVE_1, game.getBoard());
+        Queue<PlayerAction> playerActionQueue = new LinkedList<>();
+        Checker checker = new Checker(player, Action.MOVE_1, game.getBoard(), playerActionQueue);
         checker.doAction();
         checker.checkForFlag();
         assertEquals(2, player.getRespawnPoint().getNextFlag());
@@ -135,8 +138,10 @@ public class PlayerActionTest extends GameTest {
         player = new Player("1", new Position(0, 7), Direction.NORTH, 3, game.getBoard());
         assertEquals(1, player.getRespawnPoint().getNextFlag());
         //PlayerAction playerAction = new PlayerAction(player, Action.MOVE_1);
+        Queue<PlayerAction> playerActionQueue = new LinkedList<>();
         for(int i = 0; i < 2; i++){
-            Checker checker = new Checker(player, Action.MOVE_1, game.getBoard());
+
+            Checker checker = new Checker(player, Action.MOVE_1, game.getBoard(), playerActionQueue);
             checker.doAction();
             checker.checkForFlag();
         }
