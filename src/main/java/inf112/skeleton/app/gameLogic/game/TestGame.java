@@ -29,8 +29,9 @@ public class TestGame {
             if (playerAction.getAction().getActionType() == ActionType.DAMAGE){
                 playerAction.getPlayer().takeDamage(playerAction.getAction().getValue());
             }
-            Checker checker = new Checker(playerAction.getPlayer(), playerAction.getAction(), board, GUIplayeractionList);
-            checker.doAction();
+            //Checker checker = new Checker(playerAction.getPlayer(), playerAction.getAction(), board, GUIplayeractionList);
+            playerAction.getPlayer().getChecker().doAction(playerAction.getAction());
+            //checker.doAction();
         }
 
     }
@@ -51,6 +52,10 @@ public class TestGame {
         }
     }
     */
+
+    public Queue<PlayerAction> getGUIplayeractionList() {
+        return GUIplayeractionList;
+    }
 
     public void addActionToList(PlayerAction playerAction) {
         playerActionList.add(playerAction);

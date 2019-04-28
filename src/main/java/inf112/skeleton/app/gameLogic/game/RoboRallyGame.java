@@ -40,7 +40,8 @@ public class RoboRallyGame {
         players = new Player[totalPlayers];
         for (int i = 0; i < players.length; i++) {
             Position position = new Position(i+5, 7);
-            players[i] = new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, this.board);
+            //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
+            players[i] = new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, this.board, playerActionQueue);
             board.addPiece(position, players[i]);
             System.out.println("player made!!");
             System.out.println(players[i].getPos().getX() + " " + players[i].getPos().getY());
@@ -94,13 +95,12 @@ public class RoboRallyGame {
     public void postPick(List<ProgramCard> pickedProgramCards) {
         for(ProgramCard card: pickedProgramCards){
 
-            Checker checker = new Checker(currentPlayer, card.getCardType().getAction(), board, playerActionQueue);
-            checker.doAction();
+            currentPlayer.getChecker().doAction(card.getCardType().getAction());
             System.out.println("Actions in actionList: ");
             viewActionList();
             System.out.println("Length of actionList: " + playerActionQueue.size());
             //for testin purpuss
-            checker.checkForFlag();
+            currentPlayer.getChecker().checkForFlag();
         }
     }
 
@@ -111,7 +111,7 @@ public class RoboRallyGame {
 
     public void viewActionList(){
         for(PlayerAction pa : playerActionQueue){
-            System.out.println("Pl: " + pa.getPlayer().getName() + " " + pa.getAction().getDescription());
+            System.out.println("Player:" + pa.getPlayer().getName() + " - Action: " + pa.getAction().getDescription());
         }
     }
 }

@@ -13,9 +13,12 @@ import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.ActionType;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.enums.Rotation;
+import inf112.skeleton.app.gameLogic.game.Checker;
+import inf112.skeleton.app.gameLogic.game.PlayerAction;
 import inf112.skeleton.app.gameLogic.game.RespawnPoint;
 
 import java.util.List;
+import java.util.Queue;
 import java.util.Stack;
 
 
@@ -30,6 +33,8 @@ public class Player implements IPlayer {
     private List<ProgramCard> playerRegister;
     private MovableGUIRobot robot;
     private RespawnPoint respawnPoint;
+    private Checker checker;
+    private Queue<PlayerAction> playerActionQueue;
 
     private Board board;
 
@@ -37,7 +42,7 @@ public class Player implements IPlayer {
     /**
      * Constructs a player object with position, direction and health
      */
-    public Player(String name, Position pos, Direction dir, int health, Board board) {
+    public Player(String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue) {
         this.name = name;
         this.pos = pos;
         this.facingDir = dir;
@@ -47,6 +52,16 @@ public class Player implements IPlayer {
         this.board = board;
         this.robot = new MovableGUIRobot(1);
         this.respawnPoint = new RespawnPoint(pos, 1);
+        this.playerActionQueue = playerActionQueue;
+        this.checker = new Checker(this, board);
+    }
+
+    public Queue<PlayerAction> getPlayerActionQueue() {
+        return playerActionQueue;
+    }
+
+    public Checker getChecker() {
+        return checker;
     }
 
     @Override

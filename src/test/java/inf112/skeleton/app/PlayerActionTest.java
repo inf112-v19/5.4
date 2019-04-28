@@ -4,9 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglFiles;
 import com.badlogic.gdx.backends.lwjgl.LwjglNativesLoader;
 import inf112.skeleton.app.GUI.player.Position;
-import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.enums.Action;
-import inf112.skeleton.app.gameLogic.game.Checker;
 import inf112.skeleton.app.gameLogic.game.PlayerAction;
 import inf112.skeleton.app.gameLogic.game.TestGame;
 import inf112.skeleton.app.gameLogic.enums.Direction;
@@ -28,6 +26,7 @@ public class PlayerActionTest extends GameTest {
 
     private Player player;
     private TestGame game;
+    private Queue<PlayerAction> playerActionQueue;
 
     @Before
     public void setupActionTest() {
@@ -38,7 +37,8 @@ public class PlayerActionTest extends GameTest {
         System.out.println(new File("DankBoard.json").getAbsoluteFile());
         //new LwjglApplication(new GUIMain());
         game = new TestGame();
-        player = new Player("1", new Position(7, 7), Direction.NORTH, 3, game.getBoard());
+        player = new Player("1", new Position(7, 7), Direction.NORTH, 3, game.getBoard(), game.getGUIplayeractionList());
+        playerActionQueue = new LinkedList<>();
     }
 
     @Test
@@ -95,7 +95,7 @@ public class PlayerActionTest extends GameTest {
 
     @Test
     public void testTwoPlayersMoving() {
-        Player player2 = new Player("2", new Position(6, 6), Direction.NORTH, 3, game.getBoard());
+        Player player2 = new Player("2", new Position(6, 6), Direction.NORTH, 3, game.getBoard(), game.getGUIplayeractionList());
         ProgramCardDeck deck = new ProgramCardDeck();
         int cardsForPlayer = 2;
         game.addPlayerToList(player);
@@ -123,27 +123,28 @@ public class PlayerActionTest extends GameTest {
 
     @Test
     public void testStoppingOnFlagChangesNextFlag() {
-        player = new Player("1", new Position(0, 7), Direction.NORTH, 3, game.getBoard());
+        player = new Player("1", new Position(0, 7), Direction.NORTH, 3, game.getBoard(), game.getGUIplayeractionList());
         assertEquals(1, player.getRespawnPoint().getNextFlag());
         //PlayerAction playerAction = new PlayerAction(player, Action.MOVE_1);
-        Queue<PlayerAction> playerActionQueue = new LinkedList<>();
-        Checker checker = new Checker(player, Action.MOVE_1, game.getBoard(), playerActionQueue);
-        checker.doAction();
-        checker.checkForFlag();
+
+        //Checker checker = new Checker(player, Action.MOVE_1, game.getBoard(), playerActionQueue);
+        player.getChecker().doAction(Action.MOVE_1);
+        //checker.doAction();
+        player.getChecker().checkForFlag();
         assertEquals(2, player.getRespawnPoint().getNextFlag());
     }
 
     @Test
     public void testStoppingOnLastFlag() {
-        player = new Player("1", new Position(0, 7), Direction.NORTH, 3, game.getBoard());
+        player = new Player("1", new Position(0, 7), Direction.NORTH, 3, game.getBoard(), game.getGUIplayeractionList());
         assertEquals(1, player.getRespawnPoint().getNextFlag());
         //PlayerAction playerAction = new PlayerAction(player, Action.MOVE_1);
         Queue<PlayerAction> playerActionQueue = new LinkedList<>();
         for(int i = 0; i < 2; i++){
 
-            Checker checker = new Checker(player, Action.MOVE_1, game.getBoard(), playerActionQueue);
-            checker.doAction();
-            checker.checkForFlag();
+            //Checker checker = new Checker(player, Action.MOVE_1, game.getBoard(), playerActionQueue);
+            player.getChecker().doAction(Action.MOVE_1);
+            player.getChecker().checkForFlag();
         }
         assertEquals(2, game.getBoard().getFlags().getNumberOfFlags());
         assertEquals(2, player.getRespawnPoint().getNextFlag());
