@@ -6,7 +6,7 @@ import inf112.skeleton.app.gameLogic.board.*;
 import inf112.skeleton.app.gameLogic.board.pieces.*;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
-import inf112.skeleton.app.gameLogic.enums.SoundPlayer;
+import inf112.skeleton.app.GUI.board.SoundPlayer;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -1,23 +1,13 @@
 package inf112.skeleton.app.GUI.player;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.*;
-import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import inf112.skeleton.app.GUI.pieces.GUIRobot;
-import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.ActionType;
 import inf112.skeleton.app.gameLogic.enums.Direction;
-import inf112.skeleton.app.gameLogic.enums.SoundPlayer;
-
-import java.util.ArrayList;
-import java.util.List;
+import inf112.skeleton.app.GUI.board.SoundPlayer;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
@@ -149,6 +139,8 @@ public class MovableGUIRobot extends GUIRobot {
                 final Direction innerDir = faceDir;
 
                 System.out.println(faceDir);
+
+                SoundPlayer.GameSound.ROTATE.playSound();
 
                 return new RunnableAction(){
                     @Override
