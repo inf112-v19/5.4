@@ -2,6 +2,7 @@ package inf112.skeleton.app;
 
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
+import inf112.skeleton.app.gameLogic.ProgramCardDeck;
 import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
@@ -10,11 +11,13 @@ import java.net.Socket;
 
 public class RoboClient {
 
+    private ProgramCardDeck clientDeck;
+    private Board clientBoard;
     private Player clientPlayer;
     private Socket roboClient;
-    private DataInputStream in;
-    private DataOutputStream out;
+    private ObjectInputStream ois;
     private ObjectOutputStream oos;
+
 
     /**
      * Constructor for opening a client and connecting it to a server
@@ -27,22 +30,38 @@ public class RoboClient {
             roboClient = new Socket(ip, port);
             System.out.println("Connection accepted! Do some shit.");
 
-            out = new DataOutputStream(roboClient.getOutputStream());
-            in = new DataInputStream(roboClient.getInputStream());
-            oos = new ObjectOutputStream(roboClient.getOutputStream());
 
-            Board clientBoard = new Board("nutBoard", "DankBoard.json");
+            ois = new ObjectInputStream(roboClient.getInputStream());
+            oos = new ObjectOutputStream(roboClient.getOutputStream());
+            //Board clientBoard = new Board("nutBoard", "DankBoard.json");
+
+            Boolean gameOver = false;
+
+            while (!gameOver) {
+                // Receive deck and board from server
+                clientDeck = (ProgramCardDeck) ois.readObject();
+                clientBoard = (Board) ois.readObject();
+                System.out.println(clientBoard);
+                System.out.println(clientDeck);
+
+                Boolean roundOver = false;
+                while (!roundOver) {
+                    oos.writeObject(clientDeck);
+                    oos.writeObject(clientBoard);
+                    roundOver = true;
+                }
+            }
 
             //out.writeUTF("Schmell from client");
 
-            System.out.println(roboClient.getOutputStream());
-            oos.writeObject(clientBoard);
 
             //System.out.println("The server sends " + in.readUTF());
             //roboClient.close();
         }
         catch (IOException e) {
             System.out.println(e);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }

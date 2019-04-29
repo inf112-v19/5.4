@@ -14,8 +14,6 @@ import java.net.SocketTimeoutException;
 public class RoboServer extends Thread {
 
     private ServerSocket roboServer;
-    private DataInputStream in;
-    private DataOutputStream out;
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
     private ProgramCardDeck serverDeck;
@@ -26,7 +24,8 @@ public class RoboServer extends Thread {
      * @param port The port to run the server on
      * @throws IOException
      */
-    public RoboServer (int port, String path) throws IOException {
+    public RoboServer (int port) throws IOException {
+
         roboServer = new ServerSocket(port);
         roboServer.setSoTimeout(100000);
 
@@ -34,7 +33,7 @@ public class RoboServer extends Thread {
         serverDeck = new ProgramCardDeck();
 
         // The server board
-        serverBoard = new Board("serverBoard" ,"path");
+        serverBoard = new Board("serverBoard" , "C:\\Users\\Morten\\IdeaProjects\\BeTheBee\\src\\main\\java\\inf112\\skeleton\\app\\assets\\DankBoard.json");
     }
 
     /**
@@ -48,37 +47,32 @@ public class RoboServer extends Thread {
                 Socket roboSocket = roboServer.accept();
                 System.out.println("Client connected");
 
-                //in = new DataInputStream(roboSocket.getInputStream());
-                //out = new DataOutputStream(roboSocket.getOutputStream());
-                ois = new ObjectInputStream(roboSocket.getInputStream());
                 oos = new ObjectOutputStream(roboSocket.getOutputStream());
+                ois = new ObjectInputStream(roboSocket.getInputStream());
 
                 Boolean gameOver = false;
+
                 while (!gameOver) {
                     // Write server deck and board to client(s)
                     oos.writeObject(serverDeck);
                     oos.writeObject(serverBoard);
 
-                    Boolean roundsOver = false;
-                    while (!roundsOver) {
-                        serverDeck = (ProgramCardDeck)ois.readObject();
-                        serverBoard = (Board)ois.readObject();
-                        roundsOver = true;
+                    Boolean roundOver = false;
+                    while (!roundOver) {
+
+                        serverDeck = (ProgramCardDeck) ois.readObject();
+                        serverBoard = (Board) ois.readObject();
+
+                        System.out.println(serverDeck);
+                        System.out.println(serverBoard);
+                        roundOver = true;
                     }
-                    //Perform game logic
                     gameOver = true;
                 }
 
                 //System.out.println(in.readUTF());
 
                 //out.writeUTF("This be from dat server fam.");
-
-                Board serverBoardzz = (Board)ois.readObject();
-
-
-                System.out.println(serverBoardzz);
-                System.out.println(serverBoardzz.getBoardHeight());
-                System.out.println(serverBoardzz.getCellAt(1,1).getPiecesInCell());
 
                 roboServer.close();
 
@@ -100,7 +94,7 @@ public class RoboServer extends Thread {
     }
     public static void main (String[] args) throws IOException {
 
-        RoboServer roboServer = new RoboServer(8000, "dankboard.json");
+        RoboServer roboServer = new RoboServer(8000);
         roboServer.runServer();
 
     }

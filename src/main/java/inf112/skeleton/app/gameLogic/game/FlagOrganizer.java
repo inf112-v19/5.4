@@ -2,9 +2,10 @@ package inf112.skeleton.app.gameLogic.game;
 
 import inf112.skeleton.app.GUI.player.Position;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class FlagOrganizer {
+public class FlagOrganizer implements Serializable {
 
     //Class for keeping track of flags
     //Class is singleton to avoid having multiple of flags.

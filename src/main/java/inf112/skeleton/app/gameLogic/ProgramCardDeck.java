@@ -2,12 +2,13 @@ package inf112.skeleton.app.gameLogic;
 
 import inf112.skeleton.app.gameLogic.enums.CardType;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
-public class ProgramCardDeck {
+public class ProgramCardDeck implements Serializable {
 
     private Stack<ProgramCard> deck = new Stack<>();
 

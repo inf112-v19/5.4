@@ -2,7 +2,9 @@ package inf112.skeleton.app.GUI.player;
 
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
-public class Position {
+import java.io.Serializable;
+
+public class Position implements Serializable {
     private final int xPos;
     private final int yPos;
 

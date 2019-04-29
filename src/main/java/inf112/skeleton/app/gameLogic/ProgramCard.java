@@ -2,7 +2,9 @@ package inf112.skeleton.app.gameLogic;
 
 import inf112.skeleton.app.gameLogic.enums.CardType;
 
-public class ProgramCard {
+import java.io.Serializable;
+
+public class ProgramCard implements Serializable {
     private CardType cardType;
     private int priority;
 

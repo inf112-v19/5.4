@@ -4,7 +4,9 @@ import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.game.FlagOrganizer;
 
-public class Board implements IBoard {
+import java.io.Serializable;
+
+public class Board implements IBoard, Serializable {
 
     String boardName;
     ICell[][] board;
