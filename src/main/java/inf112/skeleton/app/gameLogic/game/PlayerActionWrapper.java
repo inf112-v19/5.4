@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class PlayerActionWrapper {
-    private LinkedList<Queue<PlayerAction>> playerActionList;
+    private LinkedList<LinkedList<PlayerAction>> playerActionList;
 
     public PlayerActionWrapper(){
         playerActionList = new LinkedList<>();
@@ -31,14 +31,7 @@ public class PlayerActionWrapper {
         }
     }
 
-    public PlayerAction getElement(){
-        while(!playerActionList.isEmpty()){
-            if(playerActionList.getFirst().isEmpty()){
-                playerActionList.removeFirst();
-            } else {
-                return playerActionList.getFirst().poll();
-            }
-        }
-        return null;
+    public LinkedList<PlayerAction> getFirstList(){
+        return playerActionList.getFirst();
     }
 }
