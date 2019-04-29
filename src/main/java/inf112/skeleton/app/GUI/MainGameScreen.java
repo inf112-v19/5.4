@@ -25,6 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class MainGameScreen implements Screen {
+	private GUIBoard guiBoard;
 	private Stage stage;
 	private Skin skin;
 	OrthographicCamera camera;
@@ -49,6 +50,9 @@ public class MainGameScreen implements Screen {
 
         viewport = new ExtendViewport(1200, 1200, camera);
 		stage = new Stage(viewport);
+
+		this.guiBoard = new GUIBoard(this.roboRallyGame.getBoard());
+		guiBoard.addPlayers(players);
 
 		// Main skin
 		skin = new Skin(Gdx.files.internal("rusty-robot/skin/rusty-robot-ui.json"));
@@ -136,17 +140,15 @@ public class MainGameScreen implements Screen {
 		//game.setDebug(true);
 		game.top().left();
 
-		// Create GUIBoard.
-		//GUIBoard GUIBoard = new GUIBoard(90, 10, 10);
+		// Create guiBoard.
+		//guiBoard guiBoard = new guiBoard(90, 10, 10);
 
-		GUIBoard GUIBoard = new GUIBoard(this.roboRallyGame.getBoard());
-		GUIBoard.addPlayers(players);
-		//GUIBoard.setDebug(true);
+		//guiBoard.setDebug(true);
 
 		//MovableGUIRobot hans = new MovableGUIRobot(1);
 		//this.currentMovableRobot = hans;
-		//GUIBoard.addGUIPiece(5,5, hans);
-		//GUIBoard.addGUIPiece(5,5, new GUIBest());
+		//guiBoard.addGUIPiece(5,5, hans);
+		//guiBoard.addGUIPiece(5,5, new GUIBest());
 
 		// BOARD CREATION AND SETUP
 
@@ -154,8 +156,8 @@ public class MainGameScreen implements Screen {
 
 		// Add everything to the main table.
 		topBar.add().prefWidth(200);
-		// GUIBoard add
-		topBar.add(GUIBoard).top().center().expandX().padTop(30).height(900);
+		// guiBoard add
+		topBar.add(guiBoard).top().center().expandX().padTop(30).height(900);
 		// Stat add
 		topBar.add(stats).top().left().pad(70);
 
@@ -204,6 +206,10 @@ public class MainGameScreen implements Screen {
 			}
 		});
 
+	}
+
+	public GUIBoard getGUIBoard(){
+    	return this.guiBoard;
 	}
 
 

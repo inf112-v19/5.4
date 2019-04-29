@@ -93,6 +93,8 @@ public class RoboRallyGame {
      * @param pickedProgramCards
      */
     public void postPick(List<ProgramCard> pickedProgramCards) {
+
+
         for(ProgramCard card: pickedProgramCards){
 
             currentPlayer.getChecker().doAction(card.getCardType().getAction());
@@ -103,6 +105,9 @@ public class RoboRallyGame {
             currentPlayer.getChecker().checkForFlag();
             //System.out.println("FIRST ACTION IN QUEUE: " + playerActionQueue.getElement().getAction().getDescription());
         }
+
+        this.guiScreen.getGUIBoard().doGUIActions();
+
     }
 
     public Player[] getPlayers(){

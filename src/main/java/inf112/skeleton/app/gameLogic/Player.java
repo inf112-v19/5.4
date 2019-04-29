@@ -83,11 +83,7 @@ public class Player implements IPlayer {
 
     public void moveRobot(Direction dir, int steps){
         System.out.println("HEYBOIIMOVE");
-        switch (steps){
-            case 1 : this.getRobot().fullAction(Action.MOVE_1, dir); break;
-            case 2 : this.getRobot().fullAction(Action.MOVE_2, dir); break;
-            case 3 : this.getRobot().fullAction(Action.MOVE_3, dir); break;
-        }
+        this.getRobot().fullAction(Action.MOVE_1, dir);
     }
 
     public void die() {

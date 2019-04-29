@@ -1,5 +1,9 @@
 package inf112.skeleton.app.GUI.board;
 
+import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.actions.DelayAction;
+import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
@@ -9,6 +13,8 @@ import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.board.ICell;
 import inf112.skeleton.app.gameLogic.board.IPiece;
+import inf112.skeleton.app.gameLogic.enums.Direction;
+import inf112.skeleton.app.gameLogic.game.PlayerAction;
 
 import java.util.List;
 
@@ -131,6 +137,38 @@ public class GUIBoard extends Table {
             System.out.println("Added guiplayer at " + currPlayer.getPos().toString());
             this.addGUIPiece(currPlayer.getPos().getX(),currPlayer.getPos().getY(), currPlayer.getRobot());
         }
+    }
+
+    public void doGUIActions(List<List<PlayerAction>> allPlayerActions){
+
+        SequenceAction allActionsSequenced = new SequenceAction();
+
+        // All the actions for each iteration are to be done simultaneously.
+        for(List<PlayerAction> parallelGUIActions : allPlayerActions){
+
+            ParallelAction parallelAction = new ParallelAction();
+
+            // Add every action to a parallel action.
+            for(PlayerAction robotAction : parallelGUIActions){
+
+                Player currPlayer = robotAction.getPlayer();
+                MovableGUIRobot currRobot = currPlayer.getRobot();
+                Direction playerFacingDir = currPlayer.getDirection();
+
+                // Tells the robot the move it's going to do, and which direction. Returns the appropriate action.
+                Action guiAction = currRobot.getGUIAction(robotAction.getAction().getActionType(), playerFacingDir);
+                guiAction.setTarget(currRobot);
+                guiAction.setActor(currRobot);
+
+                parallelAction.addAction(guiAction);
+
+            }
+
+            parallelAction.addAction(new DelayAction(1));
+            allActionsSequenced.addAction(parallelAction);
+
+        }
+
     }
 
 }

@@ -41,7 +41,7 @@ public class MovableGUIRobot extends GUIRobot {
             }
         });*/
 
-        addListener(new InputListener() {
+        /*addListener(new InputListener() {
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
 
@@ -71,11 +71,11 @@ public class MovableGUIRobot extends GUIRobot {
 
                 return true;
             }
-        });
+        });*/
 
     }
 
-        public void fullAction(Action action, Direction dir) {
+        /*public void fullAction(Action action, Direction dir) {
             int numTimes = action.getValue();
             List<com.badlogic.gdx.scenes.scene2d.Action> toDoActions = new ArrayList<com.badlogic.gdx.scenes.scene2d.Action>();
             System.out.println(numTimes);
@@ -97,7 +97,7 @@ public class MovableGUIRobot extends GUIRobot {
             addAction(sequenceAction);
 
 
-        }
+        }*/
 
     public com.badlogic.gdx.scenes.scene2d.Action getGUIAction(ActionType actionType, Direction faceDir) {
         setOrigin(getWidth() / 2, getHeight() / 2);
