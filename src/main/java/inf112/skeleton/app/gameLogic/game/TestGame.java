@@ -32,7 +32,7 @@ public class TestGame {
                 playerAction.getPlayer().takeDamage(playerAction.getAction().getValue());
             }
             //Checker checker = new Checker(playerAction.getPlayer(), playerAction.getAction(), board, GUIplayeractionList);
-            LinkedList<PlayerAction> boss = checker.doAction(playerAction.getAction(), playerAction.getPlayer());
+            LinkedList<LinkedList<PlayerAction>> boss = checker.doAction(playerAction.getAction(), playerAction.getPlayer());
             //checker.doAction();
         }
 
