@@ -36,20 +36,18 @@ public class Player implements IPlayer {
     private RespawnPoint respawnPoint;
     private PlayerActionWrapper playerActionQueue;
 
-    private Board board;
 
 
     /**
      * Constructs a player object with position, direction and health
      */
-    public Player(String name, Position pos, Direction dir, int health, Board board, PlayerActionWrapper playerActionQueue) {
+    public Player(String name, Position pos, Direction dir, int health, PlayerActionWrapper playerActionQueue) {
         this.name = name;
         this.pos = pos;
         this.facingDir = dir;
         this.health = health;
         this.maxHealth = health;
         this.damageTokens = 0;
-        this.board = board;
         this.robot = new MovableGUIRobot(1);
         this.respawnPoint = new RespawnPoint(pos, 1);
         this.playerActionQueue = playerActionQueue;
@@ -73,11 +71,6 @@ public class Player implements IPlayer {
         pos = pos.changePos(dir);
         //Comment out line below for the tests to run
         //this.getRobot().doAction(ActionType.MOVE, dir);
-    }
-
-    public void moveRobot(Direction dir, int steps){
-        System.out.println("HEYBOIIMOVE");
-        this.getRobot().fullAction(Action.MOVE_1, dir);
     }
 
     public void die() {
@@ -134,7 +127,6 @@ public class Player implements IPlayer {
                     this.facingDir = Direction.NORTH;
                     break;
             }
-            robot.fullAction(Action.ROTATE_R, facingDir);
         } else if (r == Rotation.L) {
             switch (this.facingDir) {
                 case NORTH:
@@ -150,7 +142,6 @@ public class Player implements IPlayer {
                     this.facingDir = Direction.SOUTH;
                     break;
             }
-            robot.fullAction(Action.ROTATE_L, facingDir);
         } else if (r == Rotation.U) {
             switch (this.facingDir) {
                 case NORTH:
@@ -166,7 +157,6 @@ public class Player implements IPlayer {
                     this.facingDir = Direction.EAST;
                     break;
             }
-            robot.fullAction(Action.ROTATE_U, facingDir);
         } else {
             throw new IllegalArgumentException("Not a valid rotation!");
         }

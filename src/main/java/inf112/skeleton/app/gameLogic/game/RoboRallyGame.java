@@ -8,6 +8,7 @@ import inf112.skeleton.app.gameLogic.ProgramCardDeck;
 import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -44,7 +45,7 @@ public class RoboRallyGame {
         for (int i = 0; i < players.length; i++) {
             Position position = new Position(i+5, 7);
             //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
-            players[i] = new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, this.board, playerActionQueue);
+            players[i] = new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, playerActionQueue);
             board.addPiece(position, players[i]);
             System.out.println("player made!!");
             System.out.println(players[i].getPos().getX() + " " + players[i].getPos().getY());
@@ -97,20 +98,25 @@ public class RoboRallyGame {
      */
     public void postPick(List<ProgramCard> pickedProgramCards) {
 
+        List<List<PlayerAction>> allActions = new ArrayList<>();
 
         for(ProgramCard card: pickedProgramCards){
 
             LinkedList<PlayerAction> temp = checker.doAction(card.getCardType().getAction(), currentPlayer);
+
+            allActions.add(temp);
+
             System.out.println("Actions in actionList: ");
             for(PlayerAction pa : temp){
                 System.out.println("Player: " + pa.getPlayer().getName() + " Action: " + pa.getAction().getDescription());
             }
+
             //for testin purpuss
             checker.checkForFlag(currentPlayer);
             //System.out.println("FIRST ACTION IN QUEUE: " + playerActionQueue.getElement().getAction().getDescription());
         }
 
-        this.guiScreen.getGUIBoard().doGUIActions();
+        this.guiScreen.getGUIBoard().doGUIActions(allActions);
 
     }
 

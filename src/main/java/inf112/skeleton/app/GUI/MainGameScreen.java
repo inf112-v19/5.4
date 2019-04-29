@@ -51,8 +51,7 @@ public class MainGameScreen implements Screen {
         viewport = new ExtendViewport(1200, 1200, camera);
 		stage = new Stage(viewport);
 
-		this.guiBoard = new GUIBoard(this.roboRallyGame.getBoard());
-		guiBoard.addPlayers(players);
+
 
 		// Main skin
 		skin = new Skin(Gdx.files.internal("rusty-robot/skin/rusty-robot-ui.json"));
@@ -64,6 +63,9 @@ public class MainGameScreen implements Screen {
 
 		// Get the players from the game.
         this.players = roboRallyGame.getPlayers();
+
+		this.guiBoard = new GUIBoard(this.roboRallyGame.getBoard());
+		guiBoard.addPlayers(players);
 
 		roboRallyGame.playGame();
 

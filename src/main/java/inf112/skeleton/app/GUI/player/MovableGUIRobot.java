@@ -25,12 +25,14 @@ public class MovableGUIRobot extends GUIRobot {
 
     TextureAtlas textureAtlas;
     Sprite newSprite;
+    Direction robotFacingDir;
 
     public MovableGUIRobot(int robotnr) {
 
         super(robotnr);
 //       this.setScale(0.8f);
         setBounds(getX(), getY(), getWidth(), getHeight());
+        this.robotFacingDir = Direction.SOUTH;
 
 
         textureAtlas = new TextureAtlas("bots/yellowBot/yellow_bot_sprites.txt");
@@ -99,13 +101,20 @@ public class MovableGUIRobot extends GUIRobot {
 
         }*/
 
-    public com.badlogic.gdx.scenes.scene2d.Action getGUIAction(ActionType actionType, Direction faceDir) {
+    public com.badlogic.gdx.scenes.scene2d.Action getGUIAction(ActionType actionType, final Direction faceDir) {
         setOrigin(getWidth() / 2, getHeight() / 2);
 
         switch (actionType) {
             case MOVE:
 
-                SoundPlayer.GameSound.MOVE.playSound();
+                ParallelAction parallelAction = new ParallelAction();
+
+                parallelAction.addAction(new RunnableAction(){
+                    @Override
+                    public void run() {
+                        SoundPlayer.GameSound.MOVE.playSound();
+                    }
+                });
 
                 // The move audio
                 MoveByAction moveAction = new MoveByAction();
@@ -128,26 +137,32 @@ public class MovableGUIRobot extends GUIRobot {
 
                 }
 
-                System.out.println("WE OUT HERE MAYNNNEEE");
+                parallelAction.addAction(moveAction);
+                return parallelAction;
 
-                /* addAction(sequence(moveAction, new DelayAction(1), new RunnableAction() {
-                    @Override
-                    public void run() {
-                        System.out.println("COMPLETE!");
-                    }
-                })); */
-
-                return moveAction;
             case ROTATE:
 
                 System.out.println("rotating boys");
-                this.changeSprite(faceDir);
+
+                System.out.println(faceDir);
+
+                final Direction innerDir = faceDir;
+
+                System.out.println(faceDir);
+
+                return new RunnableAction(){
+                    @Override
+                    public void run() {
+                        changeSprite(innerDir);
+                    }
+                };
+
 
                 // Remove this lol
-                RotateByAction rotateByAction = new RotateByAction();
+                /*RotateByAction rotateByAction = new RotateByAction();
                 rotateByAction.setAmount(90f);
                 //MovableGUIRobot.this.addAction(rotateByAction);
-                return rotateByAction;
+                return rotateByAction;*/
 
         }
         return null;

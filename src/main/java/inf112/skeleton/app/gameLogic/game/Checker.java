@@ -19,18 +19,18 @@ public class Checker {
         this.board = board;
     }
 
-    public LinkedList<PlayerAction> doAction(Action playersAction, Player player) {
+    public LinkedList<PlayerAction> doAction(Action att, Player player) {
         LinkedList<PlayerAction> playerActions = new LinkedList<>();
-        Action att = playersAction;
+
         for(int i = 0; i < att.getValue(); i++){
             switch (att.getActionType()) {
                 case MOVE:
-                    player.getPlayerActionQueue().addElement();
                     this.move(player.getDirection(), player, playerActions);
                     break;
                 case ROTATE:
                     player.rotate(att.getRotation());
                     playerActions.add(new PlayerAction(player, att));
+                    break;
             }
         }
         return playerActions;
@@ -41,7 +41,6 @@ public class Checker {
             if (canMove(playerMoveDir, board.getCellAt(player.getPos()), player, playerActions)) {
                 System.out.println("moving " + player.hashCode());
                 //playerActionSequence.add(Action.MOVE_1);
-                player.moveRobot(playerMoveDir, 1);
                 Position tempPos = player.getPos();
                 player.move(playerMoveDir);
                 playerActions.add(new PlayerAction(player, Action.MOVE_1));

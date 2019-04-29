@@ -38,7 +38,7 @@ public class PlayerActionTest extends GameTest {
         System.out.println(new File("DankBoard.json").getAbsoluteFile());
         //new LwjglApplication(new GUIMain());
         game = new TestGame();
-        player = new Player("1", new Position(7, 7), Direction.NORTH, 3, game.getBoard(), game.getGUIplayeractionList());
+        player = new Player("1", new Position(7, 7), Direction.NORTH, 3, game.getGUIplayeractionList());
         playerActionQueue = new PlayerActionWrapper();
     }
 
@@ -96,7 +96,7 @@ public class PlayerActionTest extends GameTest {
 
     @Test
     public void testTwoPlayersMoving() {
-        Player player2 = new Player("2", new Position(6, 6), Direction.NORTH, 3, game.getBoard(), game.getGUIplayeractionList());
+        Player player2 = new Player("2", new Position(6, 6), Direction.NORTH, 3, game.getGUIplayeractionList());
         ProgramCardDeck deck = new ProgramCardDeck();
         int cardsForPlayer = 2;
         game.addPlayerToList(player);
@@ -124,7 +124,7 @@ public class PlayerActionTest extends GameTest {
 
     @Test
     public void testStoppingOnFlagChangesNextFlag() {
-        player = new Player("1", new Position(0, 7), Direction.NORTH, 3, game.getBoard(), game.getGUIplayeractionList());
+        player = new Player("1", new Position(0, 7), Direction.NORTH, 3, game.getGUIplayeractionList());
         assertEquals(1, player.getRespawnPoint().getNextFlag());
         //PlayerAction playerAction = new PlayerAction(player, Action.MOVE_1);
 
@@ -137,7 +137,7 @@ public class PlayerActionTest extends GameTest {
 
     @Test
     public void testStoppingOnLastFlag() {
-        player = new Player("1", new Position(0, 7), Direction.NORTH, 3, game.getBoard(), game.getGUIplayeractionList());
+        player = new Player("1", new Position(0, 7), Direction.NORTH, 3, game.getGUIplayeractionList());
         assertEquals(1, player.getRespawnPoint().getNextFlag());
         //PlayerAction playerAction = new PlayerAction(player, Action.MOVE_1);
         Queue<PlayerAction> playerActionQueue = new LinkedList<>();

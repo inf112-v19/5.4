@@ -146,6 +146,7 @@ public class GUIBoard extends Table {
         // All the actions for each iteration are to be done simultaneously.
         for(List<PlayerAction> parallelGUIActions : allPlayerActions){
 
+            System.out.println(parallelGUIActions);
             ParallelAction parallelAction = new ParallelAction();
 
             // Add every action to a parallel action.
@@ -153,7 +154,7 @@ public class GUIBoard extends Table {
 
                 Player currPlayer = robotAction.getPlayer();
                 MovableGUIRobot currRobot = currPlayer.getRobot();
-                Direction playerFacingDir = currPlayer.getDirection();
+                Direction playerFacingDir = robotAction.getPlayerCurrentDir();
 
                 // Tells the robot the move it's going to do, and which direction. Returns the appropriate action.
                 Action guiAction = currRobot.getGUIAction(robotAction.getAction().getActionType(), playerFacingDir);
@@ -164,11 +165,22 @@ public class GUIBoard extends Table {
 
             }
 
-            parallelAction.addAction(new DelayAction(1));
+
             allActionsSequenced.addAction(parallelAction);
+            allActionsSequenced.addAction(new DelayAction(2));
+            System.out.println("Added delay!");
 
         }
 
+        this.addAction(allActionsSequenced);
+
     }
+
+    /* addAction(sequence(moveAction, new DelayAction(1), new RunnableAction() {
+                    @Override
+                    public void run() {
+                        System.out.println("COMPLETE!");
+                    }
+                })); */
 
 }
