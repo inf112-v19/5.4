@@ -26,10 +26,10 @@ public class RoboRallyGame {
     private Player currentPlayer;
     private Board board;
 
-    private Queue<PlayerAction> playerActionQueue;
+    private PlayerActionWrapper playerActionQueue;
 
     public RoboRallyGame(MainGameScreen guiScreen) {
-        this.playerActionQueue = new LinkedList<>();
+        this.playerActionQueue = new PlayerActionWrapper();
 
         this.guiScreen = guiScreen;
         //Testing with FlagBoard
@@ -97,10 +97,11 @@ public class RoboRallyGame {
 
             currentPlayer.getChecker().doAction(card.getCardType().getAction());
             System.out.println("Actions in actionList: ");
-            viewActionList();
+            playerActionQueue.viewActionList();
             System.out.println("Length of actionList: " + playerActionQueue.size());
             //for testin purpuss
             currentPlayer.getChecker().checkForFlag();
+            //System.out.println("FIRST ACTION IN QUEUE: " + playerActionQueue.getElement().getAction().getDescription());
         }
     }
 
@@ -109,9 +110,5 @@ public class RoboRallyGame {
     }
     public Board getBoard(){return this.board;}
 
-    public void viewActionList(){
-        for(PlayerAction pa : playerActionQueue){
-            System.out.println("Player:" + pa.getPlayer().getName() + " - Action: " + pa.getAction().getDescription());
-        }
-    }
+
 }

@@ -15,6 +15,7 @@ import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.enums.Rotation;
 import inf112.skeleton.app.gameLogic.game.Checker;
 import inf112.skeleton.app.gameLogic.game.PlayerAction;
+import inf112.skeleton.app.gameLogic.game.PlayerActionWrapper;
 import inf112.skeleton.app.gameLogic.game.RespawnPoint;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class Player implements IPlayer {
     private MovableGUIRobot robot;
     private RespawnPoint respawnPoint;
     private Checker checker;
-    private Queue<PlayerAction> playerActionQueue;
+    private PlayerActionWrapper playerActionQueue;
 
     private Board board;
 
@@ -42,7 +43,7 @@ public class Player implements IPlayer {
     /**
      * Constructs a player object with position, direction and health
      */
-    public Player(String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue) {
+    public Player(String name, Position pos, Direction dir, int health, Board board, PlayerActionWrapper playerActionQueue) {
         this.name = name;
         this.pos = pos;
         this.facingDir = dir;
@@ -56,7 +57,7 @@ public class Player implements IPlayer {
         this.checker = new Checker(this, board);
     }
 
-    public Queue<PlayerAction> getPlayerActionQueue() {
+    public PlayerActionWrapper getPlayerActionQueue() {
         return playerActionQueue;
     }
 

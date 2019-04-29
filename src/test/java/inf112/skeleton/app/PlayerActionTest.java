@@ -6,6 +6,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglNativesLoader;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.game.PlayerAction;
+import inf112.skeleton.app.gameLogic.game.PlayerActionWrapper;
 import inf112.skeleton.app.gameLogic.game.TestGame;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.Player;
@@ -26,7 +27,7 @@ public class PlayerActionTest extends GameTest {
 
     private Player player;
     private TestGame game;
-    private Queue<PlayerAction> playerActionQueue;
+    private PlayerActionWrapper playerActionQueue;
 
     @Before
     public void setupActionTest() {
@@ -38,7 +39,7 @@ public class PlayerActionTest extends GameTest {
         //new LwjglApplication(new GUIMain());
         game = new TestGame();
         player = new Player("1", new Position(7, 7), Direction.NORTH, 3, game.getBoard(), game.getGUIplayeractionList());
-        playerActionQueue = new LinkedList<>();
+        playerActionQueue = new PlayerActionWrapper();
     }
 
     @Test

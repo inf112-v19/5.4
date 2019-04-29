@@ -12,11 +12,11 @@ import java.util.*;
 public class TestGame {
     private List<Player> playerList;
     private Queue<PlayerAction> playerActionList;
-    private Queue<PlayerAction> GUIplayeractionList;
+    private PlayerActionWrapper GUIplayeractionList;
     private Board board;
 
     public TestGame() {
-        this.GUIplayeractionList = new LinkedList<>();
+        this.GUIplayeractionList = new PlayerActionWrapper();
         this.playerList = new ArrayList<>();
         this.playerActionList = new LinkedList<>();
         this.board = new Board("TestBoard", "TestBoard.json");
@@ -53,7 +53,7 @@ public class TestGame {
     }
     */
 
-    public Queue<PlayerAction> getGUIplayeractionList() {
+    public PlayerActionWrapper getGUIplayeractionList() {
         return GUIplayeractionList;
     }
 

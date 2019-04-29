@@ -21,41 +21,35 @@ public class Checker {
 
     public void doAction(Action playersAction) {
         Action att = playersAction;
-        switch (att.getActionType()) {
-            case MOVE:
-                this.move(player.getDirection(), att.getValue());
-                break;
-            case ROTATE:
-                player.rotate(att.getRotation());
-                player.getPlayerActionQueue().add(new PlayerAction(player, att));
+        for(int i = 0; i < att.getValue(); i++){
+            switch (att.getActionType()) {
+                case MOVE:
+                    player.getPlayerActionQueue().addElememt();
+                    this.move(player.getDirection());
+                    break;
+                case ROTATE:
+                    player.rotate(att.getRotation());
+                    player.getPlayerActionQueue().addElememt();
+                    player.getPlayerActionQueue().addElementToCurrent(new PlayerAction(player, att));
+            }
         }
     }
 
-    /**
-     * @param numSteps The direction the piece should move
-     */
-
-    public void move(Direction playerMoveDir, int numSteps) {
-        System.out.println("numsteps" + numSteps);
+    public void move(Direction playerMoveDir) {
         System.out.println("Dir: " + player.getDirection() + " Pre: " + player.getPos().getX() + " " + player.getPos().getY());
-        int stepsMoved = 0;
-        for (int i = 0; i < numSteps; i++) {
             if (canMove(playerMoveDir, board.getCellAt(player.getPos()))) {
                 System.out.println("moving " + player.hashCode());
                 //playerActionSequence.add(Action.MOVE_1);
+                player.moveRobot(playerMoveDir, 1);
                 Position tempPos = player.getPos();
-
-                stepsMoved++;
-                System.out.println("Stepsmoved " + stepsMoved);
                 player.move(playerMoveDir);
-                player.getPlayerActionQueue().add(new PlayerAction(player, Action.MOVE_1));
+                player.getPlayerActionQueue().addElementToCurrent(new PlayerAction(player, Action.MOVE_1));
+
                 if (board.getCellAt(tempPos).getPiecesInCell().contains(player)) {
                     board.getCellAt(tempPos).getPiecesInCell().remove(player);
                     board.getNextCell(tempPos, playerMoveDir).addPiece(player);
                 }
             }
-        }
-        player.moveRobot(playerMoveDir, stepsMoved);
         System.out.println("Post :" + player.getPos().getX() + " " + player.getPos().getY());
     }
 
@@ -98,7 +92,7 @@ public class Checker {
                     Player otherPlayer = (Player) piece;
                     //Checker checker = new Checker(otherPlayer, board, playerActionQueue);
                     if (otherPlayer.getChecker().canMove(goingDir, board.getNextCell(otherPlayer.getPos(), goingDir))) {
-                        otherPlayer.getChecker().move(goingDir, 1);
+                        otherPlayer.getChecker().move(goingDir);
                         return true;
                     } else {
                         return false;
