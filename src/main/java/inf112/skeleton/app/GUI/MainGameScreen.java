@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -17,7 +18,6 @@ import inf112.skeleton.app.GUI.cards.GUIDeck;
 import inf112.skeleton.app.GUI.player.MovableGUIRobot;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.ProgramCard;
-import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.game.RoboRallyGame;
 
 import java.util.List;
@@ -25,7 +25,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class MainGameScreen implements Screen {
-	private GUIBoard guiBoard;
+	private GUIBoard piecesBoard;
+	private GUIBoard robotsBoard;
+
 	private Stage stage;
 	private Skin skin;
 	OrthographicCamera camera;
@@ -43,7 +45,7 @@ public class MainGameScreen implements Screen {
 
 	public MainGameScreen(){
 
-		playMusic();
+		//playMusic();
 
 		// Main stage
 		camera = new OrthographicCamera();
@@ -64,15 +66,23 @@ public class MainGameScreen implements Screen {
 		// Get the players from the game.
         this.players = roboRallyGame.getPlayers();
 
-		this.guiBoard = new GUIBoard(this.roboRallyGame.getBoard());
-		guiBoard.addPlayers(players);
+		this.piecesBoard = new GUIBoard(this.roboRallyGame.getBoard());
+		this.robotsBoard = new GUIBoard(this.roboRallyGame.getBoard());
+		this.robotsBoard.makeBoardInvisible();
+		//piecesBoard.addPlayers(players);
+
 
 		roboRallyGame.playGame();
 
 		addPiecesTest();
+
+		//this.addPlayers(players);
+		robotsBoard.addPlayers(players);
+
 		Gdx.input.setInputProcessor(stage);
 
 		roboRallyGame.prePlay();
+
 	}
 
 
@@ -142,24 +152,28 @@ public class MainGameScreen implements Screen {
 		//game.setDebug(true);
 		game.top().left();
 
-		// Create guiBoard.
-		//guiBoard guiBoard = new guiBoard(90, 10, 10);
+		// Create piecesBoard.
+		//piecesBoard piecesBoard = new piecesBoard(90, 10, 10);
 
-		//guiBoard.setDebug(true);
+		//piecesBoard.setDebug(true);
 
 		//MovableGUIRobot hans = new MovableGUIRobot(1);
 		//this.currentMovableRobot = hans;
-		//guiBoard.addGUIPiece(5,5, hans);
-		//guiBoard.addGUIPiece(5,5, new GUIBest());
+		//piecesBoard.addGUIPiece(5,5, hans);
+		//piecesBoard.addGUIPiece(5,5, new GUIBest());
 
 		// BOARD CREATION AND SETUP
+
+		Stack boards = new Stack();
+		boards.add(piecesBoard);
+		boards.add(robotsBoard);
 
 		Stats stats = new Stats(skin, players[0]);
 
 		// Add everything to the main table.
 		topBar.add().prefWidth(200);
-		// guiBoard add
-		topBar.add(guiBoard).top().center().expandX().padTop(30).height(900);
+		// piecesBoard add
+		topBar.add(boards).top().center().expandX().padTop(30).height(900);
 		// Stat add
 		topBar.add(stats).top().left().pad(70);
 
@@ -211,7 +225,26 @@ public class MainGameScreen implements Screen {
 	}
 
 	public GUIBoard getGUIBoard(){
-    	return this.guiBoard;
+    	return this.piecesBoard;
+	}
+
+	public void addPlayers(Player[] players){
+    	for(Player player : players){
+    		MovableGUIRobot robot = player.getRobot();
+    		int playerX = player.getPos().getX();
+			int playerY = player.getPos().getY();
+			float[] positions = piecesBoard.getPiecePos(playerX, playerY);
+			Vector2 coords = piecesBoard.getCoords(playerX, playerY);
+			robot.localToStageCoordinates(coords);
+			stage.stageToScreenCoordinates(coords);
+
+			System.out.println(coords);
+			robot.setPosition(coords.x, coords.y);
+
+    		//robot.setPosition(positions[0], positions[1]);
+			stage.addActor(player.getRobot());
+		}
+
 	}
 
 

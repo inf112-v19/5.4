@@ -45,7 +45,7 @@ public class PlayerActionTest extends GameTest {
     @Test
     public void testActionPlayerGetsADamageToken() {
         assertEquals(0, player.getDamageTokens());
-        PlayerAction playerAction = new PlayerAction(player, Action.DAMAGE_1);
+        PlayerAction playerAction = new PlayerAction(player, Action.DAMAGE_1, player.getDirection());
         game.addActionToList(playerAction);
         game.doAllActions();
         assertEquals(1, player.getDamageTokens());
@@ -54,7 +54,7 @@ public class PlayerActionTest extends GameTest {
     @Test
     public void testActionTurnLeft() {
         assertEquals(Direction.NORTH, player.getDirection());
-        PlayerAction playerAction = new PlayerAction(player, Action.ROTATE_L);
+        PlayerAction playerAction = new PlayerAction(player, Action.ROTATE_L, player.getDirection());
         game.addActionToList(playerAction);
         game.doAllActions();
         assertEquals(Direction.WEST, player.getDirection());
@@ -63,7 +63,7 @@ public class PlayerActionTest extends GameTest {
     @Test
     public void testActionTurnRight() {
         assertEquals(Direction.NORTH, player.getDirection());
-        PlayerAction playerAction = new PlayerAction(player, Action.ROTATE_R);
+        PlayerAction playerAction = new PlayerAction(player, Action.ROTATE_R, player.getDirection());
         game.addActionToList(playerAction);
         game.doAllActions();
         assertEquals(Direction.EAST, player.getDirection());
@@ -72,7 +72,7 @@ public class PlayerActionTest extends GameTest {
     @Test
     public void testActionTurnU() {
         assertEquals(Direction.NORTH, player.getDirection());
-        PlayerAction playerAction = new PlayerAction(player, Action.ROTATE_U);
+        PlayerAction playerAction = new PlayerAction(player, Action.ROTATE_U, player.getDirection());
         game.addActionToList(playerAction);
         game.doAllActions();
         assertEquals(Direction.SOUTH, player.getDirection());
@@ -83,7 +83,7 @@ public class PlayerActionTest extends GameTest {
         ProgramCardDeck deck = new ProgramCardDeck();
         for (int i = 0; i < 2; i++) {
             ProgramCard tempCard = deck.getTopCard();
-            PlayerAction playerAction = new PlayerAction(player, tempCard.getCardType().getAction());
+            PlayerAction playerAction = new PlayerAction(player, tempCard.getCardType().getAction(), player.getDirection());
             game.addActionToList(playerAction);
         }
 
@@ -106,7 +106,7 @@ public class PlayerActionTest extends GameTest {
             for (int i = 0; i < cardsForPlayer; i++) {
                 ProgramCard tempCard = deck.getTopCard();
                 System.out.println(tempCard.toString());
-                PlayerAction playerAction = new PlayerAction(currPlayer, tempCard.getCardType().getAction());
+                PlayerAction playerAction = new PlayerAction(currPlayer, tempCard.getCardType().getAction(), player.getDirection());
                 game.addActionToList(playerAction);
             }
         }

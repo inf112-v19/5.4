@@ -7,12 +7,12 @@ import inf112.skeleton.app.gameLogic.enums.Direction;
 public class PlayerAction {
     private Player player;
     private Action action;
-    private Direction playerCurrentDir;
+    private Direction actionDir;
 
-    public PlayerAction(Player player, Action action) {
+    public PlayerAction(Player player, Action action, Direction actionDir) {
         this.player = player;
         this.action = action;
-        this.playerCurrentDir = player.getDirection();
+        this.actionDir = actionDir;
     }
 
     public Action getAction() {
@@ -23,5 +23,5 @@ public class PlayerAction {
         return player;
     }
 
-    public Direction getPlayerCurrentDir(){return playerCurrentDir;}
+    public Direction getActionDir(){return actionDir;}
 }

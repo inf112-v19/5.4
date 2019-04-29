@@ -34,7 +34,7 @@ public class Checker {
                     break;
                 case ROTATE:
                     player.rotate(att.getRotation());
-                    allActions.add(new LinkedList<PlayerAction>() {{add(new PlayerAction(player, att));}});
+                    allActions.add(new LinkedList<PlayerAction>() {{add(new PlayerAction(player, att, player.getDirection()));}});
                     break;
             }
         }
@@ -47,7 +47,7 @@ public class Checker {
                 //playerActionSequence.add(Action.MOVE_1);
                 Position tempPos = player.getPos();
                 player.move(playerMoveDir);
-                moveActions.add(new PlayerAction(player, Action.MOVE_1));
+                moveActions.add(new PlayerAction(player, Action.MOVE_1, playerMoveDir));
 
                 if (board.getCellAt(tempPos).getPiecesInCell().contains(player)) {
                     board.getCellAt(tempPos).getPiecesInCell().remove(player);

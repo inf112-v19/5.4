@@ -1,11 +1,14 @@
 package inf112.skeleton.app.GUI.board;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.DelayAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.SnapshotArray;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.GUI.pieces.GUIRobot;
 import inf112.skeleton.app.GUI.player.MovableGUIRobot;
@@ -16,6 +19,7 @@ import inf112.skeleton.app.gameLogic.board.IPiece;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.game.PlayerAction;
 
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -31,7 +35,6 @@ public class GUIBoard extends Table {
     float unitSize;
 
     Tile[][] boardMap;
-
 
     // Currently the height of the board should always be 900px.
 
@@ -58,6 +61,19 @@ public class GUIBoard extends Table {
 
         updateBoard();
 
+
+
+//        this.getChildren().sort()(new Comparator<>() {
+//            @Override
+//            public int compare(Object o1, Object o2) {
+//                return 0;
+//            }
+//
+//            @Override
+//            public boolean equals(Object obj) {
+//                return false;
+//            }
+//        });
     }
 
     /**
@@ -70,7 +86,6 @@ public class GUIBoard extends Table {
 
         int boardHeight = board.getBoardHeight();
         int boardWidth = board.getBoardWidth();
-
 
 
         for(int y=0; y<boardHeight; y++){
@@ -93,7 +108,6 @@ public class GUIBoard extends Table {
             }
 
         }
-
     }
 
     /**
@@ -105,6 +119,7 @@ public class GUIBoard extends Table {
      */
     public void addGUIPiece(int x, int y, GUIPiece GUIPiece){
         Tile localTile = this.boardMap[y][x];
+        //this.addActor(localTile.getX(), localTile.getY(), GUIPiece);
         localTile.addPiece(GUIPiece);
         Cell pieceCell = this.getCell(localTile);
         pieceCell.clearActor();
@@ -132,10 +147,22 @@ public class GUIBoard extends Table {
         }
     }
 
+    /**
+     * Only adds players at the correct graphical position.
+     * Has override issues, move code to MainGameScreen.
+     * @param players
+     */
     public void addPlayers(Player[] players){
         for(Player currPlayer : players){
             System.out.println("Added guiplayer at " + currPlayer.getPos().toString());
             this.addGUIPiece(currPlayer.getPos().getX(),currPlayer.getPos().getY(), currPlayer.getRobot());
+        }
+
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAH");
+        System.out.println(this.getChildren());
+        SnapshotArray<Actor> children = this.getChildren();
+        for(Actor actor : children){
+            System.out.println(actor);
         }
     }
 
@@ -155,7 +182,7 @@ public class GUIBoard extends Table {
 
                     Player currPlayer = robotAction.getPlayer();
                     MovableGUIRobot currRobot = currPlayer.getRobot();
-                    Direction playerFacingDir = robotAction.getPlayerCurrentDir();
+                    Direction playerFacingDir = robotAction.getActionDir();
 
                     // Tells the robot the move it's going to do, and which direction. Returns the appropriate action.
                     Action guiAction = currRobot.getGUIAction(robotAction.getAction().getActionType(), playerFacingDir);
@@ -178,11 +205,30 @@ public class GUIBoard extends Table {
         this.addAction(allActionsSequenced);
     }
 
+    public float[] getPiecePos(int x, int y){
+//
+//        float returnX = boardMap[y][x].getX();
+//        float returnY = boardMap[y][x].getY();
+        return new float[]{boardMap[y][x].getX(), boardMap[y][x].getY()};
+    }
+
+    public Vector2 getCoords(int x, int y){
+        return new Vector2(boardMap[y][x].getX(), boardMap[y][x].getY());
+    }
+
     /* addAction(sequence(moveAction, new DelayAction(1), new RunnableAction() {
                     @Override
                     public void run() {
                         System.out.println("COMPLETE!");
                     }
                 })); */
+
+    public void makeBoardInvisible(){
+        for (int y = 0; y < yGridSize; y++) {
+            for (int x = 0; x < xGridSize; x++) {
+                boardMap[y][x].makeTileInvisible();
+            }
+        }
+    }
 
 }
