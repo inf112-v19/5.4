@@ -32,8 +32,11 @@ public class PlayerActionWrapper {
     }
 
     public LinkedList<PlayerAction> getFirstList(){
-        LinkedList<PlayerAction> temp = playerActionList.getFirst();
-        playerActionList.removeFirst();
-        return temp;
+        if(!playerActionList.isEmpty()){
+            LinkedList<PlayerAction> temp = playerActionList.getFirst();
+            playerActionList.removeFirst();
+            return temp;
+        }
+        return null;
     }
 }
