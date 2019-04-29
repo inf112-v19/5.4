@@ -139,41 +139,43 @@ public class GUIBoard extends Table {
         }
     }
 
-    public void doGUIActions(List<List<PlayerAction>> allPlayerActions){
+    public void doGUIActions(List<List<List<PlayerAction>>> allPlayerActions){
 
         SequenceAction allActionsSequenced = new SequenceAction();
 
         // All the actions for each iteration are to be done simultaneously.
-        for(List<PlayerAction> parallelGUIActions : allPlayerActions){
+        for(List<List<PlayerAction>> cardActions: allPlayerActions) {
+            for (List<PlayerAction> parallelGUIActions : cardActions) {
 
-            System.out.println(parallelGUIActions);
-            ParallelAction parallelAction = new ParallelAction();
+                System.out.println(parallelGUIActions);
+                ParallelAction parallelAction = new ParallelAction();
 
-            // Add every action to a parallel action.
-            for(PlayerAction robotAction : parallelGUIActions){
+                // Add every action to a parallel action.
+                for (PlayerAction robotAction : parallelGUIActions) {
 
-                Player currPlayer = robotAction.getPlayer();
-                MovableGUIRobot currRobot = currPlayer.getRobot();
-                Direction playerFacingDir = robotAction.getPlayerCurrentDir();
+                    Player currPlayer = robotAction.getPlayer();
+                    MovableGUIRobot currRobot = currPlayer.getRobot();
+                    Direction playerFacingDir = robotAction.getPlayerCurrentDir();
 
-                // Tells the robot the move it's going to do, and which direction. Returns the appropriate action.
-                Action guiAction = currRobot.getGUIAction(robotAction.getAction().getActionType(), playerFacingDir);
-                guiAction.setTarget(currRobot);
-                guiAction.setActor(currRobot);
+                    // Tells the robot the move it's going to do, and which direction. Returns the appropriate action.
+                    Action guiAction = currRobot.getGUIAction(robotAction.getAction().getActionType(), playerFacingDir);
+                    guiAction.setTarget(currRobot);
+                    guiAction.setActor(currRobot);
 
-                parallelAction.addAction(guiAction);
+                    parallelAction.addAction(guiAction);
+
+                }
+
+
+                allActionsSequenced.addAction(parallelAction);
+                allActionsSequenced.addAction(new DelayAction(1));
+                System.out.println("Added delay!");
 
             }
-
-
-            allActionsSequenced.addAction(parallelAction);
-            allActionsSequenced.addAction(new DelayAction(1));
-            System.out.println("Added delay!");
 
         }
 
         this.addAction(allActionsSequenced);
-
     }
 
     /* addAction(sequence(moveAction, new DelayAction(1), new RunnableAction() {

@@ -98,19 +98,27 @@ public class RoboRallyGame {
      */
     public void postPick(List<ProgramCard> pickedProgramCards) {
 
-        List<List<PlayerAction>> allActions = new ArrayList<>();
+        // All innermost actions: Actions that are do be executed in paralell.
+        // One layer outside: all actions originating from ONE card, e.g MOVE 3.
+        // Outermost layer: all the actions from all the cards.
+        List<List<List<PlayerAction>>> allActions = new ArrayList<>();
 
         for(ProgramCard card: pickedProgramCards){
 
-            LinkedList<LinkedList<PlayerAction>> temp = checker.doAction(card.getCardType().getAction(), currentPlayer);
+            // All the actions originating from ONE card.
+            List<List<PlayerAction>> temp = checker.doAction(card.getCardType().getAction(), currentPlayer);
+
+
             System.out.println("Actions in actionList: ");
-            for(LinkedList<PlayerAction> tempBig : temp){
+            for(List<PlayerAction> tempBig : temp){
                 System.out.println("----------");
                 for(PlayerAction pa : tempBig){
                     System.out.println("Player: " + pa.getPlayer().getName() + " Action: " + pa.getAction().getDescription());
                 }
 
             }
+
+            allActions.add(temp);
 
             //for testin purpuss
             checker.checkForFlag(currentPlayer);
