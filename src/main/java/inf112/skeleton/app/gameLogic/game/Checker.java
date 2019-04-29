@@ -8,42 +8,43 @@ import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.enums.SoundPlayer;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Checker {
     private Board board;
-    private Player player;
 
-    public Checker(Player player, Board board) {
-        this.player = player;
+
+    public Checker(Board board) {
         this.board = board;
     }
 
-    public void doAction(Action playersAction) {
+    public LinkedList<PlayerAction> doAction(Action playersAction, Player player) {
+        LinkedList<PlayerAction> playerActions = new LinkedList<>();
         Action att = playersAction;
         for(int i = 0; i < att.getValue(); i++){
             switch (att.getActionType()) {
                 case MOVE:
                     player.getPlayerActionQueue().addElement();
-                    this.move(player.getDirection());
+                    this.move(player.getDirection(), player, playerActions);
                     break;
                 case ROTATE:
                     player.rotate(att.getRotation());
-                    player.getPlayerActionQueue().addElement();
-                    player.getPlayerActionQueue().addElementToCurrent(new PlayerAction(player, att));
+                    playerActions.add(new PlayerAction(player, att));
             }
         }
+        return playerActions;
     }
 
-    public void move(Direction playerMoveDir) {
+    public void move(Direction playerMoveDir, Player player, LinkedList<PlayerAction> playerActions) {
         System.out.println("Dir: " + player.getDirection() + " Pre: " + player.getPos().getX() + " " + player.getPos().getY());
-            if (canMove(playerMoveDir, board.getCellAt(player.getPos()))) {
+            if (canMove(playerMoveDir, board.getCellAt(player.getPos()), player, playerActions)) {
                 System.out.println("moving " + player.hashCode());
                 //playerActionSequence.add(Action.MOVE_1);
                 player.moveRobot(playerMoveDir, 1);
                 Position tempPos = player.getPos();
                 player.move(playerMoveDir);
-                player.getPlayerActionQueue().addElementToCurrent(new PlayerAction(player, Action.MOVE_1));
+                playerActions.add(new PlayerAction(player, Action.MOVE_1));
 
                 if (board.getCellAt(tempPos).getPiecesInCell().contains(player)) {
                     board.getCellAt(tempPos).getPiecesInCell().remove(player);
@@ -53,7 +54,7 @@ public class Checker {
         System.out.println("Post :" + player.getPos().getX() + " " + player.getPos().getY());
     }
 
-    private boolean canMove(Direction goingDir, ICell currCell) {
+    private boolean canMove(Direction goingDir, ICell currCell, Player player, LinkedList<PlayerAction> playerActions) {
         //Checks walls in current tile
         if (currCell != null) {
             List<IPiece> piecesInCurrCell = board.getCellAt(player.getPos()).getPiecesInCell();
@@ -91,8 +92,8 @@ public class Checker {
                 if (piece instanceof Player) {
                     Player otherPlayer = (Player) piece;
                     //Checker checker = new Checker(otherPlayer, board, playerActionQueue);
-                    if (otherPlayer.getChecker().canMove(goingDir, board.getNextCell(otherPlayer.getPos(), goingDir))) {
-                        otherPlayer.getChecker().move(goingDir);
+                    if (canMove(goingDir, board.getNextCell(otherPlayer.getPos(), goingDir), otherPlayer, playerActions)) {
+                        move(goingDir, otherPlayer, playerActions);
                         return true;
                     } else {
                         return false;
@@ -104,7 +105,7 @@ public class Checker {
         return true;
     }
 
-    public void checkForFlag() {
+    public void checkForFlag(Player player) {
         //checks if the players position is the same as the flag the player is looking for
         //System.out.println("Looking for flag " + player.getRespawnPoint().getNextFlag());
         System.out.println("Player: " + player.getPos() + " Flag: " + player.getRespawnPoint().getNextFlag() + " " + board.getFlags().getFlagPos(player.getRespawnPoint().nextFlag));

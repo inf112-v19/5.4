@@ -129,9 +129,9 @@ public class PlayerActionTest extends GameTest {
         //PlayerAction playerAction = new PlayerAction(player, Action.MOVE_1);
 
         //Checker checker = new Checker(player, Action.MOVE_1, game.getBoard(), playerActionQueue);
-        player.getChecker().doAction(Action.MOVE_1);
+        game.getChecker().doAction(Action.MOVE_1, player);
         //checker.doAction();
-        player.getChecker().checkForFlag();
+        game.getChecker().checkForFlag(player);
         assertEquals(2, player.getRespawnPoint().getNextFlag());
     }
 
@@ -144,8 +144,8 @@ public class PlayerActionTest extends GameTest {
         for(int i = 0; i < 2; i++){
 
             //Checker checker = new Checker(player, Action.MOVE_1, game.getBoard(), playerActionQueue);
-            player.getChecker().doAction(Action.MOVE_1);
-            player.getChecker().checkForFlag();
+            game.getChecker().doAction(Action.MOVE_1, player);
+            game.getChecker().checkForFlag(player);
         }
         assertEquals(2, game.getBoard().getFlags().getNumberOfFlags());
         assertEquals(2, player.getRespawnPoint().getNextFlag());
