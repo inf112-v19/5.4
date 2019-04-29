@@ -14,7 +14,7 @@ public class PlayerActionWrapper {
         playerActionList.getLast().add(playerAction);
     }
 
-    public void addElememt(){
+    public void addElement(){
         playerActionList.add(new LinkedList<PlayerAction>());
     }
 
@@ -32,6 +32,8 @@ public class PlayerActionWrapper {
     }
 
     public LinkedList<PlayerAction> getFirstList(){
-        return playerActionList.getFirst();
+        LinkedList<PlayerAction> temp = playerActionList.getFirst();
+        playerActionList.removeFirst();
+        return temp;
     }
 }

@@ -24,12 +24,12 @@ public class Checker {
         for(int i = 0; i < att.getValue(); i++){
             switch (att.getActionType()) {
                 case MOVE:
-                    player.getPlayerActionQueue().addElememt();
+                    player.getPlayerActionQueue().addElement();
                     this.move(player.getDirection());
                     break;
                 case ROTATE:
                     player.rotate(att.getRotation());
-                    player.getPlayerActionQueue().addElememt();
+                    player.getPlayerActionQueue().addElement();
                     player.getPlayerActionQueue().addElementToCurrent(new PlayerAction(player, att));
             }
         }
