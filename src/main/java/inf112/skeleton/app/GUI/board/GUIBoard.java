@@ -167,7 +167,7 @@ public class GUIBoard extends Table {
 
 
             allActionsSequenced.addAction(parallelAction);
-            allActionsSequenced.addAction(new DelayAction(2));
+            allActionsSequenced.addAction(new DelayAction(1));
             System.out.println("Added delay!");
 
         }
