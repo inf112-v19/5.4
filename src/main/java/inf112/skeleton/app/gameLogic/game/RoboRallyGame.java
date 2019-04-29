@@ -98,11 +98,16 @@ public class RoboRallyGame {
     public void postPick(List<ProgramCard> pickedProgramCards) {
         for(ProgramCard card: pickedProgramCards){
 
-            LinkedList<PlayerAction> temp = checker.doAction(card.getCardType().getAction(), currentPlayer);
+            LinkedList<LinkedList<PlayerAction>> temp = checker.doAction(card.getCardType().getAction(), currentPlayer);
             System.out.println("Actions in actionList: ");
-            for(PlayerAction pa : temp){
-                System.out.println("Player: " + pa.getPlayer().getName() + " Action: " + pa.getAction().getDescription());
+            for(LinkedList<PlayerAction> tempBig : temp){
+                System.out.println("----------");
+                for(PlayerAction pa : tempBig){
+                    System.out.println("Player: " + pa.getPlayer().getName() + " Action: " + pa.getAction().getDescription());
+                }
+
             }
+
             //for testin purpuss
             checker.checkForFlag(currentPlayer);
             //System.out.println("FIRST ACTION IN QUEUE: " + playerActionQueue.getElement().getAction().getDescription());

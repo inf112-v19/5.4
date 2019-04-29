@@ -19,24 +19,25 @@ public class Checker {
         this.board = board;
     }
 
-    public LinkedList<PlayerAction> doAction(Action playersAction, Player player) {
-        LinkedList<PlayerAction> playerActions = new LinkedList<>();
+    public LinkedList<LinkedList<PlayerAction>> doAction(Action playersAction, Player player) {
+        LinkedList<LinkedList<PlayerAction>> playerActions = new LinkedList<>();
         Action att = playersAction;
         for(int i = 0; i < att.getValue(); i++){
             switch (att.getActionType()) {
                 case MOVE:
-                    player.getPlayerActionQueue().addElement();
+                    playerActions.add(new LinkedList<PlayerAction>());
                     this.move(player.getDirection(), player, playerActions);
                     break;
                 case ROTATE:
                     player.rotate(att.getRotation());
-                    playerActions.add(new PlayerAction(player, att));
+                    playerActions.add(new LinkedList<PlayerAction>());
+                    playerActions.getLast().add(new PlayerAction(player, att));
             }
         }
         return playerActions;
     }
 
-    public void move(Direction playerMoveDir, Player player, LinkedList<PlayerAction> playerActions) {
+    public void move(Direction playerMoveDir, Player player, LinkedList<LinkedList<PlayerAction>> playerActions) {
         System.out.println("Dir: " + player.getDirection() + " Pre: " + player.getPos().getX() + " " + player.getPos().getY());
             if (canMove(playerMoveDir, board.getCellAt(player.getPos()), player, playerActions)) {
                 System.out.println("moving " + player.hashCode());
@@ -44,7 +45,7 @@ public class Checker {
                 player.moveRobot(playerMoveDir, 1);
                 Position tempPos = player.getPos();
                 player.move(playerMoveDir);
-                playerActions.add(new PlayerAction(player, Action.MOVE_1));
+                playerActions.getLast().add(new PlayerAction(player, Action.MOVE_1));
 
                 if (board.getCellAt(tempPos).getPiecesInCell().contains(player)) {
                     board.getCellAt(tempPos).getPiecesInCell().remove(player);
@@ -54,7 +55,7 @@ public class Checker {
         System.out.println("Post :" + player.getPos().getX() + " " + player.getPos().getY());
     }
 
-    private boolean canMove(Direction goingDir, ICell currCell, Player player, LinkedList<PlayerAction> playerActions) {
+    private boolean canMove(Direction goingDir, ICell currCell, Player player, LinkedList<LinkedList<PlayerAction>> playerActions) {
         //Checks walls in current tile
         if (currCell != null) {
             List<IPiece> piecesInCurrCell = board.getCellAt(player.getPos()).getPiecesInCell();
