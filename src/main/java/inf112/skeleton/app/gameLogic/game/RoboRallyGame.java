@@ -26,6 +26,8 @@ public class RoboRallyGame {
     private Player currentPlayer;
     private Board board;
 
+    private Checker checker;
+
     private PlayerActionWrapper playerActionQueue;
 
     public RoboRallyGame(MainGameScreen guiScreen) {
@@ -35,6 +37,7 @@ public class RoboRallyGame {
         //Testing with FlagBoard
         //this.board = new Board("Captain Hook", "DankBoard.json");
         this.board = new Board("Captain Hook", boardPath);
+        this.checker = new Checker(board);
         //board.displayBoard();
         this.deck = new ProgramCardDeck();  // Deck of cards in the game
         players = new Player[totalPlayers];
@@ -97,12 +100,13 @@ public class RoboRallyGame {
 
         for(ProgramCard card: pickedProgramCards){
 
-            currentPlayer.getChecker().doAction(card.getCardType().getAction());
+            LinkedList<PlayerAction> temp = checker.doAction(card.getCardType().getAction(), currentPlayer);
             System.out.println("Actions in actionList: ");
-            playerActionQueue.viewActionList();
-            System.out.println("Length of actionList: " + playerActionQueue.size());
+            for(PlayerAction pa : temp){
+                System.out.println("Player: " + pa.getPlayer().getName() + " Action: " + pa.getAction().getDescription());
+            }
             //for testin purpuss
-            currentPlayer.getChecker().checkForFlag();
+            checker.checkForFlag(currentPlayer);
             //System.out.println("FIRST ACTION IN QUEUE: " + playerActionQueue.getElement().getAction().getDescription());
         }
 

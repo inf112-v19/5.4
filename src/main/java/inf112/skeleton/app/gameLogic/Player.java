@@ -34,7 +34,6 @@ public class Player implements IPlayer {
     private List<ProgramCard> playerRegister;
     private MovableGUIRobot robot;
     private RespawnPoint respawnPoint;
-    private Checker checker;
     private PlayerActionWrapper playerActionQueue;
 
     private Board board;
@@ -54,15 +53,10 @@ public class Player implements IPlayer {
         this.robot = new MovableGUIRobot(1);
         this.respawnPoint = new RespawnPoint(pos, 1);
         this.playerActionQueue = playerActionQueue;
-        this.checker = new Checker(this, board);
     }
 
     public PlayerActionWrapper getPlayerActionQueue() {
         return playerActionQueue;
-    }
-
-    public Checker getChecker() {
-        return checker;
     }
 
     @Override
