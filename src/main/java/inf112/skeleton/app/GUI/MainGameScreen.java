@@ -20,6 +20,7 @@ import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.game.RoboRallyGame;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -82,12 +83,6 @@ public class MainGameScreen implements Screen {
 		Gdx.input.setInputProcessor(stage);
 
 		piecesBoard.lightUpTile(0,0);
-		piecesBoard.lightUpTile(1,0);
-		piecesBoard.lightUpTile(2,0);
-
-		piecesBoard.lightUpTile(6,4);
-		piecesBoard.lightUpTile(7,4);
-		piecesBoard.lightUpTile(4,5);
 		piecesBoard.resetTileColor(0,0);
 		//piecesBoard.lightUpTile(2,0);
 		//piecesBoard.lightUpTile(0,1);
@@ -229,7 +224,10 @@ public class MainGameScreen implements Screen {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 
-				roboRallyGame.postPick(guiDeck.getPickedProgramCards());
+				List<ProgramCard> playerCards = guiDeck.getPickedProgramCards();
+				List<List<ProgramCard>> allCards = new ArrayList<>();
+				allCards.add(playerCards);
+				roboRallyGame.postPick(new ArrayList<ProgramCard>());
 			}
 		});
 
