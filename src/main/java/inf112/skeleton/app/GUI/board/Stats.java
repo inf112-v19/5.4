@@ -15,7 +15,7 @@ public class Stats extends Table {
     List<Image> hearties;
     int maxToxens = 3;
 
-    public Stats(Skin skin, Player player){
+    public Stats(Skin skin, Player player) {
 
         hearties = new ArrayList<>();
         this.setDebug(true);
@@ -25,14 +25,14 @@ public class Stats extends Table {
 
         this.add(new Label("DAMAGE TOKENS:", skin)).colspan(3);
         this.row();
-        for(int i=0; i<maxToxens; i++){ //player.getHealth()
+        for (int i = 0; i < maxToxens; i++) { //player.getHealth()
             Image heartie = new Image(heartSprite.getTexture());
             Cell heartieCell = this.add(heartie).size(30).uniform();
             heartie.setVisible(false);
             hearties.add(heartie);
         }
 
-        for(int i=0; i<player.getHealth(); i++) { //
+        for (int i = 0; i < player.getHealth(); i++) { //
             hearties.get(i).setVisible(true);
         }
     }

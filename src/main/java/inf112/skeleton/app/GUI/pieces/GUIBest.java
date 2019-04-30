@@ -39,7 +39,7 @@ public class GUIBest extends GUIPiece {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         TextureRegion currentFrame = laserAnimation.getKeyFrame(animationTime, true);
-        batch.draw(currentFrame, getX(),getY(), getWidth(), getHeight());
+        batch.draw(currentFrame, getX(), getY(), getWidth(), getHeight());
 
     }
 

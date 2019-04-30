@@ -40,7 +40,7 @@ public class RoboRallyGame {
         this.deck = new ProgramCardDeck();  // Deck of cards in the game
         players = new Player[totalPlayers];
         for (int i = 0; i < players.length; i++) {
-            Position position = new Position(i+5, 7);
+            Position position = new Position(i + 5, 7);
             //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
             players[i] = new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, playerActionQueue);
             board.addPiece(position, players[i]);
@@ -50,7 +50,7 @@ public class RoboRallyGame {
         playGame();
     }
 
-    public void playGame(){
+    public void playGame() {
         this.deck.shuffleDeck();
         this.currentPlayer = players[0];
 //        for (Player currentPlayer : players) {
@@ -138,13 +138,15 @@ public class RoboRallyGame {
 
 
         this.guiScreen.getGUIBoard().doGUIActions(allActions);
-
     }
 
-    public Player[] getPlayers(){
+    public Player[] getPlayers() {
         return this.players;
     }
-    public Board getBoard(){return this.board;}
+
+    public Board getBoard() {
+        return this.board;
+    }
 
 
 }

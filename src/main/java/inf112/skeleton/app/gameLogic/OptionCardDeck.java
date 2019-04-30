@@ -33,13 +33,14 @@ public class OptionCardDeck {
         deck.clear();
         int priority = 0;
         // Goes through the different CardTypes
-        for(CardType cardType : CardType.values()){
+        for (CardType cardType : CardType.values()) {
 
         }
     }
 
     /**
      * Returns the number of cards left in the deck
+     *
      * @return int
      */
     public int numCardsLeftInDeck() {
@@ -48,6 +49,7 @@ public class OptionCardDeck {
 
     /**
      * Returns the whole deck as a list
+     *
      * @return List ProgramCard
      */
     public List<OptionCards> getDeck() {
@@ -56,6 +58,7 @@ public class OptionCardDeck {
 
     /**
      * Returns true if the deck is empty
+     *
      * @return true if empty
      */
     private boolean isEmpty() {
@@ -64,6 +67,7 @@ public class OptionCardDeck {
 
     /**
      * Pops the card at the top of the stack and returns it
+     *
      * @return ProgramCard
      */
     public OptionCards getTopCard() {
@@ -72,6 +76,7 @@ public class OptionCardDeck {
 
     /**
      * Returns a specified number of cards as a list
+     *
      * @param numberOfCards int
      * @return List of ProgramCard
      */
@@ -85,6 +90,7 @@ public class OptionCardDeck {
 
     /**
      * toString representation of the cards in the deck
+     *
      * @return String toString
      */
     public String toString() {

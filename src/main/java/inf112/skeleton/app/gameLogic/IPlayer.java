@@ -11,24 +11,23 @@ interface IPlayer extends IPiece {
 
     /**
      * Add programCards to the player
+     *
      * @param programCard The card to be added
      */
     void addProgramCard(ProgramCard programCard);
 
     /**
-     * @param dir
-     *          The direction the player should move
+     * @param dir The direction the player should move
      */
     void move(Direction dir);
 
 
-
     /**
      * Player gets X amount of damageTokens
+     *
      * @param amountOfDamage the amount of damageTokens the player recieves
      */
     void takeDamage(int amountOfDamage);
-
 
 
     /**
@@ -37,14 +36,12 @@ interface IPlayer extends IPiece {
     void repair();
 
 
-
     /**
      * Player rotates right or left
-     * @param rot
-     *         the direction to turn
+     *
+     * @param rot the direction to turn
      */
     void rotate(Rotation rot);
-
 
 
     /**
@@ -59,15 +56,13 @@ interface IPlayer extends IPiece {
     int getDamageTokens();
 
 
-
     /**
      * @return This player's current facing direction
      */
     Direction getDirection();
 
     /**
-     * @return
-     *      This player's current position
+     * @return This player's current position
      */
     Position getPos();
 

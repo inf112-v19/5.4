@@ -11,7 +11,6 @@ public enum PiecesToCheckFor {
     HOLE(Hole.class),
     LASER(Laser.class);
 
-
     private Class pieceClass;
 
     PiecesToCheckFor(Class pieceClass) {

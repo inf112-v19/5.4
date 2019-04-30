@@ -3,15 +3,15 @@ package inf112.skeleton.app.gameLogic.board.pieces;
 import inf112.skeleton.app.GUI.pieces.GUIFlag;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.gameLogic.Player;
-import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.board.IPiece;
+import inf112.skeleton.app.gameLogic.enums.Direction;
 
 public class Flag implements IPiece {
 
     private Direction direction = Direction.NORTH;
     private int number;
 
-    public enum FlagEnum{
+    public enum FlagEnum {
         FLAG_1(1),
         FLAG_2(2),
         FLAG_3(3),
@@ -19,12 +19,12 @@ public class Flag implements IPiece {
 
         int flagNr;
 
-        FlagEnum(int flagNr){
+        FlagEnum(int flagNr) {
             this.flagNr = flagNr;
         }
     }
 
-    public Flag(int number){
+    public Flag(int number) {
         this.number = number;
     }
 
@@ -53,13 +53,15 @@ public class Flag implements IPiece {
     }
 
     @Override
-    public GUIPiece getGUIPiece() { return new GUIFlag(); }
+    public GUIPiece getGUIPiece() {
+        return new GUIFlag();
+    }
 
     public boolean isNextFlag(Player player) {
         return player.getRespawnPoint().getNextFlag() == number;
     }
 
-    public boolean isLastFlag(Player player, int numberOfFlags){
+    public boolean isLastFlag(Player player, int numberOfFlags) {
         return isNextFlag(player) && number == numberOfFlags;
     }
 

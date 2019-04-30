@@ -11,9 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import inf112.skeleton.app.gameLogic.game.RoboRallyGame;
-
-import java.util.concurrent.TimeUnit;
 
 
 public class LoadScreen implements Screen {
@@ -37,8 +34,8 @@ public class LoadScreen implements Screen {
         this.game = game;
 
         BitmapFont font = new BitmapFont();
-        font.getData().setScale(3,3);
-        Label.LabelStyle labelStyle = new Label.LabelStyle(font, new Color(1f,1f,0.4f,1f));
+        font.getData().setScale(3, 3);
+        Label.LabelStyle labelStyle = new Label.LabelStyle(font, new Color(1f, 1f, 0.4f, 1f));
 
         Label label = new Label("LET'S ROBO RALLY!", labelStyle);
 

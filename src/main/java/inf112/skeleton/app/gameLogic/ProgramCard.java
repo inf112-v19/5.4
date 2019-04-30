@@ -6,7 +6,7 @@ public class ProgramCard implements Comparable<ProgramCard> {
     private CardType cardType;
     private int priority;
 
-    ProgramCard(CardType cardType, int priority){
+    ProgramCard(CardType cardType, int priority) {
         this.cardType = cardType;
         this.priority = priority;
     }
@@ -19,7 +19,7 @@ public class ProgramCard implements Comparable<ProgramCard> {
         return priority;
     }
 
-    public String toString(){
+    public String toString() {
         return cardType.getDescription() + " " + priority;
     }
 

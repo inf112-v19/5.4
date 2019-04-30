@@ -7,7 +7,7 @@ import inf112.skeleton.app.gameLogic.enums.Direction;
 
 public class Hole implements IPiece {
 
-    public Hole () {
+    public Hole() {
 
     }
 

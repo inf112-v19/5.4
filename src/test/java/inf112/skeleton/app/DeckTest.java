@@ -1,26 +1,27 @@
 package inf112.skeleton.app;
 
-import inf112.skeleton.app.gameLogic.enums.CardType;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.ProgramCardDeck;
+import inf112.skeleton.app.gameLogic.enums.CardType;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class DeckTest {
 
     private ProgramCardDeck deck;
 
     @Before
-    public void initialize(){
+    public void initialize() {
         deck = new ProgramCardDeck();
     }
 
     @Test
-    public void testGetANumberOfCards1(){
+    public void testGetANumberOfCards1() {
         List<ProgramCard> tempDeck = deck.drawXCards(1);
         assertEquals(1, tempDeck.size());
     }
@@ -45,13 +46,13 @@ public class DeckTest {
     }
 
     @Test
-    public void testCheckFirstCard(){
+    public void testCheckFirstCard() {
         List<ProgramCard> tempDeck = deck.drawXCards(84);
         assertEquals(CardType.MOVE_3, tempDeck.get(0).getCardType());
     }
 
     @Test
-    public void testShuffle(){
+    public void testShuffle() {
         ProgramCardDeck preShuffleDeck = new ProgramCardDeck();
         ProgramCardDeck postShuffleDeck = new ProgramCardDeck();
         assertEquals(preShuffleDeck.getTopCard().getPriority()
@@ -62,7 +63,7 @@ public class DeckTest {
     }
 
     @Test
-    public void testToString(){
+    public void testToString() {
         System.out.println(deck.toString());
     }
 }
