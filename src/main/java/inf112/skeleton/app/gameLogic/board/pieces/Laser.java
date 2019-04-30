@@ -23,7 +23,6 @@ public class Laser implements IPiece {
     @SuppressWarnings("all")
     public void shootLaser(Position pos, Direction dir, Board board){
         List<Laser> laserList = new ArrayList<>();
-        //if(board.containsPieceDir(pos, dir, );
     }
 
     public LaserShooter getLaserShooter() {
