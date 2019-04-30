@@ -109,7 +109,6 @@ public class Checker {
 
     public void checkForFlag(Player player) {
         //checks if the players position is the same as the flag the player is looking for
-        //System.out.println("Looking for flag " + player.getRespawnPoint().getNextFlag());
         if (player.getPos().equals(board.getFlags().getFlagPos(player.getRespawnPoint().nextFlag))) {
             System.out.println("Found flag " + player.getRespawnPoint().getNextFlag());
             SoundPlayer.GameSound.FLAG_PICKUP.playSound();

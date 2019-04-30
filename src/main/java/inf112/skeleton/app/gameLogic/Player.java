@@ -60,8 +60,6 @@ public class Player implements IPlayer {
     @Override
     public void move(Direction dir) {
         pos = pos.changePos(dir);
-        //Comment out line below for the tests to run
-        //this.getRobot().doAction(ActionType.MOVE, dir);
     }
 
     public void die() {
@@ -151,8 +149,6 @@ public class Player implements IPlayer {
         } else {
             throw new IllegalArgumentException("Not a valid rotation!");
         }
-        //Coment out line below for the tests to run
-        //robot.doAction(ActionType.ROTATE, facingDir);
     }
 
     public void setRespawnPoint() {
