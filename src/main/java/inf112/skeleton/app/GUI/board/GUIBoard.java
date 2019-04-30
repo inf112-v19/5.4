@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.DelayAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
+import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -154,6 +155,8 @@ public class GUIBoard extends Table {
 
         SequenceAction allActionsSequenced = new SequenceAction();
 
+
+
         // All the actions for each iteration are to be done simultaneously.
         for (List<List<PlayerAction>> cardActions : allPlayerActions) {
             for (List<PlayerAction> parallelGUIActions : cardActions) {
@@ -167,14 +170,28 @@ public class GUIBoard extends Table {
 
                     Player currPlayer = robotAction.getPlayer();
                     MovableGUIRobot currRobot = currPlayer.getRobot();
-                    Direction playerFacingDir = robotAction.getActionDir();
+                    Direction actionDir = robotAction.getActionDir();
 
                     // Tells the robot the move it's going to do, and which direction. Returns the appropriate action.
-                    Action guiAction = currRobot.getGUIAction(robotAction.getAction().getActionType(), playerFacingDir);
+                    Action guiAction = currRobot.getGUIAction(robotAction.getAction().getActionType(), actionDir);
                     guiAction.setTarget(currRobot);
                     guiAction.setActor(currRobot);
 
+                    RunnableAction logUpdate = new RunnableAction(){
+                        @Override
+                        public void run() {
+                            String printString = "ROBOT DOES A " + robotAction.getAction().getDescription();
+                            if(robotAction.getAction().getRotation() == null){
+                                printString += " IN " + actionDir + " DIRECTION!";
+                            }
+
+                            System.out.println(printString);
+
+                        }
+                    };
+
                     parallelAction.addAction(guiAction);
+                    parallelAction.addAction(logUpdate);
 
                 }
 

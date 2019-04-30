@@ -94,7 +94,6 @@ public class Board implements IBoard {
         ICell cell = new Cell();
         int posX = pos.getX();
         int posY = pos.getY();
-        System.out.println("yeehaw: " + posX + " -- " + posY);
         switch (dir) {
 
             case NORTH:

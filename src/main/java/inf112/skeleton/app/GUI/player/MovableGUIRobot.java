@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
-import inf112.skeleton.app.GUI.board.SoundPlayer;
+import inf112.skeleton.app.GUI.SoundPlayer;
 import inf112.skeleton.app.GUI.pieces.GUIRobot;
 import inf112.skeleton.app.gameLogic.enums.ActionType;
 import inf112.skeleton.app.gameLogic.enums.Direction;
