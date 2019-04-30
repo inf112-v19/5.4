@@ -1,6 +1,6 @@
 package inf112.skeleton.app.gameLogic.game;
 
-import inf112.skeleton.app.GUI.board.SoundPlayer;
+import inf112.skeleton.app.GUI.SoundPlayer;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.board.Board;
@@ -12,6 +12,7 @@ import inf112.skeleton.app.gameLogic.board.pieces.Wall;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -132,7 +133,8 @@ public class Checker {
         List<List<PlayerAction>> allActions = new LinkedList<>();
         List<PlayerAction> moveActions = new LinkedList<>();
 
-        for(Player player: players){
+        List<Player> copyPlayersList = new ArrayList<>(players);
+        for(Player player: copyPlayersList){
             for (IPiece piece : board.getCellAt(player.getPos()).getPiecesInCell()) {
                 if(piece instanceof Conveyor) {
                     move(piece.getPieceDirection(), player, allActions, moveActions);

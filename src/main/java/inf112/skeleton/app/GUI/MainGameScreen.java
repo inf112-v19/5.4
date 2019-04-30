@@ -20,7 +20,6 @@ import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.game.RoboRallyGame;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainGameScreen implements Screen {
@@ -45,7 +44,7 @@ public class MainGameScreen implements Screen {
 
     public MainGameScreen() {
 
-        //playMusic();
+        SoundPlayer.GameSound.PLAY_MUSIC.playSound();
 
         // Main stage
         camera = new OrthographicCamera();
