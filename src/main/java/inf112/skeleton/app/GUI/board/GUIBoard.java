@@ -77,7 +77,6 @@ public class GUIBoard extends Table {
 
         for(int y=0; y<boardHeight; y++){
             for(int x = 0; x<boardWidth; x++ ){
-                System.out.println(x + " --- " + y);
                 ICell currCell = board.getCellAt(x, y);
                 if(currCell != null){
                     //ICell currCell = board.getCellAt(2, 0);

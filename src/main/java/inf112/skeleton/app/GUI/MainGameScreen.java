@@ -225,9 +225,8 @@ public class MainGameScreen implements Screen {
 			public void changed(ChangeEvent event, Actor actor) {
 
 				List<ProgramCard> playerCards = guiDeck.getPickedProgramCards();
-				List<List<ProgramCard>> allCards = new ArrayList<>();
-				allCards.add(playerCards);
-				roboRallyGame.postPick(new ArrayList<ProgramCard>());
+
+				roboRallyGame.postPick(playerCards);
 			}
 		});
 

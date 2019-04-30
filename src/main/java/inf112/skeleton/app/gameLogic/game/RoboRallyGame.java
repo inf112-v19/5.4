@@ -9,6 +9,7 @@ import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class RoboRallyGame {
@@ -33,11 +34,9 @@ public class RoboRallyGame {
         this.playerActionQueue = new PlayerActionWrapper();
 
         this.guiScreen = guiScreen;
-        //Testing with FlagBoard
-        //this.board = new Board("Captain Hook", "DankBoard.json");
+
         this.board = new Board("Captain Hook", boardPath);
         this.checker = new Checker(board);
-        //board.displayBoard();
         this.deck = new ProgramCardDeck();  // Deck of cards in the game
         players = new Player[totalPlayers];
         for (int i = 0; i < players.length; i++) {
@@ -90,11 +89,20 @@ public class RoboRallyGame {
 
     }
 
-    /**
-     * Atm just does actions.
-     * @param allProgramCards
-     */
-    public void postPick(List<List<ProgramCard>> allProgramCards) {
+
+    public void postPick(List<ProgramCard> pickedProgramCards){
+
+        List<List<ProgramCard>> allCards = new ArrayList<>();
+
+        for (ProgramCard currCard : pickedProgramCards){
+            List<ProgramCard> currcards = new ArrayList<ProgramCard>(){{add(currCard);}};
+            allCards.add(currcards);
+        }
+
+        this.executeCards(allCards);
+    }
+
+    public void executeCards(List<List<ProgramCard>> allProgramCards) {
 
         // All innermost actions: Actions that are do be executed in paralell.
         // One layer outside: all actions originating from ONE card, e.g MOVE 3.
@@ -103,32 +111,30 @@ public class RoboRallyGame {
 
         for(List<ProgramCard> onePhaseProgramCards : allProgramCards){
 
-            //onePhaseProgramCards.sort();
+            // Sorts all phase-cards.
+            Collections.sort(onePhaseProgramCards);
 
-            for(ProgramCard card: onePhaseProgramCards){
+            for(ProgramCard card: onePhaseProgramCards) {
 
                 // All the actions originating from ONE card.
-                List<List<PlayerAction>> temp = checker.doAction(card.getCardType().getAction(), currentPlayer);
+                List<List<PlayerAction>> cardActions = checker.doAction(card.getCardType().getAction(), currentPlayer);
 
                 System.out.println("Actions in actionList: ");
-                for(List<PlayerAction> tempBig : temp){
+                for (List<PlayerAction> tempBig : cardActions) {
                     System.out.println("----------");
-                    for(PlayerAction pa : tempBig){
+                    for (PlayerAction pa : tempBig) {
                         System.out.println("Player: " + pa.getPlayer().getName() + " Action: " + pa.getAction().getDescription());
                     }
 
                 }
 
-                allActions.add(temp);
+                allActions.add(cardActions);
 
-                //for testin purpuss
-                checker.checkForFlag(currentPlayer);
-                //System.out.println("FIRST ACTION IN QUEUE: " + playerActionQueue.getElement().getAction().getDescription());
+                // DO LASERSHOOTING AND CONVEYOR MOVING HERE
+
             }
+
         }
-
-
-
 
 
         this.guiScreen.getGUIBoard().doGUIActions(allActions);

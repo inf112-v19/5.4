@@ -2,7 +2,7 @@ package inf112.skeleton.app.gameLogic;
 
 import inf112.skeleton.app.gameLogic.enums.CardType;
 
-public class ProgramCard {
+public class ProgramCard implements Comparable<ProgramCard> {
     private CardType cardType;
     private int priority;
 
@@ -23,10 +23,20 @@ public class ProgramCard {
         return cardType.getDescription() + " " + priority;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+
+    @Override
     public int compareTo(ProgramCard otherCard){
-        if(this.priority > otherCard.priority) return 1;
+        Integer int1 = this.getPriority();
+        Integer int2 = otherCard.getPriority();
+        return int1.compareTo(int2);
+        /*if(this.priority > otherCard.priority) return 1;
         if(this.priority < otherCard.priority) return -1;
-        else                   return 0;
+        else                   return 0;*/
     }
 
 }
