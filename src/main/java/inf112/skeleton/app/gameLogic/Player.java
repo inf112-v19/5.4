@@ -34,29 +34,20 @@ public class Player implements IPlayer {
     private List<ProgramCard> playerRegister;
     private MovableGUIRobot robot;
     private RespawnPoint respawnPoint;
-    private PlayerActionWrapper playerActionQueue;
-
-    private Board board;
 
 
     /**
      * Constructs a player object with position, direction and health
      */
-    public Player(String name, Position pos, Direction dir, int health, Board board, PlayerActionWrapper playerActionQueue) {
+    public Player(String name, Position pos, Direction dir, int health) {
         this.name = name;
         this.pos = pos;
         this.facingDir = dir;
         this.health = health;
         this.maxHealth = health;
         this.damageTokens = 0;
-        this.board = board;
         this.robot = new MovableGUIRobot(1);
         this.respawnPoint = new RespawnPoint(pos, 1);
-        this.playerActionQueue = playerActionQueue;
-    }
-
-    public PlayerActionWrapper getPlayerActionQueue() {
-        return playerActionQueue;
     }
 
     @Override

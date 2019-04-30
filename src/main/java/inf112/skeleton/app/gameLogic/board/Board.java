@@ -103,9 +103,18 @@ public class Board implements IBoard {
     } */
 
     public ICell getCellAt(Position pos) {
-        //Byttet om disse, var board[pos.getX()][pos.getY()];
         return board[pos.getY()][pos.getX()];
     }
+
+    public boolean cellContainsClass(Position pos, Class piece) {
+        for(IPiece currPiece : getCellAt(pos).getPiecesInCell()){
+            if(currPiece.getClass() == piece){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public ICell getNextCell(Position pos, Direction dir) {
         ICell cell = new Cell();

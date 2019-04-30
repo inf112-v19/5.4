@@ -41,7 +41,6 @@ public class Checker {
         System.out.println("Dir: " + player.getDirection() + " Pre: " + player.getPos().getX() + " " + player.getPos().getY());
             if (canMove(playerMoveDir, board.getCellAt(player.getPos()), player, playerActions)) {
                 System.out.println("moving " + player.hashCode());
-                //playerActionSequence.add(Action.MOVE_1);
                 player.moveRobot(playerMoveDir, 1);
                 Position tempPos = player.getPos();
                 player.move(playerMoveDir);
@@ -72,7 +71,6 @@ public class Checker {
 
         // Checks if player goes outside board, and should die.
         if (!board.insideBoard(player.getPos(), goingDir)) {
-            //System.out.println("");
             player.die();
             return false;
         }
@@ -92,7 +90,6 @@ public class Checker {
             for (IPiece piece : piecesInNextCell) {
                 if (piece instanceof Player) {
                     Player otherPlayer = (Player) piece;
-                    //Checker checker = new Checker(otherPlayer, board, playerActionQueue);
                     if (canMove(goingDir, board.getNextCell(otherPlayer.getPos(), goingDir), otherPlayer, playerActions)) {
                         move(goingDir, otherPlayer, playerActions);
                         return true;
@@ -108,15 +105,11 @@ public class Checker {
 
     public void checkForFlag(Player player) {
         //checks if the players position is the same as the flag the player is looking for
-        //System.out.println("Looking for flag " + player.getRespawnPoint().getNextFlag());
-        System.out.println("Player: " + player.getPos() + " Flag: " + player.getRespawnPoint().getNextFlag() + " " + board.getFlags().getFlagPos(player.getRespawnPoint().nextFlag));
         if (player.getPos().equals(board.getFlags().getFlagPos(player.getRespawnPoint().nextFlag))) {
             System.out.println("Found flag " + player.getRespawnPoint().getNextFlag());
             SoundPlayer.GameSound.FLAG_PICKUP.playSound();
             if (player.getRespawnPoint().nextFlag == board.getFlags().getNumberOfFlags()) {
-                for (int i = 0; i < 10; i++) {
-                    System.out.println("GOT THE LAST FLAG!!! Flag: " + player.getRespawnPoint().getNextFlag());
-                }
+                System.out.println("GOT THE LAST FLAG!!! Flag: " + player.getRespawnPoint().getNextFlag());
             } else {
                 player.setNextFlag();
                 System.out.println("Next Flag is " + player.getRespawnPoint().getNextFlag());
@@ -124,5 +117,14 @@ public class Checker {
         }
     }
 
+    /**
+     * Checks if the cell contains the specified piece
+     * @param player
+     * @param piece
+     */
+
+    public boolean checkForPiece(Player player, Class piece) {
+        return board.cellContainsClass(player.getPos(), piece);
+    }
 
 }
