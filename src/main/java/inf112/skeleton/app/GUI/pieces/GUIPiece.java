@@ -9,8 +9,6 @@ public class GUIPiece extends Actor {
     public Sprite sprite;
     float rotation;
 
-    
-
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(sprite,getX(),getY(),getWidth()/2,getHeight()/2,getWidth(),getHeight(),getScaleX(),getScaleY(),rotation);
@@ -19,4 +17,6 @@ public class GUIPiece extends Actor {
     public void setRotation(float rot){
         this.rotation = rot;
     }
+
+    public Sprite getSprite(){return this.sprite;};
 }

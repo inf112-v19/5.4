@@ -221,6 +221,7 @@ public class GUIBoard extends Table {
     public void lightUpTile(int x, int y){
         //boardMap[y][x].setColor(Color.YELLOW);
         //boardMap[y][x].setColor(1,1,0,1);
+        System.out.println(y + " - " + x);
         boardMap[y][x].lightUpTile();
     }
 
