@@ -123,7 +123,7 @@ public class Checker {
      * @param piece
      */
 
-    public boolean checkForPiece(Player player, Class piece) {
+    public IPiece checkForPiece(Player player, Class piece) {
         return board.cellContainsClass(player.getPos(), piece);
     }
 

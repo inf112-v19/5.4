@@ -8,8 +8,13 @@ import inf112.skeleton.app.gameLogic.ProgramCardDeck;
 import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.board.IPiece;
 import inf112.skeleton.app.gameLogic.board.pieces.Conveyor;
+import inf112.skeleton.app.gameLogic.board.pieces.Gears;
+import inf112.skeleton.app.gameLogic.board.pieces.Hole;
+import inf112.skeleton.app.gameLogic.board.pieces.Laser;
+import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.enums.PiecesToCheckFor;
+import sun.awt.image.ImageWatched;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -108,10 +113,22 @@ public class RoboRallyGame {
 
             //for testin purpuss
             checker.checkForFlag(currentPlayer);
-            for (PiecesToCheckFor piece : PiecesToCheckFor.values()) {
-                if (checker.checkForPiece(currentPlayer, piece.getPieceClass())) {
-                    System.out.println("Pieces in cell " + piece.getPieceClass().getSimpleName());
-                }
+        }
+
+        //Ligger på heilt feil sted. man må iterere over spillere i postPlay()
+        LinkedList<LinkedList<PlayerAction>> boss = new LinkedList<>();
+        boss.add(new LinkedList<PlayerAction>());
+        for(IPiece piece : board.getCellAt(currentPlayer.getPos()).getPiecesInCell()){
+            if(piece instanceof Conveyor){
+                checker.move(piece.getPieceDirection(), currentPlayer, boss);
+                break;
+            }
+            if(piece instanceof Gears){
+                boss = checker.doAction(((Gears)piece).getAction(), currentPlayer);
+                break;
+            }
+            if(piece instanceof Laser){
+                //Sjekk antall laser i ruten ellerno
             }
         }
     }
@@ -123,6 +140,5 @@ public class RoboRallyGame {
     public Board getBoard() {
         return this.board;
     }
-
 
 }

@@ -106,13 +106,13 @@ public class Board implements IBoard {
         return board[pos.getY()][pos.getX()];
     }
 
-    public boolean cellContainsClass(Position pos, Class piece) {
+    public IPiece cellContainsClass(Position pos, Class piece) {
         for(IPiece currPiece : getCellAt(pos).getPiecesInCell()){
             if(currPiece.getClass() == piece){
-                return true;
+                return currPiece;
             }
         }
-        return false;
+        return null;
     }
 
 
