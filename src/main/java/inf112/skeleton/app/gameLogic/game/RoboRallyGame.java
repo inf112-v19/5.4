@@ -9,9 +9,7 @@ import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 public class RoboRallyGame {
 
@@ -124,6 +122,8 @@ public class RoboRallyGame {
             checker.checkForFlag(currentPlayer);
             //System.out.println("FIRST ACTION IN QUEUE: " + playerActionQueue.getElement().getAction().getDescription());
         }
+
+
 
         this.guiScreen.getGUIBoard().doGUIActions(allActions);
 

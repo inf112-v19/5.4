@@ -126,5 +126,16 @@ public class Checker {
         }
     }
 
+    private List<List<PlayerAction>> doPiecesMoves(Player player){
+        List<List<PlayerAction>> allActions = new LinkedList<>();
+        List<PlayerAction> moveActions = new LinkedList<>();
+        for(IPiece piece : board.getCellAt(player.getPos()).getPiecesInCell()){
+            if(piece instanceof Conveyor){
+                move(piece.getPieceDirection(), player, allActions, moveActions);
+            }
+        }
+        return allActions;
+    }
+
 
 }
