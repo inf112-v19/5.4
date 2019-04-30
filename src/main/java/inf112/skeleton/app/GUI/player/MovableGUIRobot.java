@@ -94,10 +94,12 @@ public class MovableGUIRobot extends GUIRobot {
     public com.badlogic.gdx.scenes.scene2d.Action getGUIAction(ActionType actionType, final Direction faceDir) {
         setOrigin(getWidth() / 2, getHeight() / 2);
 
+        ParallelAction parallelAction = new ParallelAction();
+
         switch (actionType) {
             case MOVE:
 
-                ParallelAction parallelAction = new ParallelAction();
+
 
                 parallelAction.addAction(new RunnableAction(){
                     @Override
@@ -132,29 +134,24 @@ public class MovableGUIRobot extends GUIRobot {
 
             case ROTATE:
 
-                System.out.println("rotating boys");
 
-                System.out.println(faceDir);
+                parallelAction.addAction(new RunnableAction(){
+                    @Override
+                    public void run() {
+                        SoundPlayer.GameSound.ROTATE.playSound();
+                    }
+                });
 
                 final Direction innerDir = faceDir;
 
-                System.out.println(faceDir);
-
-                SoundPlayer.GameSound.ROTATE.playSound();
-
-                return new RunnableAction(){
+                parallelAction.addAction(new RunnableAction(){
                     @Override
                     public void run() {
                         changeSprite(innerDir);
                     }
-                };
+                });
 
-
-                // Remove this lol
-                /*RotateByAction rotateByAction = new RotateByAction();
-                rotateByAction.setAmount(90f);
-                //MovableGUIRobot.this.addAction(rotateByAction);
-                return rotateByAction;*/
+                return parallelAction;
 
         }
         return null;

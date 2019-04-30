@@ -109,18 +109,22 @@ public class Board implements IBoard {
 
     public ICell getNextCell(Position pos, Direction dir) {
         ICell cell = new Cell();
+        int posX = pos.getX();
+        int posY = pos.getY();
+        System.out.println("yeehaw: " + posX + " -- " + posY);
         switch (dir) {
+
             case NORTH:
-                cell = board[pos.getY() - 1][pos.getX()];
+                cell = board[Math.max(posY - 1,0)][posX];
                 break;
             case SOUTH:
-                cell = board[pos.getY() + 1][pos.getX()];
+                cell = board[Math.min(posY + 1,board.length-1)][posX];
                 break;
             case EAST:
-                cell = board[pos.getY()][pos.getX() + 1];
+                cell = board[posY][Math.min(posX + 1, board[posY].length-1)];
                 break;
             case WEST:
-                cell = board[pos.getY()][pos.getX() - 1];
+                cell = board[posY][Math.max(posX - 1,0)];
                 break;
         }
         return cell;
