@@ -20,6 +20,7 @@ import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.game.RoboRallyGame;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainGameScreen implements Screen {
@@ -34,7 +35,7 @@ public class MainGameScreen implements Screen {
     Music music;
 
     RoboRallyGame roboRallyGame;
-    Player[] players;
+    List<Player> players;
 
     List<ProgramCard> pgCards;
     MovableGUIRobot currentMovableRobot;
@@ -79,16 +80,10 @@ public class MainGameScreen implements Screen {
 
         Gdx.input.setInputProcessor(stage);
 
-        piecesBoard.lightUpTile(0, 0);
-        piecesBoard.lightUpTile(1, 0);
-        piecesBoard.lightUpTile(2, 0);
-
-        piecesBoard.lightUpTile(6, 4);
-        piecesBoard.lightUpTile(7, 4);
-        piecesBoard.lightUpTile(4, 5);
-        piecesBoard.resetTileColor(0, 0);
-        //piecesBoard.lightUpTile(2,0);
-        //piecesBoard.lightUpTile(0,1);
+		piecesBoard.lightUpTile(0,0);
+		piecesBoard.resetTileColor(0,0);
+		//piecesBoard.lightUpTile(2,0);
+		//piecesBoard.lightUpTile(0,1);
 
         roboRallyGame.prePlay();
 
@@ -177,7 +172,7 @@ public class MainGameScreen implements Screen {
         boards.add(piecesBoard);
         boards.add(robotsBoard);
 
-        Stats stats = new Stats(skin, players[0]);
+        Stats stats = new Stats(skin, players.get(0));
 
         // Add everything to the main table.
         topBar.add().prefWidth(200);
@@ -227,9 +222,11 @@ public class MainGameScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
 
-                roboRallyGame.postPick(guiDeck.getPickedProgramCards());
-            }
-        });
+				List<ProgramCard> playerCards = guiDeck.getPickedProgramCards();
+
+				roboRallyGame.postPick(playerCards);
+			}
+		});
 
     }
 

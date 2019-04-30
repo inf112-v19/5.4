@@ -36,14 +36,18 @@ public class Checker {
                     allActions.add(moveActions);
                     break;
                 case ROTATE:
-                    player.rotate(att.getRotation());
-                    allActions.add(new LinkedList<PlayerAction>() {{
-                        add(new PlayerAction(player, att, player.getDirection()));
-                    }});
+                    allActions.add(this.rotate(player,att));
                     break;
             }
         }
         return allActions;
+    }
+
+    public List<PlayerAction> rotate(Player player, Action att){
+        player.rotate(att.getRotation());
+        return new LinkedList<PlayerAction>() {{
+            add(new PlayerAction(player, att, player.getDirection()));
+        }};
     }
 
     public void move(Direction playerMoveDir, Player player, List<List<PlayerAction>> allActions, List<PlayerAction> moveActions) {
@@ -123,16 +127,22 @@ public class Checker {
         }
     }
 
-    private List<List<PlayerAction>> doPiecesMoves(Player player) {
+    public List<List<PlayerAction>> doPiecesMoves(List<Player> players) {
         List<List<PlayerAction>> allActions = new LinkedList<>();
         List<PlayerAction> moveActions = new LinkedList<>();
-        for (IPiece piece : board.getCellAt(player.getPos()).getPiecesInCell()) {
-            if(piece instanceof Conveyor) {
-                move(piece.getPieceDirection(), player, allActions, moveActions);
+
+        for(Player player: players){
+            for (IPiece piece : board.getCellAt(player.getPos()).getPiecesInCell()) {
+                if(piece instanceof Conveyor) {
+                    move(piece.getPieceDirection(), player, allActions, moveActions);
+                    allActions.add(moveActions);
+                }
+                if(piece instanceof Gears){
+                    allActions.add(this.rotate(player, ((Gears) piece).getAction()));
+                    //doAction(((Gears)piece).getAction(), player);
+                }
             }
-            if(piece instanceof Gears){
-                allActions = doAction(((Gears)piece).getAction(), player);
-            }
+
         }
         return allActions;
     }
