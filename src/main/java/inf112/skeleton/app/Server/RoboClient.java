@@ -1,4 +1,4 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.Server;
 
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
@@ -12,12 +12,9 @@ import java.net.Socket;
 public class RoboClient {
 
     private ProgramCardDeck clientDeck;
-    private Board clientBoard;
-    private Player clientPlayer;
     private Socket roboClient;
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
-
 
     /**
      * Constructor for opening a client and connecting it to a server
@@ -30,7 +27,6 @@ public class RoboClient {
             roboClient = new Socket(ip, port);
             System.out.println("Connection accepted! Do some shit.");
 
-
             ois = new ObjectInputStream(roboClient.getInputStream());
             oos = new ObjectOutputStream(roboClient.getOutputStream());
             //Board clientBoard = new Board("nutBoard", "DankBoard.json");
@@ -40,23 +36,17 @@ public class RoboClient {
             while (!gameOver) {
                 // Receive deck and board from server
                 clientDeck = (ProgramCardDeck) ois.readObject();
-                clientBoard = (Board) ois.readObject();
-                System.out.println(clientBoard);
                 System.out.println(clientDeck);
 
                 Boolean roundOver = false;
                 while (!roundOver) {
                     oos.writeObject(clientDeck);
-                    oos.writeObject(clientBoard);
                     roundOver = true;
                 }
+                gameOver = true;
             }
-
-            //out.writeUTF("Schmell from client");
-
-
-            //System.out.println("The server sends " + in.readUTF());
-            //roboClient.close();
+            ois.close();
+            oos.close();
         }
         catch (IOException e) {
             System.out.println(e);
