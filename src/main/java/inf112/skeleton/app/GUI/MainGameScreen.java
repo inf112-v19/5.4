@@ -35,7 +35,7 @@ public class MainGameScreen implements Screen {
     Music music;
 
     RoboRallyGame roboRallyGame;
-    Player[] players;
+    List<Player> players;
 
     List<ProgramCard> pgCards;
     MovableGUIRobot currentMovableRobot;
@@ -172,7 +172,7 @@ public class MainGameScreen implements Screen {
         boards.add(piecesBoard);
         boards.add(robotsBoard);
 
-        Stats stats = new Stats(skin, players[0]);
+        Stats stats = new Stats(skin, players.get(0));
 
         // Add everything to the main table.
         topBar.add().prefWidth(200);

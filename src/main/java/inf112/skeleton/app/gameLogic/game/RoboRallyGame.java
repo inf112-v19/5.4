@@ -18,7 +18,7 @@ public class RoboRallyGame {
     MainGameScreen guiScreen;
 
     private int totalPlayers = 3;   // Total players in the game
-    private Player[] players;       // Players in the game
+    private List<Player> players;       // Players in the game
     private int startHealth = 3;
     private String boardPath = "FlagBoard.json";
 
@@ -38,21 +38,21 @@ public class RoboRallyGame {
         this.board = new Board("Captain Hook", boardPath);
         this.checker = new Checker(board);
         this.deck = new ProgramCardDeck();  // Deck of cards in the game
-        players = new Player[totalPlayers];
-        for (int i = 0; i < players.length; i++) {
+        players = new ArrayList<Player>();
+        for (int i = 0; i < totalPlayers; i++) {
             Position position = new Position(i + 5, 7);
             //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
-            players[i] = new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, playerActionQueue);
-            board.addPiece(position, players[i]);
+            players.add(new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, playerActionQueue));
+            board.addPiece(position, players.get(i));
             System.out.println("player made!!");
-            System.out.println(players[i].getPos().getX() + " " + players[i].getPos().getY());
+            System.out.println(players.get(i).getPos().getX() + " " + players.get(i).getPos().getY());
         }
         playGame();
     }
 
     public void playGame() {
         this.deck.shuffleDeck();
-        this.currentPlayer = players[0];
+        this.currentPlayer = players.get(0);
 //        for (Player currentPlayer : players) {
 //            this.currentPlayer = currentPlayer;
 //        }
@@ -130,6 +130,10 @@ public class RoboRallyGame {
 
                 allActions.add(cardActions);
 
+                // Coneyors lol
+                allActions.add(checker.doPiecesMoves(players));
+
+
                 // DO LASERSHOOTING AND CONVEYOR MOVING HERE
 
             }
@@ -140,7 +144,7 @@ public class RoboRallyGame {
         this.guiScreen.getGUIBoard().doGUIActions(allActions);
     }
 
-    public Player[] getPlayers() {
+    public List<Player> getPlayers() {
         return this.players;
     }
 

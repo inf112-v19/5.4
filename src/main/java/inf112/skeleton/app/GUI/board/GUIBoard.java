@@ -136,7 +136,7 @@ public class GUIBoard extends Table {
      *
      * @param players
      */
-    public void addPlayers(Player[] players) {
+    public void addPlayers(List<Player> players) {
         for (Player currPlayer : players) {
             System.out.println("Added guiplayer at " + currPlayer.getPos().toString());
             this.addGUIPiece(currPlayer.getPos().getX(), currPlayer.getPos().getY(), currPlayer.getRobot());
