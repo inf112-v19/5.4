@@ -2,15 +2,15 @@ package inf112.skeleton.app.gameLogic.board.pieces;
 
 import inf112.skeleton.app.GUI.pieces.BaseAsset;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
-import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.board.IPiece;
+import inf112.skeleton.app.gameLogic.enums.Direction;
 
 public class LaserShooter implements IPiece {
 
     private Direction direction;
     private int damage;
 
-    public LaserShooter(Direction dir, int damage){
+    public LaserShooter(Direction dir, int damage) {
         this.direction = dir;
         this.damage = damage;
     }

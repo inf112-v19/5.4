@@ -4,7 +4,7 @@ import java.net.Socket;
 
 public class RoboClient {
 
-    public void tryConnection (String ip, int port) throws Exception {
+    public void tryConnection(String ip, int port) throws Exception {
 
         try (Socket roboClient = new Socket(ip, port)) {
 

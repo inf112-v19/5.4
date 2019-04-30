@@ -17,7 +17,7 @@ public class GUIMain extends Game {
         setScreen(new LoadScreen(this));
     }
 
-    public void render(){
+    public void render() {
         super.render();
     }
 }

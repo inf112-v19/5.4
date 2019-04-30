@@ -41,7 +41,7 @@ public class RoboRallyGame {
         this.deck = new ProgramCardDeck();  // Deck of cards in the game
         players = new Player[totalPlayers];
         for (int i = 0; i < players.length; i++) {
-            Position position = new Position(i+5, 7);
+            Position position = new Position(i + 5, 7);
             //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
             players[i] = new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, playerActionQueue);
             board.addPiece(position, players[i]);
@@ -51,7 +51,7 @@ public class RoboRallyGame {
         playGame();
     }
 
-    public void playGame(){
+    public void playGame() {
         this.deck.shuffleDeck();
         this.currentPlayer = players[0];
 //        for (Player currentPlayer : players) {
@@ -92,25 +92,24 @@ public class RoboRallyGame {
 
     /**
      * Atm just does actions.
+     *
      * @param pickedProgramCards
      */
     public void postPick(List<ProgramCard> pickedProgramCards) {
-
         // All innermost actions: Actions that are do be executed in paralell.
         // One layer outside: all actions originating from ONE card, e.g MOVE 3.
         // Outermost layer: all the actions from all the cards.
         List<List<List<PlayerAction>>> allActions = new ArrayList<>();
 
-        for(ProgramCard card: pickedProgramCards){
+        for (ProgramCard card : pickedProgramCards) {
 
             // All the actions originating from ONE card.
             List<List<PlayerAction>> temp = checker.doAction(card.getCardType().getAction(), currentPlayer);
 
-
             System.out.println("Actions in actionList: ");
-            for(List<PlayerAction> tempBig : temp){
+            for (List<PlayerAction> tempBig : temp) {
                 System.out.println("----------");
-                for(PlayerAction pa : tempBig){
+                for (PlayerAction pa : tempBig) {
                     System.out.println("Player: " + pa.getPlayer().getName() + " Action: " + pa.getAction().getDescription());
                 }
 
@@ -120,19 +119,17 @@ public class RoboRallyGame {
 
             //for testin purpuss
             checker.checkForFlag(currentPlayer);
-            //System.out.println("FIRST ACTION IN QUEUE: " + playerActionQueue.getElement().getAction().getDescription());
         }
-
-
-
         this.guiScreen.getGUIBoard().doGUIActions(allActions);
-
     }
 
-    public Player[] getPlayers(){
+    public Player[] getPlayers() {
         return this.players;
     }
-    public Board getBoard(){return this.board;}
+
+    public Board getBoard() {
+        return this.board;
+    }
 
 
 }

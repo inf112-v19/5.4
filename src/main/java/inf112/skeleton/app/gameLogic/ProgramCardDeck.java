@@ -32,12 +32,14 @@ public class ProgramCardDeck {
         deck.clear();
         int priority = 0;
         // Goes through the different CardTypes
-        for(CardType cardType : CardType.values()){
+        for (CardType cardType : CardType.values()) {
             //Skips ROTATE_RIGHT as these cards are added in ROTATE_LEFT
-            if(cardType.equals(CardType.ROTATE_RIGHT)){ continue; }
-            for(int i = 0; i < cardType.getNumberOfCard(); i++){
+            if (cardType.equals(CardType.ROTATE_RIGHT)) {
+                continue;
+            }
+            for (int i = 0; i < cardType.getNumberOfCard(); i++) {
                 //This is done so that you get every other ROTATE_LEFT and _RIGHT
-                if(cardType.equals(CardType.ROTATE_LEFT)){
+                if (cardType.equals(CardType.ROTATE_LEFT)) {
                     deck.add(new ProgramCard(CardType.ROTATE_LEFT, priority += 10));
                     deck.add(new ProgramCard(CardType.ROTATE_RIGHT, priority += 10));
                 } else {
@@ -49,6 +51,7 @@ public class ProgramCardDeck {
 
     /**
      * Returns the number of cards left in the deck
+     *
      * @return int
      */
     public int numCardsLeftInDeck() {
@@ -57,6 +60,7 @@ public class ProgramCardDeck {
 
     /**
      * Returns the whole deck as a list
+     *
      * @return List ProgramCard
      */
     public List<ProgramCard> getDeck() {
@@ -65,6 +69,7 @@ public class ProgramCardDeck {
 
     /**
      * Returns true if the deck is empty
+     *
      * @return true if empty
      */
     private boolean isEmpty() {
@@ -73,6 +78,7 @@ public class ProgramCardDeck {
 
     /**
      * Pops the card at the top of the stack and returns it
+     *
      * @return ProgramCard
      */
     public ProgramCard getTopCard() {
@@ -81,6 +87,7 @@ public class ProgramCardDeck {
 
     /**
      * Returns a specified number of cards as a list
+     *
      * @param numberOfCards int
      * @return List of ProgramCard
      */
@@ -94,6 +101,7 @@ public class ProgramCardDeck {
 
     /**
      * toString representation of the cards in the deck
+     *
      * @return String toString
      */
     public String toString() {

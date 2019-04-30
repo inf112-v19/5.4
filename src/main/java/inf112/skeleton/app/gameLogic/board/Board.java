@@ -1,10 +1,8 @@
 package inf112.skeleton.app.gameLogic.board;
 
 import inf112.skeleton.app.GUI.player.Position;
-import inf112.skeleton.app.gameLogic.board.pieces.Wall;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.game.FlagOrganizer;
-import javafx.geometry.Pos;
 
 public class Board implements IBoard {
 
@@ -26,10 +24,6 @@ public class Board implements IBoard {
         // Again, assuming it's square. Might break in the future.
         boardHeight = board.length;
         boardWidth = board[0].length;
-    }
-
-    public void generateBoard() {
-
     }
 
     public FlagOrganizer getFlags() {
@@ -74,10 +68,11 @@ public class Board implements IBoard {
         return board[y][x];
     }
 
-    public void addPiece(int x, int y, IPiece piece){
+    public void addPiece(int x, int y, IPiece piece) {
         board[y][x].addPiece(piece);
     }
-    public void addPiece(Position pos, IPiece piece){
+
+    public void addPiece(Position pos, IPiece piece) {
         this.addPiece(pos.getX(), pos.getY(), piece);
     }
 
@@ -86,8 +81,8 @@ public class Board implements IBoard {
     }
 
     public IPiece cellContainsClass(Position pos, Class piece) {
-        for(IPiece currPiece : getCellAt(pos).getPiecesInCell()){
-            if(currPiece.getClass() == piece){
+        for (IPiece currPiece : getCellAt(pos).getPiecesInCell()) {
+            if (currPiece.getClass() == piece) {
                 return currPiece;
             }
         }
@@ -103,51 +98,51 @@ public class Board implements IBoard {
         switch (dir) {
 
             case NORTH:
-                cell = board[Math.max(posY - 1,0)][posX];
+                cell = board[Math.max(posY - 1, 0)][posX];
                 break;
             case SOUTH:
-                cell = board[Math.min(posY + 1,board.length-1)][posX];
+                cell = board[Math.min(posY + 1, board.length - 1)][posX];
                 break;
             case EAST:
-                cell = board[posY][Math.min(posX + 1, board[posY].length-1)];
+                cell = board[posY][Math.min(posX + 1, board[posY].length - 1)];
                 break;
             case WEST:
-                cell = board[posY][Math.max(posX - 1,0)];
+                cell = board[posY][Math.max(posX - 1, 0)];
                 break;
         }
         return cell;
     }
 
-    public boolean containsPieceDir(Position pos, Direction dir, Class piece){
-        for(IPiece currCell : this.getCellAt(pos).getPiecesInCell()){
-            if(currCell.getPieceDirection().equals(dir) && currCell.getClass().isInstance(piece)){
+    public boolean containsPieceDir(Position pos, Direction dir, Class piece) {
+        for (IPiece currCell : this.getCellAt(pos).getPiecesInCell()) {
+            if (currCell.getPieceDirection().equals(dir) && currCell.getClass().isInstance(piece)) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean cointainsPiece(Position pos, IPiece piece){
+    public boolean cointainsPiece(Position pos, IPiece piece) {
         return this.getCellAt(pos).getPiecesInCell().contains(piece);
     }
 
-    public boolean insideBoard(Position playerPos, Direction playerDir){
+    public boolean insideBoard(Position playerPos, Direction playerDir) {
         Position posAfterMove = playerPos.changePos(playerDir);
         System.out.println("Pos after theoretical move " + posAfterMove.toString());
-        if(posAfterMove.getY() >= boardHeight || posAfterMove.getY() < 0){
+        if (posAfterMove.getY() >= boardHeight || posAfterMove.getY() < 0) {
             return false;
         }
-        if (posAfterMove.getX() >= boardWidth || posAfterMove.getX() < 0){
+        if (posAfterMove.getX() >= boardWidth || posAfterMove.getX() < 0) {
             return false;
         }
         return true;
     }
 
-    public int getBoardWidth(){
+    public int getBoardWidth() {
         return boardWidth;
     }
 
-    public int getBoardHeight(){
+    public int getBoardHeight() {
         return boardHeight;
     }
 

@@ -2,28 +2,25 @@ package inf112.skeleton.app.GUI.board;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import inf112.skeleton.app.gameLogic.board.IPiece;
-import inf112.skeleton.app.gameLogic.board.pieces.Flag;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 public class SoundPlayer {
 
-    public enum SoundOrMusic{
+    public enum SoundOrMusic {
         MUSIC("music"),
         SOUND("sounds");
         String path;
+
         SoundOrMusic(String path) {
             this.path = path;
         }
     }
 
-    public enum GameSound{
+    public enum GameSound {
 
         FLAG_PICKUP("flag_pickup", SoundOrMusic.SOUND),
-        MOVE("move",SoundOrMusic.SOUND, 0.5f),
+        MOVE("move", SoundOrMusic.SOUND, 0.5f),
         ROTATE("rotate", SoundOrMusic.SOUND);
 
 
@@ -34,7 +31,7 @@ public class SoundPlayer {
         private float pitch;
         private float pan;
 
-        GameSound(String soundPath,SoundOrMusic som, float pitch) {
+        GameSound(String soundPath, SoundOrMusic som, float pitch) {
             this.namePath = soundPath;
             this.som = som;
 
@@ -43,7 +40,7 @@ public class SoundPlayer {
             this.pan = 1f;
         }
 
-        GameSound(String soundPath,SoundOrMusic som) {
+        GameSound(String soundPath, SoundOrMusic som) {
             this.namePath = soundPath;
             this.som = som;
             this.volume = 1f;
@@ -52,22 +49,21 @@ public class SoundPlayer {
         }
 
         //
-        public void playSound(){
+        public void playSound() {
 
             String audioPath =
                     "audio" +
-                    File.separator +
-                    som.path +
-                    File.separator +
-                    namePath+
-                    ".mp3";
+                            File.separator +
+                            som.path +
+                            File.separator +
+                            namePath +
+                            ".mp3";
 
             Sound playSound = Gdx.audio.newSound(Gdx.files.internal(audioPath));
-            playSound.play(volume,pitch,pan);
+            playSound.play(volume, pitch, pan);
         }
 
     }
-
 
 
 }
