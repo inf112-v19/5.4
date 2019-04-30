@@ -10,8 +10,6 @@ public class Main {
         //new GUIBoard("Gooblepoops", "C:\\Users\\Morten\\Desktop\\UiB\\INF112\\First Oblig\\TestBoard.json").displayBoard();
 
 
-        RoboClient roboClient = new RoboClient("localhost", 8000);
-
 
 
         /**

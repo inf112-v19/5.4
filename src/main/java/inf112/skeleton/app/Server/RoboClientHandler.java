@@ -28,34 +28,25 @@ public class RoboClientHandler extends Thread {
         while (true)
         {
             try {
-                Boolean gameOver = false;
-                while (!gameOver) {
-                    // Write server board to client(s)
-                    oos.writeObject(serverDeck);
+                    System.out.println("Message from client: " + ois.readObject());
 
-                    Boolean roundOver = false;
-                    while (!roundOver) {
 
-                        serverDeck = (ProgramCardDeck) ois.readObject();
+                    //oos.writeObject(serverDeck);
+                    //serverDeck = (ProgramCardDeck)ois.readObject();
 
-                        System.out.println(serverDeck);
-                        roundOver = true;
-                    }
-                    gameOver = true;
-                }
-            } catch (IOException e) {
+                    //System.out.println("Deck:" + serverDeck);
+                } catch (IOException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-            /**
             try {
                 this.ois.close();
                 this.oos.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-             */
+            break;
         }
     }
 }

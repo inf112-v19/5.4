@@ -8,50 +8,36 @@ import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class RoboClient {
 
-    private ProgramCardDeck clientDeck;
-    private Socket roboClient;
-    private ObjectInputStream ois;
-    private ObjectOutputStream oos;
-
-    /**
-     * Constructor for opening a client and connecting it to a server
-     * @param ip The IP you want to connect to e.g "localhost"
-     * @param port The port you want to connect to e.g 8000
-     */
-    public RoboClient( String ip, int port){
+    //private ProgramCardDeck clientDeck;
+    //private Socket roboClient;
+    //private ObjectInputStream ois;
+    //private ObjectOutputStream oos;
+    public static void main(String[] args) throws IOException
+    {
         try {
-            System.out.println("Attempting connection to " + ip + " on port " + port);
-            roboClient = new Socket(ip, port);
+            //System.out.println("Attempting connection to " + ip + " on port " + port);
+            Socket roboClient = new Socket("localhost", 8000);
             System.out.println("Connection accepted! Do some shit.");
 
-            ois = new ObjectInputStream(roboClient.getInputStream());
-            oos = new ObjectOutputStream(roboClient.getOutputStream());
-            //Board clientBoard = new Board("nutBoard", "DankBoard.json");
+            ObjectInputStream ois = new ObjectInputStream(roboClient.getInputStream());
+            ObjectOutputStream oos = new ObjectOutputStream(roboClient.getOutputStream());
+            Scanner scn = new Scanner(System.in);
 
-            Boolean gameOver = false;
+            String message = scn.nextLine();
 
-            while (!gameOver) {
-                // Receive deck and board from server
-                clientDeck = (ProgramCardDeck) ois.readObject();
-                System.out.println(clientDeck);
-
-                Boolean roundOver = false;
-                while (!roundOver) {
-                    oos.writeObject(clientDeck);
-                    roundOver = true;
-                }
-                gameOver = true;
-            }
-            ois.close();
-            oos.close();
+            oos.writeObject(message);
+            //ProgramCardDeck clientDeck = (ProgramCardDeck) ois.readObject();
+            //System.out.println(clientDeck);
+            //oos.writeObject(clientDeck);
         }
         catch (IOException e) {
             System.out.println(e);
-        } catch (ClassNotFoundException e) {
+        }/** catch (ClassNotFoundException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }
