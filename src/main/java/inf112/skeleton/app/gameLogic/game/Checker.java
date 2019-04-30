@@ -136,7 +136,10 @@ public class Checker {
         List<Player> copyPlayersList = new ArrayList<>(players);
         for(Player player: copyPlayersList){
             System.out.println(player);
-            for (IPiece piece : board.getCellAt(player.getPos()).getPiecesInCell()) {
+            List<IPiece> pieces = board.getCellAt(player.getPos()).getPiecesInCell();
+            List<IPiece> copyPieceList = new ArrayList<>(pieces);
+            for (IPiece piece : copyPieceList) {
+
                 if(piece instanceof Conveyor) {
                     move(piece.getPieceDirection(), player, allActions, moveActions);
                     allActions.add(moveActions);
