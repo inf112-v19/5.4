@@ -44,7 +44,7 @@ public class MainGameScreen implements Screen {
 
     public MainGameScreen() {
 
-        SoundPlayer.GameSound.PLAY_MUSIC.playSound();
+        //SoundPlayer.GameSound.PLAY_MUSIC.playSound();
 
         // Main stage
         camera = new OrthographicCamera();
