@@ -22,4 +22,11 @@ public class ProgramCard {
     public String toString(){
         return cardType.getDescription() + " " + priority;
     }
+
+    public int compareTo(ProgramCard otherCard){
+        if(this.priority > otherCard.priority) return 1;
+        if(this.priority < otherCard.priority) return -1;
+        else                   return 0;
+    }
+
 }

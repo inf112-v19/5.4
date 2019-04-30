@@ -81,31 +81,19 @@ public class Board implements IBoard {
         this.addPiece(pos.getX(), pos.getY(), piece);
     }
 
-    /*
-    public ICell getNextCell(int x, int y, Direction dir) {
-
-        ICell cell = new Cell();
-        switch (dir) {
-            case NORTH:
-                cell = board[x][y + 1];
-                break;
-            case SOUTH:
-                cell = board[x][y - 1];
-                break;
-            case EAST:
-                cell = board[x + 1][y];
-                break;
-            case WEST:
-                cell = board[x - 1][y];
-                break;
-        }
-        return cell;
-    } */
-
     public ICell getCellAt(Position pos) {
-        //Byttet om disse, var board[pos.getX()][pos.getY()];
         return board[pos.getY()][pos.getX()];
     }
+
+    public IPiece cellContainsClass(Position pos, Class piece) {
+        for(IPiece currPiece : getCellAt(pos).getPiecesInCell()){
+            if(currPiece.getClass() == piece){
+                return currPiece;
+            }
+        }
+        return null;
+    }
+
 
     public ICell getNextCell(Position pos, Direction dir) {
         ICell cell = new Cell();
