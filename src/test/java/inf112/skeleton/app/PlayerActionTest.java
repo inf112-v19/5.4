@@ -38,14 +38,14 @@ public class PlayerActionTest extends GameTest {
         System.out.println(new File("DankBoard.json").getAbsoluteFile());
         //new LwjglApplication(new GUIMain());
         game = new TestGame();
-        player = new Player("1", new Position(7, 7), Direction.NORTH, 3);
+        player = new Player("1", new Position(7, 7), Direction.NORTH, 3, game.getGUIplayeractionList());
         playerActionQueue = new PlayerActionWrapper();
     }
 
     @Test
     public void testActionPlayerGetsADamageToken() {
         assertEquals(0, player.getDamageTokens());
-        PlayerAction playerAction = new PlayerAction(player, Action.DAMAGE_1);
+        PlayerAction playerAction = new PlayerAction(player, Action.DAMAGE_1, player.getDirection());
         game.addActionToList(playerAction);
         game.doAllActions();
         assertEquals(1, player.getDamageTokens());
@@ -54,7 +54,7 @@ public class PlayerActionTest extends GameTest {
     @Test
     public void testActionTurnLeft() {
         assertEquals(Direction.NORTH, player.getDirection());
-        PlayerAction playerAction = new PlayerAction(player, Action.ROTATE_L);
+        PlayerAction playerAction = new PlayerAction(player, Action.ROTATE_L, player.getDirection());
         game.addActionToList(playerAction);
         game.doAllActions();
         assertEquals(Direction.WEST, player.getDirection());
@@ -63,7 +63,7 @@ public class PlayerActionTest extends GameTest {
     @Test
     public void testActionTurnRight() {
         assertEquals(Direction.NORTH, player.getDirection());
-        PlayerAction playerAction = new PlayerAction(player, Action.ROTATE_R);
+        PlayerAction playerAction = new PlayerAction(player, Action.ROTATE_R, player.getDirection());
         game.addActionToList(playerAction);
         game.doAllActions();
         assertEquals(Direction.EAST, player.getDirection());
@@ -72,7 +72,7 @@ public class PlayerActionTest extends GameTest {
     @Test
     public void testActionTurnU() {
         assertEquals(Direction.NORTH, player.getDirection());
-        PlayerAction playerAction = new PlayerAction(player, Action.ROTATE_U);
+        PlayerAction playerAction = new PlayerAction(player, Action.ROTATE_U, player.getDirection());
         game.addActionToList(playerAction);
         game.doAllActions();
         assertEquals(Direction.SOUTH, player.getDirection());
@@ -83,7 +83,7 @@ public class PlayerActionTest extends GameTest {
         ProgramCardDeck deck = new ProgramCardDeck();
         for (int i = 0; i < 2; i++) {
             ProgramCard tempCard = deck.getTopCard();
-            PlayerAction playerAction = new PlayerAction(player, tempCard.getCardType().getAction());
+            PlayerAction playerAction = new PlayerAction(player, tempCard.getCardType().getAction(), player.getDirection());
             game.addActionToList(playerAction);
         }
 
@@ -96,7 +96,7 @@ public class PlayerActionTest extends GameTest {
 
     @Test
     public void testTwoPlayersMoving() {
-        Player player2 = new Player("2", new Position(6, 6), Direction.NORTH, 3);
+        Player player2 = new Player("2", new Position(6, 6), Direction.NORTH, 3, game.getGUIplayeractionList());
         ProgramCardDeck deck = new ProgramCardDeck();
         int cardsForPlayer = 2;
         game.addPlayerToList(player);
@@ -106,7 +106,7 @@ public class PlayerActionTest extends GameTest {
             for (int i = 0; i < cardsForPlayer; i++) {
                 ProgramCard tempCard = deck.getTopCard();
                 System.out.println(tempCard.toString());
-                PlayerAction playerAction = new PlayerAction(currPlayer, tempCard.getCardType().getAction());
+                PlayerAction playerAction = new PlayerAction(currPlayer, tempCard.getCardType().getAction(), player.getDirection());
                 game.addActionToList(playerAction);
             }
         }
@@ -124,7 +124,7 @@ public class PlayerActionTest extends GameTest {
 
     @Test
     public void testStoppingOnFlagChangesNextFlag() {
-        player = new Player("1", new Position(0, 7), Direction.NORTH, 3);
+        player = new Player("1", new Position(0, 7), Direction.NORTH, 3, game.getGUIplayeractionList());
         assertEquals(1, player.getRespawnPoint().getNextFlag());
         //PlayerAction playerAction = new PlayerAction(player, Action.MOVE_1);
 
@@ -137,7 +137,7 @@ public class PlayerActionTest extends GameTest {
 
     @Test
     public void testStoppingOnLastFlag() {
-        player = new Player("1", new Position(0, 7), Direction.NORTH, 3);
+        player = new Player("1", new Position(0, 7), Direction.NORTH, 3, game.getGUIplayeractionList());
         assertEquals(1, player.getRespawnPoint().getNextFlag());
         //PlayerAction playerAction = new PlayerAction(player, Action.MOVE_1);
         Queue<PlayerAction> playerActionQueue = new LinkedList<>();

@@ -6,16 +6,9 @@ import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.ProgramCardDeck;
 import inf112.skeleton.app.gameLogic.board.Board;
-import inf112.skeleton.app.gameLogic.board.IPiece;
-import inf112.skeleton.app.gameLogic.board.pieces.Conveyor;
-import inf112.skeleton.app.gameLogic.board.pieces.Gears;
-import inf112.skeleton.app.gameLogic.board.pieces.Hole;
-import inf112.skeleton.app.gameLogic.board.pieces.Laser;
-import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
-import inf112.skeleton.app.gameLogic.enums.PiecesToCheckFor;
-import sun.awt.image.ImageWatched;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -39,14 +32,20 @@ public class RoboRallyGame {
     private PlayerActionWrapper playerActionQueue;
 
     public RoboRallyGame(MainGameScreen guiScreen) {
+        this.playerActionQueue = new PlayerActionWrapper();
+
         this.guiScreen = guiScreen;
+        //Testing with FlagBoard
+        //this.board = new Board("Captain Hook", "DankBoard.json");
         this.board = new Board("Captain Hook", boardPath);
         this.checker = new Checker(board);
+        //board.displayBoard();
         this.deck = new ProgramCardDeck();  // Deck of cards in the game
         players = new Player[totalPlayers];
         for (int i = 0; i < players.length; i++) {
-            Position position = new Position(i + 5, 7);
-            players[i] = new Player(Integer.toString(i), position, Direction.SOUTH, startHealth);
+            Position position = new Position(i+5, 7);
+            //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
+            players[i] = new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, playerActionQueue);
             board.addPiece(position, players[i]);
             System.out.println("player made!!");
             System.out.println(players[i].getPos().getX() + " " + players[i].getPos().getY());
@@ -54,7 +53,7 @@ public class RoboRallyGame {
         playGame();
     }
 
-    public void playGame() {
+    public void playGame(){
         this.deck.shuffleDeck();
         this.currentPlayer = players[0];
 //        for (Player currentPlayer : players) {
@@ -95,50 +94,45 @@ public class RoboRallyGame {
 
     /**
      * Atm just does actions.
-     *
      * @param pickedProgramCards
      */
     public void postPick(List<ProgramCard> pickedProgramCards) {
-        for (ProgramCard card : pickedProgramCards) {
 
-            LinkedList<LinkedList<PlayerAction>> temp = checker.doAction(card.getCardType().getAction(), currentPlayer);
+        // All innermost actions: Actions that are do be executed in paralell.
+        // One layer outside: all actions originating from ONE card, e.g MOVE 3.
+        // Outermost layer: all the actions from all the cards.
+        List<List<List<PlayerAction>>> allActions = new ArrayList<>();
+
+        for(ProgramCard card: pickedProgramCards){
+
+            // All the actions originating from ONE card.
+            List<List<PlayerAction>> temp = checker.doAction(card.getCardType().getAction(), currentPlayer);
+
+
             System.out.println("Actions in actionList: ");
-            for (LinkedList<PlayerAction> tempBig : temp) {
+            for(List<PlayerAction> tempBig : temp){
                 System.out.println("----------");
-                for (PlayerAction pa : tempBig) {
+                for(PlayerAction pa : tempBig){
                     System.out.println("Player: " + pa.getPlayer().getName() + " Action: " + pa.getAction().getDescription());
                 }
 
             }
 
+            allActions.add(temp);
+
             //for testin purpuss
             checker.checkForFlag(currentPlayer);
+            //System.out.println("FIRST ACTION IN QUEUE: " + playerActionQueue.getElement().getAction().getDescription());
         }
 
-        //Ligger på heilt feil sted. man må iterere over spillere i postPlay()
-        LinkedList<LinkedList<PlayerAction>> boss = new LinkedList<>();
-        boss.add(new LinkedList<PlayerAction>());
-        for(IPiece piece : board.getCellAt(currentPlayer.getPos()).getPiecesInCell()){
-            if(piece instanceof Conveyor){
-                checker.move(piece.getPieceDirection(), currentPlayer, boss);
-                break;
-            }
-            if(piece instanceof Gears){
-                boss = checker.doAction(((Gears)piece).getAction(), currentPlayer);
-                break;
-            }
-            if(piece instanceof Laser){
-                //Sjekk antall laser i ruten ellerno
-            }
-        }
+        this.guiScreen.getGUIBoard().doGUIActions(allActions);
+
     }
 
-    public Player[] getPlayers() {
+    public Player[] getPlayers(){
         return this.players;
     }
+    public Board getBoard(){return this.board;}
 
-    public Board getBoard() {
-        return this.board;
-    }
 
 }

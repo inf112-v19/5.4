@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -17,7 +18,6 @@ import inf112.skeleton.app.GUI.cards.GUIDeck;
 import inf112.skeleton.app.GUI.player.MovableGUIRobot;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.ProgramCard;
-import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.game.RoboRallyGame;
 
 import java.util.List;
@@ -25,6 +25,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class MainGameScreen implements Screen {
+	private GUIBoard piecesBoard;
+	private GUIBoard robotsBoard;
+
 	private Stage stage;
 	private Skin skin;
 	OrthographicCamera camera;
@@ -42,13 +45,15 @@ public class MainGameScreen implements Screen {
 
 	public MainGameScreen(){
 
-		playMusic();
+		//playMusic();
 
 		// Main stage
 		camera = new OrthographicCamera();
 
         viewport = new ExtendViewport(1200, 1200, camera);
 		stage = new Stage(viewport);
+
+
 
 		// Main skin
 		skin = new Skin(Gdx.files.internal("rusty-robot/skin/rusty-robot-ui.json"));
@@ -61,12 +66,34 @@ public class MainGameScreen implements Screen {
 		// Get the players from the game.
         this.players = roboRallyGame.getPlayers();
 
+		this.piecesBoard = new GUIBoard(this.roboRallyGame.getBoard());
+		this.robotsBoard = new GUIBoard(this.roboRallyGame.getBoard());
+		this.robotsBoard.makeBoardInvisible();
+		//piecesBoard.addPlayers(players);
+
+
 		roboRallyGame.playGame();
 
 		addPiecesTest();
+
+		//this.addPlayers(players);
+		robotsBoard.addPlayers(players);
+
 		Gdx.input.setInputProcessor(stage);
 
+		piecesBoard.lightUpTile(0,0);
+		piecesBoard.lightUpTile(1,0);
+		piecesBoard.lightUpTile(2,0);
+
+		piecesBoard.lightUpTile(6,4);
+		piecesBoard.lightUpTile(7,4);
+		piecesBoard.lightUpTile(4,5);
+		piecesBoard.resetTileColor(0,0);
+		//piecesBoard.lightUpTile(2,0);
+		//piecesBoard.lightUpTile(0,1);
+
 		roboRallyGame.prePlay();
+
 	}
 
 
@@ -136,26 +163,28 @@ public class MainGameScreen implements Screen {
 		//game.setDebug(true);
 		game.top().left();
 
-		// Create GUIBoard.
-		//GUIBoard GUIBoard = new GUIBoard(90, 10, 10);
+		// Create piecesBoard.
+		//piecesBoard piecesBoard = new piecesBoard(90, 10, 10);
 
-		GUIBoard GUIBoard = new GUIBoard(this.roboRallyGame.getBoard());
-		GUIBoard.addPlayers(players);
-		//GUIBoard.setDebug(true);
+		//piecesBoard.setDebug(true);
 
 		//MovableGUIRobot hans = new MovableGUIRobot(1);
 		//this.currentMovableRobot = hans;
-		//GUIBoard.addGUIPiece(5,5, hans);
-		//GUIBoard.addGUIPiece(5,5, new GUIBest());
+		//piecesBoard.addGUIPiece(5,5, hans);
+		//piecesBoard.addGUIPiece(5,5, new GUIBest());
 
 		// BOARD CREATION AND SETUP
+
+		Stack boards = new Stack();
+		boards.add(piecesBoard);
+		boards.add(robotsBoard);
 
 		Stats stats = new Stats(skin, players[0]);
 
 		// Add everything to the main table.
 		topBar.add().prefWidth(200);
-		// GUIBoard add
-		topBar.add(GUIBoard).top().center().expandX().padTop(30).height(900);
+		// piecesBoard add
+		topBar.add(boards).top().center().expandX().padTop(30).height(900);
 		// Stat add
 		topBar.add(stats).top().left().pad(70);
 
@@ -203,6 +232,29 @@ public class MainGameScreen implements Screen {
 				roboRallyGame.postPick(guiDeck.getPickedProgramCards());
 			}
 		});
+
+	}
+
+	public GUIBoard getGUIBoard(){
+    	return this.piecesBoard;
+	}
+
+	public void addPlayers(Player[] players){
+    	for(Player player : players){
+    		MovableGUIRobot robot = player.getRobot();
+    		int playerX = player.getPos().getX();
+			int playerY = player.getPos().getY();
+			float[] positions = piecesBoard.getPiecePos(playerX, playerY);
+			Vector2 coords = piecesBoard.getCoords(playerX, playerY);
+			robot.localToStageCoordinates(coords);
+			stage.stageToScreenCoordinates(coords);
+
+			System.out.println(coords);
+			robot.setPosition(coords.x, coords.y);
+
+    		//robot.setPosition(positions[0], positions[1]);
+			stage.addActor(player.getRobot());
+		}
 
 	}
 
