@@ -138,7 +138,6 @@ public class Checker {
 
     public List<List<PlayerAction>> doPiecesMoves(List<Player> players) {
         List<List<PlayerAction>> allActions = new LinkedList<>();
-        List<PlayerAction> moveActions = new LinkedList<>();
 
         List<Player> copyPlayersList = new ArrayList<>(players);
         for(Player player: copyPlayersList){
