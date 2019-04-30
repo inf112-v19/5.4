@@ -145,12 +145,12 @@ public class GUIBoard extends Table {
             this.addGUIPiece(currPlayer.getPos().getX(),currPlayer.getPos().getY(), currPlayer.getRobot());
         }
 
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAH");
+        /*System.out.println("AAAAAAAAAAAAAAAAAAAAAH");
         System.out.println(this.getChildren());
         SnapshotArray<Actor> children = this.getChildren();
         for(Actor actor : children){
             System.out.println(actor);
-        }
+        }*/
     }
 
     public void doGUIActions(List<List<List<PlayerAction>>> allPlayerActions){
@@ -219,10 +219,11 @@ public class GUIBoard extends Table {
     }
 
     public void lightUpTile(int x, int y){
-        //boardMap[y][x].setColor(Color.YELLOW);
-        //boardMap[y][x].setColor(1,1,0,1);
-        System.out.println(y + " - " + x);
         boardMap[y][x].lightUpTile();
+    }
+
+    public void resetTileColor(int x, int y){
+        boardMap[y][x].resetTileColor();
     }
 
 }

@@ -82,6 +82,15 @@ public class MainGameScreen implements Screen {
 		Gdx.input.setInputProcessor(stage);
 
 		piecesBoard.lightUpTile(0,0);
+		piecesBoard.lightUpTile(1,0);
+		piecesBoard.lightUpTile(2,0);
+
+		piecesBoard.lightUpTile(6,4);
+		piecesBoard.lightUpTile(7,4);
+		piecesBoard.lightUpTile(4,5);
+		piecesBoard.resetTileColor(0,0);
+		//piecesBoard.lightUpTile(2,0);
+		//piecesBoard.lightUpTile(0,1);
 
 		roboRallyGame.prePlay();
 

@@ -99,8 +99,6 @@ public class MovableGUIRobot extends GUIRobot {
         switch (actionType) {
             case MOVE:
 
-
-
                 parallelAction.addAction(new RunnableAction(){
                     @Override
                     public void run() {

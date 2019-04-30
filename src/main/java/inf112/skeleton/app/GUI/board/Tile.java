@@ -15,23 +15,22 @@ import java.util.List;
 
 public class Tile extends Stack {
 
-    List<GUIPiece> guiPieces;
 
     public Tile () {
 
-        this.guiPieces = new ArrayList<>();
+        //this.guiPieces = new ArrayList<>();
         BaseTile baseTile = new BaseTile();
         this.addPiece(baseTile);
     }
 
     public void addPiece(GUIPiece guiPiece) {
-        guiPieces.add(guiPiece);
+        //guiPieces.add(guiPiece);
         this.add(guiPiece);
     }
 
     public void removePiece(GUIPiece GUIPiece){
 
-        guiPieces.remove(GUIPiece);
+        //guiPieces.remove(GUIPiece);
         this.removeActor(GUIPiece);
     }
 
@@ -43,15 +42,15 @@ public class Tile extends Stack {
 
     public void lightUpTile(){
         for(Actor child : this.getChildren()){
-            //child.setColor(0,1,0,1);
-            //child.setColor(new Color(0,1,0,1));
+            child.setColor(Color.ORANGE);
+            System.out.println(child + " has been colored!");
         }
 
-        for(GUIPiece guiPiece : guiPieces){
-            guiPiece.getSprite().setColor(Color.YELLOW);
-            guiPiece.getSprite().setColor(0,1,0,1);
-            guiPiece.getSprite().setColor(new Color(0,1,0,1));
-            //guiPiece.getColor().set(0,1,0,1);
+    }
+
+    public void resetTileColor() {
+        for(Actor child : this.getChildren()){
+            child.setColor(Color.WHITE);
         }
     }
 }
