@@ -162,6 +162,7 @@ public class GUIBoard extends Table {
                 ParallelAction parallelAction = new ParallelAction();
 
                 // Add every action to a parallel action.
+                System.out.println(parallelGUIActions);
                 for (PlayerAction robotAction : parallelGUIActions) {
 
                     Player currPlayer = robotAction.getPlayer();
