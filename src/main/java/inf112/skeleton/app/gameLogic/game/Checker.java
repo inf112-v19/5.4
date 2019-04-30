@@ -146,10 +146,8 @@ public class Checker {
             List<IPiece> pieces = board.getCellAt(player.getPos()).getPiecesInCell();
             List<IPiece> copyPieceList = new ArrayList<>(pieces);
             for (IPiece piece : copyPieceList) {
-
                 if(piece instanceof Conveyor) {
-                    move(piece.getPieceDirection(), player, allActions, moveActions);
-                    allActions.add(moveActions);
+                    allActions.add(move(piece.getPieceDirection(), player));
                 }
                 if (piece instanceof Gears) {
                     allActions.add(this.rotate(player, ((Gears) piece).getAction()));
@@ -158,5 +156,4 @@ public class Checker {
         }
         return allActions;
     }
-
 }
