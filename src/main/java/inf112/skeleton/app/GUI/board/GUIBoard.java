@@ -1,5 +1,6 @@
 package inf112.skeleton.app.GUI.board;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -215,6 +216,12 @@ public class GUIBoard extends Table {
                 boardMap[y][x].makeTileInvisible();
             }
         }
+    }
+
+    public void lightUpTile(int x, int y){
+        //boardMap[y][x].setColor(Color.YELLOW);
+        //boardMap[y][x].setColor(1,1,0,1);
+        boardMap[y][x].lightUpTile();
     }
 
 }

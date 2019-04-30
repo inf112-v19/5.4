@@ -1,6 +1,7 @@
 package inf112.skeleton.app.GUI.board;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -29,6 +30,13 @@ public class Tile extends Stack {
     public void makeTileInvisible(){
         for(Actor child : this.getChildren()){
             child.setVisible(false);
+        }
+    }
+
+    public void lightUpTile(){
+        for(Actor child : this.getChildren()){
+            child.setColor(0,1,0,1);
+            child.setColor(Color.YELLOW);
         }
     }
 }
