@@ -30,11 +30,12 @@ public class RoboClientHandler extends Thread {
             try {
                     System.out.println("Message from client: " + ois.readObject());
 
+                    oos.writeObject(serverDeck);
 
-                    //oos.writeObject(serverDeck);
-                    //serverDeck = (ProgramCardDeck)ois.readObject();
+                    serverDeck = (ProgramCardDeck)ois.readObject();
 
-                    //System.out.println("Deck:" + serverDeck);
+                    System.out.println("Deck:" + serverDeck);
+
                 } catch (IOException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
