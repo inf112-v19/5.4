@@ -19,12 +19,14 @@ public class RoboClient {
 
         try {
 
+            /**
             LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
             cfg.title = "Robo Rally Rampage";
             cfg.width = 1200;
             cfg.height = 800;
 
             new LwjglApplication(new GUIMain(), cfg);
+            */
 
             Scanner scn = new Scanner(System.in);
             Scanner msg = new Scanner(System.in);
@@ -45,16 +47,17 @@ public class RoboClient {
             String playername = msg.nextLine();
             oos.writeObject(playername);
 
+            ProgramCardDeck dingus = (ProgramCardDeck) ois.readObject();
+            System.out.println(dingus);
+
             while (true) {
 
-
-
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e);
-        }  //catch (ClassNotFoundException e) {
-            //e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
 

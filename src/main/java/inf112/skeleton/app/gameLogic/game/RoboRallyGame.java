@@ -108,6 +108,14 @@ public class RoboRallyGame {
 
 
     public void postPick(List<ProgramCard> pickedProgramCards){
+        /**
+        server.addReadyPlayer();
+        server.readyPlayers += 1;
+
+        if(readyPlayers == 4){
+            server.executeCards();
+        }
+         */
 
         List<List<ProgramCard>> allCards = new ArrayList<>();
 

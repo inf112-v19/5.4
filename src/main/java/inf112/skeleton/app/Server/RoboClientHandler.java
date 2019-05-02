@@ -32,6 +32,10 @@ public class RoboClientHandler extends Thread {
 
                     playername = (String)ois.readObject();
                     System.out.println(playername + " has joined the game.");
+                    serverDeck.shuffleDeck();
+                    oos.writeObject(serverDeck);
+
+
 
                 } catch (IOException e) {
                 e.printStackTrace();
