@@ -38,6 +38,7 @@ public class RoboRallyGame {
         this.board = new Board("Captain Hook", boardPath);
         this.checker = new Checker(board);
         this.deck = new ProgramCardDeck();  // Deck of cards in the game
+
         players = new ArrayList<Player>();
         for (int i = 0; i < totalPlayers; i++) {
             Position position = new Position(i + 5, 7);
