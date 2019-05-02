@@ -18,7 +18,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PickStage extends Stage {
+
     public PickStage(Viewport viewport, Skin skin, LabelHandler labelHandler, LoadScreen screen, Game game) {
+
         super(viewport);
 
         Table mainTable = new Table();

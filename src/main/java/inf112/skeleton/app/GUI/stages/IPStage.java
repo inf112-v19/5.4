@@ -43,8 +43,8 @@ public class IPStage extends Stage{
 
         TextField usernameTextField = new TextField("", skin);
 
-        Label enterLabel = new Label("ASDASD", buttonLabelStyle);
-        TextButton btn = new TextButton("ENTER", skin);
+        Label enterLabel = new Label("ENTER", buttonLabelStyle);
+        TextButton btn = new TextButton("", skin);
         btn.setLabel(enterLabel);
 
         usernameTextField.getStyle().font.getData().setScale(4);
