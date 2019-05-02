@@ -47,7 +47,7 @@ public class RoboRallyGame {
         this.deck = new ProgramCardDeck();  // Deck of cards in the game
         players = new Player[totalPlayers];
         for (int i = 0; i < players.length; i++) {
-            Position position = new Position(i+5, 7);
+            Position position = new Position(i + 5, 7);
             //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
             players[i] = new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, playerActionQueue);
             board.addPiece(position, players[i]);
@@ -58,7 +58,7 @@ public class RoboRallyGame {
             for (int x = 0; x < board.getBoardWidth(); x++) {
                 for (IPiece piece : board.getCellAt(x, y).getPiecesInCell()) {
                     if (piece instanceof LaserShooter) {
-                        laserShooterList.add( (LaserShooter) piece);
+                        laserShooterList.add((LaserShooter) piece);
                         System.out.println("Added lasershooter in position: " + x + ", " + y);
                         break;
                     }
@@ -68,7 +68,7 @@ public class RoboRallyGame {
         playGame();
     }
 
-    public void playGame(){
+    public void playGame() {
         this.deck.shuffleDeck();
         this.currentPlayer = players[0];
 //        for (Player currentPlayer : players) {
@@ -109,6 +109,7 @@ public class RoboRallyGame {
 
     /**
      * Atm just does actions.
+     *
      * @param pickedProgramCards
      */
     public void postPick(List<ProgramCard> pickedProgramCards) {
@@ -118,16 +119,16 @@ public class RoboRallyGame {
         // Outermost layer: all the actions from all the cards.
         List<List<List<PlayerAction>>> allActions = new ArrayList<>();
 
-        for(ProgramCard card: pickedProgramCards){
+        for (ProgramCard card : pickedProgramCards) {
 
             // All the actions originating from ONE card.
             List<List<PlayerAction>> temp = checker.doAction(card.getCardType().getAction(), currentPlayer);
 
 
             System.out.println("Actions in actionList: ");
-            for(List<PlayerAction> tempBig : temp){
+            for (List<PlayerAction> tempBig : temp) {
                 System.out.println("----------");
-                for(PlayerAction pa : tempBig){
+                for (PlayerAction pa : tempBig) {
                     System.out.println("Player: " + pa.getPlayer().getName() + " Action: " + pa.getAction().getDescription());
                 }
 
@@ -146,44 +147,51 @@ public class RoboRallyGame {
 
     }
 
-    public void laserCalculation(){
+    public void laserCalculation() {
         for (LaserShooter laserShooter : laserShooterList) {
             board.getCellAt(laserShooter.getPos()).addPiece(new Laser(laserShooter.getPieceDirection(), laserShooter));
             System.out.println("Placed laser in position: " + laserShooter.getPos().getX() + ", " + laserShooter.getPos().getY());
             switch (laserShooter.getPieceDirection()) {
                 case WEST:
-                    placeLaser(new Position(laserShooter.getPos().getX()-1, laserShooter.getPos().getY()), laserShooter.getPieceDirection(), laserShooter);
+                    placeLaser(new Position(laserShooter.getPos().getX() - 1, laserShooter.getPos().getY()), laserShooter.getPieceDirection(), laserShooter);
+
                     break;
                 case SOUTH:
-                    placeLaser(new Position(laserShooter.getPos().getX(), laserShooter.getPos().getY()+1), laserShooter.getPieceDirection(), laserShooter);
+                    placeLaser(new Position(laserShooter.getPos().getX(), laserShooter.getPos().getY() + 1), laserShooter.getPieceDirection(), laserShooter);
                     break;
                 case EAST:
-                    placeLaser(new Position(laserShooter.getPos().getX()+1, laserShooter.getPos().getY()), laserShooter.getPieceDirection(), laserShooter);
+                    placeLaser(new Position(laserShooter.getPos().getX() + 1, laserShooter.getPos().getY()), laserShooter.getPieceDirection(), laserShooter);
                     break;
                 case NORTH:
-                    placeLaser(new Position(laserShooter.getPos().getX(), laserShooter.getPos().getY()-1), laserShooter.getPieceDirection(), laserShooter);
+                    placeLaser(new Position(laserShooter.getPos().getX(), laserShooter.getPos().getY() - 1), laserShooter.getPieceDirection(), laserShooter);
                     break;
             }
         }
         for (Player player : players) {
             switch (player.getDirection()) {
                 case WEST:
-                    placeLaser(new Position(player.getPos().getX()-1, player.getPos().getY()), player.getDirection(), player.getLaserShooter());
+                    placeLaser(new Position(player.getPos().getX() - 1, player.getPos().getY()), player.getDirection(), player.getLaserShooter());
                     break;
                 case SOUTH:
-                    placeLaser(new Position(player.getPos().getX(), player.getPos().getY()+1), player.getDirection(), player.getLaserShooter());
+                    placeLaser(new Position(player.getPos().getX(), player.getPos().getY() + 1), player.getDirection(), player.getLaserShooter());
                     break;
                 case EAST:
-                    placeLaser(new Position(player.getPos().getX()+1, player.getPos().getY()), player.getDirection(), player.getLaserShooter());
+                    placeLaser(new Position(player.getPos().getX() + 1, player.getPos().getY()), player.getDirection(), player.getLaserShooter());
                     break;
                 case NORTH:
-                    placeLaser(new Position(player.getPos().getX(), player.getPos().getY()-1), player.getDirection(), player.getLaserShooter());
+                    placeLaser(new Position(player.getPos().getX(), player.getPos().getY() - 1), player.getDirection(), player.getLaserShooter());
                     break;
             }
 
         }
     }
 
+    /**
+     *
+     * @param pos, the position to place a laser
+     * @param dir, the direction
+     * @param laserShooter
+     */
     public void placeLaser(Position pos, Direction dir, LaserShooter laserShooter) {
         if (pos.getX() >= board.getBoardWidth() || pos.getY() >= board.getBoardHeight() || pos.getY() < 0 || pos.getX() < 0) {
             System.out.println("Laser out of board");
@@ -214,14 +222,22 @@ public class RoboRallyGame {
         System.out.println("Placed laser in position: " + pos.getX() + ", " + pos.getY());
         board.getCellAt(pos).addPiece(new Laser(dir, laserShooter));
         switch (dir) {
-            case NORTH: placeLaser(new Position(pos.getX(), pos.getY()-1), dir, laserShooter); break;
-            case EAST: placeLaser(new Position(pos.getX()+1, pos.getY()), dir, laserShooter); break;
-            case SOUTH: placeLaser(new Position(pos.getX(), pos.getY()+1), dir, laserShooter); break;
-            case WEST: placeLaser(new Position(pos.getX()-1, pos.getY()), dir, laserShooter); break;
+            case NORTH:
+                placeLaser(new Position(pos.getX(), pos.getY() - 1), dir, laserShooter);
+                break;
+            case EAST:
+                placeLaser(new Position(pos.getX() + 1, pos.getY()), dir, laserShooter);
+                break;
+            case SOUTH:
+                placeLaser(new Position(pos.getX(), pos.getY() + 1), dir, laserShooter);
+                break;
+            case WEST:
+                placeLaser(new Position(pos.getX() - 1, pos.getY()), dir, laserShooter);
+                break;
         }
     }
 
-    public void removeLasers(){
+    public void removeLasers() {
         for (int y = 0; y < board.getBoardHeight(); y++) {
             for (int x = 0; x < board.getBoardWidth(); x++) {
                 for (IPiece piece : board.getCellAt(x, y).getPiecesInCell()) {
@@ -233,10 +249,13 @@ public class RoboRallyGame {
         }
     }
 
-    public Player[] getPlayers(){
+    public Player[] getPlayers() {
         return this.players;
     }
-    public Board getBoard(){return this.board;}
+
+    public Board getBoard() {
+        return this.board;
+    }
 
 
 }
