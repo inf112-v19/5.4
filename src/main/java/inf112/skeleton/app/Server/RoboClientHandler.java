@@ -14,6 +14,7 @@ public class RoboClientHandler extends Thread {
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
     private ProgramCardDeck serverDeck;
+    private String playername;
 
     public RoboClientHandler(Socket socket, ObjectInputStream ois, ObjectOutputStream oos) {
         this.socket = socket;
@@ -28,16 +29,9 @@ public class RoboClientHandler extends Thread {
         while (true)
         {
             try {
-                Boolean gameOver = false;
-                while (!gameOver) {
-                    while ()
-                }
-                /**
-                    System.out.println("Message from client: " + ois.readObject());
-                    oos.writeObject(serverDeck);
-                    serverDeck = (ProgramCardDeck)ois.readObject();
-                    System.out.println("Deck:" + serverDeck);
-                 */
+
+                    playername = (String)ois.readObject();
+                    System.out.println(playername + " has joined the game.");
 
                 } catch (IOException e) {
                 e.printStackTrace();
