@@ -190,7 +190,7 @@
       "ConveyorNorth",
       "EastWall"
     ],
-    "2": [],
+    "2": ["LaserShooterEast2"],
     "3": [
       "ConveyorNorth"
     ],
@@ -198,6 +198,7 @@
     "5": [],
     "6": [],
     "7": [
+      "LaserShooterNorth3",
       "NorthWall",
       "EastWall",
       "SouthWall",

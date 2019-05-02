@@ -1,16 +1,23 @@
 package inf112.skeleton.app.gameLogic.game;
 
+import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import inf112.skeleton.app.GUI.MainGameScreen;
+import inf112.skeleton.app.GUI.board.GUIBoard;
 import inf112.skeleton.app.GUI.player.Position;
+import inf112.skeleton.app.gameLogic.LaserCalculator;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.ProgramCardDeck;
 import inf112.skeleton.app.gameLogic.board.Board;
+import inf112.skeleton.app.gameLogic.board.IPiece;
+import inf112.skeleton.app.gameLogic.board.pieces.Laser;
+import inf112.skeleton.app.gameLogic.board.pieces.LaserShooter;
+import inf112.skeleton.app.gameLogic.board.pieces.Wall;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class RoboRallyGame {
 
@@ -21,6 +28,7 @@ public class RoboRallyGame {
     private List<Player> players;       // Players in the game
     private int startHealth = 3;
     private String boardPath = "FlagBoard.json";
+    private LaserCalculator laserCalculator;
 
     private ProgramCardDeck deck;
     private Player currentPlayer;
@@ -33,25 +41,30 @@ public class RoboRallyGame {
     public RoboRallyGame(MainGameScreen guiScreen) {
         this.playerActionQueue = new PlayerActionWrapper();
 
-        this.guiScreen = guiScreen;
 
+        this.guiScreen = guiScreen;
+        //Testing with FlagBoard
+        //this.board = new Board("Captain Hook", "DankBoard.json");
         this.board = new Board("Captain Hook", boardPath);
         this.checker = new Checker(board);
+        //board.displayBoard();
         this.deck = new ProgramCardDeck();  // Deck of cards in the game
 
         players = new ArrayList<Player>();
         for (int i = 0; i < totalPlayers; i++) {
-            Position position = new Position(i + 5, 7);
+            Position position = new Position(i+5, 7);
             //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
             players.add(new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, playerActionQueue));
             board.addPiece(position, players.get(i));
             System.out.println("player made!!");
-            System.out.println(players.get(i).getPos().getX() + " " + players.get(i).getPos().getY());
         }
+
+        this.laserCalculator = new LaserCalculator(board, players);
+
         playGame();
     }
 
-    public void playGame() {
+    public void playGame(){
         this.deck.shuffleDeck();
         this.currentPlayer = players.get(0);
 //        for (Player currentPlayer : players) {
@@ -90,7 +103,6 @@ public class RoboRallyGame {
 
     }
 
-
     public void postPick(List<ProgramCard> pickedProgramCards){
 
         List<List<ProgramCard>> allCards = new ArrayList<>();
@@ -109,13 +121,14 @@ public class RoboRallyGame {
         // One layer outside: all actions originating from ONE card, e.g MOVE 3.
         // Outermost layer: all the actions from all the cards.
         List<List<List<PlayerAction>>> allActions = new ArrayList<>();
+        List<Action> laserAnimations = new ArrayList<>();
 
-        for(List<ProgramCard> onePhaseProgramCards : allProgramCards){
+        for (List<ProgramCard> onePhaseProgramCards : allProgramCards) {
 
             // Sorts all phase-cards.
             Collections.sort(onePhaseProgramCards);
 
-            for(ProgramCard card: onePhaseProgramCards) {
+            for (ProgramCard card : onePhaseProgramCards) {
 
                 // All the actions originating from ONE card.
                 List<List<PlayerAction>> cardActions = checker.doAction(card.getCardType().getAction(), currentPlayer);
@@ -129,29 +142,38 @@ public class RoboRallyGame {
 
                 }
 
+
+                System.out.println("HEIJEG ER HER NÅÅÅ");
                 allActions.add(cardActions);
 
                 // Coneyors lol
-                allActions.add(checker.doPiecesMoves(players));
+                //allActions.add(checker.doPiecesMoves(players));
 
 
                 // DO LASERSHOOTING AND CONVEYOR MOVING HERE
 
+
+                //allActions.add(new ArrayList<List<SequenceAction>>(){{
+                //new ArrayList<SequenceAction>(){{add(laserAnimation);}};
+                //}});
+
+
             }
 
+            System.out.println("AAAAAAAAAAAAAAH");
+            System.out.println(laserAnimations);
+            SequenceAction laserAnimation = this.guiScreen.getGUIBoard().getLaserAnimations(this.laserCalculator.laserCalculation());
+            laserAnimations.add(laserAnimation);
+
         }
+        this.guiScreen.getGUIBoard().doGUIActions(allActions, laserAnimations);
 
-
-        this.guiScreen.getGUIBoard().doGUIActions(allActions);
     }
 
-    public List<Player> getPlayers() {
+    public List<Player> getPlayers(){
         return this.players;
     }
-
-    public Board getBoard() {
-        return this.board;
-    }
+    public Board getBoard(){return this.board;}
 
 
 }
