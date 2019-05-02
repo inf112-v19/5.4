@@ -2,11 +2,12 @@ package inf112.skeleton.app.gameLogic.game;
 
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.board.Board;
-import inf112.skeleton.app.gameLogic.board.IPiece;
-import inf112.skeleton.app.gameLogic.board.pieces.Flag;
 import inf112.skeleton.app.gameLogic.enums.ActionType;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 
 public class TestGame {
@@ -28,7 +29,7 @@ public class TestGame {
         while (actionListIsNotEmpty()) {
             //player action board
             PlayerAction playerAction = playerActionList.poll();
-            if (playerAction.getAction().getActionType() == ActionType.DAMAGE){
+            if (playerAction.getAction().getActionType() == ActionType.DAMAGE) {
                 playerAction.getPlayer().takeDamage(playerAction.getAction().getValue());
             }
             //Checker checker = new Checker(playerAction.getPlayer(), playerAction.getAction(), board, GUIplayeractionList);

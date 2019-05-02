@@ -1,7 +1,12 @@
 package inf112.skeleton.app.gameLogic.game;
 
+import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import inf112.skeleton.app.GUI.MainGameScreen;
+import inf112.skeleton.app.GUI.board.GUIBoard;
 import inf112.skeleton.app.GUI.player.Position;
+import inf112.skeleton.app.gameLogic.LaserCalculator;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.ProgramCardDeck;
@@ -12,8 +17,7 @@ import inf112.skeleton.app.gameLogic.board.pieces.LaserShooter;
 import inf112.skeleton.app.gameLogic.board.pieces.Wall;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class RoboRallyGame {
 
@@ -21,14 +25,14 @@ public class RoboRallyGame {
     MainGameScreen guiScreen;
 
     private int totalPlayers = 3;   // Total players in the game
-    private Player[] players;       // Players in the game
+    private List<Player> players;       // Players in the game
     private int startHealth = 3;
     private String boardPath = "FlagBoard.json";
+    private LaserCalculator laserCalculator;
 
     private ProgramCardDeck deck;
     private Player currentPlayer;
     private Board board;
-    private List<LaserShooter> laserShooterList;
 
     private Checker checker;
 
@@ -36,7 +40,7 @@ public class RoboRallyGame {
 
     public RoboRallyGame(MainGameScreen guiScreen) {
         this.playerActionQueue = new PlayerActionWrapper();
-        this.laserShooterList = new ArrayList<>();
+
 
         this.guiScreen = guiScreen;
         //Testing with FlagBoard
@@ -45,32 +49,23 @@ public class RoboRallyGame {
         this.checker = new Checker(board);
         //board.displayBoard();
         this.deck = new ProgramCardDeck();  // Deck of cards in the game
-        players = new Player[totalPlayers];
-        for (int i = 0; i < players.length; i++) {
+        players = new ArrayList<>();
+        for (int i = 0; i < totalPlayers; i++) {
             Position position = new Position(i+5, 7);
             //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
-            players[i] = new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, playerActionQueue);
-            board.addPiece(position, players[i]);
+            players.add(new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, playerActionQueue));
+            board.addPiece(position, players.get(i));
             System.out.println("player made!!");
-            System.out.println(players[i].getPos().getX() + " " + players[i].getPos().getY());
         }
-        for (int y = 0; y < board.getBoardHeight(); y++) {
-            for (int x = 0; x < board.getBoardWidth(); x++) {
-                for (IPiece piece : board.getCellAt(x, y).getPiecesInCell()) {
-                    if (piece instanceof LaserShooter) {
-                        laserShooterList.add( (LaserShooter) piece);
-                        System.out.println("Added lasershooter in position: " + x + ", " + y);
-                        break;
-                    }
-                }
-            }
-        }
+
+        this.laserCalculator = new LaserCalculator(board, players);
+
         playGame();
     }
 
     public void playGame(){
         this.deck.shuffleDeck();
-        this.currentPlayer = players[0];
+        this.currentPlayer = players.get(0);
 //        for (Player currentPlayer : players) {
 //            this.currentPlayer = currentPlayer;
 //        }
@@ -107,133 +102,74 @@ public class RoboRallyGame {
 
     }
 
-    /**
-     * Atm just does actions.
-     * @param pickedProgramCards
-     */
-    public void postPick(List<ProgramCard> pickedProgramCards) {
+    public void postPick(List<ProgramCard> pickedProgramCards){
+
+        List<List<ProgramCard>> allCards = new ArrayList<>();
+
+        for (ProgramCard currCard : pickedProgramCards){
+            List<ProgramCard> currcards = new ArrayList<ProgramCard>(){{add(currCard);}};
+            allCards.add(currcards);
+        }
+
+        this.executeCards(allCards);
+    }
+
+    public void executeCards(List<List<ProgramCard>> allProgramCards) {
 
         // All innermost actions: Actions that are do be executed in paralell.
         // One layer outside: all actions originating from ONE card, e.g MOVE 3.
         // Outermost layer: all the actions from all the cards.
         List<List<List<PlayerAction>>> allActions = new ArrayList<>();
+        List<Action> laserAnimations = new ArrayList<>();
 
-        for(ProgramCard card: pickedProgramCards){
+        for (List<ProgramCard> onePhaseProgramCards : allProgramCards) {
 
-            // All the actions originating from ONE card.
-            List<List<PlayerAction>> temp = checker.doAction(card.getCardType().getAction(), currentPlayer);
+            // Sorts all phase-cards.
+            Collections.sort(onePhaseProgramCards);
 
+            for (ProgramCard card : onePhaseProgramCards) {
 
-            System.out.println("Actions in actionList: ");
-            for(List<PlayerAction> tempBig : temp){
-                System.out.println("----------");
-                for(PlayerAction pa : tempBig){
-                    System.out.println("Player: " + pa.getPlayer().getName() + " Action: " + pa.getAction().getDescription());
-                }
+                // All the actions originating from ONE card.
+                List<List<PlayerAction>> cardActions = checker.doAction(card.getCardType().getAction(), currentPlayer);
 
-            }
-
-            allActions.add(temp);
-
-            //for testin purpuss
-            checker.checkForFlag(currentPlayer);
-            //System.out.println("FIRST ACTION IN QUEUE: " + playerActionQueue.getElement().getAction().getDescription());
-        }
-
-        this.guiScreen.getGUIBoard().doGUIActions(allActions);
-//        removeLasers();
-        this.laserCalculation();
-
-    }
-
-    public void laserCalculation(){
-        for (LaserShooter laserShooter : laserShooterList) {
-            board.getCellAt(laserShooter.getPos()).addPiece(new Laser(laserShooter.getPieceDirection(), laserShooter));
-            System.out.println("Placed laser in position: " + laserShooter.getPos().getX() + ", " + laserShooter.getPos().getY());
-            switch (laserShooter.getPieceDirection()) {
-                case WEST:
-                    placeLaser(new Position(laserShooter.getPos().getX()-1, laserShooter.getPos().getY()), laserShooter.getPieceDirection(), laserShooter);
-                    break;
-                case SOUTH:
-                    placeLaser(new Position(laserShooter.getPos().getX(), laserShooter.getPos().getY()+1), laserShooter.getPieceDirection(), laserShooter);
-                    break;
-                case EAST:
-                    placeLaser(new Position(laserShooter.getPos().getX()+1, laserShooter.getPos().getY()), laserShooter.getPieceDirection(), laserShooter);
-                    break;
-                case NORTH:
-                    placeLaser(new Position(laserShooter.getPos().getX(), laserShooter.getPos().getY()-1), laserShooter.getPieceDirection(), laserShooter);
-                    break;
-            }
-        }
-        for (Player player : players) {
-            switch (player.getDirection()) {
-                case WEST:
-                    placeLaser(new Position(player.getPos().getX()-1, player.getPos().getY()), player.getDirection(), player.getLaserShooter());
-                    break;
-                case SOUTH:
-                    placeLaser(new Position(player.getPos().getX(), player.getPos().getY()+1), player.getDirection(), player.getLaserShooter());
-                    break;
-                case EAST:
-                    placeLaser(new Position(player.getPos().getX()+1, player.getPos().getY()), player.getDirection(), player.getLaserShooter());
-                    break;
-                case NORTH:
-                    placeLaser(new Position(player.getPos().getX(), player.getPos().getY()-1), player.getDirection(), player.getLaserShooter());
-                    break;
-            }
-
-        }
-    }
-
-    public void placeLaser(Position pos, Direction dir, LaserShooter laserShooter) {
-        if (pos.getX() >= board.getBoardWidth() || pos.getY() >= board.getBoardHeight() || pos.getY() < 0 || pos.getX() < 0) {
-            System.out.println("Laser out of board");
-            return;
-        }
-        for (IPiece piece : board.getCellAt(pos).getPiecesInCell()) {
-            if (piece instanceof Player) {
-                System.out.println("Player health before being shot: " + ((Player) piece).getDamageTokens());
-                ((Player) piece).takeDamage(laserShooter.getDamage());
-                System.out.println("Hit a player!");
-                System.out.println("Player health after being shot: " + ((Player) piece).getDamageTokens());
-                return;
-            }
-            if (piece instanceof Wall) {
-                if (piece.getPieceDirection().oppositeDir() == dir) {
-                    System.out.println("Laser hit wall in position: " + pos.getX() + ", " + pos.getY());
-
-                    return;
-                }
-                if (piece.getPieceDirection() == dir) {
-                    System.out.println("Placed laser in position: " + pos.getX() + ", " + pos.getY());
-                    System.out.println("Laser hit wall in position: " + pos.getX() + ", " + pos.getY());
-                    board.getCellAt(pos).addPiece(new Laser(dir, laserShooter));
-                    return;
-                }
-            }
-        }
-        System.out.println("Placed laser in position: " + pos.getX() + ", " + pos.getY());
-        board.getCellAt(pos).addPiece(new Laser(dir, laserShooter));
-        switch (dir) {
-            case NORTH: placeLaser(new Position(pos.getX(), pos.getY()-1), dir, laserShooter); break;
-            case EAST: placeLaser(new Position(pos.getX()+1, pos.getY()), dir, laserShooter); break;
-            case SOUTH: placeLaser(new Position(pos.getX(), pos.getY()+1), dir, laserShooter); break;
-            case WEST: placeLaser(new Position(pos.getX()-1, pos.getY()), dir, laserShooter); break;
-        }
-    }
-
-    public void removeLasers(){
-        for (int y = 0; y < board.getBoardHeight(); y++) {
-            for (int x = 0; x < board.getBoardWidth(); x++) {
-                for (IPiece piece : board.getCellAt(x, y).getPiecesInCell()) {
-                    if (piece instanceof Laser) {
-                        board.getCellAt(x, y).getPiecesInCell().remove(piece);
+                System.out.println("Actions in actionList: ");
+                for (List<PlayerAction> tempBig : cardActions) {
+                    System.out.println("----------");
+                    for (PlayerAction pa : tempBig) {
+                        System.out.println("Player: " + pa.getPlayer().getName() + " Action: " + pa.getAction().getDescription());
                     }
+
                 }
+
+
+                System.out.println("HEIJEG ER HER NÅÅÅ");
+                allActions.add(cardActions);
+
+                // Coneyors lol
+                //allActions.add(checker.doPiecesMoves(players));
+
+
+                // DO LASERSHOOTING AND CONVEYOR MOVING HERE
+
+
+                //allActions.add(new ArrayList<List<SequenceAction>>(){{
+                //new ArrayList<SequenceAction>(){{add(laserAnimation);}};
+                //}});
+
+
             }
+
+            System.out.println("AAAAAAAAAAAAAAH");
+            System.out.println(laserAnimations);
+            SequenceAction laserAnimation = this.guiScreen.getGUIBoard().getLaserAnimations(this.laserCalculator.laserCalculation());
+            laserAnimations.add(laserAnimation);
+
         }
+        this.guiScreen.getGUIBoard().doGUIActions(allActions, laserAnimations);
+
     }
 
-    public Player[] getPlayers(){
+    public List<Player> getPlayers(){
         return this.players;
     }
     public Board getBoard(){return this.board;}

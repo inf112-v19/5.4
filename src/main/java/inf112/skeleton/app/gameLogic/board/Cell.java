@@ -13,6 +13,7 @@ public class Cell implements ICell {
 
     /**
      * Method for getting the list of pieces in the cell
+     *
      * @return List of pieces
      */
     @Override
@@ -22,6 +23,7 @@ public class Cell implements ICell {
 
     /**
      * Method for adding pieces to the list of pieces in the Cell
+     *
      * @param piece the piece you want to add
      */
     @Override

@@ -6,10 +6,9 @@ public class RespawnPoint {
     int nextFlag;
     Position pos;
 
-    public RespawnPoint(Position pos, int firstFlag){
+    public RespawnPoint(Position pos, int firstFlag) {
         this.pos = pos;
         this.nextFlag = firstFlag;
-
     }
 
     public int getNextFlag() {
@@ -26,6 +25,5 @@ public class RespawnPoint {
 
     public void setPos(Position pos) {
         this.pos = pos;
-
     }
 }

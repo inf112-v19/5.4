@@ -10,7 +10,7 @@ public class Gears implements IPiece {
 
     private Action action;
 
-    public Gears(Action rotation){
+    public Gears(Action rotation) {
         this.action = rotation;
     }
 

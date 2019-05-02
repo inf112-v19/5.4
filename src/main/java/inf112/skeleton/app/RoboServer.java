@@ -11,10 +11,10 @@ public class RoboServer {
         ServerSocket roboServer = new ServerSocket(port);
         System.out.println("Listening for connection on port " + port + "...");
 
-            while (true) {
-                try (Socket roboClient = roboServer.accept()) {
-                    System.out.println("Connection request accepted");
-                }
+        while (true) {
+            try (Socket roboClient = roboServer.accept()) {
+                System.out.println("Connection request accepted");
             }
         }
     }
+}

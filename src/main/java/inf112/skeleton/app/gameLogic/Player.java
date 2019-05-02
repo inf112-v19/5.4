@@ -36,7 +36,6 @@ public class Player implements IPlayer {
     private MovableGUIRobot robot;
     private RespawnPoint respawnPoint;
     private PlayerActionWrapper playerActionQueue;
-    private LaserShooter laserShooter = new LaserShooter(this.getDirection(), this.getPos(), 1);
 
 
 
@@ -53,6 +52,7 @@ public class Player implements IPlayer {
         this.robot = new MovableGUIRobot(1);
         this.respawnPoint = new RespawnPoint(pos, 1);
         this.playerActionQueue = playerActionQueue;
+
     }
 
     public PlayerActionWrapper getPlayerActionQueue() {
@@ -260,6 +260,6 @@ public class Player implements IPlayer {
     }
 
     public LaserShooter getLaserShooter(){
-        return this.laserShooter;
+        return new LaserShooter(this.getDirection(), this.getPos(), 1);
     }
 }

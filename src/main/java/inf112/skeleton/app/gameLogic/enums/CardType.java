@@ -9,7 +9,6 @@ public enum CardType {
     MOVE_2("Move 2", Action.MOVE_2, 12),
     MOVE_3("Move 3", Action.MOVE_3, 6);
 
-
     private String description;
     private int numberOfCard;
     private Action action;

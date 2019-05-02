@@ -15,35 +15,21 @@ public enum Action {
     private String description;
     private ActionType actionType;
     private int value;
-    private Direction direction;
     private Rotation rotation;
 
     Action(String description, ActionType actionType, int value) {
         this.description = description;
         this.actionType = actionType;
         this.value = value;
-        this.direction = null;
         this.rotation = null;
     }
 
     Action(String description, ActionType actionType, Rotation rotation) {
-            this.description = description;
-        this.actionType = actionType;
-            this.value = 1;
-            this.direction = null;
-            this.rotation = rotation;
-
-    }
-
-    Action(String description, ActionType actionType, Direction direction) {
         this.description = description;
         this.actionType = actionType;
-        this.value = 0;
-        this.direction = direction;
-        this.rotation = null;
+        this.value = 1;
+        this.rotation = rotation;
     }
-
-
 
     public String getDescription() {
         return description;
@@ -53,13 +39,8 @@ public enum Action {
         return actionType;
     }
 
-
     public int getValue() {
         return value;
-    }
-
-    public Direction getDirection() {
-        return direction;
     }
 
     public Rotation getRotation() {
