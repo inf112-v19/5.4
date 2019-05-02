@@ -12,12 +12,16 @@ import java.util.*;
 public class TestGame {
     private List<Player> playerList;
     private Queue<PlayerAction> playerActionList;
+    private PlayerActionWrapper GUIplayeractionList;
     private Board board;
+    private Checker checker;
 
     public TestGame() {
+        this.GUIplayeractionList = new PlayerActionWrapper();
         this.playerList = new ArrayList<>();
         this.playerActionList = new LinkedList<>();
         this.board = new Board("TestBoard", "TestBoard.json");
+        this.checker = new Checker(board);
     }
 
     public void doAllActions() {
@@ -27,10 +31,15 @@ public class TestGame {
             if (playerAction.getAction().getActionType() == ActionType.DAMAGE){
                 playerAction.getPlayer().takeDamage(playerAction.getAction().getValue());
             }
-            Checker checker = new Checker(playerAction.getPlayer(), playerAction.getAction(), board);
-            checker.doAction();
+            //Checker checker = new Checker(playerAction.getPlayer(), playerAction.getAction(), board, GUIplayeractionList);
+            List<List<PlayerAction>> boss = checker.doAction(playerAction.getAction(), playerAction.getPlayer());
+            //checker.doAction();
         }
 
+    }
+
+    public Checker getChecker() {
+        return checker;
     }
 
     /*
@@ -49,6 +58,10 @@ public class TestGame {
         }
     }
     */
+
+    public PlayerActionWrapper getGUIplayeractionList() {
+        return GUIplayeractionList;
+    }
 
     public void addActionToList(PlayerAction playerAction) {
         playerActionList.add(playerAction);

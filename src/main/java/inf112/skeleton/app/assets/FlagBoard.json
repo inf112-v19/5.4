@@ -86,7 +86,7 @@
 	"6": {
 		"0" : [],
 		"1" : ["ConveyorNorth", "EastWall"],
-		"2" : [],
+		"2" : ["LaserShooterEast1"],
 		"3" : ["ConveyorNorth"],
 		"4" : [],
 		"5" : [],

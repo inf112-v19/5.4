@@ -29,7 +29,7 @@ public class GUIRobot extends GUIPiece {
         @Override
         public void draw(Batch batch, float parentAlpha) {
                 //batch.enableBlending();
-//                batch.setColor(Color.BLUE);
+                //batch.setColor(Color.BLUE);
                 batch.draw(sprite, getX(),getY(), getWidth(), getHeight());
         }
 

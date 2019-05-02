@@ -7,19 +7,25 @@ import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.board.ICell;
 import inf112.skeleton.app.gameLogic.board.IPiece;
 import inf112.skeleton.app.gameLogic.board.pieces.Flag;
+import inf112.skeleton.app.gameLogic.board.pieces.LaserShooter;
 import inf112.skeleton.app.gameLogic.board.pieces.Wall;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.ActionType;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.enums.Rotation;
+import inf112.skeleton.app.gameLogic.game.Checker;
+import inf112.skeleton.app.gameLogic.game.PlayerAction;
+import inf112.skeleton.app.gameLogic.game.PlayerActionWrapper;
 import inf112.skeleton.app.gameLogic.game.RespawnPoint;
 
 import java.util.List;
+import java.util.Queue;
 import java.util.Stack;
 
 
 public class Player implements IPlayer {
+    private String name;
     private int health;
     private final int maxHealth;
     private int damageTokens;
@@ -29,22 +35,28 @@ public class Player implements IPlayer {
     private List<ProgramCard> playerRegister;
     private MovableGUIRobot robot;
     private RespawnPoint respawnPoint;
+    private PlayerActionWrapper playerActionQueue;
+    private LaserShooter laserShooter = new LaserShooter(this.getDirection(), this.getPos(), 1);
 
-    private Board board;
 
 
     /**
      * Constructs a player object with position, direction and health
      */
-    public Player(Position pos, Direction dir, int health, Board board) {
+    public Player(String name, Position pos, Direction dir, int health, PlayerActionWrapper playerActionQueue) {
+        this.name = name;
         this.pos = pos;
         this.facingDir = dir;
         this.health = health;
         this.maxHealth = health;
         this.damageTokens = 0;
-        this.board = board;
         this.robot = new MovableGUIRobot(1);
         this.respawnPoint = new RespawnPoint(pos, 1);
+        this.playerActionQueue = playerActionQueue;
+    }
+
+    public PlayerActionWrapper getPlayerActionQueue() {
+        return playerActionQueue;
     }
 
     @Override
@@ -61,7 +73,6 @@ public class Player implements IPlayer {
         pos = pos.changePos(dir);
         //Comment out line below for the tests to run
         //this.getRobot().doAction(ActionType.MOVE, dir);
-        this.getRobot().fullAction(Action.MOVE_1, dir);
     }
 
     public void die() {
@@ -118,7 +129,6 @@ public class Player implements IPlayer {
                     this.facingDir = Direction.NORTH;
                     break;
             }
-            robot.fullAction(Action.ROTATE_R, facingDir);
         } else if (r == Rotation.L) {
             switch (this.facingDir) {
                 case NORTH:
@@ -134,7 +144,6 @@ public class Player implements IPlayer {
                     this.facingDir = Direction.SOUTH;
                     break;
             }
-            robot.fullAction(Action.ROTATE_L, facingDir);
         } else if (r == Rotation.U) {
             switch (this.facingDir) {
                 case NORTH:
@@ -150,7 +159,6 @@ public class Player implements IPlayer {
                     this.facingDir = Direction.EAST;
                     break;
             }
-            robot.fullAction(Action.ROTATE_U, facingDir);
         } else {
             throw new IllegalArgumentException("Not a valid rotation!");
         }
@@ -225,7 +233,7 @@ public class Player implements IPlayer {
 
     @Override
     public String getName() {
-        return null;
+        return this.name;
     }
 
     @Override
@@ -249,5 +257,9 @@ public class Player implements IPlayer {
 
     public MovableGUIRobot getRobot() {
         return this.robot;
+    }
+
+    public LaserShooter getLaserShooter(){
+        return this.laserShooter;
     }
 }

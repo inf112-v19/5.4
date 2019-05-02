@@ -1,4 +1,4 @@
-package inf112.skeleton.app.gameLogic.enums;
+package inf112.skeleton.app.GUI.board;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -23,7 +23,8 @@ public class SoundPlayer {
     public enum GameSound{
 
         FLAG_PICKUP("flag_pickup", SoundOrMusic.SOUND),
-        MOVE("move",SoundOrMusic.SOUND, 0.5f);
+        MOVE("move",SoundOrMusic.SOUND, 0.5f),
+        ROTATE("rotate", SoundOrMusic.SOUND);
 
 
         private SoundOrMusic som;

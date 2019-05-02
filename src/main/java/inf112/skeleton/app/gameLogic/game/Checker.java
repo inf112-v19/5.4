@@ -1,94 +1,63 @@
 package inf112.skeleton.app.gameLogic.game;
 
-import com.badlogic.gdx.audio.Sound;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.board.*;
 import inf112.skeleton.app.gameLogic.board.pieces.*;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
-import inf112.skeleton.app.gameLogic.enums.SoundPlayer;
+import inf112.skeleton.app.GUI.board.SoundPlayer;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Checker {
-    private Action playersAction;
     private Board board;
-    private Player player;
 
-    public Checker(Player player, Action action, Board board) {
-        this.player = player;
-        this.playersAction = action;
+
+    public Checker(Board board) {
         this.board = board;
     }
 
-    public Checker(Player player, Board board) {
-        this.player = player;
-        this.playersAction = null;
-        this.board = board;
-    }
+    public List<List<PlayerAction>> doAction(final Action att, final Player player) {
 
-    public void doAction() {
-        Action att = playersAction;
-        switch (att.getActionType()) {
-            case MOVE:
-                this.move(player.getDirection(), att.getValue());
-                break;
-            case ROTATE:
-                player.rotate(att.getRotation());
-        }
-    }
+        // This list returns all moves that are generated from that one action/card.
+        // Each nested list are all moves that are to be done in parallel.
+        List<List<PlayerAction>> allActions = new LinkedList<>();
 
-    /*
-    public boolean checkPieceInCurrentCell(IPiece checkForPiece) {
-        ICell currCell = board.getCellAt(player.getPos());
-        if (currCell != null) {
-            List<IPiece> piecesInCurrCell = board.getCellAt(player.getPos()).getPiecesInCell();
-            for (IPiece piece : piecesInCurrCell) {
-                System.out.println(piece.getName() + "-" + piece.getPieceDirection());
-                if (piece instanceof Flag) {
-                    return true;
-                }
-                if (piece instanceof Conveyor) {
-                    return true;
-                }
-                if (piece instanceof Gears) {
-                    return true;
-                }
-                if (piece instanceof Hole) {
-                    return true;
-                }
+        for(int i = 0; i < att.getValue(); i++){
+            switch (att.getActionType()) {
+                case MOVE:
+                    List<PlayerAction> moveActions = new LinkedList<>();
+                    this.move(player.getDirection(), player, allActions, moveActions);
+                    allActions.add(moveActions);
+                    break;
+                case ROTATE:
+                    player.rotate(att.getRotation());
+                    allActions.add(new LinkedList<PlayerAction>() {{add(new PlayerAction(player, att, player.getDirection()));}});
+                    break;
             }
         }
-        return false;
+        return allActions;
     }
-    */
 
-
-    /**
-     * @param numSteps The direction the piece should move
-     */
-
-    public void move(Direction movePlayerInDir, int numSteps) {
+    public void move(Direction playerMoveDir, Player player, List<List<PlayerAction>> allActions, List<PlayerAction> moveActions) {
         System.out.println("Dir: " + player.getDirection() + " Pre: " + player.getPos().getX() + " " + player.getPos().getY());
-        for (int i = 0; i < numSteps; i++) {
-            if (canMove(movePlayerInDir, board.getCellAt(player.getPos()))) {
-                System.out.println("moving");
+            if (canMove(playerMoveDir, board.getCellAt(player.getPos()), player, allActions, moveActions)) {
                 //playerActionSequence.add(Action.MOVE_1);
                 Position tempPos = player.getPos();
-
-                player.move(movePlayerInDir);
+                player.move(playerMoveDir);
+                moveActions.add(new PlayerAction(player, Action.MOVE_1, playerMoveDir));
 
                 if (board.getCellAt(tempPos).getPiecesInCell().contains(player)) {
                     board.getCellAt(tempPos).getPiecesInCell().remove(player);
-                    board.getNextCell(tempPos, movePlayerInDir).addPiece(player);
+                    board.getNextCell(tempPos, playerMoveDir).addPiece(player);
                 }
             }
-        }
         System.out.println("Post :" + player.getPos().getX() + " " + player.getPos().getY());
     }
 
-    private boolean canMove(Direction goingDir, ICell currCell) {
+    private boolean canMove(Direction goingDir, ICell currCell, Player player, List<List<PlayerAction>> allActions, List<PlayerAction> moveActions) {
         //Checks walls in current tile
         if (currCell != null) {
             List<IPiece> piecesInCurrCell = board.getCellAt(player.getPos()).getPiecesInCell();
@@ -101,7 +70,7 @@ public class Checker {
             }
         }
 
-        Direction oppositeDir = goingDir.oppositeDir(goingDir);
+        Direction oppositeDir = goingDir.oppositeDir();
 
         // Checks if player goes outside board, and should die.
         if (!board.insideBoard(player.getPos(), goingDir)) {
@@ -125,9 +94,9 @@ public class Checker {
             for (IPiece piece : piecesInNextCell) {
                 if (piece instanceof Player) {
                     Player otherPlayer = (Player) piece;
-                    Checker checker = new Checker(otherPlayer, Action.MOVE_1, board);
-                    if (checker.canMove(goingDir, board.getNextCell(otherPlayer.getPos(), goingDir))) {
-                        checker.move(goingDir, 1);
+                    //Checker checker = new Checker(otherPlayer, board, playerActionQueue);
+                    if (canMove(goingDir, board.getNextCell(otherPlayer.getPos(), goingDir), otherPlayer, allActions, moveActions)) {
+                        move(goingDir, otherPlayer, allActions, moveActions);
                         return true;
                     } else {
                         return false;
@@ -135,44 +104,19 @@ public class Checker {
                 }
             }
         }
-
         System.out.println("can move");
         return true;
     }
-    /*
-    public void checkForFlag(){
-        System.out.println("Looking for flag number" + player.getRespawnPoint().getNextFlag());
-        System.out.println("The flag's position: " + player.getRespawnPoint().pos.toString());
-        System.out.println("The player's position: " + player.getPos().toString());
-        for(IPiece piece : board.getCellAt(player.getPos()).getPiecesInCell()){
-            System.out.println(piece);
-            if(piece instanceof Flag){
-                Flag flag = (Flag) piece;
-                if(player.isLastFlag(flag, 3)){
-                    System.out.println("GOT THE LAST FLAG!!! " + player.getRespawnPoint().getNextFlag());
-                    System.exit(0);
-                }
-                if(player.isNextFlag(flag)){
-                    System.out.println("Found flag " + player.getRespawnPoint().getNextFlag());
-                    SoundPlayer.GameSound.FLAG_PICKUP.playSound();
-                    player.setNextFlag();
-                    System.out.println("Next Flag is " + player.getRespawnPoint().getNextFlag());
-                }
 
-
-            }
-        }
-    }*/
-
-    public void checkForFlag(){
+    public void checkForFlag(Player player) {
         //checks if the players position is the same as the flag the player is looking for
         //System.out.println("Looking for flag " + player.getRespawnPoint().getNextFlag());
         System.out.println("Player: " + player.getPos() + " Flag: " + player.getRespawnPoint().getNextFlag() + " " + board.getFlags().getFlagPos(player.getRespawnPoint().nextFlag));
-        if(player.getPos().equals(board.getFlags().getFlagPos(player.getRespawnPoint().nextFlag))){
+        if (player.getPos().equals(board.getFlags().getFlagPos(player.getRespawnPoint().nextFlag))) {
             System.out.println("Found flag " + player.getRespawnPoint().getNextFlag());
             SoundPlayer.GameSound.FLAG_PICKUP.playSound();
-            if(player.getRespawnPoint().nextFlag == board.getFlags().getNumberOfFlags()){
-                for(int i = 0; i < 10; i++){
+            if (player.getRespawnPoint().nextFlag == board.getFlags().getNumberOfFlags()) {
+                for (int i = 0; i < 10; i++) {
                     System.out.println("GOT THE LAST FLAG!!! Flag: " + player.getRespawnPoint().getNextFlag());
                 }
             } else {
@@ -181,7 +125,6 @@ public class Checker {
             }
         }
     }
-
 
 
 }

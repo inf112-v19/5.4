@@ -17,8 +17,8 @@ public class Board implements IBoard {
 
     // Assuming all boards are square for ease of use.
     // In the future we might make a MegaBoard or something.
-    int boardWidth;
-    int boardHeight;
+    private int boardWidth;
+    private int boardHeight;
 
     public Board(String name, String path) {
         flags = FlagOrganizer.getInstance();
@@ -81,7 +81,6 @@ public class Board implements IBoard {
         board[y][x].addPiece(piece);
     }
     public void addPiece(Position pos, IPiece piece){
-
         this.addPiece(pos.getX(), pos.getY(), piece);
     }
 
@@ -113,21 +112,38 @@ public class Board implements IBoard {
 
     public ICell getNextCell(Position pos, Direction dir) {
         ICell cell = new Cell();
+        int posX = pos.getX();
+        int posY = pos.getY();
+        System.out.println("yeehaw: " + posX + " -- " + posY);
         switch (dir) {
+
             case NORTH:
-                cell = board[pos.getY() - 1][pos.getX()];
+                cell = board[Math.max(posY - 1,0)][posX];
                 break;
             case SOUTH:
-                cell = board[pos.getY() + 1][pos.getX()];
+                cell = board[Math.min(posY + 1,board.length-1)][posX];
                 break;
             case EAST:
-                cell = board[pos.getY()][pos.getX() + 1];
+                cell = board[posY][Math.min(posX + 1, board[posY].length-1)];
                 break;
             case WEST:
-                cell = board[pos.getY()][pos.getX() - 1];
+                cell = board[posY][Math.max(posX - 1,0)];
                 break;
         }
         return cell;
+    }
+
+    public boolean containsPieceDir(Position pos, Direction dir, Class piece){
+        for(IPiece currCell : this.getCellAt(pos).getPiecesInCell()){
+            if(currCell.getPieceDirection().equals(dir) && currCell.getClass().isInstance(piece)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean cointainsPiece(Position pos, IPiece piece){
+        return this.getCellAt(pos).getPiecesInCell().contains(piece);
     }
 
     public boolean insideBoard(Position playerPos, Direction playerDir){
