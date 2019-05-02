@@ -14,10 +14,13 @@ import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.board.ICell;
 import inf112.skeleton.app.gameLogic.board.IPiece;
+import inf112.skeleton.app.gameLogic.board.pieces.Laser;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.game.PlayerAction;
 
 import java.util.List;
+
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 
 public class GUIBoard extends Table {
@@ -111,7 +114,7 @@ public class GUIBoard extends Table {
 
     }
 
-    public void removePiece(int x, int y, GUIPiece GUIPiece) {
+    public void removeGUIPiece(int x, int y, GUIPiece GUIPiece) {
         this.boardMap[y][x].removePiece(GUIPiece);
     }
 
@@ -239,5 +242,49 @@ public class GUIBoard extends Table {
     public void resetTileColor(int x, int y) {
         boardMap[y][x].resetTileColor();
     }
+
+    public void doLaserAnimation(List<Laser> lasers){
+
+        DelayAction delayAction = new DelayAction(2);
+
+
+
+
+        RunnableAction addLasersAnimation = new RunnableAction(){
+            @Override
+            public void run() {
+
+                for(Laser laser : lasers){
+
+                    GUIPiece guiPiece = laser.getGUIPiece();
+
+                    int x = laser.getPosition().getX();
+                    int y = laser.getPosition().getY();
+                    addGUIPiece(x, y, guiPiece);
+
+                }
+
+            }
+        };
+
+        RunnableAction removeLasersAnimation = new RunnableAction(){
+            @Override
+            public void run() {
+                for(Laser laser : lasers){
+
+                    GUIPiece guiPiece = laser.getGUIPiece();
+
+                    int x = laser.getPosition().getX();
+                    int y = laser.getPosition().getY();
+                    removeGUIPiece(x, y, guiPiece);
+
+                }
+            }
+        };
+
+        this.addAction(sequence(addLasersAnimation, delayAction, removeLasersAnimation));
+    }
+
+
 
 }
