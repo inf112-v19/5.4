@@ -1,5 +1,7 @@
 package inf112.skeleton.app.gameLogic.board;
 
+import java.util.List;
+
 public interface ICell {
     /**
      * Returns the type of cell
@@ -18,5 +20,9 @@ public interface ICell {
      * @return char symbol representation
      */
     char getSymbol();
+
+    public void addPiece(IPiece piece);
+
+    List<IPiece> getPiecesInCell();
 
 }

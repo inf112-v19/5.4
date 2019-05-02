@@ -2,19 +2,19 @@
 
 import com.sun.jdi.request.DuplicateRequestException;
 import com.sun.tools.internal.ws.wsdl.framework.DuplicateEntityException;
-import inf112.skeleton.app.Game.Enum.ActionType;
+import inf112.skeleton.app.RoboRallyGame.Enum.Action;
 import inf112.skeleton.app.gameLogic.enums.Rotation;
 import inf112.skeleton.app.gameLogic.Player;
-import inf112.skeleton.app.gameLogic.game.Action;
+import inf112.skeleton.app.gameLogic.game.PlayerAction;
 import org.lwjgl.Sys;
 
 import java.util.*;
 
-public class Game {
+public class RoboRallyGame {
     private List<Player> playerList;
-    private Queue<Action> actionList;
+    private Queue<PlayerAction> actionList;
 
-    public Game() {
+    public RoboRallyGame() {
         playerList = new ArrayList<>();
         actionList = new LinkedList<>();
     }
@@ -33,8 +33,8 @@ public class Game {
 
     public void doAction() {
         if (!actionListIsEmpty()) {
-            Action action = actionList.poll();
-            switch (action.getActionType()) {
+            PlayerAction action = actionList.poll();
+            switch (action.getAction()) {
                 case DAMAGE:
                     action.getPlayer().takeDamage(action.getAmount());
                     break;
@@ -42,8 +42,8 @@ public class Game {
                     action.getPlayer().move(action.getAmount());
                     break;
                 case TURN:
-                    if (action.getRotation() != null) {
-                        action.getPlayer().rotate(action.getRotation());
+                    if (action.getPieceDirection() != null) {
+                        action.getPlayer().rotate(action.getPieceDirection());
                     }
                     break;
             }
@@ -64,7 +64,7 @@ public class Game {
         }
     }
 
-    public void addActionToList(Action action) {
+    public void addActionToList(PlayerAction action) {
         actionList.add(action);
     }
 
