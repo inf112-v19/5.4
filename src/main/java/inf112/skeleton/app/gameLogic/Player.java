@@ -3,8 +3,7 @@ package inf112.skeleton.app.gameLogic;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.GUI.pieces.GUIRobot;
 import inf112.skeleton.app.GUI.player.MovableGUIRobot;
-import inf112.skeleton.app.gameLogic.board.Board;
-import inf112.skeleton.app.gameLogic.board.ICell;
+import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.board.IPiece;
 import inf112.skeleton.app.gameLogic.board.pieces.Flag;
 import inf112.skeleton.app.gameLogic.board.pieces.LaserShooter;
@@ -174,11 +173,11 @@ public class Player implements IPlayer {
         return this.getRespawnPoint().getNextFlag() == flag.getNumber();
     }
 
-    public boolean isLastFlag(Flag flag, int numberOfFlags){
+    public boolean isLastFlag(Flag flag, int numberOfFlags) {
         return isNextFlag(flag) && flag.getNumber() == numberOfFlags;
     }
 
-    public void setNextFlag(){
+    public void setNextFlag() {
         setRespawnPoint();
         respawnPoint.setNextFlag();
     }

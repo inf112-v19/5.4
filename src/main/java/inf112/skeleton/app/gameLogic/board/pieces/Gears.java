@@ -12,7 +12,7 @@ public class Gears implements IPiece, Serializable {
 
     private Action action;
 
-    public Gears(Action rotation){
+    public Gears(Action rotation) {
         this.action = rotation;
     }
 

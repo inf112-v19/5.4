@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 public class Hole implements IPiece, Serializable {
 
-    public Hole () {
+    public Hole() {
 
     }
 

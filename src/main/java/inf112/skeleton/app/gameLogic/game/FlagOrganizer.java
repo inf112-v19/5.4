@@ -15,12 +15,12 @@ public class FlagOrganizer implements Serializable {
 
     private HashMap<Integer, Position> flagSet;
 
-    private FlagOrganizer(){
+    private FlagOrganizer() {
         this.flagSet = new HashMap<>();
     }
 
-    public void setFlagAtPos(int i, Position pos){
-        if(!flagSet.containsKey(i)){
+    public void setFlagAtPos(int i, Position pos) {
+        if (!flagSet.containsKey(i)) {
             flagSet.put(i, pos);
         } else {
             System.out.println("This flag has already been added");
@@ -31,7 +31,7 @@ public class FlagOrganizer implements Serializable {
         return flagSet.size();
     }
 
-    public Position getFlagPos(int i){
+    public Position getFlagPos(int i) {
         return flagSet.get(i);
     }
 

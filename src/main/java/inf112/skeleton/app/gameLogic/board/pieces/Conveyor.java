@@ -13,7 +13,7 @@ public class Conveyor implements IPiece, Serializable {
     private Direction direction;
     private int speed = 1;
 
-    public Conveyor(Direction dir){
+    public Conveyor(Direction dir) {
         this.direction = dir;
     }
 
@@ -34,10 +34,14 @@ public class Conveyor implements IPiece, Serializable {
     @Override
     public char getSymbol() {
         switch (this.direction) {
-            case NORTH: return '↑';
-            case SOUTH: return '↓';
-            case EAST: return '→';
-            default: return '←';
+            case NORTH:
+                return '↑';
+            case SOUTH:
+                return '↓';
+            case EAST:
+                return '→';
+            default:
+                return '←';
         }
     }
 
@@ -51,5 +55,7 @@ public class Conveyor implements IPiece, Serializable {
     }
 
     @Override
-    public GUIPiece getGUIPiece() { return new GUIConveyor(this.getPieceDirection()); }
+    public GUIPiece getGUIPiece() {
+        return new GUIConveyor(this.getPieceDirection());
+    }
 }

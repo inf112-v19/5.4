@@ -13,6 +13,7 @@ import inf112.skeleton.app.gameLogic.board.pieces.Wall;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class RoboRallyGame {
@@ -21,7 +22,7 @@ public class RoboRallyGame {
     MainGameScreen guiScreen;
 
     private int totalPlayers = 3;   // Total players in the game
-    private Player[] players;       // Players in the game
+    private List<Player> players;       // Players in the game
     private int startHealth = 3;
     private String boardPath = "FlagBoard.json";
 
@@ -39,20 +40,18 @@ public class RoboRallyGame {
         this.laserShooterList = new ArrayList<>();
 
         this.guiScreen = guiScreen;
-        //Testing with FlagBoard
-        //this.board = new Board("Captain Hook", "DankBoard.json");
+
         this.board = new Board("Captain Hook", boardPath);
         this.checker = new Checker(board);
-        //board.displayBoard();
         this.deck = new ProgramCardDeck();  // Deck of cards in the game
-        players = new Player[totalPlayers];
-        for (int i = 0; i < players.length; i++) {
-            Position position = new Position(i+5, 7);
+        players = new ArrayList<Player>();
+        for (int i = 0; i < totalPlayers; i++) {
+            Position position = new Position(i + 5, 7);
             //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
-            players[i] = new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, playerActionQueue);
-            board.addPiece(position, players[i]);
+            players.add(new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, playerActionQueue));
+            board.addPiece(position, players.get(i));
             System.out.println("player made!!");
-            System.out.println(players[i].getPos().getX() + " " + players[i].getPos().getY());
+            System.out.println(players.get(i).getPos().getX() + " " + players.get(i).getPos().getY());
         }
         for (int y = 0; y < board.getBoardHeight(); y++) {
             for (int x = 0; x < board.getBoardWidth(); x++) {
@@ -68,9 +67,9 @@ public class RoboRallyGame {
         playGame();
     }
 
-    public void playGame(){
+    public void playGame() {
         this.deck.shuffleDeck();
-        this.currentPlayer = players[0];
+        this.currentPlayer = players.get(0);
 //        for (Player currentPlayer : players) {
 //            this.currentPlayer = currentPlayer;
 //        }
@@ -107,38 +106,57 @@ public class RoboRallyGame {
 
     }
 
-    /**
-     * Atm just does actions.
-     * @param pickedProgramCards
-     */
-    public void postPick(List<ProgramCard> pickedProgramCards) {
+
+    public void postPick(List<ProgramCard> pickedProgramCards){
+
+        List<List<ProgramCard>> allCards = new ArrayList<>();
+
+        for (ProgramCard currCard : pickedProgramCards){
+            List<ProgramCard> currcards = new ArrayList<ProgramCard>(){{add(currCard);}};
+            allCards.add(currcards);
+        }
+
+        this.executeCards(allCards);
+    }
+
+    public void executeCards(List<List<ProgramCard>> allProgramCards) {
 
         // All innermost actions: Actions that are do be executed in paralell.
         // One layer outside: all actions originating from ONE card, e.g MOVE 3.
         // Outermost layer: all the actions from all the cards.
         List<List<List<PlayerAction>>> allActions = new ArrayList<>();
 
-        for(ProgramCard card: pickedProgramCards){
+        for(List<ProgramCard> onePhaseProgramCards : allProgramCards){
 
-            // All the actions originating from ONE card.
-            List<List<PlayerAction>> temp = checker.doAction(card.getCardType().getAction(), currentPlayer);
+            // Sorts all phase-cards.
+            Collections.sort(onePhaseProgramCards);
 
+            for(ProgramCard card: onePhaseProgramCards) {
 
-            System.out.println("Actions in actionList: ");
-            for(List<PlayerAction> tempBig : temp){
-                System.out.println("----------");
-                for(PlayerAction pa : tempBig){
-                    System.out.println("Player: " + pa.getPlayer().getName() + " Action: " + pa.getAction().getDescription());
+                // All the actions originating from ONE card.
+                List<List<PlayerAction>> cardActions = checker.doAction(card.getCardType().getAction(), currentPlayer);
+
+                System.out.println("Actions in actionList: ");
+                for (List<PlayerAction> tempBig : cardActions) {
+                    System.out.println("----------");
+                    for (PlayerAction pa : tempBig) {
+                        System.out.println("Player: " + pa.getPlayer().getName() + " Action: " + pa.getAction().getDescription());
+                    }
+
                 }
+
+                allActions.add(cardActions);
+
+                // Coneyors lol
+                allActions.add(checker.doPiecesMoves(players));
+
+
+                // DO LASERSHOOTING AND CONVEYOR MOVING HERE
 
             }
 
-            allActions.add(temp);
-
-            //for testin purpuss
-            checker.checkForFlag(currentPlayer);
-            //System.out.println("FIRST ACTION IN QUEUE: " + playerActionQueue.getElement().getAction().getDescription());
         }
+
 
         this.guiScreen.getGUIBoard().doGUIActions(allActions);
 //        removeLasers();
@@ -233,10 +251,13 @@ public class RoboRallyGame {
         }
     }
 
-    public Player[] getPlayers(){
+    public List<Player> getPlayers() {
         return this.players;
     }
-    public Board getBoard(){return this.board;}
+
+    public Board getBoard() {
+        return this.board;
+    }
 
 
 }

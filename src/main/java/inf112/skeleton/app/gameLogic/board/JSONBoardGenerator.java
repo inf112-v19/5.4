@@ -7,16 +7,15 @@ import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.game.FlagOrganizer;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
-
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 public class JSONBoardGenerator {
 
@@ -25,15 +24,9 @@ public class JSONBoardGenerator {
     private FlagOrganizer flags = FlagOrganizer.getInstance();
 
     public ICell[][] generateJsonBoard(String filepath) {
-
-
-
         try {
 
             System.out.println(new File("xxxxxxxx.").getAbsoluteFile());
-
-
-            //Object boardFile = Gdx.files.internal(filepath);
 
             Object boardFile = parser.parse(new FileReader(filepath));
 
@@ -62,9 +55,6 @@ public class JSONBoardGenerator {
                     JSONArray xCord = (JSONArray) yCord.get(intX);
                     Iterator<String> iterator = xCord.iterator();
 
-                    /*JSONObject xCord = (JSONObject) jsonBoardFile.get(intX);
-                    JSONArray yCord = (JSONArray) xCord.get(intY);
-                    Iterator<String> iterator = yCord.iterator();*/
                     while (iterator.hasNext()) {
 
                         String jsonIterator = iterator.next();
@@ -78,25 +68,25 @@ public class JSONBoardGenerator {
                             case "NorthWall":
                                 System.out.println("Making north wall!");
                                 tempCell.addPiece(new Wall(Direction.NORTH));
-                                addOppositeWall(x,y-1,Direction.SOUTH);
+                                addOppositeWall(x, y - 1, Direction.SOUTH);
                                 break;
 
                             case "EastWall":
                                 System.out.println("Making east wall!");
                                 tempCell.addPiece(new Wall(Direction.EAST));
-                                addOppositeWall(x+1,y,Direction.WEST);
+                                addOppositeWall(x + 1, y, Direction.WEST);
                                 break;
 
                             case "SouthWall":
                                 System.out.println("Making south wall!");
                                 tempCell.addPiece(new Wall(Direction.SOUTH));
-                                addOppositeWall(x,y+1, Direction.NORTH);
+                                addOppositeWall(x, y + 1, Direction.NORTH);
                                 break;
 
                             case "WestWall":
                                 System.out.println("Making west wall!");
                                 tempCell.addPiece(new Wall(Direction.WEST));
-                                addOppositeWall(x-1,y,Direction.EAST);
+                                addOppositeWall(x - 1, y, Direction.EAST);
                                 break;
 
                             case "ConveyorNorth":
@@ -218,7 +208,7 @@ public class JSONBoardGenerator {
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();
-            } catch (ParseException e) {
+        } catch (ParseException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -228,10 +218,10 @@ public class JSONBoardGenerator {
         return jsonBoardPieceList;
     }
 
-    public void addOppositeWall(int newX, int newY, Direction newWallDirection){
-        if(newY < jsonBoardPieceList.length && newY >= 0){
-            if(newX < jsonBoardPieceList[newY].length && newX >= 0){
-                if(jsonBoardPieceList[newY][newX] != null) {
+    public void addOppositeWall(int newX, int newY, Direction newWallDirection) {
+        if (newY < jsonBoardPieceList.length && newY >= 0) {
+            if (newX < jsonBoardPieceList[newY].length && newX >= 0) {
+                if (jsonBoardPieceList[newY][newX] != null) {
                     ICell newCell = jsonBoardPieceList[newY][newX];
                     if (!containsOppositeWall(newCell, newWallDirection)) {
                         System.out.println("I'M PLACING A " + newWallDirection + " WALL AT " + newX + ", " + newY);
@@ -242,12 +232,11 @@ public class JSONBoardGenerator {
         }
     }
 
-    public boolean containsOppositeWall(ICell newCell, Direction newWallDirection){
+    public boolean containsOppositeWall(ICell newCell, Direction newWallDirection) {
         // Checks if the new cell has a wall.
-
-        for(IPiece piece : newCell.getPiecesInCell()){
-            if(piece instanceof Wall){
-                if(piece.getPieceDirection() == newWallDirection){
+        for (IPiece piece : newCell.getPiecesInCell()) {
+            if (piece instanceof Wall) {
+                if (piece.getPieceDirection() == newWallDirection) {
                     return true;
                 }
             }
