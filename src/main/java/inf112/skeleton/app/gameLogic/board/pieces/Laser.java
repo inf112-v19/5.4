@@ -2,12 +2,15 @@ package inf112.skeleton.app.gameLogic.board.pieces;
 
 import inf112.skeleton.app.GUI.pieces.GUILaser;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
+import inf112.skeleton.app.GUI.player.Position;
+import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.board.IPiece;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Laser implements IPiece, Serializable {
+public class Laser implements IPiece {
 
     private Direction direction;
     private LaserShooter laserShooter;
@@ -15,6 +18,12 @@ public class Laser implements IPiece, Serializable {
     public Laser(Direction dir, LaserShooter laserShooter){
         this.direction = dir;
         this.laserShooter = laserShooter;
+    }
+
+    @SuppressWarnings("all")
+    public void shootLaser(Position pos, Direction dir, Board board){
+        List<Laser> laserList = new ArrayList<>();
+        //if(board.containsPieceDir(pos, dir, );
     }
 
     public LaserShooter getLaserShooter() {

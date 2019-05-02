@@ -57,7 +57,7 @@
 	},
 	"4": {
 		"0" : ["WestWall"],
-		"1" : ["ConveyorNorth", "EastWall"],
+		"1" : ["ConveyorNorth"],
 		"2" : [],
 		"3" : ["ConveyorSouth"],
 		"4" : [],
