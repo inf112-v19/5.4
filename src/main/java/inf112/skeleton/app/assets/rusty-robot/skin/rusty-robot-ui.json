@@ -14,18 +14,6 @@ com.badlogic.gdx.graphics.Color: {
 		b: 0
 		a: 1
 	}
-	blue: {
-		r: 0
-		g: 0
-		b: 1
-		a: 1
-	}
-	white: {
-		r: 1
-		g: 1
-		b: 1
-		a: 1
-	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	tan: {
@@ -67,7 +55,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	default: {
-		up: button,
+		up: button
 		down: button-pressed,
 		checked: button-pressed
 	}

@@ -8,16 +8,9 @@ import inf112.skeleton.app.GUI.MainGameScreen;
 
 
 public class Main {
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) {
 
-        // Do we have the board file somewhere?
-        //new GUIBoard("Gooblepoops", "C:\\Users\\Morten\\Desktop\\UiB\\INF112\\First Oblig\\TestBoard.json").displayBoard();
-
-        /**
-        RoboClient roboClient = new RoboClient();
-        roboClient.tryConnection("localhost", 8000);
-         */
-        //
+        //new Board("Gooblepoops", "C:\\Users\\Morten\\Desktop\\UiB\\INF112\\First Oblig\\TestBoard.json").displayBoard();
 
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
         cfg.title = "Robo Rally Rampage";
@@ -25,6 +18,5 @@ public class Main {
         cfg.height = 800;
 
         new LwjglApplication(new GUIMain(), cfg);
-        
     }
 }

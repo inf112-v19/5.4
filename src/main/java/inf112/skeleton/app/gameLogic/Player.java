@@ -1,95 +1,68 @@
 package inf112.skeleton.app.gameLogic;
 
-import inf112.skeleton.app.GUI.pieces.GUIPiece;
-import inf112.skeleton.app.GUI.pieces.GUIRobot;
-import inf112.skeleton.app.GUI.player.MovableGUIRobot;
-import inf112.skeleton.app.gameLogic.board.Board;
-import inf112.skeleton.app.gameLogic.board.ICell;
-import inf112.skeleton.app.gameLogic.board.IPiece;
-import inf112.skeleton.app.gameLogic.board.pieces.Flag;
-import inf112.skeleton.app.gameLogic.board.pieces.LaserShooter;
-import inf112.skeleton.app.gameLogic.board.pieces.Wall;
+import inf112.skeleton.app.gameLogic.enums.*;
 import inf112.skeleton.app.GUI.player.Position;
-import inf112.skeleton.app.gameLogic.enums.Action;
-import inf112.skeleton.app.gameLogic.enums.ActionType;
-import inf112.skeleton.app.gameLogic.enums.Direction;
-import inf112.skeleton.app.gameLogic.enums.Rotation;
-import inf112.skeleton.app.gameLogic.game.Checker;
-import inf112.skeleton.app.gameLogic.game.PlayerAction;
-import inf112.skeleton.app.gameLogic.game.PlayerActionWrapper;
-import inf112.skeleton.app.gameLogic.game.RespawnPoint;
 
 import java.util.List;
-import java.util.Queue;
 import java.util.Stack;
 
 
 public class Player implements IPlayer {
-    private String name;
     private int health;
     private final int maxHealth;
     private int damageTokens;
-    private Direction facingDir;
+    private Direction dir;
     private Position pos;
     private Stack<ProgramCard> playerDeck;
     private List<ProgramCard> playerRegister;
-    private MovableGUIRobot robot;
-    private RespawnPoint respawnPoint;
-    private PlayerActionWrapper playerActionQueue;
-    private LaserShooter laserShooter = new LaserShooter(this.getDirection(), this.getPos(), 1);
 
+    public Stack<ProgramCard> returnDeck(){
+        return playerDeck;
+    }
 
 
     /**
      * Constructs a player object with position, direction and health
      */
-    public Player(String name, Position pos, Direction dir, int health, PlayerActionWrapper playerActionQueue) {
-        this.name = name;
+    public Player(Position pos, Direction dir, int health) {
         this.pos = pos;
-        this.facingDir = dir;
+        this.dir = dir;
         this.health = health;
         this.maxHealth = health;
         this.damageTokens = 0;
-        this.robot = new MovableGUIRobot(1);
-        this.respawnPoint = new RespawnPoint(pos, 1);
-        this.playerActionQueue = playerActionQueue;
     }
 
-    public PlayerActionWrapper getPlayerActionQueue() {
-        return playerActionQueue;
-    }
-
+    /**
+     * The piece moves i times in the direction it's facing
+     * @param steps
+     */
     @Override
-    public void addProgramCard(ProgramCard programCard) {
-        this.playerDeck.push(programCard);
-    }
-
-    public Stack<ProgramCard> returnDeck() {
-        return playerDeck;
-    }
-
-    @Override
-    public void move(Direction dir) {
-        pos = pos.changePos(dir);
-        //Comment out line below for the tests to run
-        //this.getRobot().doAction(ActionType.MOVE, dir);
-    }
-
-    public void die() {
-        this.health--;
-        System.out.println("YOU LOST HP, NEW HP: " + this.health);
-        this.pos = respawnPoint.getPos();
+    public void move(int steps) {
+        for (int j = 0; j < steps; j++) {
+            switch (this.dir) {
+                case NORTH: this.pos = this.pos.north(); break;
+                case EAST: this.pos = this.pos.east(); break;
+                case SOUTH: this.pos = this.pos.south(); break;
+                case WEST: this.pos = this.pos.west(); break;
+            }
+        }
+        if (steps == -1) {
+            switch (this.dir) {
+                case NORTH: this.pos = this.pos.south(); break;
+                case EAST: this.pos = this.pos.west(); break;
+                case SOUTH: this.pos = this.pos.north(); break;
+                case WEST: this.pos = this.pos.east(); break;
+            }
+        }
     }
 
     /**
      * Player gets one damageToken
      */
-
-
     @Override
     public void takeDamage(int amountOfDamage) {
-        if (damageTokens + amountOfDamage < 10) {
-            damageTokens += amountOfDamage;
+        if(damageTokens + amountOfDamage < 10){
+            damageTokens+=amountOfDamage;
         } else {
             damageTokens = 0;
             health--;
@@ -101,7 +74,7 @@ public class Player implements IPlayer {
      */
     @Override
     public void repair() {
-        if (damageTokens > 0) {
+        if(damageTokens > 0){
             damageTokens--;
         }
     }
@@ -109,82 +82,37 @@ public class Player implements IPlayer {
 
     /**
      * The piece rotates in the designated direction
-     *
      * @param r
      */
     @Override
     public void rotate(Rotation r) {
         if (r == Rotation.R) {
-            switch (this.facingDir) {
-                case NORTH:
-                    this.facingDir = Direction.EAST;
-                    break;
-                case EAST:
-                    this.facingDir = Direction.SOUTH;
-                    break;
-                case SOUTH:
-                    this.facingDir = Direction.WEST;
-                    break;
-                case WEST:
-                    this.facingDir = Direction.NORTH;
-                    break;
+            switch (this.dir) {
+                case NORTH: this.dir = Direction.EAST; break;
+                case EAST: this.dir = Direction.SOUTH; break;
+                case SOUTH: this.dir = Direction.WEST; break;
+                case WEST: this.dir = Direction.NORTH; break;
             }
-        } else if (r == Rotation.L) {
-            switch (this.facingDir) {
-                case NORTH:
-                    this.facingDir = Direction.WEST;
-                    break;
-                case EAST:
-                    this.facingDir = Direction.NORTH;
-                    break;
-                case SOUTH:
-                    this.facingDir = Direction.EAST;
-                    break;
-                case WEST:
-                    this.facingDir = Direction.SOUTH;
-                    break;
+        }
+        else if (r == Rotation.L) {
+            switch (this.dir) {
+                case NORTH: this.dir = Direction.WEST; break;
+                case EAST: this.dir = Direction.NORTH; break;
+                case SOUTH: this.dir = Direction.EAST; break;
+                case WEST: this.dir = Direction.SOUTH; break;
             }
-        } else if (r == Rotation.U) {
-            switch (this.facingDir) {
-                case NORTH:
-                    this.facingDir = Direction.SOUTH;
-                    break;
-                case EAST:
-                    this.facingDir = Direction.WEST;
-                    break;
-                case SOUTH:
-                    this.facingDir = Direction.NORTH;
-                    break;
-                case WEST:
-                    this.facingDir = Direction.EAST;
-                    break;
+        }
+        else if (r == Rotation.U) {
+            switch (this.dir) {
+                case NORTH: this.dir = Direction.SOUTH; break;
+                case EAST: this.dir = Direction.WEST; break;
+                case SOUTH: this.dir = Direction.NORTH; break;
+                case WEST: this.dir = Direction.EAST; break;
             }
-        } else {
+        }
+        else {
             throw new IllegalArgumentException("Not a valid rotation!");
         }
-        //Coment out line below for the tests to run
-        //robot.doAction(ActionType.ROTATE, facingDir);
-    }
-
-    public void setRespawnPoint() {
-        respawnPoint.setPos(pos);
-    }
-
-    public boolean isNextFlag(Flag flag) {
-        return this.getRespawnPoint().getNextFlag() == flag.getNumber();
-    }
-
-    public boolean isLastFlag(Flag flag, int numberOfFlags){
-        return isNextFlag(flag) && flag.getNumber() == numberOfFlags;
-    }
-
-    public void setNextFlag(){
-        setRespawnPoint();
-        respawnPoint.setNextFlag();
-    }
-
-    public RespawnPoint getRespawnPoint() {
-        return respawnPoint;
     }
 
     /**
@@ -209,7 +137,7 @@ public class Player implements IPlayer {
      */
     @Override
     public Direction getDirection() {
-        return this.facingDir;
+        return this.dir;
     }
 
     @Override
@@ -223,43 +151,5 @@ public class Player implements IPlayer {
     @Override
     public boolean isAlive() {
         return this.health > 0;
-    }
-
-
-    @Override
-    public IPiece getType() {
-        return null;
-    }
-
-    @Override
-    public String getName() {
-        return this.name;
-    }
-
-    @Override
-    public char getSymbol() {
-        return 0;
-    }
-
-    @Override
-    public Direction getPieceDirection() {
-        return null;
-    }
-
-    @Override
-    public GUIPiece getGUIPiece() {
-        return new GUIRobot(1);
-    }
-
-    public void setRobot(MovableGUIRobot robot) {
-        this.robot = robot;
-    }
-
-    public MovableGUIRobot getRobot() {
-        return this.robot;
-    }
-
-    public LaserShooter getLaserShooter(){
-        return this.laserShooter;
     }
 }

@@ -3,45 +3,28 @@ package inf112.skeleton.app.GUI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import inf112.skeleton.app.GUI.board.GUIBoard;
-import inf112.skeleton.app.GUI.board.Stats;
-import inf112.skeleton.app.GUI.cards.GUIDeck;
-import inf112.skeleton.app.GUI.player.MovableGUIRobot;
-import inf112.skeleton.app.gameLogic.Player;
-import inf112.skeleton.app.gameLogic.ProgramCard;
-import inf112.skeleton.app.gameLogic.game.RoboRallyGame;
-
-import java.util.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import inf112.skeleton.app.GUI.board.Board;
+import inf112.skeleton.app.GUI.board.Stats;
+import inf112.skeleton.app.GUI.pieces.*;
+import inf112.skeleton.app.GUI.cards.Deck;
+import inf112.skeleton.app.GUI.player.MovableRobot;
+import inf112.skeleton.app.gameLogic.board.activeCells.Conveyor;
+import inf112.skeleton.app.gameLogic.board.pieces.Wall;
+import inf112.skeleton.app.gameLogic.enums.Direction;
+import inf112.skeleton.app.gameLogic.enums.Rotation;
 
 public class MainGameScreen implements Screen {
-	private GUIBoard piecesBoard;
-	private GUIBoard robotsBoard;
-
 	private Stage stage;
 	private Skin skin;
 	OrthographicCamera camera;
 	ExtendViewport viewport;
 	Music music;
-
-	RoboRallyGame roboRallyGame;
-	Player[] players;
-
-	List<ProgramCard> pgCards;
-	MovableGUIRobot currentMovableRobot;
-
-	GUIDeck guiDeck;
-	Cell guiDeckCell;
 
 	public MainGameScreen(){
 
@@ -53,49 +36,14 @@ public class MainGameScreen implements Screen {
         viewport = new ExtendViewport(1200, 1200, camera);
 		stage = new Stage(viewport);
 
-
-
 		// Main skin
 		skin = new Skin(Gdx.files.internal("rusty-robot/skin/rusty-robot-ui.json"));
 		skin.getFont("font").getData().setScale(1.6f,1.6f);
-		skin.get(Label.LabelStyle.class).fontColor = Color.WHITE;
-
-
-		this.roboRallyGame = new RoboRallyGame(this);
-
-		// Get the players from the game.
-        this.players = roboRallyGame.getPlayers();
-
-		this.piecesBoard = new GUIBoard(this.roboRallyGame.getBoard());
-		this.robotsBoard = new GUIBoard(this.roboRallyGame.getBoard());
-		this.robotsBoard.makeBoardInvisible();
-		//piecesBoard.addPlayers(players);
-
-
-		roboRallyGame.playGame();
 
 		addPiecesTest();
 
-		//this.addPlayers(players);
-		robotsBoard.addPlayers(players);
-
 		Gdx.input.setInputProcessor(stage);
-
-		piecesBoard.lightUpTile(0,0);
-		piecesBoard.lightUpTile(1,0);
-		piecesBoard.lightUpTile(2,0);
-
-		piecesBoard.lightUpTile(6,4);
-		piecesBoard.lightUpTile(7,4);
-		piecesBoard.lightUpTile(4,5);
-		piecesBoard.resetTileColor(0,0);
-		//piecesBoard.lightUpTile(2,0);
-		//piecesBoard.lightUpTile(0,1);
-
-		roboRallyGame.prePlay();
-
 	}
-
 
 	@Override
 	public void show() {
@@ -140,8 +88,8 @@ public class MainGameScreen implements Screen {
 
 	public void playMusic(){
 		// Play music
-		music = Gdx.audio.newMusic(Gdx.files.internal("audio/music/Rally_Roller.mp3"));
-		//music = Gdx.audio.newMusic(Gdx.files.internal("audio/demoMarbles.mp3"));
+		//music = Gdx.audio.newMusic(Gdx.files.internal("sound/Rally_Roller.mp3"));
+		music = Gdx.audio.newMusic(Gdx.files.internal("sound/demoMarbles.mp3"));
 		music.setVolume(0.32f);                 // sets the volume to half the maximum volume
 		music.setLooping(true);                // will repeat playback until music.stop() is called
 		//music.stop();                          // stops the playback
@@ -163,100 +111,65 @@ public class MainGameScreen implements Screen {
 		//game.setDebug(true);
 		game.top().left();
 
-		// Create piecesBoard.
-		//piecesBoard piecesBoard = new piecesBoard(90, 10, 10);
+		// Create board.
+		Board board = new Board(90, 10, 10);
+		//board.setDebug(true);
 
-		//piecesBoard.setDebug(true);
+		// Add some pieces to the board.
+		//board.addPiece(3,3, new Robot(1));
+		board.addPiece(3,3, new Robot(0));
+		board.addPiece(1,3, new Laser());
+		board.addPiece(2,3, new Laser());
+		board.addPiece(4,3, new Laser());
+		board.addPiece(5,3, new Laser());
+		board.addPiece(1, 2, new GUIWall(new Wall(Direction.WEST)));
+		board.addPiece(1, 3, new GUIWall(new Wall(Direction.NORTH)));
+		board.addPiece(1, 4, new GUIWall(new Wall(Direction.EAST)));
+		board.addPiece(1, 5, new GUIWall(new Wall(Direction.SOUTH)));
+		board.addPiece(0,0, new GUIHole());
+		board.addPiece(1,0, new GUIHole());
+		board.addPiece(6,2, new GUIHole());
+		board.addPiece(8, 3, new GUIConveyor(new Conveyor(Direction.NORTH)));
+		board.addPiece(8, 4, new GUIConveyor(new Conveyor(Direction.EAST)));
+		board.addPiece(8, 5, new GUIConveyor(new Conveyor(Direction.SOUTH)));
+		board.addPiece(8, 6, new GUIConveyor(new Conveyor(Direction.WEST)));
+		board.addPiece(7, 6, new GUIFlag());
+		board.addPiece(5, 7, new GUIRepair());
+		board.addPiece(6, 8, new GUIGear(Rotation.R));
+		board.addPiece(8, 9, new GUIGear(Rotation.L));
 
-		//MovableGUIRobot hans = new MovableGUIRobot(1);
-		//this.currentMovableRobot = hans;
-		//piecesBoard.addGUIPiece(5,5, hans);
-		//piecesBoard.addGUIPiece(5,5, new GUIBest());
+
+
+		MovableRobot hans = new MovableRobot(1);
+		board.addPiece(5,5, hans);
 
 		// BOARD CREATION AND SETUP
 
-		Stack boards = new Stack();
-		boards.add(piecesBoard);
-		boards.add(robotsBoard);
-
-		Stats stats = new Stats(skin, players[0]);
+		// Create cards
+		Deck deck = new Deck(skin);
+		Stats stats = new Stats(skin);
 
 		// Add everything to the main table.
 		topBar.add().prefWidth(200);
-		// piecesBoard add
-		topBar.add(boards).top().center().expandX().padTop(30).height(900);
+		// Board add
+		topBar.add(board).top().center().expandX().padTop(30);
 		// Stat add
 		topBar.add(stats).top().left().pad(70);
 
 		game.add(topBar).expandX();
 		game.row();
 
-		// Add the bottom bar and GUIDeck
-		this.guiDeckCell = bottomBar.add().bottom().padBottom(30).padLeft(50).colspan(3);
+		// Add the bottom bar and deck
+		bottomBar.add(deck).bottom().padBottom(30).padLeft(50).colspan(3);
 		game.add(bottomBar).expand().fillY();
 
 		// BASE ASSET TEST
 		//game.addActor(new BaseAsset());
 
-		// Add the main table - RoboRallyGame - to the stage.
+		// Add the main table - Game - to the stage.
 		stage.addActor(game);
 
-		//stage.setKeyboardFocus(hans);
-
-		//pickCardPhase(new ProgramCardDeck().drawXCards(9));
+		stage.setKeyboardFocus(hans);
 	}
-
-    /**
-     *
-     * Pick which cards touse
-     * @param pgCards cards to pick from, usually 9
-     * @return picked cards, usually 5
-     */
-    public void pickCardPhase(List<ProgramCard> pgCards){
-    	Button doneButton = new TextButton("DONE", skin);
-        this.guiDeck = new GUIDeck(skin, pgCards, doneButton);
-        this.guiDeck.setProgramCards(pgCards);
-		this.guiDeckCell.setActor(guiDeck);
-		addPostPickListener(doneButton);
-
-        this.guiDeck.pickCardsSetup();
-
-    }
-
-
-	private void addPostPickListener(Button doneButton) {
-		doneButton.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-
-				roboRallyGame.postPick(guiDeck.getPickedProgramCards());
-			}
-		});
-
-	}
-
-	public GUIBoard getGUIBoard(){
-    	return this.piecesBoard;
-	}
-
-	public void addPlayers(Player[] players){
-    	for(Player player : players){
-    		MovableGUIRobot robot = player.getRobot();
-    		int playerX = player.getPos().getX();
-			int playerY = player.getPos().getY();
-			float[] positions = piecesBoard.getPiecePos(playerX, playerY);
-			Vector2 coords = piecesBoard.getCoords(playerX, playerY);
-			robot.localToStageCoordinates(coords);
-			stage.stageToScreenCoordinates(coords);
-
-			System.out.println(coords);
-			robot.setPosition(coords.x, coords.y);
-
-    		//robot.setPosition(positions[0], positions[1]);
-			stage.addActor(player.getRobot());
-		}
-
-	}
-
 
 }

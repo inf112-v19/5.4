@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-public class GUIFlag extends GUIPiece {
+public class GUIFlag extends Piece {
 
     public GUIFlag() {
         sprite = new Sprite(new Texture(Gdx.files.internal("board/flag_1.png")));

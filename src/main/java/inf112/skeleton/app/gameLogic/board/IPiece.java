@@ -1,36 +1,29 @@
 package inf112.skeleton.app.gameLogic.board;
 
-import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
 public interface IPiece {
     /**
-     * Returns the type of GUIPiece
-     * @return ICell type of GUIPiece
+     * Returns the type of Piece
+     * @return ICell type of Piece
      */
     IPiece getType();
 
     /**
-     * Returns the name of the GUIPiece
-     * @return String name of GUIPiece
+     * Returns the name of the Piece
+     * @return String name of Piece
      */
     String getName();
 
     /**
-     * Returns the symbol that represents this GUIPiece
+     * Returns the symbol that represents this Piece
      * @return char symbol representation
      */
     char getSymbol();
 
     /**
-     * Returns the direction of the GUIPiece
+     * Returns the direction of the Piece
      * @return Direction
      */
-    Direction getPieceDirection();
-
-    /**
-     * Each game piece has a GUI friend.
-     * @return GUIPiece
-     */
-    GUIPiece getGUIPiece();
+    Direction getRotation();
 }

@@ -2,24 +2,17 @@ package inf112.skeleton.app.gameLogic;
 
 
 import inf112.skeleton.app.GUI.player.Position;
-import inf112.skeleton.app.gameLogic.board.IPiece;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.enums.Rotation;
 
 
-interface IPlayer extends IPiece {
+interface IPlayer {
 
     /**
-     * Add programCards to the player
-     * @param programCard The card to be added
+     * @param steps
+     *          Times the player moves in the direction it's facing
      */
-    void addProgramCard(ProgramCard programCard);
-
-    /**
-     * @param dir
-     *          The direction the player should move
-     */
-    void move(Direction dir);
+    void move(int steps);
 
 
 
