@@ -16,7 +16,7 @@ public class TestCard extends Group {
 
     public TestCard() {
 
-        color = new Color(1f,0f,0f,1f);
+        color = new Color(1f, 0f, 0f, 1f);
         font = new BitmapFont(Gdx.files.internal("bignoodle.fnt"));
         Label label = new Label("eta mat", new Label.LabelStyle(font, color));
         text = label;

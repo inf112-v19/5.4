@@ -3,11 +3,11 @@ package inf112.skeleton.app;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.graphics.GL20;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.mockito.Mockito;
-import com.badlogic.gdx.backends.headless.HeadlessApplication;
 
 public class GameTest {
     // This is our "test" application
@@ -18,12 +18,29 @@ public class GameTest {
     public static void init() {
         // Note that we don't need to implement any of the listener's methods
         application = new HeadlessApplication(new ApplicationListener() {
-            @Override public void create() {}
-            @Override public void resize(int width, int height) {}
-            @Override public void render() {}
-            @Override public void pause() {}
-            @Override public void resume() {}
-            @Override public void dispose() {}
+            @Override
+            public void create() {
+            }
+
+            @Override
+            public void resize(int width, int height) {
+            }
+
+            @Override
+            public void render() {
+            }
+
+            @Override
+            public void pause() {
+            }
+
+            @Override
+            public void resume() {
+            }
+
+            @Override
+            public void dispose() {
+            }
         });
 
         // Use Mockito to mock the OpenGL methods since we are running headlessly

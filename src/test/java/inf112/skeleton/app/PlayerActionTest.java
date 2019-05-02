@@ -4,17 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglFiles;
 import com.badlogic.gdx.backends.lwjgl.LwjglNativesLoader;
 import inf112.skeleton.app.GUI.player.Position;
+import inf112.skeleton.app.gameLogic.Player;
+import inf112.skeleton.app.gameLogic.ProgramCard;
+import inf112.skeleton.app.gameLogic.ProgramCardDeck;
 import inf112.skeleton.app.gameLogic.enums.Action;
+import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.game.PlayerAction;
 import inf112.skeleton.app.gameLogic.game.PlayerActionWrapper;
 import inf112.skeleton.app.gameLogic.game.TestGame;
-import inf112.skeleton.app.gameLogic.enums.Direction;
-import inf112.skeleton.app.gameLogic.Player;
-import inf112.skeleton.app.gameLogic.ProgramCardDeck;
-import inf112.skeleton.app.gameLogic.ProgramCard;
 import org.junit.Before;
 import org.junit.Test;
-
 
 import java.io.File;
 import java.util.LinkedList;
@@ -141,7 +140,7 @@ public class PlayerActionTest extends GameTest {
         assertEquals(1, player.getRespawnPoint().getNextFlag());
         //PlayerAction playerAction = new PlayerAction(player, Action.MOVE_1);
         Queue<PlayerAction> playerActionQueue = new LinkedList<>();
-        for(int i = 0; i < 2; i++){
+        for (int i = 0; i < 2; i++) {
 
             //Checker checker = new Checker(player, Action.MOVE_1, game.getBoard(), playerActionQueue);
             game.getChecker().doAction(Action.MOVE_1, player);

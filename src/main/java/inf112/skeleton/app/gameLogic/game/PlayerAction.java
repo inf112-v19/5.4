@@ -1,7 +1,7 @@
 package inf112.skeleton.app.gameLogic.game;
 
-import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.Player;
+import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
 public class PlayerAction {
@@ -23,5 +23,7 @@ public class PlayerAction {
         return player;
     }
 
-    public Direction getActionDir(){return actionDir;}
+    public Direction getActionDir() {
+        return actionDir;
+    }
 }

@@ -13,7 +13,9 @@ import inf112.skeleton.app.gameLogic.board.pieces.Wall;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class RoboRallyGame {
 
@@ -21,14 +23,14 @@ public class RoboRallyGame {
     MainGameScreen guiScreen;
 
     private int totalPlayers = 3;   // Total players in the game
-    private Player[] players;       // Players in the game
+    private List<Player> players;       // Players in the game
     private int startHealth = 3;
     private String boardPath = "FlagBoard.json";
+    private List<LaserShooter> laserShooterList;
 
     private ProgramCardDeck deck;
     private Player currentPlayer;
     private Board board;
-    private List<LaserShooter> laserShooterList;
 
     private Checker checker;
 
@@ -45,15 +47,15 @@ public class RoboRallyGame {
         this.checker = new Checker(board);
         //board.displayBoard();
         this.deck = new ProgramCardDeck();  // Deck of cards in the game
-        players = new Player[totalPlayers];
-        for (int i = 0; i < players.length; i++) {
-            Position position = new Position(i + 5, 7);
+        players = new ArrayList<>();
+        for (int i = 0; i < totalPlayers; i++) {
+            Position position = new Position(i+5, 7);
             //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
-            players[i] = new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, playerActionQueue);
-            board.addPiece(position, players[i]);
+            players.add(new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, playerActionQueue));
+            board.addPiece(position, players.get(i));
             System.out.println("player made!!");
-            System.out.println(players[i].getPos().getX() + " " + players[i].getPos().getY());
         }
+
         for (int y = 0; y < board.getBoardHeight(); y++) {
             for (int x = 0; x < board.getBoardWidth(); x++) {
                 for (IPiece piece : board.getCellAt(x, y).getPiecesInCell()) {
@@ -68,9 +70,9 @@ public class RoboRallyGame {
         playGame();
     }
 
-    public void playGame() {
+    public void playGame(){
         this.deck.shuffleDeck();
-        this.currentPlayer = players[0];
+        this.currentPlayer = players.get(0);
 //        for (Player currentPlayer : players) {
 //            this.currentPlayer = currentPlayer;
 //        }
@@ -109,7 +111,6 @@ public class RoboRallyGame {
 
     /**
      * Atm just does actions.
-     *
      * @param pickedProgramCards
      */
     public void postPick(List<ProgramCard> pickedProgramCards) {
@@ -119,16 +120,16 @@ public class RoboRallyGame {
         // Outermost layer: all the actions from all the cards.
         List<List<List<PlayerAction>>> allActions = new ArrayList<>();
 
-        for (ProgramCard card : pickedProgramCards) {
+        for(ProgramCard card: pickedProgramCards){
 
             // All the actions originating from ONE card.
             List<List<PlayerAction>> temp = checker.doAction(card.getCardType().getAction(), currentPlayer);
 
 
             System.out.println("Actions in actionList: ");
-            for (List<PlayerAction> tempBig : temp) {
+            for(List<PlayerAction> tempBig : temp){
                 System.out.println("----------");
-                for (PlayerAction pa : tempBig) {
+                for(PlayerAction pa : tempBig){
                     System.out.println("Player: " + pa.getPlayer().getName() + " Action: " + pa.getAction().getDescription());
                 }
 
@@ -140,13 +141,10 @@ public class RoboRallyGame {
             checker.checkForFlag(currentPlayer);
             //System.out.println("FIRST ACTION IN QUEUE: " + playerActionQueue.getElement().getAction().getDescription());
         }
-
+        laserCalculation();
         this.guiScreen.getGUIBoard().doGUIActions(allActions);
-//        removeLasers();
-        this.laserCalculation();
 
     }
-
     public void laserCalculation() {
         for (LaserShooter laserShooter : laserShooterList) {
             board.getCellAt(laserShooter.getPos()).addPiece(new Laser(laserShooter.getPieceDirection(), laserShooter));
@@ -249,13 +247,10 @@ public class RoboRallyGame {
         }
     }
 
-    public Player[] getPlayers() {
+    public List<Player> getPlayers(){
         return this.players;
     }
-
-    public Board getBoard() {
-        return this.board;
-    }
+    public Board getBoard(){return this.board;}
 
 
 }

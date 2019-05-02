@@ -1,13 +1,9 @@
 package inf112.skeleton.app.GUI.cards;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 
@@ -32,43 +28,47 @@ public class GUICard extends Stack {
         super.draw(batch, parentAlpha);
     }
 
-    public Button getButton(){return this.cardButton;};
+    public Button getButton() {
+        return this.cardButton;
+    }
 
-    public GUICard(Skin skin, ProgramCard pgCard, CardButtonStyle cardButtonStyle){
+    ;
 
-            this.skin = skin;
-            this.cardButtonStyle = cardButtonStyle;
-            this.buttonTextLabels = new Table();
-            this.pgCard = pgCard;
+    public GUICard(Skin skin, ProgramCard pgCard, CardButtonStyle cardButtonStyle) {
 
-            setCardValues(pgCard.getPriority(),pgCard.getCardType().getDescription());
+        this.skin = skin;
+        this.cardButtonStyle = cardButtonStyle;
+        this.buttonTextLabels = new Table();
+        this.pgCard = pgCard;
 
-
-            cardActionLabel.setColor(Color.WHITE);
-
-            // The main button added to the Stack.
-            this.cardButton = new CardButton(this, cardButtonStyle);
-            this.add(cardButton);
+        setCardValues(pgCard.getPriority(), pgCard.getCardType().getDescription());
 
 
-            //buttonTextLabels.setDebug(true);
+        cardActionLabel.setColor(Color.WHITE);
 
-            buttonTextLabels.setFillParent(false);
-            buttonTextLabels.top().right();
-            //buttonTextLabels.setDebug(true);
+        // The main button added to the Stack.
+        this.cardButton = new CardButton(this, cardButtonStyle);
+        this.add(cardButton);
 
-            // Refresh the cards display values.
-            updateCard();
 
-            // Click throughable
-            buttonTextLabels.setTouchable(Touchable.disabled);
+        //buttonTextLabels.setDebug(true);
 
-            this.add(buttonTextLabels);
+        buttonTextLabels.setFillParent(false);
+        buttonTextLabels.top().right();
+        //buttonTextLabels.setDebug(true);
 
-        }
+        // Refresh the cards display values.
+        updateCard();
+
+        // Click throughable
+        buttonTextLabels.setTouchable(Touchable.disabled);
+
+        this.add(buttonTextLabels);
+
+    }
 
     // This needs to be run whenever the card's content changes.
-    private void updateCard(){
+    private void updateCard() {
         // Always wipe first
         buttonTextLabels.clearChildren();
         // The GUICard's priority value and action added to display.
@@ -76,7 +76,7 @@ public class GUICard extends Stack {
         buttonTextLabels.left();
 
         // Tuned to be top right.
-        buttonTextLabels.add(priorityValueLabel).top().right().padRight(24).padTop(15) ;
+        buttonTextLabels.add(priorityValueLabel).top().right().padRight(24).padTop(15);
         buttonTextLabels.row();
 
         // Tuned to be in the middle.
@@ -84,16 +84,17 @@ public class GUICard extends Stack {
         buttonTextLabels.add(cardActionLabel).width(textAreaWidth).expandY().center().padLeft(24).padRight(20).padBottom(20);
 
     }
+
     private void getCardValues() {
         //; GAME LOGIC INSERT
 
     }
 
-    public void setCardValues(int priorityValue, String cardAction){
-        this.priorityValueLabel = new Label(Integer.toString(priorityValue),skin);
+    public void setCardValues(int priorityValue, String cardAction) {
+        this.priorityValueLabel = new Label(Integer.toString(priorityValue), skin);
         this.priorityValueLabel.setAlignment(Align.center);
         this.priorityValueLabel.setFontScale(1.2f);
-        this.cardActionLabel = new Label( cardAction, skin);
+        this.cardActionLabel = new Label(cardAction, skin);
         this.cardActionLabel.setAlignment(Align.center);
 
         this.priorityValueLabel.setColor(Color.FIREBRICK);
@@ -105,7 +106,7 @@ public class GUICard extends Stack {
 
     }
 
-    public ProgramCard getProgramCard(){
+    public ProgramCard getProgramCard() {
         return this.pgCard;
     }
 

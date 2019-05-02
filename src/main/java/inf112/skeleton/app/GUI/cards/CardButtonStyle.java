@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
 public class CardButtonStyle extends Button.ButtonStyle {
 
-    public CardButtonStyle(){
+    public CardButtonStyle() {
 
 
         //Button.ButtonStyle buttonStyle = new Button.ButtonStyle(uSD, dSD, dSD);

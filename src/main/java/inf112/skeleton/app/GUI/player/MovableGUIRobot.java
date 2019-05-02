@@ -3,13 +3,13 @@ package inf112.skeleton.app.GUI.player;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.scenes.scene2d.actions.*;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
+import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
+import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
+import inf112.skeleton.app.GUI.SoundPlayer;
 import inf112.skeleton.app.GUI.pieces.GUIRobot;
 import inf112.skeleton.app.gameLogic.enums.ActionType;
 import inf112.skeleton.app.gameLogic.enums.Direction;
-import inf112.skeleton.app.GUI.board.SoundPlayer;
-
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 public class MovableGUIRobot extends GUIRobot {
 
@@ -99,7 +99,7 @@ public class MovableGUIRobot extends GUIRobot {
         switch (actionType) {
             case MOVE:
 
-                parallelAction.addAction(new RunnableAction(){
+                parallelAction.addAction(new RunnableAction() {
                     @Override
                     public void run() {
                         SoundPlayer.GameSound.MOVE.playSound();
@@ -133,7 +133,7 @@ public class MovableGUIRobot extends GUIRobot {
             case ROTATE:
 
 
-                parallelAction.addAction(new RunnableAction(){
+                parallelAction.addAction(new RunnableAction() {
                     @Override
                     public void run() {
                         SoundPlayer.GameSound.ROTATE.playSound();
@@ -142,7 +142,7 @@ public class MovableGUIRobot extends GUIRobot {
 
                 final Direction innerDir = faceDir;
 
-                parallelAction.addAction(new RunnableAction(){
+                parallelAction.addAction(new RunnableAction() {
                     @Override
                     public void run() {
                         changeSprite(innerDir);
@@ -157,7 +157,7 @@ public class MovableGUIRobot extends GUIRobot {
 
     public void changeSprite(Direction facingDir) {
         String spriteString = "yellow_robot_";
-        switch (facingDir){
+        switch (facingDir) {
             case NORTH:
                 spriteString += "back";
                 break;
