@@ -1,33 +1,21 @@
 package inf112.skeleton.app.Server;
 
-
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import inf112.skeleton.app.GUI.GUIMain;
-import inf112.skeleton.app.GUI.MainGameScreen;
-import inf112.skeleton.app.gameLogic.ProgramCardDeck;
-import inf112.skeleton.app.gameLogic.game.RoboRallyGame;
-
 import java.io.*;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Scanner;
 
 public class RoboClient {
 
-    public static void main(String[] args) throws IOException {
+    private int playerID;
+    private Socket clientSocket;
+    private ObjectInputStream ois;
+    private ObjectOutputStream oos;
+    private Scanner scn;
 
+    public RoboClient() {
+        System.out.println("--- Client ---");
         try {
-
-            /**
-            LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-            cfg.title = "Robo Rally Rampage";
-            cfg.width = 1200;
-            cfg.height = 800;
-
-            new LwjglApplication(new GUIMain(), cfg);
-            */
-
             Scanner scn = new Scanner(System.in);
             Scanner msg = new Scanner(System.in);
             System.out.println("Enter the server ip and port");
@@ -36,28 +24,34 @@ public class RoboClient {
             System.out.println("Port:");
             int port = scn.nextInt();
 
-
-            Socket roboClient = new Socket(ip, port);
+            clientSocket = new Socket(ip, port);
             System.out.println("Connection accepted! Do some shit.");
 
-            ObjectInputStream ois = new ObjectInputStream(roboClient.getInputStream());
-            ObjectOutputStream oos = new ObjectOutputStream(roboClient.getOutputStream());
+            oos = new ObjectOutputStream(clientSocket.getOutputStream());
+            ois = new ObjectInputStream(clientSocket.getInputStream());
 
-            System.out.println("Enter your name: ");
-            String playername = msg.nextLine();
-            oos.writeObject(playername);
-
-            ProgramCardDeck dingus = (ProgramCardDeck) ois.readObject();
-            System.out.println(dingus);
+            playerID = (int)ois.readObject();
+            System.out.println("Your playerID is " + playerID + "!");
 
             while (true) {
 
             }
+
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
         } catch (IOException e) {
-            System.out.println(e);
+            e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getPlayerID() {
+        return playerID;
+    }
+
+    public static void main(String[] args) throws IOException {
+        RoboClient rc = new RoboClient();
     }
 }
 
