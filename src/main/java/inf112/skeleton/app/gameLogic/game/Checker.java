@@ -11,7 +11,6 @@ import inf112.skeleton.app.gameLogic.board.pieces.Gears;
 import inf112.skeleton.app.gameLogic.board.pieces.Wall;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
-import javafx.geometry.Pos;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -34,111 +33,95 @@ public class Checker {
             switch (att.getActionType()) {
                 case MOVE:
                     List<PlayerAction> moveActions = new LinkedList<>();
-                    this.move(player.getDirection(), player, allActions, moveActions);
-                    allActions.add(moveActions);
+                    if (att.getDescription().equals(Action.MOVE_BACK.getDescription())) {
+                        allActions.add(move(player.getDirection().oppositeDir(), player));
+                    } else {
+                        allActions.add(move(player.getDirection(), player));
+                    }
                     break;
                 case ROTATE:
-                    allActions.add(this.rotate(player,att));
+                    allActions.add(this.rotate(player, att));
                     break;
             }
         }
         return allActions;
     }
 
-    public List<PlayerAction> rotate(Player player, Action att){
+    public List<PlayerAction> rotate(Player player, Action att) {
         player.rotate(att.getRotation());
         return new LinkedList<PlayerAction>() {{
             add(new PlayerAction(player, att, player.getDirection()));
         }};
     }
 
-    public void move(Direction playerMoveDir, Player player, List<List<PlayerAction>> allActions, List<PlayerAction> moveActions) {
-        if (canMove(playerMoveDir, board.getCellAt(player.getPos()), player, allActions, moveActions)) {
-            moveActions.add(player.move(playerMoveDir));
-            movePlayerPiece(player, playerMoveDir);
-        }
-    }
+    public List<PlayerAction> move(Direction playerMoveDir, Player player) {
+        List<PlayerAction> calculatedMoves = new LinkedList<>();
+        calculatedMoves.addAll(calculateMoves(playerMoveDir, board.getCellAt(player.getPos()), player));
 
-    private boolean canMove(Direction goingDir, ICell currCell, Player player, List<List<PlayerAction>> allActions, List<PlayerAction> moveActions) {
-        //Checks walls in current tile
-        Position currPos = player.getPos();
-        Position nextPos = player.getPos().changePos(goingDir);
-        System.out.println("GOING TO THIS POSITION !!");
-        System.out.println(nextPos);
+        if (calculatedMoves.size() > 0) {
+            Position tempPos = player.getPos();
+            player.move(playerMoveDir);
 
-        System.out.println("CHECKING IF I CAN MOVE");
-
-        if(willCrashWithWall(player, goingDir, currCell)){
-            System.out.println(player.getPos().toString());
-            System.out.println("oh shit im crashin");
-            return false;
-        }
-
-
-        // Checks if player goes outside board, and should die.
-        if (!board.insideBoard(currPos, goingDir)) {
-            player.die();
-            return false;
-        }
-
-        //Checks in next tile
-        ICell nextCell = board.getCellAt(nextPos);
-        if (nextCell != null) {
-            List<IPiece> piecesInNextCell = board.getCellAt(nextPos).getPiecesInCell();
-            System.out.println(String.format("I'm in pos %s and I this is in pos %s: %s",currPos.toString(),nextPos.toString(),piecesInNextCell.toString()));
-
-            //checks for player in next tile
-            for (IPiece piece : piecesInNextCell) {
-                System.out.println();
-                if (piece instanceof Player) {
-                    Player otherPlayer = (Player) piece;
-                    //Checker checker = new Checker(otherPlayer, board, playerActionQueue);
-                    if (canMove(goingDir, nextCell, otherPlayer, allActions, moveActions)) {
-                        move(goingDir, otherPlayer, allActions, moveActions);
-                        return true;
-                    } else {
-                        System.out.println("oh this other guy couldnt move");
-                        return false;
-                    }
-                }
+            if (board.getCellAt(tempPos).getPiecesInCell().contains(player)) {
+                board.getCellAt(tempPos).getPiecesInCell().remove(player);
+                board.getNextCell(tempPos, playerMoveDir).addPiece(player);
             }
+            return calculatedMoves;
         }
-        return true;
+        return calculatedMoves;
     }
 
-    public boolean willCrashWithWall(Player player, Direction goingDir, ICell currCell){
-
-        Direction oppositeDir = goingDir.oppositeDir();
-
+    private List<PlayerAction> calculateMoves(Direction goingDir, ICell currCell, Player player) {
+        List<PlayerAction> moveActions = new LinkedList<>();
+        //Checks walls in current tile
         if (currCell != null) {
             List<IPiece> piecesInCurrCell = board.getCellAt(player.getPos()).getPiecesInCell();
             for (IPiece piece : piecesInCurrCell) {
                 System.out.println(piece.getName() + "-" + piece.getPieceDirection());
                 if (piece instanceof Wall && piece.getPieceDirection() == goingDir) {
                     System.out.println("hit wall");
-                    return true;
+                    return moveActions;
                 }
             }
         }
 
+        Direction oppositeDir = goingDir.oppositeDir();
+
+        // Checks if player goes outside board, and should die.
+        if (!board.insideBoard(player.getPos(), goingDir)) {
+            player.die();
+            return moveActions;
+        }
+
+        //Checks walls in next tile
         if (board.getNextCell(player.getPos(), goingDir) != null) {
             List<IPiece> piecesInNextCell = board.getNextCell(player.getPos(), goingDir).getPiecesInCell();
 
             for (IPiece piece : piecesInNextCell) {
                 if (piece instanceof Wall && piece.getPieceDirection() == oppositeDir) {
                     System.out.println("hit wall");
-                    return true;
+                    return moveActions;
+                }
+            }
+            //checks for player in next tile
+            for (IPiece piece : piecesInNextCell) {
+                if (piece instanceof Player) {
+                    Player otherPlayer = (Player) piece;
+                    moveActions.addAll(move(goingDir,otherPlayer));
+                    if(moveActions.size() > 0){
+                        moveActions.add(new PlayerAction(player, Action.MOVE_1, goingDir));
+                    }
+                    return moveActions;
                 }
             }
         }
-
-        return false;
-
+        return new LinkedList<PlayerAction>() {{
+            add(new PlayerAction(player, Action.MOVE_1, goingDir));
+        }};
     }
 
     public void checkForFlag(Player player) {
         //checks if the players position is the same as the flag the player is looking for
-        //System.out.println("Looking for flag " + player.getRespawnPoint().getNextFlag());
         if (player.getPos().equals(board.getFlags().getFlagPos(player.getRespawnPoint().nextFlag))) {
             System.out.println("Found flag " + player.getRespawnPoint().getNextFlag());
             SoundPlayer.GameSound.FLAG_PICKUP.playSound();
@@ -153,58 +136,23 @@ public class Checker {
         }
     }
 
-    public PlayerAction conveyorMove(Player player, Direction conveyorMoveDir){
-
-        if(willCrashWithWall(player,conveyorMoveDir, board.getCellAt(player.getPos()))){
-            return null;
-        }
-        else {
-            this.movePlayerPiece(player, conveyorMoveDir);
-            return player.move(conveyorMoveDir);
-        }
-    }
-
-    public List<PlayerAction> doPiecesMoves(List<Player> players) {
+    public List<List<PlayerAction>> doPiecesMoves(List<Player> players) {
         List<List<PlayerAction>> allActions = new LinkedList<>();
-        List<PlayerAction> moveActions = new LinkedList<>();
 
-        for(Player player: players){
-            Position currPos = player.getPos();
-            System.out.println("POSITION OF A PLAYER:");
-            System.out.println(currPos);
-            List<IPiece> currPosPieces = board.getCellAt(currPos).getPiecesInCell();
-
-
-            for (IPiece piece : currPosPieces) {
-
+        List<Player> copyPlayersList = new ArrayList<>(players);
+        for(Player player: copyPlayersList){
+            System.out.println(player);
+            List<IPiece> pieces = board.getCellAt(player.getPos()).getPiecesInCell();
+            List<IPiece> copyPieceList = new ArrayList<>(pieces);
+            for (IPiece piece : copyPieceList) {
                 if(piece instanceof Conveyor) {
-                    //move(piece.getPieceDirection(), player, allActions, moveActions);
-                    //allActions.add(moveActions);
-                    PlayerAction conveyorAction = conveyorMove(player, piece.getPieceDirection());
-                    if(conveyorAction!=null){
-                        moveActions.add(conveyorAction);
-                        //System.out.println(String.format("The pushed player is in pos %d %d and this is in its cell: %s", currPos.getX(), currPos.getY(), currPosPieces.toString()));
-                        break;
-                    }
+                    allActions.add(move(piece.getPieceDirection(), player));
                 }
-                if(piece instanceof Gears){
-                    //allActions.add(this.rotate(player, ((Gears) piece).getAction()));
-                    //doAction(((Gears)piece).getAction(), player);
+                if (piece instanceof Gears) {
+                    allActions.add(this.rotate(player, ((Gears) piece).getAction()));
                 }
             }
-
         }
-
-        return moveActions;
+        return allActions;
     }
-
-    public void movePlayerPiece(Player player, Direction playerMoveDir){
-        Position tempPos = player.getPos();
-
-        if (board.getCellAt(tempPos).getPiecesInCell().contains(player)) {
-            board.getCellAt(tempPos).getPiecesInCell().remove(player);
-            board.getNextCell(tempPos, playerMoveDir).addPiece(player);
-        }
-    }
-
 }

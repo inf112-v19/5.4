@@ -8,7 +8,7 @@ public enum Action {
     MOVE_1("MOVE 1", ActionType.MOVE, 1),
     MOVE_2("MOVE 2", ActionType.MOVE, 2),
     MOVE_3("MOVE 3", ActionType.MOVE, 3),
-    MOVE_BACK("MOVE BACK", ActionType.MOVE, -1),
+    MOVE_BACK("MOVE BACK", ActionType.MOVE, 1),
     ROTATE_L("TURN LEFT", ActionType.ROTATE, Rotation.L),
     ROTATE_R("TURN RIGHT", ActionType.ROTATE, Rotation.R),
     ROTATE_U("U TURN", ActionType.ROTATE, Rotation.U);
