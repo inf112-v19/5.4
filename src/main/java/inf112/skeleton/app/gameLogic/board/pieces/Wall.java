@@ -1,5 +1,7 @@
 package inf112.skeleton.app.gameLogic.board.pieces;
 
+import inf112.skeleton.app.GUI.pieces.GUIPiece;
+import inf112.skeleton.app.GUI.pieces.GUIWall;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.board.IPiece;
 
@@ -18,7 +20,7 @@ public class Wall implements IPiece {
 
     @Override
     public String getName() {
-        return "GUIWall";
+        return "Wall";
     }
 
     @Override
@@ -27,7 +29,12 @@ public class Wall implements IPiece {
     }
 
     @Override
-    public Direction getRotation() {
+    public Direction getPieceDirection() {
         return direction;
+    }
+
+    @Override
+    public GUIPiece getGUIPiece() {
+        return new GUIWall(this.getPieceDirection());
     }
 }
