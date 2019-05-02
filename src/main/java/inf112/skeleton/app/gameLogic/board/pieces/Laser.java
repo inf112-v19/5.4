@@ -2,6 +2,7 @@ package inf112.skeleton.app.gameLogic.board.pieces;
 
 import inf112.skeleton.app.GUI.pieces.GUILaser;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
+import inf112.skeleton.app.GUI.pieces.LaserGUI;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.board.IPiece;
@@ -21,7 +22,7 @@ public class Laser implements IPiece {
         this.direction = dir;
         this.damage = damage;
         this.position = position;
-        this.guiPiece = new GUILaser();
+        this.guiPiece = new LaserGUI(dir);
     }
 
     @SuppressWarnings("all")

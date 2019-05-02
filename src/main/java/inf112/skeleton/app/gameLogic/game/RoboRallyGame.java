@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import inf112.skeleton.app.GUI.MainGameScreen;
 import inf112.skeleton.app.GUI.board.GUIBoard;
 import inf112.skeleton.app.GUI.player.Position;
+import inf112.skeleton.app.gameLogic.LaserCalculator;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.ProgramCardDeck;
@@ -27,7 +28,7 @@ public class RoboRallyGame {
     private List<Player> players;       // Players in the game
     private int startHealth = 3;
     private String boardPath = "FlagBoard.json";
-    private List<LaserShooter> laserShooterList;
+    private LaserCalculator laserCalculator;
 
     private ProgramCardDeck deck;
     private Player currentPlayer;
@@ -39,7 +40,7 @@ public class RoboRallyGame {
 
     public RoboRallyGame(MainGameScreen guiScreen) {
         this.playerActionQueue = new PlayerActionWrapper();
-        this.laserShooterList = new ArrayList<>();
+
 
         this.guiScreen = guiScreen;
         //Testing with FlagBoard
@@ -57,17 +58,8 @@ public class RoboRallyGame {
             System.out.println("player made!!");
         }
 
-        for (int y = 0; y < board.getBoardHeight(); y++) {
-            for (int x = 0; x < board.getBoardWidth(); x++) {
-                for (IPiece piece : board.getCellAt(x, y).getPiecesInCell()) {
-                    if (piece instanceof LaserShooter) {
-                        laserShooterList.add((LaserShooter) piece);
-                        System.out.println("Added lasershooter in position: " + x + ", " + y);
-                        break;
-                    }
-                }
-            }
-        }
+        this.laserCalculator = new LaserCalculator(board, players);
+
         playGame();
     }
 
@@ -169,103 +161,12 @@ public class RoboRallyGame {
 
             System.out.println("AAAAAAAAAAAAAAH");
             System.out.println(laserAnimations);
-            SequenceAction laserAnimation = this.guiScreen.getGUIBoard().getLaserAnimations(this.laserCalculation());
+            SequenceAction laserAnimation = this.guiScreen.getGUIBoard().getLaserAnimations(this.laserCalculator.laserCalculation());
             laserAnimations.add(laserAnimation);
 
         }
         this.guiScreen.getGUIBoard().doGUIActions(allActions, laserAnimations);
 
-    }
-
-    public List<Laser> laserCalculation() {
-        List<Laser> lasers = new ArrayList<>();
-        for (LaserShooter laserShooter : laserShooterList) {
-//            board.getCellAt(laserShooter.getPos()).addPiece(new Laser(laserShooter.getPieceDirection(), laserShooter));
-            placeLaser(new Position(laserShooter.getPos().getX(), laserShooter.getPos().getY()), laserShooter.getPieceDirection(), laserShooter, lasers);
-
-        }
-        for (Player player : players) {
-            switch (player.getDirection()) {
-                case WEST:
-                    placeLaser(new Position(player.getPos().getX() - 1, player.getPos().getY()), player.getDirection(), player.getLaserShooter(), lasers);
-                    break;
-                case SOUTH:
-                    placeLaser(new Position(player.getPos().getX(), player.getPos().getY() + 1), player.getDirection(), player.getLaserShooter(), lasers);
-                    break;
-                case EAST:
-                    placeLaser(new Position(player.getPos().getX() + 1, player.getPos().getY()), player.getDirection(), player.getLaserShooter(), lasers);
-                    break;
-                case NORTH:
-                    placeLaser(new Position(player.getPos().getX(), player.getPos().getY() - 1), player.getDirection(), player.getLaserShooter(), lasers);
-                    break;
-            }
-
-        }
-        System.out.println("Number of lasers placed: " + lasers.size());
-
-        // Add lasers to GUI
-        return lasers;
-    }
-
-
-    /**
-     *
-     * @param pos, the position to place a laser
-     * @param dir, the direction
-     * @param laserShooter
-     */
-    public void placeLaser(Position pos, Direction dir, LaserShooter laserShooter, List<Laser> laserPositions) {
-        if (pos.getX() >= board.getBoardWidth() || pos.getY() >= board.getBoardHeight() || pos.getY() < 0 || pos.getX() < 0) {
-            System.out.println("Laser out of board");
-            return;
-        }
-        for (IPiece piece : board.getCellAt(pos).getPiecesInCell()) {
-            if (piece instanceof Player) {
-                System.out.println("Player health before being shot: " + ((Player) piece).getDamageTokens());
-                ((Player) piece).takeDamage(laserShooter.getDamage());
-                System.out.println("Hit a player!");
-                System.out.println("Player health after being shot: " + ((Player) piece).getDamageTokens());
-                return;
-            }
-            if (piece instanceof Wall) {
-                if (piece.getPieceDirection() == dir) {
-                    System.out.println("Placed laser in position: " + pos.getX() + ", " + pos.getY());
-                    System.out.println("Laser hit wall in position: " + pos.getX() + ", " + pos.getY());
-//                    board.getCellAt(pos).addPiece(new Laser(dir, laserShooter));
-                    laserPositions.add(laserShooter.createNewLaser(pos));
-                    return;
-                }
-            }
-        }
-        System.out.println("Placed laser in position: " + pos.getX() + ", " + pos.getY());
-//        board.getCellAt(pos).addPiece(new Laser(dir, laserShooter));
-        laserPositions.add(laserShooter.createNewLaser(pos));
-        switch (dir) {
-            case NORTH:
-                placeLaser(new Position(pos.getX(), pos.getY() - 1), dir, laserShooter, laserPositions);
-                break;
-            case EAST:
-                placeLaser(new Position(pos.getX() + 1, pos.getY()), dir, laserShooter, laserPositions);
-                break;
-            case SOUTH:
-                placeLaser(new Position(pos.getX(), pos.getY() + 1), dir, laserShooter, laserPositions);
-                break;
-            case WEST:
-                placeLaser(new Position(pos.getX() - 1, pos.getY()), dir, laserShooter, laserPositions);
-                break;
-        }
-    }
-
-    public void removeLasers() {
-        for (int y = 0; y < board.getBoardHeight(); y++) {
-            for (int x = 0; x < board.getBoardWidth(); x++) {
-                for (IPiece piece : board.getCellAt(x, y).getPiecesInCell()) {
-                    if (piece instanceof Laser) {
-                        board.getCellAt(x, y).getPiecesInCell().remove(piece);
-                    }
-                }
-            }
-        }
     }
 
     public List<Player> getPlayers(){
