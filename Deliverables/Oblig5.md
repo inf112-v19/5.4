@@ -1,11 +1,19 @@
 # Oblig 5
 - Innleveringsfrist: 03.05.2019 kl. 16:00
+
 ## Prosjekt og prosjektstruktur
 
 ### Erfaringer
-Gjennom hele dette prosjektet har vi hatt litt problemer med å lage
-små nok oppgaver. Dette har nok ført til at det har vært litt
-varierende med motivasjon i gruppen for prosjektet.
+
+Gjennom denne perioden vi har jobbet med dette
+prosjektet har vi lært mye om lagarbeid og hvor viktig god
+kommunikasjon er.
+
+Vi ser gjennom hele tidsperioden at vi har ikke vært gode nok å å dele
+opp oppgavene i små nok biter. Dette har ført til at vi har hatt litt
+for store arbeidsoppgaver tildelt på enkeltpersoner. På bakgrunn av
+dette har det vært varierende motivasjon i gruppen, og spesielt på
+slutten av prosjektet.
 
 Vi har hatt litt dårlig oppfølgning av hverandre gjennom prosjektet,
 høre med hverandre hvordan det går, og bry seg litt om hverandre og
@@ -41,9 +49,7 @@ avlyst.
 - Hvis dere skulle fortsatt med prosjektet, hva ville dere justert?
 - Hva er det viktigste dere har lært?
 
-
 ## Krav
-
 
 ## Kode
 
