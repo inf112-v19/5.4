@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.GUI.player.MovableGUIRobot;
+import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.board.ICell;
@@ -154,14 +155,19 @@ public class GUIBoard extends Table {
         }*/
     }
 
-    public void doGUIActions(List<List<List<PlayerAction>>> allPlayerActions) {
+    public void doGUIActions(List<List<List<PlayerAction>>> allPlayerActions, List<Action> laserAnimations) {
 
         SequenceAction allActionsSequenced = new SequenceAction();
 
 
 
         // All the actions for each iteration are to be done simultaneously.
-        for (List<List<PlayerAction>> cardActions : allPlayerActions) {
+        //for (List<List<PlayerAction>> cardActions : allPlayerActions) {
+        System.out.println("THIS IS THE NUMBER OF PHASES: " + allPlayerActions.size());
+        System.out.println("THIS THE NUMER OF LASER ANIMATIONS: " + laserAnimations.size());
+        for(int i=0; i<allPlayerActions.size(); i++){
+
+            List<List<PlayerAction>> cardActions = allPlayerActions.get(i);
             for (List<PlayerAction> parallelGUIActions : cardActions) {
 
                 System.out.println(parallelGUIActions);
@@ -204,6 +210,8 @@ public class GUIBoard extends Table {
 
             }
 
+            allActionsSequenced.addAction(laserAnimations.get(i));
+
         }
 
         this.addAction(allActionsSequenced);
@@ -243,23 +251,23 @@ public class GUIBoard extends Table {
         boardMap[y][x].resetTileColor();
     }
 
-    public void doLaserAnimation(List<Laser> lasers){
+    public SequenceAction getLaserAnimations(List<Laser> lasers){
 
-        DelayAction delayAction = new DelayAction(2);
-
-
-
+        DelayAction laserDelayAction = new DelayAction(2);
+        DelayAction postDelayAction = new DelayAction(1);
 
         RunnableAction addLasersAnimation = new RunnableAction(){
             @Override
             public void run() {
 
+                System.out.println(lasers.size());
                 for(Laser laser : lasers){
 
                     GUIPiece guiPiece = laser.getGUIPiece();
 
-                    int x = laser.getPosition().getX();
-                    int y = laser.getPosition().getY();
+                    Position currPos = laser.getPosition();
+                    int x = currPos.getX();
+                    int y = currPos.getY();
                     addGUIPiece(x, y, guiPiece);
 
                 }
@@ -282,7 +290,7 @@ public class GUIBoard extends Table {
             }
         };
 
-        this.addAction(sequence(addLasersAnimation, delayAction, removeLasersAnimation));
+        return new SequenceAction(addLasersAnimation, laserDelayAction, removeLasersAnimation, postDelayAction);
     }
 
 

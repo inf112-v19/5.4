@@ -1,5 +1,8 @@
 package inf112.skeleton.app.gameLogic.game;
 
+import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import inf112.skeleton.app.GUI.MainGameScreen;
 import inf112.skeleton.app.GUI.board.GUIBoard;
 import inf112.skeleton.app.GUI.player.Position;
@@ -13,10 +16,7 @@ import inf112.skeleton.app.gameLogic.board.pieces.LaserShooter;
 import inf112.skeleton.app.gameLogic.board.pieces.Wall;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class RoboRallyGame {
 
@@ -110,44 +110,74 @@ public class RoboRallyGame {
 
     }
 
-    /**
-     * Atm just does actions.
-     * @param pickedProgramCards
-     */
-    public void postPick(List<ProgramCard> pickedProgramCards) {
+    public void postPick(List<ProgramCard> pickedProgramCards){
+
+        List<List<ProgramCard>> allCards = new ArrayList<>();
+
+        for (ProgramCard currCard : pickedProgramCards){
+            List<ProgramCard> currcards = new ArrayList<ProgramCard>(){{add(currCard);}};
+            allCards.add(currcards);
+        }
+
+        this.executeCards(allCards);
+    }
+
+    public void executeCards(List<List<ProgramCard>> allProgramCards) {
 
         // All innermost actions: Actions that are do be executed in paralell.
         // One layer outside: all actions originating from ONE card, e.g MOVE 3.
         // Outermost layer: all the actions from all the cards.
         List<List<List<PlayerAction>>> allActions = new ArrayList<>();
+        List<Action> laserAnimations = new ArrayList<>();
 
-        for(ProgramCard card: pickedProgramCards){
+        for (List<ProgramCard> onePhaseProgramCards : allProgramCards) {
 
-            // All the actions originating from ONE card.
-            List<List<PlayerAction>> temp = checker.doAction(card.getCardType().getAction(), currentPlayer);
+            // Sorts all phase-cards.
+            Collections.sort(onePhaseProgramCards);
 
+            for (ProgramCard card : onePhaseProgramCards) {
 
-            System.out.println("Actions in actionList: ");
-            for(List<PlayerAction> tempBig : temp){
-                System.out.println("----------");
-                for(PlayerAction pa : tempBig){
-                    System.out.println("Player: " + pa.getPlayer().getName() + " Action: " + pa.getAction().getDescription());
+                // All the actions originating from ONE card.
+                List<List<PlayerAction>> cardActions = checker.doAction(card.getCardType().getAction(), currentPlayer);
+
+                System.out.println("Actions in actionList: ");
+                for (List<PlayerAction> tempBig : cardActions) {
+                    System.out.println("----------");
+                    for (PlayerAction pa : tempBig) {
+                        System.out.println("Player: " + pa.getPlayer().getName() + " Action: " + pa.getAction().getDescription());
+                    }
+
                 }
+
+
+                System.out.println("HEIJEG ER HER NÅÅÅ");
+                allActions.add(cardActions);
+
+                // Coneyors lol
+                //allActions.add(checker.doPiecesMoves(players));
+
+
+                // DO LASERSHOOTING AND CONVEYOR MOVING HERE
+
+
+                //allActions.add(new ArrayList<List<SequenceAction>>(){{
+                //new ArrayList<SequenceAction>(){{add(laserAnimation);}};
+                //}});
+
 
             }
 
-            allActions.add(temp);
+            System.out.println("AAAAAAAAAAAAAAH");
+            System.out.println(laserAnimations);
+            SequenceAction laserAnimation = this.guiScreen.getGUIBoard().getLaserAnimations(this.laserCalculation());
+            laserAnimations.add(laserAnimation);
 
-            //for testin purpuss
-            checker.checkForFlag(currentPlayer);
-            //System.out.println("FIRST ACTION IN QUEUE: " + playerActionQueue.getElement().getAction().getDescription());
         }
-
-        this.guiScreen.getGUIBoard().doGUIActions(allActions);
-        laserCalculation();
+        this.guiScreen.getGUIBoard().doGUIActions(allActions, laserAnimations);
 
     }
-    public void laserCalculation() {
+
+    public List<Laser> laserCalculation() {
         List<Laser> lasers = new ArrayList<>();
         for (LaserShooter laserShooter : laserShooterList) {
 //            board.getCellAt(laserShooter.getPos()).addPiece(new Laser(laserShooter.getPieceDirection(), laserShooter));
@@ -174,8 +204,7 @@ public class RoboRallyGame {
         System.out.println("Number of lasers placed: " + lasers.size());
 
         // Add lasers to GUI
-        this.guiScreen.getGUIBoard().doLaserAnimation(lasers);
-        //addGUIPiece();
+        return lasers;
     }
 
 
@@ -203,14 +232,14 @@ public class RoboRallyGame {
                     System.out.println("Placed laser in position: " + pos.getX() + ", " + pos.getY());
                     System.out.println("Laser hit wall in position: " + pos.getX() + ", " + pos.getY());
 //                    board.getCellAt(pos).addPiece(new Laser(dir, laserShooter));
-                    laserPositions.add(laserShooter.createNewLaser());
+                    laserPositions.add(laserShooter.createNewLaser(pos));
                     return;
                 }
             }
         }
         System.out.println("Placed laser in position: " + pos.getX() + ", " + pos.getY());
 //        board.getCellAt(pos).addPiece(new Laser(dir, laserShooter));
-        laserPositions.add(laserShooter.createNewLaser());
+        laserPositions.add(laserShooter.createNewLaser(pos));
         switch (dir) {
             case NORTH:
                 placeLaser(new Position(pos.getX(), pos.getY() - 1), dir, laserShooter, laserPositions);

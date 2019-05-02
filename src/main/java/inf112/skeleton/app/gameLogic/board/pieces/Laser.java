@@ -13,6 +13,7 @@ import java.util.List;
 public class Laser implements IPiece {
 
     private final Position position;
+    private final GUIPiece guiPiece;
     private Direction direction;
     private int damage;
 
@@ -20,6 +21,7 @@ public class Laser implements IPiece {
         this.direction = dir;
         this.damage = damage;
         this.position = position;
+        this.guiPiece = new GUILaser();
     }
 
     @SuppressWarnings("all")
@@ -53,8 +55,7 @@ public class Laser implements IPiece {
     }
 
     @Override
-    public GUIPiece getGUIPiece() {
-        return new GUILaser();
+    public GUIPiece getGUIPiece() {return this.guiPiece;
     }
 
     public Position getPosition() {

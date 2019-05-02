@@ -50,7 +50,7 @@ public class LaserShooter implements IPiece {
         return this.pos;
     }
 
-    public Laser createNewLaser(){
+    public Laser createNewLaser(Position pos){
         return new Laser(direction, damage, pos);
     }
 }
