@@ -24,7 +24,6 @@ public class MovableGUIRobot extends GUIRobot {
         setBounds(getX(), getY(), getWidth(), getHeight());
         this.robotFacingDir = Direction.SOUTH;
 
-
         textureAtlas = new TextureAtlas("bots/yellowBot/yellow_bot_sprites.txt");
 
         /*addListener(new DragListener() {

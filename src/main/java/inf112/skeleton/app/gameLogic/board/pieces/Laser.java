@@ -22,7 +22,7 @@ public class Laser implements IPiece {
         this.direction = dir;
         this.damage = damage;
         this.position = position;
-        this.guiPiece = new LaserGUI(dir);
+        this.guiPiece = new LaserGUI(this);
     }
 
     @SuppressWarnings("all")
