@@ -62,16 +62,15 @@ public class Checker {
             Position tempPos = player.getPos();
             player.move(playerMoveDir);
 
-            if (board.getCellAt(tempPos).getPiecesInCell().contains(player)) {
-                board.getCellAt(tempPos).getPiecesInCell().remove(player);
-                board.getNextCell(tempPos, playerMoveDir).addPiece(player);
-            }
+            movePlayerPiece(player, playerMoveDir);
             return calculatedMoves;
         }
         return calculatedMoves;
     }
 
     private List<PlayerAction> calculateMoves(Direction goingDir, ICell currCell, Player player) {
+
+
         List<PlayerAction> moveActions = new LinkedList<>();
         //Checks walls in current tile
         if (currCell != null) {
@@ -83,6 +82,12 @@ public class Checker {
                     return moveActions;
                 }
             }
+        }
+
+        if(willCrashWithWall(player, goingDir, currCell)){
+            System.out.println(player.getPos().toString());
+            System.out.println("oh shit im crashin");
+            return moveActions;
         }
 
         Direction oppositeDir = goingDir.oppositeDir();
@@ -136,8 +141,19 @@ public class Checker {
         }
     }
 
-    public List<List<PlayerAction>> doPiecesMoves(List<Player> players) {
-        List<List<PlayerAction>> allActions = new LinkedList<>();
+    public PlayerAction conveyorMove(Player player, Direction conveyorMoveDir){
+
+        if(willCrashWithWall(player,conveyorMoveDir, board.getCellAt(player.getPos()))){
+            return null;
+        }
+        else {
+            this.movePlayerPiece(player, conveyorMoveDir);
+            return player.move(conveyorMoveDir);
+        }
+    }
+
+    public List<PlayerAction> doPiecesMoves(List<Player> players) {
+        List<PlayerAction> allActions = new LinkedList<>();
 
         List<Player> copyPlayersList = new ArrayList<>(players);
         for(Player player: copyPlayersList){
@@ -146,13 +162,52 @@ public class Checker {
             List<IPiece> copyPieceList = new ArrayList<>(pieces);
             for (IPiece piece : copyPieceList) {
                 if(piece instanceof Conveyor) {
-                    allActions.add(move(piece.getPieceDirection(), player));
+                    allActions.addAll(move(piece.getPieceDirection(), player));
                 }
                 if (piece instanceof Gears) {
-                    allActions.add(this.rotate(player, ((Gears) piece).getAction()));
+                    allActions.addAll(this.rotate(player, ((Gears) piece).getAction()));
                 }
             }
         }
         return allActions;
+    }
+
+    public void movePlayerPiece(Player player, Direction playerMoveDir){
+        Position tempPos = player.getPos();
+
+        if (board.getCellAt(tempPos).getPiecesInCell().contains(player)) {
+            board.getCellAt(tempPos).getPiecesInCell().remove(player);
+            board.getNextCell(tempPos, playerMoveDir).addPiece(player);
+        }
+    }
+
+    public boolean willCrashWithWall(Player player, Direction goingDir, ICell currCell){
+
+        Direction oppositeDir = goingDir.oppositeDir();
+
+        if (currCell != null) {
+            List<IPiece> piecesInCurrCell = board.getCellAt(player.getPos()).getPiecesInCell();
+            for (IPiece piece : piecesInCurrCell) {
+                System.out.println(piece.getName() + "-" + piece.getPieceDirection());
+                if (piece instanceof Wall && piece.getPieceDirection() == goingDir) {
+                    System.out.println("hit wall");
+                    return true;
+                }
+            }
+        }
+
+        if (board.getNextCell(player.getPos(), goingDir) != null) {
+            List<IPiece> piecesInNextCell = board.getNextCell(player.getPos(), goingDir).getPiecesInCell();
+
+            for (IPiece piece : piecesInNextCell) {
+                if (piece instanceof Wall && piece.getPieceDirection() == oppositeDir) {
+                    System.out.println("hit wall");
+                    return true;
+                }
+            }
+        }
+
+        return false;
+
     }
 }
