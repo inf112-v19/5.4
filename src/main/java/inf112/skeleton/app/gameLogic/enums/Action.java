@@ -4,6 +4,7 @@ public enum Action {
     DAMAGE_1("1 DMG", ActionType.DAMAGE, 1),
     DAMAGE_2("2 DMG", ActionType.DAMAGE, 2),
     DAMAGE_3("3 DMG", ActionType.DAMAGE, 3),
+    MOVE_0("MOVE 0", ActionType.MOVE, 0),
     MOVE_1("MOVE 1", ActionType.MOVE, 1),
     MOVE_2("MOVE 2", ActionType.MOVE, 2),
     MOVE_3("MOVE 3", ActionType.MOVE, 3),

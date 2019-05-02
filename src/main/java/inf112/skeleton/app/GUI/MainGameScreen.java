@@ -243,7 +243,6 @@ public class MainGameScreen implements Screen {
             robot.localToStageCoordinates(coords);
             stage.stageToScreenCoordinates(coords);
 
-            System.out.println(coords);
             robot.setPosition(coords.x, coords.y);
 
             //robot.setPosition(positions[0], positions[1]);

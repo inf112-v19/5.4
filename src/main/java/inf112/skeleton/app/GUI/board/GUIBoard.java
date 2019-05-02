@@ -155,66 +155,10 @@ public class GUIBoard extends Table {
         }*/
     }
 
-    public void doGUIActions(List<List<List<PlayerAction>>> allPlayerActions, List<Action> laserAnimations) {
-
-        SequenceAction allActionsSequenced = new SequenceAction();
+    public void doGUIActions(List<List<List<PlayerAction>>> allPlayerActions, List<Action> laserAnimations, List<List<PlayerAction>> conveyorActions) {
 
 
-
-        // All the actions for each iteration are to be done simultaneously.
-        //for (List<List<PlayerAction>> cardActions : allPlayerActions) {
-        System.out.println("THIS IS THE NUMBER OF PHASES: " + allPlayerActions.size());
-        System.out.println("THIS THE NUMER OF LASER ANIMATIONS: " + laserAnimations.size());
-        for(int i=0; i<allPlayerActions.size(); i++){
-
-            List<List<PlayerAction>> cardActions = allPlayerActions.get(i);
-            for (List<PlayerAction> parallelGUIActions : cardActions) {
-
-                System.out.println(parallelGUIActions);
-                ParallelAction parallelAction = new ParallelAction();
-
-                // Add every action to a parallel action.
-                for (PlayerAction robotAction : parallelGUIActions) {
-
-                    Player currPlayer = robotAction.getPlayer();
-                    MovableGUIRobot currRobot = currPlayer.getRobot();
-                    Direction actionDir = robotAction.getActionDir();
-
-                    // Tells the robot the move it's going to do, and which direction. Returns the appropriate action.
-                    Action guiAction = currRobot.getGUIAction(robotAction.getAction().getActionType(), actionDir);
-                    guiAction.setTarget(currRobot);
-                    guiAction.setActor(currRobot);
-
-                    RunnableAction logUpdate = new RunnableAction(){
-                        @Override
-                        public void run() {
-                            String printString = "ROBOT DOES A " + robotAction.getAction().getDescription();
-                            if(robotAction.getAction().getRotation() == null){
-                                printString += " IN " + actionDir + " DIRECTION!";
-                            }
-
-                            System.out.println(printString);
-
-                        }
-                    };
-
-                    parallelAction.addAction(guiAction);
-                    parallelAction.addAction(logUpdate);
-
-                }
-
-
-                allActionsSequenced.addAction(parallelAction);
-                allActionsSequenced.addAction(new DelayAction(1));
-                System.out.println("Added delay!");
-
-            }
-
-            allActionsSequenced.addAction(laserAnimations.get(i));
-
-        }
-
-        this.addAction(allActionsSequenced);
+        this.addAction(new AnimationController().getAllActionsSequenced(allPlayerActions,laserAnimations,conveyorActions));
     }
 
     public float[] getPiecePos(int x, int y) {

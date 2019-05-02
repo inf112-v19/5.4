@@ -122,6 +122,7 @@ public class RoboRallyGame {
         // Outermost layer: all the actions from all the cards.
         List<List<List<PlayerAction>>> allActions = new ArrayList<>();
         List<Action> laserAnimations = new ArrayList<>();
+        List<List<PlayerAction>> conveyorActions = new ArrayList<>();
 
         for (List<ProgramCard> onePhaseProgramCards : allProgramCards) {
 
@@ -143,30 +144,22 @@ public class RoboRallyGame {
                 }
 
 
-                System.out.println("HEIJEG ER HER NÅÅÅ");
                 allActions.add(cardActions);
-
-                // Coneyors lol
-                //allActions.add(checker.doPiecesMoves(players));
-
-
-                // DO LASERSHOOTING AND CONVEYOR MOVING HERE
-
-
-                //allActions.add(new ArrayList<List<SequenceAction>>(){{
-                //new ArrayList<SequenceAction>(){{add(laserAnimation);}};
-                //}});
-
 
             }
 
-            System.out.println("AAAAAAAAAAAAAAH");
-            System.out.println(laserAnimations);
+            // Conveyors actions for one round, added
+            conveyorActions.add(checker.doPiecesMoves(players));
+            System.out.println("These are the conveyor moves INSIDE THE THING");
+            System.out.println(conveyorActions);
+
             SequenceAction laserAnimation = this.guiScreen.getGUIBoard().getLaserAnimations(this.laserCalculator.laserCalculation());
             laserAnimations.add(laserAnimation);
 
         }
-        this.guiScreen.getGUIBoard().doGUIActions(allActions, laserAnimations);
+        System.out.println("These are the conveyor moves");
+        System.out.println(conveyorActions);
+        this.guiScreen.getGUIBoard().doGUIActions(allActions, laserAnimations, conveyorActions);
 
     }
 

@@ -35,7 +35,6 @@ public class PickStage extends Stage {
 
         //labelHandler.addHoverStyle(labelList);
 
-        System.out.println(labelList);
 
         mainTable.add(hostLabel).pad(30);
         mainTable.add(joinLabel).pad(30);
