@@ -47,6 +47,7 @@ public class PlayerNumberStage extends Stage{
 
         TextField usernameTextField = new TextField("", skin);
         usernameTextField.setAlignment(center);
+        usernameTextField.setTextFieldFilter(new TextField.TextFieldFilter.DigitsOnlyFilter());
 
         Label enterLabel = new Label("ENTER", buttonLabelStyle);
         TextButton btn = new TextButton("", skin);
@@ -72,7 +73,8 @@ public class PlayerNumberStage extends Stage{
                 Sound sound = Gdx.audio.newSound(Gdx.files.internal("audio/yeahEcho.mp3"));
 
                 //usernameTextField.getText();
-                MainGameScreen mainGameScreen = new MainGameScreen(3);
+                int numPlayers = Integer.parseInt(usernameTextField.getText());
+                MainGameScreen mainGameScreen = new MainGameScreen(numPlayers);
                 game.setScreen(mainGameScreen);
 
                 sound.play(0.5f);

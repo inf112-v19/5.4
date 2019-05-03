@@ -16,10 +16,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import inf112.skeleton.app.GUI.stages.IPStage;
-import inf112.skeleton.app.GUI.stages.LabelHandler;
-import inf112.skeleton.app.GUI.stages.PickStage;
-import inf112.skeleton.app.GUI.stages.PlayerNumberStage;
+import inf112.skeleton.app.GUI.player.Position;
+import inf112.skeleton.app.GUI.stages.*;
+import inf112.skeleton.app.gameLogic.Player;
+import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -79,6 +79,7 @@ public class LoadScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 setStage(new PlayerNumberStage(viewport, skin, labelHandler, screen, game));
+                //setStage(new GameOverStage(viewport,skin, new Player("Jarle", new Position(1,2), Direction.NORTH, 5)));
                 /*Sound sound = Gdx.audio.newSound(Gdx.files.internal("audio/yeahEcho.mp3"));
 
                 MainGameScreen mainGameScreen = new MainGameScreen();

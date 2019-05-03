@@ -16,6 +16,7 @@ import inf112.skeleton.app.GUI.board.GUIBoard;
 import inf112.skeleton.app.GUI.board.Stats;
 import inf112.skeleton.app.GUI.cards.GUIDeck;
 import inf112.skeleton.app.GUI.player.MovableGUIRobot;
+import inf112.skeleton.app.GUI.stages.GameOverStage;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.game.RoboRallyGame;
@@ -255,4 +256,7 @@ public class MainGameScreen implements Screen {
     }
 
 
+    public void gameOver(Player player) {
+        this.stage = new GameOverStage(viewport, this.skin ,player);
+    }
 }
