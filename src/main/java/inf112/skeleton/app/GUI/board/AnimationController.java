@@ -19,7 +19,8 @@ public class AnimationController {
 
     }
 
-    public SequenceAction getAllActionsSequenced(List<List<List<PlayerAction>>> allPlayerActions, List<Action> laserAnimations, List<List<PlayerAction>> conveyorActions){
+    public SequenceAction getAllActionsSequenced(List<List<List<PlayerAction>>> allPlayerActions, List<Action> laserAnimations,
+                                                 List<List<PlayerAction>> conveyorActions, RunnableAction postExecutionAction){
 
         SequenceAction allActionsSequenced = new SequenceAction();
 
@@ -55,6 +56,8 @@ public class AnimationController {
             allActionsSequenced.addAction(laserAnimations.get(i));
 
         }
+
+        allActionsSequenced.addAction(postExecutionAction);
 
         return allActionsSequenced;
 
