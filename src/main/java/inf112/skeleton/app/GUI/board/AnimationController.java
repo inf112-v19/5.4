@@ -24,10 +24,6 @@ public class AnimationController {
 
         SequenceAction allActionsSequenced = new SequenceAction();
 
-        // All the actions for each iteration are to be done simultaneously.
-        //for (List<List<PlayerAction>> cardActions : allPlayerActions) {
-        System.out.println("THIS IS THE NUMBER OF PHASES: " + allPlayerActions.size());
-        System.out.println("THIS THE NUMER OF LASER ANIMATIONS: " + laserAnimations.size());
         for(int i=0; i<allPlayerActions.size(); i++){
 
             // Player moves for the phase.

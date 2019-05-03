@@ -65,12 +65,6 @@ public class RoboRallyGame {
     public void playGame() {
         this.deck.shuffleDeck();
         this.currentPlayer = players.get(0);
-
-//        for (Player currentPlayer : players) {
-//            this.currentPlayer = currentPlayer;
-//        }
-//        play();
-//        postPlay();
     }
 
     /**
@@ -81,8 +75,6 @@ public class RoboRallyGame {
 
 
         // TODO take cards from deck and assign them to the player
-        //this.currentPlayer =currentPlayer;
-        //this.startCardPicking();
         this.cardPicker.startCardPicking();
 
     }
@@ -123,28 +115,14 @@ public class RoboRallyGame {
                 ProgramCard card = playerAndProgramCard.getPgCard();
 
                 // All the actions originating from ONE card.
-
                 List<List<PlayerAction>> cardActions = checker2.doCard(card, currentPlayer);
-                System.out.println("ALL ACTIONS LMOA");
-                System.out.println(cardActions);
 
-                /*System.out.println("Actions in actionList: ");
-                for (List<PlayerAction> tempBig : cardActions) {
-                    System.out.println("----------");
-                    for (PlayerAction pa : tempBig) {
-                        System.out.println("Player: " + pa.getPlayer().getName() + " Action: " + pa.getAction().getDescription());
-                    }
-
-                }*/
                 onePhaseActionsList.addAll(cardActions);
             }
             allActions.add(onePhaseActionsList);
 
             // Conveyors actions for one round, added
-
             conveyorActions.add(checker2.doPiecesMoves(players));
-            System.out.println("These are the conveyor moves INSIDE THE THING");
-            System.out.println(conveyorActions);
 
             SequenceAction laserAnimation = this.guiScreen.getGUIBoard().getLaserAnimations(this.laserCalculator.laserCalculation());
             laserAnimations.add(laserAnimation);
@@ -152,8 +130,6 @@ public class RoboRallyGame {
             checker2.checkForFlag(players);
 
         }
-        System.out.println("These are the conveyor moves");
-        System.out.println(conveyorActions);
         this.guiScreen.getGUIBoard().doGUIActions(allActions, laserAnimations, conveyorActions, getPostExecutionAction());
     }
 
@@ -202,11 +178,15 @@ public class RoboRallyGame {
 
     public void pvpGenerator() {
         for (int i = 0; i < totalPlayers; i++) {
-            Position position = new Position(i + 5, 7);
-            //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
+            Position position = new Position(0,0);
+            for(SpawnPlatform spawnPlatform : spawnPlatforms){
+                if(spawnPlatform.getPlatformNumber() == (i+1)){
+                    position = spawnPlatform.getPosition();
+                    break;
+                }
+            }
             players.add(new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, false));
             board.addPiece(position, players.get(i));
-            System.out.println("player made!!");
         }
     }
 
@@ -220,10 +200,8 @@ public class RoboRallyGame {
                         break;
                     }
                 }
-                //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
                 players.add(new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, false));
                 board.addPiece(position, players.get(i));
-                System.out.println("player made!!");
             }
             else {
                 Position position = new Position(0,0);
@@ -233,10 +211,8 @@ public class RoboRallyGame {
                         break;
                     }
                 }
-                //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
                 players.add(new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, true));
                 board.addPiece(position, players.get(i));
-                System.out.println("AI made!!");
             }
         }
     }
