@@ -160,7 +160,7 @@ public class Checker2 {
 
     public Player someoneHasWon(List<Player> players){
         Player maybeWonPlayer = checkForFlag(players);
-        if(checkForFlag(players) != null){
+        if(maybeWonPlayer != null){
             return maybeWonPlayer;
         }
         return null;
