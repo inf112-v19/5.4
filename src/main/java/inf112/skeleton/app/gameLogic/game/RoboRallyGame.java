@@ -160,8 +160,6 @@ public class RoboRallyGame {
 
     private RunnableAction getPostExecutionAction() {
 
-
-
         return new RunnableAction(){
             @Override
             public void run() {

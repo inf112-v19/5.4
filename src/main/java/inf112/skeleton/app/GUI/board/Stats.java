@@ -30,7 +30,7 @@ public class Stats extends Table {
         this.skin = skin;
         this.defaults().size(40).left();
         heartSprite = new Sprite(new Texture(Gdx.files.internal("board/heart.png")));
-        dtSprite = new Sprite(new Texture(Gdx.files.internal("board/damagetoken.jpg")));
+        dtSprite = new Sprite(new Texture(Gdx.files.internal("board/damageToken.png")));
 
         //this.setDebug(true);
 

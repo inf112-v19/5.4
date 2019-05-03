@@ -21,6 +21,7 @@ public class Main {
         cfg.title = "Robo Rally Rampage";
         cfg.width = 1200;
         cfg.height = 800;
+        //cfg.fullscreen = true;
 
         new LwjglApplication(new GUIMain(), cfg);
 
