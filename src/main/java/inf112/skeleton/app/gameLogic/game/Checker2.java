@@ -73,7 +73,8 @@ public class Checker2 {
         Position playerPos = player.getPos();
         if(!board.insideBoard(playerPos.changePos(direction)) ||
                 !board.insideBoard(playerPos) ||
-                board.cellContainsClass(playerPos, Hole.class)) {
+                board.cellContainsClass(playerPos, Hole.class) ||
+                board.cellContainsClass(playerPos.changePos(direction), Hole.class)) {
             this.board.killPlayer(player);
         }
 

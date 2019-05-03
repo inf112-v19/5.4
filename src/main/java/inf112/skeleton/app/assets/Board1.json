@@ -32,7 +32,7 @@
     "11": ["ConveyorWest"]
   },
   "2": {
-    "0": ["WestWall"],
+    "0": ["WestWall", "LaserShooterEast2"],
     "1": [],
     "2": [],
     "3": ["ConveyorNorth"],
@@ -102,7 +102,7 @@
     "11": ["ConveyorEast2"]
   },
   "7": {
-    "0": ["WestWall"],
+    "0": ["WestWall","LaserShooterEast3"],
     "1": [],
     "2": [],
     "3": [],
@@ -141,7 +141,7 @@
     "8": ["ConveyorSouth"],
     "9": [],
     "10": ["NorthWall"],
-    "11": ["EastWall"]
+    "11": ["EastWall", "LaserShooterWest1"]
   },
   "10": {
     "0": ["Hole"],

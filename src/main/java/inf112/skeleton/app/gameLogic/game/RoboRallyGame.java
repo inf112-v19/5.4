@@ -26,7 +26,7 @@ public class RoboRallyGame {
     private int totalPlayers;
     private List<Player> players;
     private int startHealth = 3;
-    private String boardPath = "Board2.json";
+    private String boardPath = "Board1.json";
     private LaserCalculator laserCalculator;
 
     private ProgramCardDeck deck;
@@ -124,6 +124,8 @@ public class RoboRallyGame {
 
                 onePhaseActionsList.addAll(cardActions);
 
+                checker2.checkForFlag(players);
+
             }
             allActions.add(onePhaseActionsList);
 
@@ -192,7 +194,7 @@ public class RoboRallyGame {
                     break;
                 }
             }
-            players.add(new Player(Integer.toString(i+1), position, Direction.SOUTH, startHealth, false));
+            players.add(new Player(Integer.toString(i+1), position, Direction.NORTH, startHealth, false));
             board.addPiece(position, players.get(i));
         }
     }
@@ -208,7 +210,7 @@ public class RoboRallyGame {
                         break;
                     }
                 }
-                players.add(new Player(Integer.toString(i+1), position, Direction.SOUTH, startHealth, false));
+                players.add(new Player(Integer.toString(i+1), position, Direction.NORTH, startHealth, false));
                 board.addPiece(position, players.get(i));
             }
 
@@ -220,7 +222,7 @@ public class RoboRallyGame {
                         break;
                     }
                 }
-                players.add(new Player(Integer.toString(i+1), position, Direction.SOUTH, startHealth, true));
+                players.add(new Player(Integer.toString(i+1), position, Direction.NORTH, startHealth, true));
                 board.addPiece(position, players.get(i));
             }
         }

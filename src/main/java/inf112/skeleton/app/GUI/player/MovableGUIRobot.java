@@ -21,9 +21,10 @@ public class MovableGUIRobot extends GUIRobot {
 
         super(robotnr);
         setBounds(getX(), getY(), getWidth(), getHeight());
-        this.robotFacingDir = Direction.SOUTH;
+        this.robotFacingDir = Direction.NORTH;
 
         textureAtlas = new TextureAtlas("bots/yellowBot/yellow_bot_sprites.txt");
+        changeSprite(this.robotFacingDir);
     }
 
     public com.badlogic.gdx.scenes.scene2d.Action getGUIAction(ActionType actionType, final Direction faceDir) {

@@ -72,6 +72,9 @@ public class PlayerNumberStage extends Stage{
                 int numPlayers;
                 try {
                     numPlayers = Integer.parseInt(usernameTextField.getText());
+                    if(!isPvPMatch){
+                        numPlayers += 1;
+                    }
                 }
                 catch (NumberFormatException e){
                     numPlayers = 1;
