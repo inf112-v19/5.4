@@ -38,16 +38,10 @@ public class MainGameScreen implements Screen {
     RoboRallyGame roboRallyGame;
     List<Player> players;
 
-    List<ProgramCard> pgCards;
-    MovableGUIRobot currentMovableRobot;
-
     GUIDeck guiDeck;
     Cell guiDeckCell;
 
     public MainGameScreen(int numberOfPlayers) {
-
-        //SoundPlayer.GameSound.PLAY_MUSIC.playSound();
-
         // Main stage
         camera = new OrthographicCamera();
 
@@ -69,21 +63,15 @@ public class MainGameScreen implements Screen {
         this.piecesBoard = new GUIBoard(this.roboRallyGame.getBoard());
         this.robotsBoard = new GUIBoard(this.roboRallyGame.getBoard());
         this.robotsBoard.makeBoardInvisible();
-        //piecesBoard.addPlayers(players);
-
-
 
         addPiecesTest();
 
-        //this.addPlayers(players);
         robotsBoard.addPlayers(players);
 
         Gdx.input.setInputProcessor(stage);
 
-		piecesBoard.lightUpTile(0,0);
-		piecesBoard.resetTileColor(0,0);
-		//piecesBoard.lightUpTile(2,0);
-		//piecesBoard.lightUpTile(0,1);
+        piecesBoard.lightUpTile(0, 0);
+        piecesBoard.resetTileColor(0, 0);
 
         roboRallyGame.prePlay();
 
@@ -96,8 +84,7 @@ public class MainGameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        //Gdx.gl.glClearColor(0.57f, 0.77f, 0.85f, 1);
-        Gdx.gl.glClearColor(0.1f,0.1f,0.1f,1);
+        Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.draw();
@@ -154,21 +141,9 @@ public class MainGameScreen implements Screen {
         Table bottomBar = new Table();
 
         game.setFillParent(true);
-        //game.setDebug(true);
         game.top().left();
 
-        // Create piecesBoard.
-        //piecesBoard piecesBoard = new piecesBoard(90, 10, 10);
-
-        //piecesBoard.setDebug(true);
-
-        //MovableGUIRobot hans = new MovableGUIRobot(1);
-        //this.currentMovableRobot = hans;
-        //piecesBoard.addGUIPiece(5,5, hans);
-        //piecesBoard.addGUIPiece(5,5, new GUIBest());
-
         // BOARD CREATION AND SETUP
-
         Stack boards = new Stack();
         boards.add(piecesBoard);
         boards.add(robotsBoard);
@@ -194,10 +169,6 @@ public class MainGameScreen implements Screen {
 
         // Add the main table - RoboRallyGame - to the stage.
         stage.addActor(game);
-
-        //stage.setKeyboardFocus(hans);
-
-        //pickCardPhase(new ProgramCardDeck().drawXCards(9));
     }
 
     /**
@@ -222,10 +193,10 @@ public class MainGameScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
 
-				List<ProgramCard> playerCards = guiDeck.getPickedProgramCards();
-				roboRallyGame.getCardPicker().postPick(playerCards);
-			}
-		});
+                List<ProgramCard> playerCards = guiDeck.getPickedProgramCards();
+                roboRallyGame.getCardPicker().postPick(playerCards);
+            }
+        });
 
     }
 
@@ -238,25 +209,22 @@ public class MainGameScreen implements Screen {
             MovableGUIRobot robot = player.getRobot();
             int playerX = player.getPos().getX();
             int playerY = player.getPos().getY();
-            float[] positions = piecesBoard.getPiecePos(playerX, playerY);
             Vector2 coords = piecesBoard.getCoords(playerX, playerY);
             robot.localToStageCoordinates(coords);
             stage.stageToScreenCoordinates(coords);
 
             robot.setPosition(coords.x, coords.y);
-
-            //robot.setPosition(positions[0], positions[1]);
             stage.addActor(player.getRobot());
         }
 
     }
 
-    public void updateStats(Player player){
+    public void updateStats(Player player) {
         this.stats.updateStats(player);
     }
 
 
     public void gameOver(Player player) {
-        this.stage = new GameOverStage(viewport, this.skin ,player);
+        this.stage = new GameOverStage(viewport, this.skin, player);
     }
 }

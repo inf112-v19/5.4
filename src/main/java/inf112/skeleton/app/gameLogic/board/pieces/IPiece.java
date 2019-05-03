@@ -41,6 +41,7 @@ public interface IPiece {
 
     /**
      * Returns size of pieces
+     *
      * @return size
      */
     int getSize();

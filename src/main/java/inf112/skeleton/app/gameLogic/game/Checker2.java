@@ -5,11 +5,10 @@ import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.board.Board;
-import inf112.skeleton.app.gameLogic.board.Cell;
 import inf112.skeleton.app.gameLogic.board.ICell;
-import inf112.skeleton.app.gameLogic.board.pieces.IPiece;
 import inf112.skeleton.app.gameLogic.board.pieces.Conveyor;
 import inf112.skeleton.app.gameLogic.board.pieces.Gears;
+import inf112.skeleton.app.gameLogic.board.pieces.IPiece;
 import inf112.skeleton.app.gameLogic.board.pieces.Wall;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
@@ -30,7 +29,7 @@ public class Checker2 {
 
         Action action = programCard.getCardType().getAction();
         for (int i = 0; i < action.getValue(); i++) {
-            PlayerAction currPlayerAction = new PlayerAction( player, programCard.getCardType().getAction(), player.getDirection());
+            PlayerAction currPlayerAction = new PlayerAction(player, programCard.getCardType().getAction(), player.getDirection());
             allActions.add(doAction(currPlayerAction));
         }
         return allActions;
@@ -44,11 +43,11 @@ public class Checker2 {
 
         switch (action.getActionType()) {
             case MOVE:
-                    tryToMovePlayer(
-                            player,
-                            action == Action.MOVE_BACK ?
-                                    player.getDirection().oppositeDir() : player.getDirection(),
-                            moveActions);
+                tryToMovePlayer(
+                        player,
+                        action == Action.MOVE_BACK ?
+                                player.getDirection().oppositeDir() : player.getDirection(),
+                        moveActions);
                 break;
             case ROTATE:
                 moveActions.add(rotatePlayer(player, action));
@@ -69,13 +68,13 @@ public class Checker2 {
         }
     }
 
-    public void movePlayer(Player player, Direction direction, List<PlayerAction> moveActions){
+    public void movePlayer(Player player, Direction direction, List<PlayerAction> moveActions) {
 
-        if(!board.insideBoard(player.getPos().changePos(direction)) || !board.insideBoard(player.getPos())) {
+        if (!board.insideBoard(player.getPos().changePos(direction)) || !board.insideBoard(player.getPos())) {
             this.board.killPlayer(player);
         }
 
-        moveActions.add(board.movePlayer(player,direction));
+        moveActions.add(board.movePlayer(player, direction));
     }
 
     public boolean canPlayerMove(Player player, Direction direction, List<PlayerAction> moveActions) {
@@ -86,7 +85,7 @@ public class Checker2 {
     public boolean hasWall(Player player, Direction direction) {
 
         ICell nextCell = board.getCellAt(player.getPos().changePos(direction));
-        if(nextCell == null){
+        if (nextCell == null) {
             return false;
         }
 
@@ -104,7 +103,7 @@ public class Checker2 {
         Position playerPos = player.getPos();
         Position nextPos = playerPos.changePos(direction);
         ICell nextCell = board.getCellAt(nextPos);
-        if(nextCell == null){
+        if (nextCell == null) {
             return true;
         }
 
@@ -124,8 +123,8 @@ public class Checker2 {
         return true;
     }
 
-    public void conveyorMove(Player player, Direction conveyorMoveDir, List<PlayerAction> moveActions){
-        if(!hasWall(player, conveyorMoveDir)){
+    public void conveyorMove(Player player, Direction conveyorMoveDir, List<PlayerAction> moveActions) {
+        if (!hasWall(player, conveyorMoveDir)) {
             movePlayer(player, conveyorMoveDir, moveActions);
         }
     }
@@ -134,10 +133,10 @@ public class Checker2 {
         List<PlayerAction> moveActions = new ArrayList<>();
         List<Player> copyPlayersList = players;
 
-        for(Player player: copyPlayersList){
+        for (Player player : copyPlayersList) {
             ICell cell = board.getCellAt(player.getPos());
             List<IPiece> pieces;
-            if(cell != null) {
+            if (cell != null) {
                 pieces = cell.getPiecesInCell();
                 List<IPiece> copyPieceList = new ArrayList<>(pieces);
                 for (IPiece piece : copyPieceList) {
@@ -154,9 +153,9 @@ public class Checker2 {
         return moveActions;
     }
 
-    public Player someoneHasWon(List<Player> players){
+    public Player someoneHasWon(List<Player> players) {
         Player maybeWonPlayer = checkForFlag(players);
-        if(checkForFlag(players) != null){
+        if (checkForFlag(players) != null) {
             return maybeWonPlayer;
         }
         return null;
@@ -164,7 +163,7 @@ public class Checker2 {
 
     public Player checkForFlag(List<Player> players) {
         //checks if the players position is the same as the flag the player is looking for
-        for(Player player : players){
+        for (Player player : players) {
             if (player.getPos().equals(board.getFlags().getFlagPos(player.getRespawnPoint().nextFlag))) {
                 System.out.println("Found flag " + player.getRespawnPoint().getNextFlag());
                 SoundPlayer.GameSound.FLAG_PICKUP.playSound();

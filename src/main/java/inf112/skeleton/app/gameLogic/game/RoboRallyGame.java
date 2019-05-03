@@ -141,7 +141,7 @@ public class RoboRallyGame {
                 }
 
                 Player possiblyWinningPlayer = checker2.someoneHasWon(players);
-                if(possiblyWinningPlayer != null){
+                if (possiblyWinningPlayer != null) {
                     gameOver(possiblyWinningPlayer);
                 }
 
@@ -173,9 +173,9 @@ public class RoboRallyGame {
 
     public void pvpGenerator() {
         for (int i = 0; i < totalPlayers; i++) {
-            Position position = new Position(0,0);
-            for(SpawnPlatform spawnPlatform : spawnPlatforms){
-                if(spawnPlatform.getPlatformNumber() == (i+1)){
+            Position position = new Position(0, 0);
+            for (SpawnPlatform spawnPlatform : spawnPlatforms) {
+                if (spawnPlatform.getPlatformNumber() == (i + 1)) {
                     position = spawnPlatform.getPosition();
                     break;
                 }
@@ -188,20 +188,19 @@ public class RoboRallyGame {
     public void pveGenerator() {
         for (int i = 0; i < totalPlayers; i++) {
             if (i == 0) {
-                Position position = new Position(0,0);
-                for(SpawnPlatform spawnPlatform : spawnPlatforms){
-                    if(spawnPlatform.getPlatformNumber() == (i+1)){
+                Position position = new Position(0, 0);
+                for (SpawnPlatform spawnPlatform : spawnPlatforms) {
+                    if (spawnPlatform.getPlatformNumber() == (i + 1)) {
                         position = spawnPlatform.getPosition();
                         break;
                     }
                 }
                 players.add(new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, false));
                 board.addPiece(position, players.get(i));
-            }
-            else {
-                Position position = new Position(0,0);
-                for(SpawnPlatform spawnPlatform : spawnPlatforms){
-                    if(spawnPlatform.getPlatformNumber() == (i+1)){
+            } else {
+                Position position = new Position(0, 0);
+                for (SpawnPlatform spawnPlatform : spawnPlatforms) {
+                    if (spawnPlatform.getPlatformNumber() == (i + 1)) {
                         position = spawnPlatform.getPosition();
                         break;
                     }

@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class HostStage extends Stage {
 
-    public HostStage(Viewport viewport, Skin skin){
+    public HostStage(Viewport viewport, Skin skin) {
         super(viewport);
 
         Table mainTable = new Table();

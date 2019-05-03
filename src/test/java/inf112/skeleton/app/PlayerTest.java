@@ -4,7 +4,6 @@ import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.enums.Rotation;
-import inf112.skeleton.app.gameLogic.game.PlayerActionWrapper;
 import inf112.skeleton.app.gameLogic.game.TestGame;
 import org.junit.Before;
 import org.junit.Test;

@@ -94,7 +94,6 @@ public class Board implements IBoard {
     }
 
 
-
     public IPiece cellContainsClass(Position pos, Class piece) {
         for (IPiece currPiece : getCellAt(pos).getPiecesInCell()) {
             if (currPiece.getClass() == piece) {
@@ -137,7 +136,7 @@ public class Board implements IBoard {
 
         Position currPlayerPos = player.getPos();
         ICell currentCells = getCellAt(currPlayerPos);
-        if(currentCells != null){
+        if (currentCells != null) {
             getCellAt(currPlayerPos).removePlayer(player);
         }
         ICell nextCells = getCellAt(newPos);

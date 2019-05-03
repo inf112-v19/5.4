@@ -4,7 +4,7 @@ import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.GUI.pieces.GUIRepair;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
-public class Repair implements IPiece{
+public class Repair implements IPiece {
     @Override
     public IPiece getType() {
         return null;

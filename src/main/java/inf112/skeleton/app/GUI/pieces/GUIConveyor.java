@@ -33,6 +33,7 @@ public class GUIConveyor extends GUIPiece {
         }
 
     }
+
     public void changeSprite(int speed) {
         String spriteString = "";
 

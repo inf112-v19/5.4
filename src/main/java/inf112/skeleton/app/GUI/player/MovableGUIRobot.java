@@ -1,6 +1,5 @@
 package inf112.skeleton.app.GUI.player;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;

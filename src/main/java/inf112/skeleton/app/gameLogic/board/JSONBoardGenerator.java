@@ -64,42 +64,42 @@ public class JSONBoardGenerator {
                         String jsonIterator = iterator.next();
                         switch (jsonIterator) {
                             case "SpawnPlatform1":
-                                SpawnPlatform temp = new SpawnPlatform(1, new Position(x,y));
+                                SpawnPlatform temp = new SpawnPlatform(1, new Position(x, y));
                                 tempCell.addPiece(temp);
                                 spawnPlatforms.add(temp);
                                 break;
                             case "SpawnPlatform2":
-                                temp = new SpawnPlatform(2, new Position(x,y));
+                                temp = new SpawnPlatform(2, new Position(x, y));
                                 tempCell.addPiece(temp);
                                 spawnPlatforms.add(temp);
                                 break;
                             case "SpawnPlatform3":
-                                temp = new SpawnPlatform(3, new Position(x,y));
+                                temp = new SpawnPlatform(3, new Position(x, y));
                                 tempCell.addPiece(temp);
                                 spawnPlatforms.add(temp);
                                 break;
                             case "SpawnPlatform4":
-                                temp = new SpawnPlatform(4, new Position(x,y));
+                                temp = new SpawnPlatform(4, new Position(x, y));
                                 tempCell.addPiece(temp);
                                 spawnPlatforms.add(temp);
                                 break;
                             case "SpawnPlatform5":
-                                temp = new SpawnPlatform(5, new Position(x,y));
+                                temp = new SpawnPlatform(5, new Position(x, y));
                                 tempCell.addPiece(temp);
                                 spawnPlatforms.add(temp);
                                 break;
                             case "SpawnPlatform6":
-                                temp = new SpawnPlatform(6, new Position(x,y));
+                                temp = new SpawnPlatform(6, new Position(x, y));
                                 tempCell.addPiece(temp);
                                 spawnPlatforms.add(temp);
                                 break;
                             case "SpawnPlatform7":
-                                temp = new SpawnPlatform(7, new Position(x,y));
+                                temp = new SpawnPlatform(7, new Position(x, y));
                                 tempCell.addPiece(temp);
                                 spawnPlatforms.add(temp);
                                 break;
                             case "SpawnPlatform8":
-                                temp = new SpawnPlatform(8, new Position(x,y));
+                                temp = new SpawnPlatform(8, new Position(x, y));
                                 tempCell.addPiece(temp);
                                 spawnPlatforms.add(temp);
                                 break;
@@ -295,7 +295,7 @@ public class JSONBoardGenerator {
         return flags;
     }
 
-    public List<SpawnPlatform> getSpawnPlatforms(){
+    public List<SpawnPlatform> getSpawnPlatforms() {
         return spawnPlatforms;
     }
 }

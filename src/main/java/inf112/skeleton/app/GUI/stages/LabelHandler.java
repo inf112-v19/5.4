@@ -19,7 +19,7 @@ public class LabelHandler {
     Color hoverColor;
     BitmapFont font;
 
-    public LabelHandler(Skin skin){
+    public LabelHandler(Skin skin) {
 
         BitmapFont font = new BitmapFont();
         font.setColor(Color.WHITE);
@@ -47,15 +47,15 @@ public class LabelHandler {
         return newLabel;
     }
 
-    public List<Label> createNewLabels(String[] labelTexts){
+    public List<Label> createNewLabels(String[] labelTexts) {
         List<Label> returnLabels = new ArrayList<>();
-        for(String text : labelTexts){
+        for (String text : labelTexts) {
             returnLabels.add(createNewLabel(text));
         }
         return returnLabels;
     }
 
-    public void addHoverStyle(Label currLabel){
+    public void addHoverStyle(Label currLabel) {
         currLabel.addListener(new ClickListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -70,8 +70,8 @@ public class LabelHandler {
         });
     }
 
-    public void addHoverStyle(List<Label> labels){
-        for(Label label : labels){
+    public void addHoverStyle(List<Label> labels) {
+        for (Label label : labels) {
             addHoverStyle(label);
         }
     }

@@ -2,8 +2,6 @@ package inf112.skeleton.app.gameLogic.board.pieces;
 
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.GUI.pieces.GUISpawnPlatform;
-import inf112.skeleton.app.GUI.pieces.GUIConveyor;
-import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;

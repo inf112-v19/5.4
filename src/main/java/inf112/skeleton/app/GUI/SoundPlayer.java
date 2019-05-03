@@ -1,7 +1,6 @@
 package inf112.skeleton.app.GUI;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
 import java.io.File;
@@ -50,34 +49,6 @@ public class SoundPlayer {
 
         //
         public void playSound() {
-
-            /*Thread threaddy = new Thread(){
-                @Override
-                public void run() {
-                    String audioPath =
-                            "audio" +
-                                    File.separator +
-                                    som.path +
-                                    File.separator +
-                                    namePath +
-                                    ".mp3";
-
-                    if(som == SoundOrMusic.MUSIC){
-                        Music playMusic = Gdx.audio.newMusic(Gdx.files.internal(audioPath));
-                        playMusic.setLooping(true);
-                        playMusic.play();
-                    }
-                    else {
-                        Sound playSound = Gdx.audio.newSound(Gdx.files.internal(audioPath));
-                        playSound.play(volume, pitch, pan);
-                    }
-
-
-                }
-            };
-
-            threaddy.start();*/
-
             String audioPath =
                     "audio" +
                             File.separator +
@@ -88,7 +59,6 @@ public class SoundPlayer {
 
             Sound playSound = Gdx.audio.newSound(Gdx.files.internal(audioPath));
             playSound.play(volume, pitch, pan);
-            //if(som == )
         }
 
     }

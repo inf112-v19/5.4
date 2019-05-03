@@ -5,7 +5,6 @@ import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.ProgramCardDeck;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class CardPicker {
@@ -16,7 +15,7 @@ public class CardPicker {
     Player currentPlayer;
     int counter;
     ProgramCardDeck deck;
-    List<List<PlayerAndProgramCard>>  allPlayerCards;
+    List<List<PlayerAndProgramCard>> allPlayerCards;
     int numberOfPhases;
     int cardsToDraw = 9;
 
@@ -34,7 +33,7 @@ public class CardPicker {
 
     }
 
-    public void startCardPicking(){
+    public void startCardPicking() {
         this.counter = 0;
         this.resetCards();
         this.deck = new ProgramCardDeck();
@@ -42,45 +41,43 @@ public class CardPicker {
         this.pickPlayerCards();
     }
 
-    public void pickPlayerCards(){
+    public void pickPlayerCards() {
         this.currentPlayer = players.get(counter);
         cardsToDraw -= currentPlayer.getDamageTokens();
 
-        if (this.currentPlayer.getAi()==false) {
+        if (this.currentPlayer.getAi() == false) {
             List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
             this.rbg.guiScreen.pickCardPhase(cards, currentPlayer);
-        }
-        else {
+        } else {
             cardsToDraw = 5;
             List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
             postPick(cards);
         }
     }
 
-    public void postPick(List<ProgramCard> pickedProgramCards){
+    public void postPick(List<ProgramCard> pickedProgramCards) {
         this.counter++;
         List<PlayerAndProgramCard> convertedPGCards = new ArrayList<>();
-        for(ProgramCard card : pickedProgramCards){
+        for (ProgramCard card : pickedProgramCards) {
             PlayerAndProgramCard playerAndProgramCard = new PlayerAndProgramCard(card, currentPlayer);
             convertedPGCards.add(playerAndProgramCard);
         }
 
         this.allPlayerCards.add(convertedPGCards);
 
-        if(this.counter >= players.size()){
+        if (this.counter >= players.size()) {
             this.fromPlayertoPhaseCards();
-        }
-        else{
+        } else {
             pickPlayerCards();
         }
 
     }
 
-    public void fromPlayertoPhaseCards(){
+    public void fromPlayertoPhaseCards() {
         int numberOfPhases = 5;
-        for(List<PlayerAndProgramCard> playerCards : allPlayerCards){
-            for(int i = 0; i<numberOfPhases; i++){
-                if(!(i>=playerCards.size())){
+        for (List<PlayerAndProgramCard> playerCards : allPlayerCards) {
+            for (int i = 0; i < numberOfPhases; i++) {
+                if (!(i >= playerCards.size())) {
                     PlayerAndProgramCard tempCard = playerCards.get(i);
                     allPhaseCards.get(i).add(tempCard);
                 }
@@ -90,10 +87,10 @@ public class CardPicker {
 
     }
 
-    public void resetCards(){
+    public void resetCards() {
         allPhaseCards = new ArrayList<>();
         allPlayerCards = new ArrayList<>();
-        for(int i = 0; i<numberOfPhases; i++){
+        for (int i = 0; i < numberOfPhases; i++) {
             this.allPhaseCards.add(new ArrayList<>());
         }
     }

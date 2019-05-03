@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import inf112.skeleton.app.gameLogic.board.pieces.LaserShooter;
-import inf112.skeleton.app.gameLogic.enums.Direction;
 
 public class GUILaserShooter extends GUIPiece {
 
@@ -33,6 +32,7 @@ public class GUILaserShooter extends GUIPiece {
                 break;
         }
     }
+
     public void changeSprite(int damage) {
         String spriteString = "";
 

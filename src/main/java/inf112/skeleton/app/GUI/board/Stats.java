@@ -1,15 +1,13 @@
 package inf112.skeleton.app.GUI.board;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
 import inf112.skeleton.app.gameLogic.Player;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class Stats extends Table {

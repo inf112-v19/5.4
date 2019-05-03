@@ -13,7 +13,7 @@ public class LaserShooter implements IPiece, Serializable {
     private int damage;
     private Position pos;
 
-    public LaserShooter(Direction dir, Position pos, int damage){
+    public LaserShooter(Direction dir, Position pos, int damage) {
         this.direction = dir;
         this.damage = damage;
         this.pos = pos;
@@ -57,7 +57,7 @@ public class LaserShooter implements IPiece, Serializable {
         return this.pos;
     }
 
-    public Laser createNewLaser(Position pos){
+    public Laser createNewLaser(Position pos) {
         return new Laser(this.direction, this.damage, pos);
     }
 }

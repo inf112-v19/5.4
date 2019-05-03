@@ -54,7 +54,8 @@ public class Laser implements IPiece {
     }
 
     @Override
-    public GUIPiece getGUIPiece() {return this.guiPiece;
+    public GUIPiece getGUIPiece() {
+        return this.guiPiece;
     }
 
     @Override

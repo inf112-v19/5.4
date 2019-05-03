@@ -25,6 +25,7 @@ public class Wall implements IPiece, Serializable {
     public GUIPiece getGUIPiece() {
         return new GUIWall(this.getPieceDirection());
     }
+
     @Override
     public IPiece getType() {
         return null;

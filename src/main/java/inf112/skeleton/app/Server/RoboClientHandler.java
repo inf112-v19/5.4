@@ -1,12 +1,11 @@
 package inf112.skeleton.app.Server;
 
 import inf112.skeleton.app.gameLogic.ProgramCardDeck;
-import inf112.skeleton.app.gameLogic.board.Board;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.*;
+import java.net.Socket;
 
 public class RoboClientHandler extends Thread {
 
@@ -24,20 +23,19 @@ public class RoboClientHandler extends Thread {
         //The server card stack
         serverDeck = new ProgramCardDeck();
     }
+
     @Override
-    public void run(){
-        while (true)
-        {
+    public void run() {
+        while (true) {
             try {
 
-                    playername = (String)ois.readObject();
-                    System.out.println(playername + " has joined the game.");
-                    serverDeck.shuffleDeck();
-                    oos.writeObject(serverDeck);
+                playername = (String) ois.readObject();
+                System.out.println(playername + " has joined the game.");
+                serverDeck.shuffleDeck();
+                oos.writeObject(serverDeck);
 
 
-
-                } catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();

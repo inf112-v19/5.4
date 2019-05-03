@@ -32,7 +32,7 @@ public class ProgramCard implements Comparable<ProgramCard>, Serializable {
 
 
     @Override
-    public int compareTo(ProgramCard otherCard){
+    public int compareTo(ProgramCard otherCard) {
         Integer int1 = this.getPriority();
         Integer int2 = otherCard.getPriority();
         return int1.compareTo(int2);

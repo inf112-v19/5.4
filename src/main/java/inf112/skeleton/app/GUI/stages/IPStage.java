@@ -5,24 +5,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.skeleton.app.GUI.MainGameScreen;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+public class IPStage extends Stage {
 
-public class IPStage extends Stage{
-
-    public IPStage(Viewport viewport, Skin skin, Game game){
+    public IPStage(Viewport viewport, Skin skin, Game game) {
         super(viewport);
 
         Table mainTable = new Table();
@@ -60,7 +52,7 @@ public class IPStage extends Stage{
 
         //usernameTextField.setScale(5);
 
-        btn.addListener(new ClickListener(){
+        btn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
@@ -76,7 +68,6 @@ public class IPStage extends Stage{
 
         Gdx.input.setInputProcessor(this);
     }
-
 
 
 }

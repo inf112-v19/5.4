@@ -2,7 +2,6 @@ package inf112.skeleton.app.GUI.stages;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -26,8 +25,8 @@ public class PickStage extends Stage {
         mainTable.setFillParent(true);
         //mainTable.setDebug(true);
 
-        Label hostLabel = labelHandler.createNewLabel("HOST",5);
-        Label joinLabel = labelHandler.createNewLabel("JOIN",5);
+        Label hostLabel = labelHandler.createNewLabel("HOST", 5);
+        Label joinLabel = labelHandler.createNewLabel("JOIN", 5);
         //List<Label> labels = labelHandler.createNewLabels( new ArrayList<Label>(Arrays.asList(["HOST","JOIN"]));
         List<Label> labelList = new ArrayList<Label>();
         labelList.addAll(Arrays.asList(hostLabel, joinLabel));
@@ -41,21 +40,21 @@ public class PickStage extends Stage {
 
         labelHandler.addHoverStyle(hostLabel);
 
-        for(Label currLabel : labelList){
+        for (Label currLabel : labelList) {
             labelHandler.addHoverStyle(currLabel);
         }
 
-        hostLabel.addListener(new ClickListener(){
+        hostLabel.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 screen.setStage(new HostStage(viewport, skin));
             }
         });
 
-        joinLabel.addListener(new ClickListener(){
+        joinLabel.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                screen.setStage(new IPStage(viewport,skin, game));
+                screen.setStage(new IPStage(viewport, skin, game));
             }
         });
 

@@ -10,16 +10,16 @@ public class PlayerAndProgramCard implements Comparable<PlayerAndProgramCard>, S
     Player player;
     ProgramCard pgCard;
 
-    public PlayerAndProgramCard(ProgramCard pgCard, Player player){
+    public PlayerAndProgramCard(ProgramCard pgCard, Player player) {
         this.pgCard = pgCard;
         this.player = player;
     }
 
-    public Player getPlayer(){
+    public Player getPlayer() {
         return this.player;
     }
 
-    public ProgramCard getPgCard(){
+    public ProgramCard getPgCard() {
         return this.pgCard;
     }
 
@@ -30,7 +30,7 @@ public class PlayerAndProgramCard implements Comparable<PlayerAndProgramCard>, S
 
 
     @Override
-    public int compareTo(PlayerAndProgramCard otherCard){
+    public int compareTo(PlayerAndProgramCard otherCard) {
         Integer int1 = this.pgCard.getPriority();
         Integer int2 = otherCard.getPgCard().getPriority();
         return int1.compareTo(int2);

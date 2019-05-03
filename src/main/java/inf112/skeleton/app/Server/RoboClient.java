@@ -1,6 +1,8 @@
 package inf112.skeleton.app.Server;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
@@ -30,7 +32,7 @@ public class RoboClient {
             oos = new ObjectOutputStream(clientSocket.getOutputStream());
             ois = new ObjectInputStream(clientSocket.getInputStream());
 
-            playerID = (int)ois.readObject();
+            playerID = (int) ois.readObject();
             System.out.println("Your playerID is " + playerID + "!");
 
             while (true) {

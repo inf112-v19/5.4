@@ -3,27 +3,16 @@ package inf112.skeleton.app.gameLogic;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.GUI.pieces.GUIRobot;
 import inf112.skeleton.app.GUI.player.MovableGUIRobot;
-import inf112.skeleton.app.gameLogic.board.pieces.Flag;
-import inf112.skeleton.app.gameLogic.board.pieces.LaserShooter;
 import inf112.skeleton.app.GUI.player.Position;
-import inf112.skeleton.app.gameLogic.enums.Action;
-import inf112.skeleton.app.gameLogic.enums.ActionType;
-import inf112.skeleton.app.gameLogic.enums.Direction;
-import inf112.skeleton.app.gameLogic.enums.Rotation;
-import inf112.skeleton.app.gameLogic.game.PlayerAction;
+import inf112.skeleton.app.gameLogic.board.pieces.Flag;
 import inf112.skeleton.app.gameLogic.board.pieces.IPiece;
-import inf112.skeleton.app.gameLogic.board.pieces.Flag;
 import inf112.skeleton.app.gameLogic.board.pieces.LaserShooter;
-import inf112.skeleton.app.GUI.player.Position;
+import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.enums.Rotation;
 import inf112.skeleton.app.gameLogic.game.PlayerAction;
-import inf112.skeleton.app.gameLogic.game.PlayerActionWrapper;
 import inf112.skeleton.app.gameLogic.game.RespawnPoint;
-import javafx.geometry.Pos;
 
-import java.util.List;
-import java.util.Queue;
 import java.util.Stack;
 
 
@@ -38,8 +27,6 @@ public class Player implements IPlayer {
     private MovableGUIRobot robot;
     private RespawnPoint respawnPoint;
     private Boolean ai;
-
-
 
 
     /**
@@ -72,7 +59,9 @@ public class Player implements IPlayer {
         pos = pos.changePos(dir);
     }
 
-    public void changePlayerPos(Position newPos){this.pos = newPos;}
+    public void changePlayerPos(Position newPos) {
+        this.pos = newPos;
+    }
 
     public PlayerAction die() {
         this.health--;
@@ -174,11 +163,11 @@ public class Player implements IPlayer {
         return this.getRespawnPoint().getNextFlag() == flag.getNumber();
     }
 
-    public boolean isLastFlag(Flag flag, int numberOfFlags){
+    public boolean isLastFlag(Flag flag, int numberOfFlags) {
         return isNextFlag(flag) && flag.getNumber() == numberOfFlags;
     }
 
-    public void setNextFlag(){
+    public void setNextFlag() {
         setRespawnPoint();
         respawnPoint.setNextFlag();
     }
@@ -264,16 +253,19 @@ public class Player implements IPlayer {
         return this.robot;
     }
 
-    public LaserShooter getLaserShooter(){
+    public LaserShooter getLaserShooter() {
         return new LaserShooter(this.getDirection(), this.getPos(), 1);
     }
 
-    public Stack getPlayerDeck () {
+    public Stack getPlayerDeck() {
         return this.playerDeck;
     }
-    public void setPlayerDeck (Stack playerDeck) {
+
+    public void setPlayerDeck(Stack playerDeck) {
         this.playerDeck = playerDeck;
     }
 
-    public Boolean getAi() { return ai; }
+    public Boolean getAi() {
+        return ai;
+    }
 }

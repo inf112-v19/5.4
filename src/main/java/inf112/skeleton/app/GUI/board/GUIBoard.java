@@ -3,25 +3,20 @@ package inf112.skeleton.app.GUI.board;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.DelayAction;
-import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
-import inf112.skeleton.app.GUI.player.MovableGUIRobot;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.board.ICell;
 import inf112.skeleton.app.gameLogic.board.pieces.IPiece;
 import inf112.skeleton.app.gameLogic.board.pieces.Laser;
-import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.game.PlayerAction;
 
 import java.util.List;
-
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 
 public class GUIBoard extends Table {
@@ -78,8 +73,8 @@ public class GUIBoard extends Table {
         int boardWidth = board.getBoardWidth();
 
 
-        for(int y=0; y<boardHeight; y++){
-            for(int x = 0; x<boardWidth; x++ ){
+        for (int y = 0; y < boardHeight; y++) {
+            for (int x = 0; x < boardWidth; x++) {
                 ICell currCell = board.getCellAt(y, x);
                 if (currCell != null) {
                     //ICell currCell = board.getCellAt(2, 0);
@@ -152,7 +147,7 @@ public class GUIBoard extends Table {
                              List<List<PlayerAction>> conveyorActions, RunnableAction postExectionAction) {
 
         this.addAction(new AnimationController().getAllActionsSequenced(allPlayerActions,
-                laserAnimations,conveyorActions, postExectionAction));
+                laserAnimations, conveyorActions, postExectionAction));
     }
 
     public float[] getPiecePos(int x, int y) {
@@ -179,17 +174,17 @@ public class GUIBoard extends Table {
         boardMap[y][x].resetTileColor();
     }
 
-    public SequenceAction getLaserAnimations(List<Laser> lasers){
+    public SequenceAction getLaserAnimations(List<Laser> lasers) {
 
         DelayAction laserDelayAction = new DelayAction(2);
         DelayAction postDelayAction = new DelayAction(1);
 
-        RunnableAction addLasersAnimation = new RunnableAction(){
+        RunnableAction addLasersAnimation = new RunnableAction() {
             @Override
             public void run() {
 
                 System.out.println(lasers.size());
-                for(Laser laser : lasers){
+                for (Laser laser : lasers) {
 
                     GUIPiece guiPiece = laser.getGUIPiece();
 
@@ -203,10 +198,10 @@ public class GUIBoard extends Table {
             }
         };
 
-        RunnableAction removeLasersAnimation = new RunnableAction(){
+        RunnableAction removeLasersAnimation = new RunnableAction() {
             @Override
             public void run() {
-                for(Laser laser : lasers){
+                for (Laser laser : lasers) {
 
                     GUIPiece guiPiece = laser.getGUIPiece();
 
@@ -234,8 +229,8 @@ public class GUIBoard extends Table {
         int rpy = respawnPoint.getY();
 
         GUIPiece guiPiece = player.getRobot();
-        this.removeGUIPiece(playerX,playerY,guiPiece);
-        this.addGUIPiece(rpx,rpy,guiPiece);
+        this.removeGUIPiece(playerX, playerY, guiPiece);
+        this.addGUIPiece(rpx, rpy, guiPiece);
 
     }
 }
