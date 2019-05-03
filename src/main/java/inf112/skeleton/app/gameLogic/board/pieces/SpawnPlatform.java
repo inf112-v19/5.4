@@ -1,5 +1,7 @@
 package inf112.skeleton.app.gameLogic.board.pieces;
 
+import inf112.skeleton.app.GUI.pieces.GUIPiece;
+import inf112.skeleton.app.GUI.pieces.GUISpawnPlatform;
 import inf112.skeleton.app.GUI.pieces.GUIConveyor;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.GUI.player.Position;
@@ -51,7 +53,7 @@ public class SpawnPlatform implements IPiece {
 
     @Override
     public GUIPiece getGUIPiece() {
-        return null;
+        return new GUISpawnPlatform(platformNumber);
     }
 
     @Override
