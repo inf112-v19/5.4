@@ -143,6 +143,14 @@ public class JSONBoardGenerator {
                                 tempCell.addPiece(new Flag(4));
                                 flags.setFlagAtPos(4, new Position(x, y));
                                 break;
+                            case "FlagFive":
+                                tempCell.addPiece(new Flag(5));
+                                flags.setFlagAtPos(5, new Position(x, y));
+                                break;
+                            case "FlagSix":
+                                tempCell.addPiece(new Flag(6));
+                                flags.setFlagAtPos(6, new Position(x, y));
+                                break;
 
                             case "GearRight":
                                 tempCell.addPiece(new Gears(Action.ROTATE_R));
