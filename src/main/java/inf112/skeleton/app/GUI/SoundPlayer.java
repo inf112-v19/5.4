@@ -23,7 +23,7 @@ public class SoundPlayer {
         FLAG_PICKUP("flag_pickup", SoundOrMusic.SOUND),
         MOVE("move", SoundOrMusic.SOUND, 0.5f),
         ROTATE("rotate", SoundOrMusic.SOUND),
-        PLAY_MUSIC("tugs", SoundOrMusic.MUSIC);
+        PLAY_MUSIC("demoMarbles", SoundOrMusic.MUSIC);
 
         private SoundOrMusic som;
         private String namePath;
@@ -43,7 +43,7 @@ public class SoundPlayer {
         GameSound(String soundPath, SoundOrMusic som) {
             this.namePath = soundPath;
             this.som = som;
-            this.volume = 1f;
+            this.volume = 0.2f;
             this.pitch = 1f;
             this.pan = 1f;
         }
@@ -86,8 +86,17 @@ public class SoundPlayer {
                             namePath +
                             ".mp3";
 
-            Sound playSound = Gdx.audio.newSound(Gdx.files.internal(audioPath));
-            playSound.play(volume, pitch, pan);
+
+            if(this.som == SoundOrMusic.MUSIC){
+                Music playMusic = Gdx.audio.newMusic(Gdx.files.internal(audioPath));
+                playMusic.play();
+                playMusic.setVolume(volume);
+                playMusic.setLooping(true);
+            }
+            else{
+                Sound playSound = Gdx.audio.newSound(Gdx.files.internal(audioPath));
+                playSound.play(volume, pitch, pan);
+            }
             //if(som == )
         }
 

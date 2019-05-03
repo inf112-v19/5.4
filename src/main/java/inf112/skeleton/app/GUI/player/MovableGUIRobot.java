@@ -71,7 +71,7 @@ public class MovableGUIRobot extends GUIRobot {
                 parallelAction.addAction(new RunnableAction() {
                     @Override
                     public void run() {
-                        SoundPlayer.GameSound.ROTATE.playSound();
+                        //SoundPlayer.GameSound.ROTATE.playSound();
                     }
                 });
 

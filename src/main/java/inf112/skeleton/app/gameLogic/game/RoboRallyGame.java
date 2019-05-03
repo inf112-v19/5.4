@@ -135,10 +135,7 @@ public class RoboRallyGame {
             SequenceAction laserAnimation = this.guiScreen.getGUIBoard().getLaserAnimations(this.laserCalculator.laserCalculation());
             laserAnimations.add(laserAnimation);
 
-            Player possiblyWinningPlayer = checker2.someoneHasWon(players);
-            if(possiblyWinningPlayer != null){
-                gameOver(possiblyWinningPlayer);
-            }
+
 
         }
         this.guiScreen.getGUIBoard().doGUIActions(allActions, laserAnimations, conveyorActions, getPostExecutionAction());
@@ -160,6 +157,12 @@ public class RoboRallyGame {
                         guiScreen.getGUIBoard().respawnPlayer(currPlayer);
                     }
                 }
+
+                Player possiblyWinningPlayer = checker2.someoneHasWon(players);
+                if(possiblyWinningPlayer != null){
+                    gameOver(possiblyWinningPlayer);
+                }
+
                 cardPicker.startCardPicking();
             }
         };

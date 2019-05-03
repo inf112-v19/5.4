@@ -99,13 +99,13 @@ public class Board implements IBoard {
 
 
 
-    public IPiece cellContainsClass(Position pos, Class piece) {
+    public boolean cellContainsClass(Position pos, Class piece) {
         for (IPiece currPiece : getCellAt(pos).getPiecesInCell()) {
             if (currPiece.getClass() == piece) {
-                return currPiece;
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
     public boolean insideBoard(Position playerPos) {

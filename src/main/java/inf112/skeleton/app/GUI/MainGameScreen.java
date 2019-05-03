@@ -51,7 +51,7 @@ public class MainGameScreen implements Screen {
 
     public MainGameScreen(int numberOfPlayers, boolean isPvpMatch) {
         this.isPvpMatch = isPvpMatch;
-        //SoundPlayer.GameSound.PLAY_MUSIC.playSound();
+        SoundPlayer.GameSound.PLAY_MUSIC.playSound();
 
         // Main stage
         camera = new OrthographicCamera();

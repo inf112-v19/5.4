@@ -7,12 +7,10 @@ import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.board.Cell;
 import inf112.skeleton.app.gameLogic.board.ICell;
-import inf112.skeleton.app.gameLogic.board.pieces.IPiece;
-import inf112.skeleton.app.gameLogic.board.pieces.Conveyor;
-import inf112.skeleton.app.gameLogic.board.pieces.Gears;
-import inf112.skeleton.app.gameLogic.board.pieces.Wall;
+import inf112.skeleton.app.gameLogic.board.pieces.*;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
+import javafx.geometry.Pos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +72,10 @@ public class Checker2 {
 
     public void movePlayer(Player player, Direction direction, List<PlayerAction> moveActions){
 
-        if(!board.insideBoard(player.getPos().changePos(direction)) || !board.insideBoard(player.getPos())) {
+        Position playerPos = player.getPos();
+        if(!board.insideBoard(playerPos.changePos(direction)) ||
+                !board.insideBoard(playerPos) ||
+                board.cellContainsClass(playerPos, Hole.class)) {
             this.board.killPlayer(player);
             System.out.println("Player is outside board");
         }
