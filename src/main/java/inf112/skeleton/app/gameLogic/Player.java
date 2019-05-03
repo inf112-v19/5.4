@@ -13,6 +13,7 @@ import inf112.skeleton.app.gameLogic.enums.Rotation;
 import inf112.skeleton.app.gameLogic.game.PlayerAction;
 import inf112.skeleton.app.gameLogic.game.PlayerActionWrapper;
 import inf112.skeleton.app.gameLogic.game.RespawnPoint;
+import javafx.geometry.Pos;
 
 import java.util.List;
 import java.util.Stack;
@@ -61,10 +62,13 @@ public class Player implements IPlayer {
         pos = pos.changePos(dir);
     }
 
-    public void die() {
+    public void changePlayerPos(Position newPos){this.pos = newPos;}
+
+    public PlayerAction die() {
         this.health--;
         System.out.println("YOU LOST HP, NEW HP: " + this.health);
         this.pos = respawnPoint.getPos();
+        return new PlayerAction(this, Action.DIE, facingDir);
     }
 
     /**

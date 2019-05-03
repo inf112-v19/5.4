@@ -6,8 +6,9 @@ import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.game.FlagOrganizer;
 import inf112.skeleton.app.gameLogic.game.PlayerAction;
-import inf112.skeleton.app.gameLogic.game.PlayerActionWrapper;
-import javafx.geometry.Pos;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Board implements IBoard {
 
@@ -20,6 +21,8 @@ public class Board implements IBoard {
     int boardWidth;
     int boardHeight;
 
+    List<Player> deadPlayers;
+
     public Board(String name, String path) {
         flags = FlagOrganizer.getInstance();
         boardName = name;
@@ -29,6 +32,7 @@ public class Board implements IBoard {
         // Again, assuming it's square. Might break in the future.
         boardHeight = board.length;
         boardWidth = board[0].length;
+        deadPlayers = new ArrayList<>();
     }
 
     public FlagOrganizer getFlags() {
@@ -73,15 +77,11 @@ public class Board implements IBoard {
      * @return
      */
     public PlayerAction movePlayer(Player player, Direction dir){
-        System.out.println("ASIBDIASBDIBASIDBIASUBDIBUS");
+
         Position tempPos = player.getPos();
         Position nextPos = tempPos.changePos(dir);
-        System.out.println(tempPos);
-        System.out.println(nextPos);
 
-        getCellAt(tempPos).removePlayer(player);
-        getCellAt(nextPos).addPiece(player);
-        player.move(dir);
+        this.changePlayerPos(player,nextPos);
 
         System.out.println(player.getPos());
 
@@ -173,6 +173,23 @@ public class Board implements IBoard {
 
     public int getBoardHeight() {
         return boardHeight;
+    }
+
+    public void killPlayer(Player player){
+        this.deadPlayers.add(player);
+    }
+
+    public List<Player> getDeadPlayers(){
+        return this.deadPlayers;
+    }
+
+    public void changePlayerPos(Player player, Position newPos){
+        Position currPlayerPos = player.getPos();
+
+        getCellAt(currPlayerPos).removePlayer(player);
+        getCellAt(newPos).addPiece(player);
+        player.changePlayerPos(newPos);
+
     }
 
 }

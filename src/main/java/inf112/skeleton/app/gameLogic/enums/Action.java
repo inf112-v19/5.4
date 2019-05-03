@@ -11,7 +11,8 @@ public enum Action {
     MOVE_BACK("MOVE BACK", ActionType.MOVE, 1),
     ROTATE_L("TURN LEFT", ActionType.ROTATE, Rotation.L),
     ROTATE_R("TURN RIGHT", ActionType.ROTATE, Rotation.R),
-    ROTATE_U("U TURN", ActionType.ROTATE, Rotation.U);
+    ROTATE_U("U TURN", ActionType.ROTATE, Rotation.U),
+    DIE("DIE", ActionType.DIE, 0);
 
     private String description;
     private ActionType actionType;

@@ -18,6 +18,7 @@ import inf112.skeleton.app.gameLogic.board.IPiece;
 import inf112.skeleton.app.gameLogic.board.pieces.Laser;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.game.PlayerAction;
+import javafx.geometry.Pos;
 
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class GUIBoard extends Table {
     float unitSize;
 
     Tile[][] boardMap;
+    Board gamelogicBoard;
 
     // Currently the height of the board should always be 900px.
 
@@ -71,6 +73,7 @@ public class GUIBoard extends Table {
     public GUIBoard(Board board) {
 
         this(board.getBoardHeight(), board.getBoardWidth());
+        this.gamelogicBoard = board;
 
         int boardHeight = board.getBoardHeight();
         int boardWidth = board.getBoardWidth();
@@ -238,5 +241,20 @@ public class GUIBoard extends Table {
     }
 
 
+    public void respawnPlayer(Player player) {
 
+        Position respawnPoint = player.getRespawnPoint().getPos();
+
+        this.gamelogicBoard.changePlayerPos(player, respawnPoint);
+
+        int playerX = player.getPos().getX();
+        int playerY = player.getPos().getY();
+        int rpx = respawnPoint.getX();
+        int rpy = respawnPoint.getY();
+
+        GUIPiece guiPiece = player.getRobot();
+        this.removeGUIPiece(playerX,playerY,guiPiece);
+        this.addGUIPiece(rpx,rpy,guiPiece);
+
+    }
 }

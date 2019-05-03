@@ -122,7 +122,6 @@ public class RoboRallyGame {
 
         for (List<ProgramCard> onePhaseProgramCards : allProgramCards) {
 
-
             // Sorts all phase-cards.
             Collections.sort(onePhaseProgramCards);
 
@@ -161,8 +160,16 @@ public class RoboRallyGame {
         System.out.println("These are the conveyor moves");
         System.out.println(conveyorActions);
         this.guiScreen.getGUIBoard().doGUIActions(allActions, laserAnimations, conveyorActions);
-
+        postExecution();
     }
+
+    private void postExecution() {
+        List<Player> deadPlayers = this.board.getDeadPlayers();
+        for(Player currPlayer : deadPlayers){
+            this.guiScreen.getGUIBoard().respawnPlayer(currPlayer);
+        }
+    }
+
 
     public List<Player> getPlayers(){
         return this.players;
