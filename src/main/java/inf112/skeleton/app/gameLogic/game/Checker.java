@@ -59,7 +59,7 @@ public class Checker {
         /*
         if (calculatedMoves.size() > 0) {
             //Position tempPos = player.getPos();
-            board.movePlayer(player, playerMoveDir);
+            board.tryToMovePlayer(player, playerMoveDir);
             return calculatedMoves;
         }*/
 /*
@@ -119,7 +119,7 @@ public class Checker {
             }
         }
         return new LinkedList<PlayerAction>() {{
-            add(board.movePlayer(player, goingDir));
+            add(board.tryToMovePlayer(player, goingDir));
         }};
     }
 
@@ -145,7 +145,7 @@ public class Checker {
             return null;
         }
         else {
-            return board.movePlayer(player, conveyorMoveDir);
+            return board.tryToMovePlayer(player, conveyorMoveDir);
         }
     }
 
