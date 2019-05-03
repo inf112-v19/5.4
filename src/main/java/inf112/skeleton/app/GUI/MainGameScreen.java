@@ -44,7 +44,7 @@ public class MainGameScreen implements Screen {
     GUIDeck guiDeck;
     Cell guiDeckCell;
 
-    public MainGameScreen(int numberOfPlayers) {
+    public MainGameScreen(int numberOfPlayers, boolean isPvpMatch) {
 
         //SoundPlayer.GameSound.PLAY_MUSIC.playSound();
 

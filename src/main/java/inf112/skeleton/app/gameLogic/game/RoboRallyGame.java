@@ -171,9 +171,13 @@ public class RoboRallyGame {
             public void run() {
                 guiScreen.updateStats(currentPlayer);
 
-                List<Player> deadPlayers = board.getDeadPlayers();
-                for (Player currPlayer : deadPlayers) {
-                    guiScreen.getGUIBoard().respawnPlayer(currPlayer);
+                //List<Player> deadPlayers = board.getDeadPlayers();
+                for (Player currPlayer : players) {
+                    if(currPlayer.isDead()){
+                        System.out.println("EEYOO IM DEEEAD LMAO");
+                        currPlayer.setAlive();
+                        guiScreen.getGUIBoard().respawnPlayer(currPlayer);
+                    }
                 }
 
                 Player possiblyWinningPlayer = checker2.someoneHasWon(players);

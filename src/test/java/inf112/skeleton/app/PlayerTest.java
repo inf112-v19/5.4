@@ -100,7 +100,7 @@ public class PlayerTest extends GameTest {
         assertEquals(6, player.getPos().getY());
     }
 
-    @Test
+    /*@Test
     public void testThatPlayerIsAliveWhenHealthIsAboveZero() {
         Player player = new Player("1", new Position(4, 3), Direction.SOUTH, 1, false);
         assertTrue(player.isAlive());
@@ -110,7 +110,7 @@ public class PlayerTest extends GameTest {
     public void testThatPlayerIsNotAliveWhenHealthIsZero() {
         Player player = new Player("1", new Position(1, 1), Direction.SOUTH, 0, false);
         assertFalse(player.isAlive());
-    }
+    }*/
 
     @Test
     public void testThatHealthGoesBackToMaxWhenRepairing() {

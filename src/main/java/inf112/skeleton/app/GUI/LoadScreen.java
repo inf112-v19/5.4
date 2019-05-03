@@ -1,13 +1,9 @@
 package inf112.skeleton.app.GUI;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -16,10 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.GUI.stages.*;
-import inf112.skeleton.app.gameLogic.Player;
-import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,7 +71,7 @@ public class LoadScreen implements Screen {
         playLabel.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                setStage(new PlayerNumberStage(viewport, skin, labelHandler, screen, game));
+                setStage(new AIOrPlayerStage(viewport, skin, labelHandler, screen, game));
                 //setStage(new GameOverStage(viewport,skin, new Player("Jarle", new Position(1,2), Direction.NORTH, 5)));
                 /*Sound sound = Gdx.audio.newSound(Gdx.files.internal("audio/yeahEcho.mp3"));
 

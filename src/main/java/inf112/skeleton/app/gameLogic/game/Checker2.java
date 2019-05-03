@@ -42,18 +42,21 @@ public class Checker2 {
         Action action = playerAction.getAction();
         Player player = playerAction.getPlayer();
 
-        switch (action.getActionType()) {
-            case MOVE:
+        if(!player.isDead()){
+            switch (action.getActionType()) {
+                case MOVE:
                     tryToMovePlayer(
                             player,
                             action == Action.MOVE_BACK ?
                                     player.getDirection().oppositeDir() : player.getDirection(),
                             moveActions);
-                break;
-            case ROTATE:
-                moveActions.add(rotatePlayer(player, action));
-                break;
+                    break;
+                case ROTATE:
+                    moveActions.add(rotatePlayer(player, action));
+                    break;
+            }
         }
+
         return moveActions;
     }
 
@@ -203,14 +206,15 @@ public class Checker2 {
             if (player.getPos().equals(board.getFlags().getFlagPos(player.getRespawnPoint().nextFlag))) {
                 System.out.println("Found flag " + player.getRespawnPoint().getNextFlag());
                 SoundPlayer.GameSound.FLAG_PICKUP.playSound();
-                if (player.getRespawnPoint().nextFlag == board.getFlags().getNumberOfFlags()) {
-                    for (int i = 0; i < 10; i++) {
-                        System.out.println("GOT THE LAST FLAG!!! Flag: " + player.getRespawnPoint().getNextFlag());
-                        return player;
-                    }
-                } else {
-                    player.setNextFlag();
-                    System.out.println("Next Flag is " + player.getRespawnPoint().getNextFlag());
+
+                player.setNextFlag();
+                System.out.println("Next Flag is " + player.getRespawnPoint().getNextFlag());
+
+            }
+            if (player.getRespawnPoint().nextFlag == board.getFlags().getNumberOfFlags()) {
+                for (int i = 0; i < 10; i++) {
+                    System.out.println("GOT THE LAST FLAG!!! Flag: " + player.getRespawnPoint().getNextFlag());
+                    return player;
                 }
             }
         }

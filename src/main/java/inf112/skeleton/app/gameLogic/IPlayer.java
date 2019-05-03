@@ -68,10 +68,5 @@ interface IPlayer extends IPiece {
     Position getPos();
 
 
-    /**
-     * @return true if player's health is above 0, otherwise false
-     */
-    boolean isAlive();
-
 
 }
