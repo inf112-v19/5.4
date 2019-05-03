@@ -25,7 +25,7 @@ public class GUILaserShooter extends GUIPiece {
             case WEST:
                 this.setRotation(-90f);
                 break;
-            case SOUTH:
+            case NORTH:
                 this.setRotation(180f);
                 break;
             case EAST:
