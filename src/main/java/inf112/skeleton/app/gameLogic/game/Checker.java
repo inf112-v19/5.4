@@ -34,6 +34,7 @@ public class Checker {
             switch (att.getActionType()) {
                 case MOVE:
                     List<PlayerAction> moveActions = new LinkedList<>();
+                    player.getDirection();
                     this.move(player.getDirection(), player, allActions, moveActions);
                     allActions.add(moveActions);
                     break;
