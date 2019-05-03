@@ -106,7 +106,7 @@ public class AnimationController {
             @Override
             public void run() {
                 System.out.println("-- CONVEYORS --");
-                SoundPlayer.GameSound.ROTATE.playSound();
+                //SoundPlayer.GameSound.ROTATE.playSound();
             }
 
             {
