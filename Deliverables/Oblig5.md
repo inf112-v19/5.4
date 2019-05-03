@@ -62,12 +62,17 @@ hverandre på hva vi har gjort.
 
 - Det viktigse vi har lært:
 
+Vennskap <3
+
+Vi har lært viktigheten over å ha god kommuniksjon og ikke være redd
+for å spørre om hjelp.
+
 
 ## Krav
 
 - [X] Man må kunne spille en komplett runde
 
-- [ ] Man må kunne vinne spillet spillet ved å besøke siste flagg
+- [ ] Man må kunne vinne spillet ved å besøke siste flagg
   (fullføre et spill)
 
 - [X] Det skal være lasere på brettet
