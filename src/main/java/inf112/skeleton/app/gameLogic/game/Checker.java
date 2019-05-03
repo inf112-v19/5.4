@@ -37,6 +37,10 @@ public class Checker {
                     } else {
                         allActions.add(move(player.getDirection(), player));
                     }
+                    List<PlayerAction> moveActions = new LinkedList<>();
+                    player.getDirection();
+                    this.move(player.getDirection(), player, allActions, moveActions);
+                    allActions.add(moveActions);
                     break;
                 case ROTATE:
                     allActions.add(this.rotate(player, att));

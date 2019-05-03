@@ -189,7 +189,15 @@ public class Checker2 {
         return moveActions;
     }
 
-    public void checkForFlag(List<Player> players) {
+    public Player someoneHasWon(List<Player> players){
+        Player maybeWonPlayer = checkForFlag(players);
+        if(checkForFlag(players) != null){
+            return maybeWonPlayer;
+        }
+        return null;
+    }
+
+    public Player checkForFlag(List<Player> players) {
         //checks if the players position is the same as the flag the player is looking for
         for(Player player : players){
             if (player.getPos().equals(board.getFlags().getFlagPos(player.getRespawnPoint().nextFlag))) {
@@ -198,6 +206,7 @@ public class Checker2 {
                 if (player.getRespawnPoint().nextFlag == board.getFlags().getNumberOfFlags()) {
                     for (int i = 0; i < 10; i++) {
                         System.out.println("GOT THE LAST FLAG!!! Flag: " + player.getRespawnPoint().getNextFlag());
+                        return player;
                     }
                 } else {
                     player.setNextFlag();
@@ -205,6 +214,7 @@ public class Checker2 {
                 }
             }
         }
+        return null;
     }
 
 }

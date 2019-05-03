@@ -7,6 +7,7 @@ import inf112.skeleton.app.gameLogic.board.pieces.Flag;
 import inf112.skeleton.app.gameLogic.board.pieces.LaserShooter;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.enums.Action;
+import inf112.skeleton.app.gameLogic.enums.ActionType;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.enums.Rotation;
 import inf112.skeleton.app.gameLogic.game.PlayerAction;
@@ -16,11 +17,13 @@ import inf112.skeleton.app.gameLogic.board.pieces.LaserShooter;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.enums.Rotation;
+import inf112.skeleton.app.gameLogic.game.PlayerAction;
 import inf112.skeleton.app.gameLogic.game.PlayerActionWrapper;
 import inf112.skeleton.app.gameLogic.game.RespawnPoint;
 import javafx.geometry.Pos;
 
 import java.util.List;
+import java.util.Queue;
 import java.util.Stack;
 
 
@@ -35,13 +38,15 @@ public class Player implements IPlayer {
     private List<ProgramCard> playerRegister;
     private MovableGUIRobot robot;
     private RespawnPoint respawnPoint;
+    private Boolean ai;
+
 
 
 
     /**
      * Constructs a player object with position, direction and health
      */
-    public Player(String name, Position pos, Direction dir, int health) {
+    public Player(String name, Position pos, Direction dir, int health, Boolean ai) {
         this.name = name;
         this.pos = pos;
         this.facingDir = dir;
@@ -50,6 +55,7 @@ public class Player implements IPlayer {
         this.damageTokens = 0;
         this.robot = new MovableGUIRobot(1);
         this.respawnPoint = new RespawnPoint(pos, 1);
+        this.ai = ai;
 
     }
 
@@ -262,4 +268,13 @@ public class Player implements IPlayer {
     public LaserShooter getLaserShooter(){
         return new LaserShooter(this.getDirection(), this.getPos(), 1);
     }
+
+    public Stack getPlayerDeck () {
+        return this.playerDeck;
+    }
+    public void setPlayerDeck (Stack playerDeck) {
+        this.playerDeck = playerDeck;
+    }
+
+    public Boolean getAi() { return ai; }
 }

@@ -5,7 +5,9 @@ import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
-public class Conveyor implements IPiece {
+import java.io.Serializable;
+
+public class Conveyor implements IPiece, Serializable {
 
     private Direction direction;
     private int speed;

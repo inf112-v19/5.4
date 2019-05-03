@@ -5,7 +5,9 @@ import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
-public class Gears implements IPiece {
+import java.io.Serializable;
+
+public class Gears implements IPiece, Serializable {
 
     private Action action;
 

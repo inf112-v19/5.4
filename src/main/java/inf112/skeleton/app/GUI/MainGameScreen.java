@@ -16,6 +16,7 @@ import inf112.skeleton.app.GUI.board.GUIBoard;
 import inf112.skeleton.app.GUI.board.Stats;
 import inf112.skeleton.app.GUI.cards.GUIDeck;
 import inf112.skeleton.app.GUI.player.MovableGUIRobot;
+import inf112.skeleton.app.GUI.stages.GameOverStage;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.game.RoboRallyGame;
@@ -43,7 +44,7 @@ public class MainGameScreen implements Screen {
     GUIDeck guiDeck;
     Cell guiDeckCell;
 
-    public MainGameScreen() {
+    public MainGameScreen(int numberOfPlayers) {
 
         //SoundPlayer.GameSound.PLAY_MUSIC.playSound();
 
@@ -60,7 +61,7 @@ public class MainGameScreen implements Screen {
         skin.get(Label.LabelStyle.class).fontColor = Color.WHITE;
 
 
-        this.roboRallyGame = new RoboRallyGame(this);
+        this.roboRallyGame = new RoboRallyGame(this, numberOfPlayers);
 
         // Get the players from the game.
         this.players = roboRallyGame.getPlayers();
@@ -71,7 +72,6 @@ public class MainGameScreen implements Screen {
         //piecesBoard.addPlayers(players);
 
 
-        roboRallyGame.playGame();
 
         addPiecesTest();
 
@@ -206,15 +206,14 @@ public class MainGameScreen implements Screen {
      * @param pgCards cards to pick from, usually 9
      * @return picked cards, usually 5
      */
-    public void pickCardPhase(List<ProgramCard> pgCards) {
+    public void pickCardPhase(List<ProgramCard> pgCards, Player currentPlayer) {
+        this.updateStats(currentPlayer);
         Button doneButton = new TextButton("DONE", skin);
         this.guiDeck = new GUIDeck(skin, pgCards, doneButton);
         this.guiDeck.setProgramCards(pgCards);
         this.guiDeckCell.setActor(guiDeck);
         addPostPickListener(doneButton);
-
         this.guiDeck.pickCardsSetup();
-
     }
 
 
@@ -224,8 +223,7 @@ public class MainGameScreen implements Screen {
             public void changed(ChangeEvent event, Actor actor) {
 
 				List<ProgramCard> playerCards = guiDeck.getPickedProgramCards();
-
-				roboRallyGame.postPick(playerCards);
+				roboRallyGame.getCardPicker().postPick(playerCards);
 			}
 		});
 
@@ -258,4 +256,7 @@ public class MainGameScreen implements Screen {
     }
 
 
+    public void gameOver(Player player) {
+        this.stage = new GameOverStage(viewport, this.skin ,player);
+    }
 }
