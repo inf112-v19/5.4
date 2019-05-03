@@ -5,7 +5,9 @@ import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
-public class Flag implements IPiece {
+import java.io.Serializable;
+
+public class Flag implements IPiece, Serializable {
 
     private Direction direction = Direction.NORTH;
     private int number;

@@ -4,7 +4,9 @@ import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.GUI.pieces.GUIWall;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
-public class Wall implements IPiece {
+import java.io.Serializable;
+
+public class Wall implements IPiece, Serializable {
 
     private Direction direction;
     char symbol;

@@ -71,7 +71,6 @@ public class MainGameScreen implements Screen {
         //piecesBoard.addPlayers(players);
 
 
-        roboRallyGame.playGame();
 
         addPiecesTest();
 
@@ -212,9 +211,7 @@ public class MainGameScreen implements Screen {
         this.guiDeck.setProgramCards(pgCards);
         this.guiDeckCell.setActor(guiDeck);
         addPostPickListener(doneButton);
-
         this.guiDeck.pickCardsSetup();
-
     }
 
 
@@ -224,8 +221,7 @@ public class MainGameScreen implements Screen {
             public void changed(ChangeEvent event, Actor actor) {
 
 				List<ProgramCard> playerCards = guiDeck.getPickedProgramCards();
-
-				roboRallyGame.postPick(playerCards);
+				roboRallyGame.getCardPicker().postPick(playerCards);
 			}
 		});
 
