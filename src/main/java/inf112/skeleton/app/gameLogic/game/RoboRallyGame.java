@@ -129,8 +129,10 @@ public class RoboRallyGame {
             for (ProgramCard card : onePhaseProgramCards) {
 
                 // All the actions originating from ONE card.
-                checker2.doCard(card, currentPlayer);
-                List<List<PlayerAction>> cardActions = checker2.getAllActions();
+
+                List<List<PlayerAction>> cardActions = checker2.doCard(card, currentPlayer);
+                System.out.println("ALL ACTIONS LMOA");
+                System.out.println(cardActions);
 
                 System.out.println("Actions in actionList: ");
                 for (List<PlayerAction> tempBig : cardActions) {
@@ -147,13 +149,8 @@ public class RoboRallyGame {
             }
 
             // Conveyors actions for one round, added
-            checker2.doPiecesMoves(players);
-            if(checker2.getAllActions().size() > 0){
-                conveyorActions.add(checker2.getAllActions().get(0));
-            } else {
-                conveyorActions.add(new LinkedList<>());
-            }
-            checker2.getAllActions();
+
+            conveyorActions.add(checker2.doPiecesMoves(players));
             System.out.println("These are the conveyor moves INSIDE THE THING");
             System.out.println(conveyorActions);
 

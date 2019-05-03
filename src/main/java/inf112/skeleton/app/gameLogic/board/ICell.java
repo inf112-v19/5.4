@@ -1,5 +1,7 @@
 package inf112.skeleton.app.gameLogic.board;
 
+import inf112.skeleton.app.gameLogic.Player;
+
 import java.util.List;
 
 public interface ICell {
@@ -28,4 +30,5 @@ public interface ICell {
 
     List<IPiece> getPiecesInCell();
 
+    void removePlayer(Player player);
 }

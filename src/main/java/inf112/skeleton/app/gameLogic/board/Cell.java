@@ -1,5 +1,7 @@
 package inf112.skeleton.app.gameLogic.board;
 
+import inf112.skeleton.app.gameLogic.Player;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -44,5 +46,10 @@ public class Cell implements ICell {
     @Override
     public String getName() {
         return null;
+    }
+
+    @Override
+    public void removePlayer(Player player) {
+        piecesInCell.remove(player);
     }
 }
