@@ -185,7 +185,7 @@ public class Board implements IBoard {
         return this.deadPlayers;
     }
 
-    public void changePlayerPos(Player player, Position newPos){
+    public void changePlayerPos(Player player, Position newPos) {
         Position currPlayerPos = player.getPos();
 
         getCellAt(currPlayerPos).removePlayer(player);

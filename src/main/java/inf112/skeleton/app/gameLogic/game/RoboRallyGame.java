@@ -1,6 +1,7 @@
 package inf112.skeleton.app.gameLogic.game;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import inf112.skeleton.app.GUI.MainGameScreen;
 import inf112.skeleton.app.GUI.player.Position;
@@ -154,15 +155,26 @@ public class RoboRallyGame {
         }
         System.out.println("These are the conveyor moves");
         System.out.println(conveyorActions);
-        this.guiScreen.getGUIBoard().doGUIActions(allActions, laserAnimations, conveyorActions);
-        postExecution();
+        this.guiScreen.getGUIBoard().doGUIActions(allActions, laserAnimations, conveyorActions, getPostExecutionAction());
     }
 
-    private void postExecution() {
-        List<Player> deadPlayers = this.board.getDeadPlayers();
-        for(Player currPlayer : deadPlayers){
-            this.guiScreen.getGUIBoard().respawnPlayer(currPlayer);
-        }
+    private RunnableAction getPostExecutionAction() {
+
+
+
+        return new RunnableAction(){
+            @Override
+            public void run() {
+                guiScreen.updateStats(currentPlayer);
+
+                List<Player> deadPlayers = board.getDeadPlayers();
+                for(Player currPlayer : deadPlayers){
+                    guiScreen.getGUIBoard().respawnPlayer(currPlayer);
+                }
+
+            }
+        };
+
     }
 
 
