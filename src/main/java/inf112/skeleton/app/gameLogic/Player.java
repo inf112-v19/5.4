@@ -261,4 +261,11 @@ public class Player implements IPlayer {
     public LaserShooter getLaserShooter(){
         return this.laserShooter;
     }
+
+    public Stack getPlayerDeck () {
+        return this.playerDeck;
+    }
+    public void setPlayerDeck (Stack playerDeck) {
+        this.playerDeck = playerDeck;
+    }
 }

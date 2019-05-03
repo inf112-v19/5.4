@@ -15,6 +15,7 @@ import inf112.skeleton.app.gameLogic.enums.Direction;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
 
 public class RoboRallyGame {
 
@@ -28,6 +29,9 @@ public class RoboRallyGame {
 
     private ProgramCardDeck deck;
     private Player currentPlayer;
+    private Player player1;
+    private Player player2;
+    private Player player3;
     private Board board;
     private List<LaserShooter> laserShooterList;
 
@@ -45,14 +49,43 @@ public class RoboRallyGame {
         this.checker = new Checker(board);
         this.deck = new ProgramCardDeck();  // Deck of cards in the game
         players = new ArrayList<Player>();
+
+        // loop for generating players and assigning player 1,2 and 3.
+        for (int i = 0; i < totalPlayers; i++) {
+            if (i == 0){
+                Position position = new Position(i + 5, 7);
+                player1 = new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, playerActionQueue);
+                players.add(player1);
+                board.addPiece(position, player1);
+                System.out.println(player1.getPos().getX() + " " + player1.getPos().getY());
+            }
+            if (i == 1) {
+                Position position = new Position(i + 5, 7);
+                player2 = new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, playerActionQueue);
+                players.add(player2);
+                board.addPiece(position, player2);
+                System.out.println(player2.getPos().getX() + " " + player2.getPos().getY());
+            }
+            if (i == 2) {
+                Position position = new Position(i + 5, 7);
+                player3 = new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, playerActionQueue);
+                players.add(player3);
+                board.addPiece(position, player3);
+                System.out.println(player3.getPos().getX() + " " + player3.getPos().getY());
+            }
+        }
+        /**
         for (int i = 0; i < totalPlayers; i++) {
             Position position = new Position(i + 5, 7);
             //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
+
             players.add(new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, playerActionQueue));
             board.addPiece(position, players.get(i));
             System.out.println("player made!!");
             System.out.println(players.get(i).getPos().getX() + " " + players.get(i).getPos().getY());
         }
+         */
+
         for (int y = 0; y < board.getBoardHeight(); y++) {
             for (int x = 0; x < board.getBoardWidth(); x++) {
                 for (IPiece piece : board.getCellAt(x, y).getPiecesInCell()) {
@@ -86,14 +119,19 @@ public class RoboRallyGame {
         int cardsToDraw = 9;
         cardsToDraw -= damageTokens;
 
-        List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
-
-        // TODO take cards from deck and assign them to the player
+        // TODO take cards from deck and assign them to the players
         //this.currentPlayer =currentPlayer;
-        this.guiScreen.pickCardPhase(cards);
-
+        for (int i = 0; i < totalPlayers; i++) {
+            List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
+            Stack<ProgramCard> playerCards = null;
+            for (ProgramCard p : cards) {
+                playerCards.push(p);
+            }
+            this.currentPlayer.setPlayerDeck(playerCards);
+            this.guiScreen.pickCardPhase(cards);
+            nextPlayer();
+        }
     }
-
     /**
      * Second phase in the game
      * Here the game will execute the cards the player picked, check death, flags and conveyor
@@ -267,5 +305,18 @@ public class RoboRallyGame {
         return this.board;
     }
 
-
+    /**
+     * Method for switching players.
+     */
+    public void nextPlayer() {
+        if (currentPlayer==player1) {
+            this.currentPlayer = this.player2;
+        }
+        if (currentPlayer==player2) {
+            this.currentPlayer = this.player3;
+        }
+        if (currentPlayer==player3) {
+            this.currentPlayer = this.player1;
+        }
+    }
 }
