@@ -14,7 +14,6 @@ import inf112.skeleton.app.gameLogic.enums.Direction;
 public class MovableGUIRobot extends GUIRobot {
 
     TextureAtlas textureAtlas;
-    Sprite newSprite;
     Direction robotFacingDir;
 
     public MovableGUIRobot(int robotnr) {
