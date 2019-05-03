@@ -1,20 +1,14 @@
 package inf112.skeleton.app.gameLogic.game;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import inf112.skeleton.app.GUI.MainGameScreen;
-import inf112.skeleton.app.GUI.board.GUIBoard;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.LaserCalculator;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.ProgramCardDeck;
 import inf112.skeleton.app.gameLogic.board.Board;
-import inf112.skeleton.app.gameLogic.board.IPiece;
-import inf112.skeleton.app.gameLogic.board.pieces.Laser;
-import inf112.skeleton.app.gameLogic.board.pieces.LaserShooter;
-import inf112.skeleton.app.gameLogic.board.pieces.Wall;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import java.util.*;
@@ -56,6 +50,7 @@ public class RoboRallyGame {
         board.displayBoard();
 
         this.laserCalculator = new LaserCalculator(board, players);
+        board.sortBoard();
 
         playGame();
     }

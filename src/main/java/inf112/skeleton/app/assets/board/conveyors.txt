@@ -1,25 +1,18 @@
-laserShooters.png
-size: 54, 18
+conveyors.png
+size: 32, 16
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-doubleLaserShooter
+conveyor
   rotate: false
-  xy: 1, 1
+  xy: 0, 0
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-laserShooter
+doubleConveyor
   rotate: false
-  xy: 19, 1
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-trippleLaserShooter
-  rotate: false
-  xy: 37, 1
+  xy: 16, 0
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

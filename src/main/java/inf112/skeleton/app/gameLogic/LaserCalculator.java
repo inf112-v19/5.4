@@ -2,7 +2,7 @@ package inf112.skeleton.app.gameLogic;
 
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.board.Board;
-import inf112.skeleton.app.gameLogic.board.IPiece;
+import inf112.skeleton.app.gameLogic.board.pieces.IPiece;
 import inf112.skeleton.app.gameLogic.board.pieces.Laser;
 import inf112.skeleton.app.gameLogic.board.pieces.LaserShooter;
 import inf112.skeleton.app.gameLogic.board.pieces.Wall;
@@ -56,9 +56,10 @@ public class LaserCalculator {
 
 
     /**
-     * @param pos,         the position to place a laser
-     * @param dir,         the direction
-     * @param laserShooter
+     * @param pos,            the position to place a laser
+     * @param dir,            the direction the laser should be placed in
+     * @param laserShooter,   the laserShooter that is shooting the laser
+     * @param laserPositions, the list of all the positions lasers are placed in
      */
     public void tryToPlaceLaser(Position pos, Direction dir, LaserShooter laserShooter, List<Laser> laserPositions) {
         if (pos.getX() >= board.getBoardWidth() || pos.getY() >= board.getBoardHeight() || pos.getY() < 0 || pos.getX() < 0) {
