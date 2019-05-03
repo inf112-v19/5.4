@@ -46,8 +46,13 @@ public class RoboRallyGame {
         this.deck = new ProgramCardDeck();  // Deck of cards in the game
 
         players = new ArrayList<Player>();
+        if (guiScreen.getIsPvpMatch()) {
+            pvpGenerator();
+        }
+        else {
+            pveGenerator();
+        }
 
-        pveGenerator();
 
         /**
         for (int i = 0; i < totalPlayers; i++) {
