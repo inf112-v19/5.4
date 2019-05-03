@@ -30,9 +30,6 @@ public class RoboRallyGame {
 
     private ProgramCardDeck deck;
     private Player currentPlayer;
-    private Player player1;
-    private Player player2;
-    private Player player3;
 
     private Board board;
 
@@ -50,13 +47,17 @@ public class RoboRallyGame {
 
         players = new ArrayList<Player>();
 
+        pveGenerator();
+
+        /**
         for (int i = 0; i < totalPlayers; i++) {
             Position position = new Position(i + 5, 7);
             //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
-            players.add(new Player(Integer.toString(i), position, Direction.SOUTH, startHealth));
+            players.add(new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, false));
             board.addPiece(position, players.get(i));
             System.out.println("player made!!");
          }
+         */
 
         board.displayBoard();
 
@@ -176,12 +177,10 @@ public class RoboRallyGame {
                 }
 
                 cardPicker.startCardPicking();
-
             }
         };
 
     }
-
 
     public List<Player> getPlayers() {
         return this.players;
@@ -194,5 +193,34 @@ public class RoboRallyGame {
 
     public CardPicker getCardPicker() {
         return this.cardPicker;
+    }
+
+    public void pvpGenerator() {
+        for (int i = 0; i < totalPlayers; i++) {
+            Position position = new Position(i + 5, 7);
+            //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
+            players.add(new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, false));
+            board.addPiece(position, players.get(i));
+            System.out.println("player made!!");
+        }
+    }
+
+    public void pveGenerator() {
+        for (int i = 0; i < totalPlayers; i++) {
+            if (i == 0) {
+                Position position = new Position(i + 5, 7);
+                //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
+                players.add(new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, false));
+                board.addPiece(position, players.get(i));
+                System.out.println("player made!!");
+            }
+            else {
+                Position position = new Position(i + 5, 7);
+                //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
+                players.add(new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, true));
+                board.addPiece(position, players.get(i));
+                System.out.println("AI made!!");
+            }
+        }
     }
 }

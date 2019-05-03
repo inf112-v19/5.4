@@ -38,6 +38,7 @@ public class Player implements IPlayer {
     private List<ProgramCard> playerRegister;
     private MovableGUIRobot robot;
     private RespawnPoint respawnPoint;
+    private Boolean ai;
 
 
 
@@ -45,7 +46,7 @@ public class Player implements IPlayer {
     /**
      * Constructs a player object with position, direction and health
      */
-    public Player(String name, Position pos, Direction dir, int health) {
+    public Player(String name, Position pos, Direction dir, int health, Boolean ai) {
         this.name = name;
         this.pos = pos;
         this.facingDir = dir;
@@ -54,6 +55,7 @@ public class Player implements IPlayer {
         this.damageTokens = 0;
         this.robot = new MovableGUIRobot(1);
         this.respawnPoint = new RespawnPoint(pos, 1);
+        this.ai = ai;
 
     }
 
@@ -273,4 +275,6 @@ public class Player implements IPlayer {
     public void setPlayerDeck (Stack playerDeck) {
         this.playerDeck = playerDeck;
     }
+
+    public Boolean getAi() { return ai; }
 }

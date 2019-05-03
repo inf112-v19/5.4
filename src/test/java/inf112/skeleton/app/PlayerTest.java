@@ -22,14 +22,14 @@ public class PlayerTest extends GameTest {
 
     @Test
     public void testThatYouLoseHealthWhenYouTakeDamage() {
-        Player player = new Player("1", new Position(1, 1), Direction.NORTH, 3);
+        Player player = new Player("1", new Position(1, 1), Direction.NORTH, 3, false);
         player.takeDamage(1);
         assertEquals(1, player.getDamageTokens());
     }
 
     @Test
     public void testThatYouFaceTheCorrectDirectionAfterRotatingRight() {
-        Player player = new Player("1", new Position(1, 1), Direction.NORTH, 1);
+        Player player = new Player("1", new Position(1, 1), Direction.NORTH, 1, false);
 
         player.rotate(Rotation.R);
         assertEquals(Direction.EAST, player.getDirection());
@@ -46,7 +46,7 @@ public class PlayerTest extends GameTest {
 
     @Test
     public void testThatYouFaceTheCorrectDirectionAfterRotatingLeft() {
-        Player player = new Player("1", new Position(1, 1), Direction.NORTH, 1);
+        Player player = new Player("1", new Position(1, 1), Direction.NORTH, 1, false);
 
         player.rotate(Rotation.L);
         assertEquals(Direction.WEST, player.getDirection());
@@ -63,7 +63,7 @@ public class PlayerTest extends GameTest {
 
     @Test
     public void testThatYouFaceTheCorrectDirectionAfterUTurn1() {
-        Player player = new Player("1", new Position(1, 1), Direction.NORTH, 1);
+        Player player = new Player("1", new Position(1, 1), Direction.NORTH, 1, false);
 
         player.rotate(Rotation.U);
         assertEquals(Direction.SOUTH, player.getDirection());
@@ -74,7 +74,7 @@ public class PlayerTest extends GameTest {
 
     @Test
     public void testThatYouFaceTheCorrectDirectionAfterUTurn2() {
-        Player player = new Player("1", new Position(1, 1), Direction.WEST, 1);
+        Player player = new Player("1", new Position(1, 1), Direction.WEST, 1, false);
 
         player.rotate(Rotation.U);
         assertEquals(Direction.EAST, player.getDirection());
@@ -86,7 +86,7 @@ public class PlayerTest extends GameTest {
     @Test
     public void testThatYourPositionCorrectlyChangesWhenMoving() {
 
-        Player player = new Player("1", new Position(4, 3), Direction.SOUTH, 1);
+        Player player = new Player("1", new Position(4, 3), Direction.SOUTH, 1, false);
         for (int i = 0; i < 3; i++) {
             player.move(player.getDirection());
         }
@@ -102,19 +102,19 @@ public class PlayerTest extends GameTest {
 
     @Test
     public void testThatPlayerIsAliveWhenHealthIsAboveZero() {
-        Player player = new Player("1", new Position(4, 3), Direction.SOUTH, 1);
+        Player player = new Player("1", new Position(4, 3), Direction.SOUTH, 1, false);
         assertTrue(player.isAlive());
     }
 
     @Test
     public void testThatPlayerIsNotAliveWhenHealthIsZero() {
-        Player player = new Player("1", new Position(1, 1), Direction.SOUTH, 0);
+        Player player = new Player("1", new Position(1, 1), Direction.SOUTH, 0, false);
         assertFalse(player.isAlive());
     }
 
     @Test
     public void testThatHealthGoesBackToMaxWhenRepairing() {
-        Player player = new Player("1", new Position(1, 1), Direction.SOUTH, 9);
+        Player player = new Player("1", new Position(1, 1), Direction.SOUTH, 9, false);
 
         player.takeDamage(1);
         player.repair();
