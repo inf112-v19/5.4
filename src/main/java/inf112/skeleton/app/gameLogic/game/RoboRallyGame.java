@@ -23,8 +23,8 @@ public class RoboRallyGame {
     // The GUI.
     MainGameScreen guiScreen;
 
-    private int totalPlayers;   // Total players in the game
-    private List<Player> players;       // Players in the game
+    private int totalPlayers;
+    private List<Player> players;
     private int startHealth = 3;
     private String boardPath = "Board1.json";
     private LaserCalculator laserCalculator;
@@ -38,21 +38,15 @@ public class RoboRallyGame {
     private Checker2 checker2;
 
     public RoboRallyGame(MainGameScreen guiScreen, int numberOfPlayers) {
-
         this.totalPlayers = numberOfPlayers;
-
         this.guiScreen = guiScreen;
         this.board = new Board("Captain Hook", boardPath);
         this.spawnPlatforms = board.getSpawnPlatforms();
         this.checker2 = new Checker2(board);
-
-        this.deck = new ProgramCardDeck();  // Deck of cards in the game
-
-        players = new ArrayList<Player>();
+        this.deck = new ProgramCardDeck();
+        players = new ArrayList<>();
 
         pveGenerator();
-
-        board.displayBoard();
 
         this.laserCalculator = new LaserCalculator(board, players);
         board.sortBoard();

@@ -66,7 +66,6 @@ public class JSONBoardGenerator {
                     while (iterator.hasNext()) {
 
                         String jsonIterator = iterator.next();
-                        System.out.println(jsonIterator);
                         switch (jsonIterator) {
                             case "SpawnPlatform1":
                                 SpawnPlatform temp = new SpawnPlatform(1, new Position(x,y));
