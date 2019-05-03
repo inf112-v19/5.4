@@ -66,7 +66,7 @@ public class IPStage extends Stage{
                 super.clicked(event, x, y);
                 Sound sound = Gdx.audio.newSound(Gdx.files.internal("audio/yeahEcho.mp3"));
 
-                MainGameScreen mainGameScreen = new MainGameScreen(3);
+                MainGameScreen mainGameScreen = new MainGameScreen(3, true);
                 game.setScreen(mainGameScreen);
 
                 sound.play(0.5f);

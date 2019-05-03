@@ -39,6 +39,7 @@ public class Player implements IPlayer {
     private MovableGUIRobot robot;
     private RespawnPoint respawnPoint;
     private boolean isAi;
+    private boolean isAlive;
 
 
 
@@ -56,6 +57,7 @@ public class Player implements IPlayer {
         this.robot = new MovableGUIRobot(1);
         this.respawnPoint = new RespawnPoint(pos, 1);
         this.isAi = isAi;
+        this.isAlive = true;
 
     }
 
@@ -77,8 +79,11 @@ public class Player implements IPlayer {
 
     public PlayerAction die() {
         this.health--;
+        this.damageTokens = 0;
         System.out.println("YOU LOST HP, NEW HP: " + this.health);
         this.pos = respawnPoint.getPos();
+        this.isAlive = false;
+
         return new PlayerAction(this, Action.DIE, facingDir);
     }
 
@@ -92,8 +97,7 @@ public class Player implements IPlayer {
         if (damageTokens + amountOfDamage < 10) {
             damageTokens += amountOfDamage;
         } else {
-            damageTokens = 0;
-            health--;
+            this.die();
         }
     }
 
@@ -218,14 +222,6 @@ public class Player implements IPlayer {
         return this.pos;
     }
 
-    /**
-     * @return true if piece's health is above 0, otherwise false
-     */
-    @Override
-    public boolean isAlive() {
-        return this.health > 0;
-    }
-
 
     @Override
     public IPiece getType() {
@@ -277,4 +273,12 @@ public class Player implements IPlayer {
     }
 
     public boolean isAi() { return this.isAi; }
+
+    public boolean isDead() {
+        return !isAlive;
+    }
+
+    public void setAlive() {
+        this.isAlive = true;
+    }
 }
