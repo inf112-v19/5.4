@@ -128,9 +128,11 @@ public class Checker2 {
         return true;
     }
 
-    public void conveyorMove(Player player, Direction conveyorMoveDir, List<PlayerAction> moveActions){
-        if(!hasWall(player, conveyorMoveDir)){
-            movePlayer(player, conveyorMoveDir, moveActions);
+    public void conveyorMove(Player player, Direction conveyorMoveDir, List<PlayerAction> moveActions, int speed){
+        for(int i = 0; i < speed; i++){
+            if(!hasWall(player, conveyorMoveDir)){
+                movePlayer(player, conveyorMoveDir, moveActions);
+            }
         }
     }
 
@@ -147,7 +149,7 @@ public class Checker2 {
                 for (IPiece piece : copyPieceList) {
 
                     if (piece instanceof Conveyor) {
-                        conveyorMove(player, piece.getPieceDirection(), moveActions);
+                        conveyorMove(player, piece.getPieceDirection(), moveActions, ((Conveyor) piece).getSpeed());
                     }
                     if (piece instanceof Gears) {
                         moveActions.add(rotatePlayer(player, ((Gears) piece).getAction()));
