@@ -255,31 +255,6 @@ public class JSONBoardGenerator {
                             case "LaserShooterWest3":
                                 tempCell.addPiece(new LaserShooter(Direction.WEST, new Position(x, y), 3));
                                 break;
-                            case "SpawnPlatform1":
-                                tempCell.addPiece(new SpawnPlatform(1));
-                                break;
-                            case "SpawnPlatform2":
-                                tempCell.addPiece(new SpawnPlatform(2));
-                                break;
-                            case "SpawnPlatform3":
-                                tempCell.addPiece(new SpawnPlatform(3));
-                                break;
-                            case "SpawnPlatform4":
-                                tempCell.addPiece(new SpawnPlatform(4));
-                                break;
-                            case "SpawnPlatform5":
-                                tempCell.addPiece(new SpawnPlatform(5));
-                                break;
-                            case "SpawnPlatform6":
-                                tempCell.addPiece(new SpawnPlatform(6));
-                                break;
-                            case "SpawnPlatform7":
-                                tempCell.addPiece(new SpawnPlatform(7));
-                                break;
-                            case "SpawnPlatform8":
-                                tempCell.addPiece(new SpawnPlatform(8));
-                                break;
-
                         }
                     }
                 }
