@@ -109,7 +109,6 @@ public class GUIBoard extends Table {
      */
     public void addGUIPiece(int x, int y, GUIPiece GUIPiece) {
         Tile localTile = this.boardMap[y][x];
-        //this.addActor(localTile.getX(), localTile.getY(), GUIPiece);
         localTile.addPiece(GUIPiece);
         Cell pieceCell = this.getCell(localTile);
         pieceCell.clearActor();
@@ -145,16 +144,9 @@ public class GUIBoard extends Table {
      */
     public void addPlayers(List<Player> players) {
         for (Player currPlayer : players) {
-            System.out.println("Added guiplayer at " + currPlayer.getPos().toString());
+            //System.out.println("Added guiplayer at " + currPlayer.getPos().toString());
             this.addGUIPiece(currPlayer.getPos().getX(), currPlayer.getPos().getY(), currPlayer.getRobot());
         }
-
-        /*System.out.println("AAAAAAAAAAAAAAAAAAAAAH");
-        System.out.println(this.getChildren());
-        SnapshotArray<Actor> children = this.getChildren();
-        for(Actor actor : children){
-            System.out.println(actor);
-        }*/
     }
 
     public void doGUIActions(List<List<List<PlayerAction>>> allPlayerActions, List<Action> laserAnimations,
@@ -165,22 +157,12 @@ public class GUIBoard extends Table {
     }
 
     public float[] getPiecePos(int x, int y) {
-//
-//        float returnX = boardMap[y][x].getX();
-//        float returnY = boardMap[y][x].getY();
         return new float[]{boardMap[y][x].getX(), boardMap[y][x].getY()};
     }
 
     public Vector2 getCoords(int x, int y) {
         return new Vector2(boardMap[y][x].getX(), boardMap[y][x].getY());
     }
-
-    /* addAction(sequence(moveAction, new DelayAction(1), new RunnableAction() {
-                    @Override
-                    public void run() {
-                        System.out.println("COMPLETE!");
-                    }
-                })); */
 
     public void makeBoardInvisible() {
         for (int y = 0; y < yGridSize; y++) {

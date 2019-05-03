@@ -17,7 +17,6 @@ import org.junit.Test;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 import static org.junit.Assert.assertEquals;
 
@@ -87,7 +86,7 @@ public class PlayerActionTest extends GameTest {
 
         assertEquals(Direction.NORTH, player.getDirection());
         assertEquals(7, player.getPos().getX());
-        assertEquals(1, player.getPos().getY());
+        assertEquals(5, player.getPos().getY());
     }
 
     @Test
@@ -111,11 +110,11 @@ public class PlayerActionTest extends GameTest {
 
         assertEquals(Direction.NORTH, player.getDirection());
         assertEquals(7, player.getPos().getX());
-        assertEquals(1, player.getPos().getY());
+        assertEquals(5, player.getPos().getY());
 
         assertEquals(Direction.NORTH, player2.getDirection());
         assertEquals(6, player2.getPos().getX());
-        assertEquals(0, player2.getPos().getY());
+        assertEquals(4, player2.getPos().getY());
     }
 
     @Test
@@ -123,7 +122,6 @@ public class PlayerActionTest extends GameTest {
         player = new Player("1", new Position(0, 7), Direction.NORTH, 3, false);
         assertEquals(1, player.getRespawnPoint().getNextFlag());
         game.getChecker().doAction(new PlayerAction(player, Action.MOVE_1, player.getDirection()));
-        //checker.doAction();
         List<Player> players = new LinkedList<>();
         players.add(player);
         game.getChecker().checkForFlag(players);

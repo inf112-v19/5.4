@@ -3,6 +3,7 @@ package inf112.skeleton.app.gameLogic.board;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.board.pieces.IPiece;
+import inf112.skeleton.app.gameLogic.board.pieces.SpawnPlatform;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.game.FlagOrganizer;
@@ -17,12 +18,9 @@ public class Board implements IBoard {
     String boardName;
     ICell[][] board;
     private FlagOrganizer flags;
-
-    // Assuming all boards are square for ease of use.
-    // In the future we might make a MegaBoard or something.
     public int boardWidth;
     public int boardHeight;
-
+    private List<SpawnPlatform> spawnPlatforms;
     List<Player> deadPlayers;
 
     public Board(String name, String path) {
@@ -31,7 +29,7 @@ public class Board implements IBoard {
         JSONBoardGenerator jsonBoardGenerator = new JSONBoardGenerator();
         board = jsonBoardGenerator.generateJsonBoard(path);
         flags = jsonBoardGenerator.getFlags();
-        // Again, assuming it's square. Might break in the future.
+        spawnPlatforms = jsonBoardGenerator.getSpawnPlatforms();
         boardWidth = board.length;
         boardHeight = board[0].length;
         deadPlayers = new ArrayList<>();
@@ -41,24 +39,8 @@ public class Board implements IBoard {
         return flags;
     }
 
-    /**
-     * Method for displaying the cells in the GUIBoard
-     */
-    public void displayBoard() {
-        for (int i = 0; i < boardWidth; i++) {
-            for (int j = 0; j < boardHeight; j++) {
-                System.out.print("| ");
-                if (board[i][j] == null) {
-                    System.out.print("empty");
-                } else {
-                    for (IPiece p : board[i][j].getPiecesInCell()) {
-                        System.out.print(p.getName() + " " /*+ "-" + p.getPieceDirection() + " "*/);
-                    }
-                }
-            }
-            System.out.print(" | ");
-            System.out.println();
-        }
+    public List<SpawnPlatform> getSpawnPlatforms() {
+        return spawnPlatforms;
     }
 
     @Override
@@ -126,42 +108,6 @@ public class Board implements IBoard {
         return null;
     }
 
-
-    public ICell getNextCell(Position pos, Direction dir) {
-        ICell cell = new Cell();
-        int posX = pos.getX();
-        int posY = pos.getY();
-        switch (dir) {
-
-            case NORTH:
-                cell = board[Math.max(posY - 1, 0)][posX];
-                break;
-            case SOUTH:
-                cell = board[Math.min(posY + 1, board.length - 1)][posX];
-                break;
-            case EAST:
-                cell = board[posY][Math.min(posX + 1, board[posY].length - 1)];
-                break;
-            case WEST:
-                cell = board[posY][Math.max(posX - 1, 0)];
-                break;
-        }
-        return cell;
-    }
-
-    public boolean containsPieceDir(Position pos, Direction dir, Class piece) {
-        for (IPiece currCell : this.getCellAt(pos).getPiecesInCell()) {
-            if (currCell.getPieceDirection().equals(dir) && currCell.getClass().isInstance(piece)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean cointainsPiece(Position pos, IPiece piece) {
-        return this.getCellAt(pos).getPiecesInCell().contains(piece);
-    }
-
     public boolean insideBoard(Position playerPos) {
         return insideX(playerPos) && insideY(playerPos);
     }
@@ -220,6 +166,26 @@ public class Board implements IBoard {
                     return 1;
                 });
             }
+        }
+    }
+
+    /**
+     * Method for displaying the cells in the GUIBoard
+     */
+    public void displayBoard() {
+        for (int i = 0; i < boardWidth; i++) {
+            for (int j = 0; j < boardHeight; j++) {
+                System.out.print("| ");
+                if (board[i][j] == null) {
+                    System.out.print("empty");
+                } else {
+                    for (IPiece p : board[i][j].getPiecesInCell()) {
+                        System.out.print(p.getName() + " " /*+ "-" + p.getPieceDirection() + " "*/);
+                    }
+                }
+            }
+            System.out.print(" | ");
+            System.out.println();
         }
     }
 

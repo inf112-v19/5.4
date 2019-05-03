@@ -16,12 +16,15 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 public class JSONBoardGenerator {
 
     JSONParser parser = new JSONParser();
     ICell[][] jsonBoardPieceList;
     private FlagOrganizer flags = FlagOrganizer.getInstance();
+    private List<SpawnPlatform> spawnPlatforms = new LinkedList<>();
 
     public ICell[][] generateJsonBoard(String filepath) {
         try {
@@ -33,12 +36,12 @@ public class JSONBoardGenerator {
             JSONObject jsonBoardFile = (JSONObject) boardFile;
             JSONObject sizeboi = (JSONObject) jsonBoardFile.get("-1");
 
-            System.out.println(sizeboi.values());
+            //System.out.println(sizeboi.values());
             Object[] objects = sizeboi.values().toArray();
             int width = Integer.parseInt(objects[0].toString());
             int height = Integer.parseInt(objects[1].toString());
             jsonBoardPieceList = new ICell[height][width];
-            System.out.println(jsonBoardFile);
+            //System.out.println(jsonBoardFile);
 
 
             for (int y = 0; y < height; y++) {
@@ -65,6 +68,46 @@ public class JSONBoardGenerator {
                         String jsonIterator = iterator.next();
                         System.out.println(jsonIterator);
                         switch (jsonIterator) {
+                            case "SpawnPlatform1":
+                                SpawnPlatform temp = new SpawnPlatform(1, new Position(x,y));
+                                tempCell.addPiece(temp);
+                                spawnPlatforms.add(temp);
+                                break;
+                            case "SpawnPlatform2":
+                                temp = new SpawnPlatform(2, new Position(x,y));
+                                tempCell.addPiece(temp);
+                                spawnPlatforms.add(temp);
+                                break;
+                            case "SpawnPlatform3":
+                                temp = new SpawnPlatform(3, new Position(x,y));
+                                tempCell.addPiece(temp);
+                                spawnPlatforms.add(temp);
+                                break;
+                            case "SpawnPlatform4":
+                                temp = new SpawnPlatform(4, new Position(x,y));
+                                tempCell.addPiece(temp);
+                                spawnPlatforms.add(temp);
+                                break;
+                            case "SpawnPlatform5":
+                                temp = new SpawnPlatform(5, new Position(x,y));
+                                tempCell.addPiece(temp);
+                                spawnPlatforms.add(temp);
+                                break;
+                            case "SpawnPlatform6":
+                                temp = new SpawnPlatform(6, new Position(x,y));
+                                tempCell.addPiece(temp);
+                                spawnPlatforms.add(temp);
+                                break;
+                            case "SpawnPlatform7":
+                                temp = new SpawnPlatform(7, new Position(x,y));
+                                tempCell.addPiece(temp);
+                                spawnPlatforms.add(temp);
+                                break;
+                            case "SpawnPlatform8":
+                                temp = new SpawnPlatform(8, new Position(x,y));
+                                tempCell.addPiece(temp);
+                                spawnPlatforms.add(temp);
+                                break;
                             case "Repair":
                                 tempCell.addPiece(new Repair());
                                 break;
@@ -255,5 +298,9 @@ public class JSONBoardGenerator {
 
     public FlagOrganizer getFlags() {
         return flags;
+    }
+
+    public List<SpawnPlatform> getSpawnPlatforms(){
+        return spawnPlatforms;
     }
 }

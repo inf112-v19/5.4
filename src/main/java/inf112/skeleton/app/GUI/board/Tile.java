@@ -10,19 +10,15 @@ public class Tile extends Stack {
 
     public Tile() {
 
-        //this.guiPieces = new ArrayList<>();
         BaseTile baseTile = new BaseTile();
         this.addPiece(baseTile);
     }
 
     public void addPiece(GUIPiece guiPiece) {
-        //guiPieces.add(guiPiece);
         this.add(guiPiece);
     }
 
     public void removePiece(GUIPiece GUIPiece) {
-
-        //guiPieces.remove(GUIPiece);
         this.removeActor(GUIPiece);
     }
 
@@ -35,7 +31,6 @@ public class Tile extends Stack {
     public void lightUpTile() {
         for (Actor child : this.getChildren()) {
             child.setColor(Color.ORANGE);
-            System.out.println(child + " has been colored!");
         }
 
     }

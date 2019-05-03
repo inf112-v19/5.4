@@ -172,7 +172,7 @@
     "11": []
   },
   "12": {
-    "0": [],
+    "0": ["SpawnPlatform7"],
     "1": [],
     "2": [],
     "3": [],
@@ -183,11 +183,11 @@
     "8": [],
     "9": [],
     "10": [],
-    "11": []
+    "11": ["SpawnPlatform8"]
   },
   "13": {
     "0": [],
-    "1": ["WestWall", "EastWall"],
+    "1": ["WestWall", "EastWall","SpawnPlatform5"],
     "2": [],
     "3": [],
     "4": [],
@@ -196,19 +196,19 @@
     "7": [],
     "8": [],
     "9": [],
-    "10": ["WestWall", "EastWall"],
+    "10": ["WestWall", "EastWall","SpawnPlatform6"],
     "11": []
   },
   "14": {
     "0": ["ConveyorEast"],
     "1": ["ConveyorEast"],
     "2": ["ConveyorSouth"],
-    "3": [],
+    "3": ["SpawnPlatform3"],
     "4": [],
     "5": ["EastWall"],
     "6": [],
     "7": [],
-    "8": [],
+    "8": ["SpawnPlatform4"],
     "9": ["ConveyorSouth"],
     "10": ["ConveyorWest"],
     "11": ["ConveyorWest"]
@@ -219,8 +219,8 @@
     "2": ["ConveyorEast"],
     "3": ["ConveyorEast"],
     "4": ["ConveyorEast"],
-    "5": ["EastWall"],
-    "6": [],
+    "5": ["EastWall","SpawnPlatform1"],
+    "6": ["SpawnPlatform2"],
     "7": ["ConveyorWest"],
     "8": ["ConveyorWest"],
     "9": ["ConveyorWest"],
