@@ -104,7 +104,6 @@ for å spørre om hjelp.
 
 ## Kode
 
-
 ### Kjente feil og svakheter
 - Hvis to roboter står på hver sin conveyor som facer mot hverandre 
   så vil de gå gjennom hverandre og bytte plass. Derfor har vi designet brettene
