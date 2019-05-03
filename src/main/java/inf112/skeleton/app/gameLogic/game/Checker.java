@@ -1,7 +1,6 @@
 package inf112.skeleton.app.gameLogic.game;
 
 import inf112.skeleton.app.GUI.SoundPlayer;
-import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.board.ICell;
@@ -32,7 +31,6 @@ public class Checker {
         for (int i = 0; i < att.getValue(); i++) {
             switch (att.getActionType()) {
                 case MOVE:
-                    List<PlayerAction> moveActions = new LinkedList<>();
                     if (att.getDescription().equals(Action.MOVE_BACK.getDescription())) {
                         allActions.add(move(player.getDirection().oppositeDir(), player));
                     } else {
@@ -57,26 +55,22 @@ public class Checker {
     public List<PlayerAction> move(Direction playerMoveDir, Player player) {
         List<PlayerAction> calculatedMoves = new LinkedList<>();
         calculatedMoves.addAll(calculateMoves(playerMoveDir, board.getCellAt(player.getPos()), player));
-
+        /*
         if (calculatedMoves.size() > 0) {
-            Position tempPos = player.getPos();
-            player.move(playerMoveDir);
-
-            movePlayerPiece(player, playerMoveDir);
+            //Position tempPos = player.getPos();
+            board.movePlayer(player, playerMoveDir);
             return calculatedMoves;
-        }
+        }*/
         return calculatedMoves;
     }
 
     private List<PlayerAction> calculateMoves(Direction goingDir, ICell currCell, Player player) {
-
-
         List<PlayerAction> moveActions = new LinkedList<>();
         //Checks walls in current tile
         if (currCell != null) {
             List<IPiece> piecesInCurrCell = board.getCellAt(player.getPos()).getPiecesInCell();
             for (IPiece piece : piecesInCurrCell) {
-                System.out.println(piece.getName() + "-" + piece.getPieceDirection());
+                ///System.out.println(piece.getName() + "-" + piece.getPieceDirection());
                 if (piece instanceof Wall && piece.getPieceDirection() == goingDir) {
                     System.out.println("hit wall");
                     return moveActions;
@@ -113,15 +107,16 @@ public class Checker {
                 if (piece instanceof Player) {
                     Player otherPlayer = (Player) piece;
                     moveActions.addAll(move(goingDir,otherPlayer));
+                    /*
                     if(moveActions.size() > 0){
-                        moveActions.add(new PlayerAction(player, Action.MOVE_1, goingDir));
-                    }
+                        //moveActions.add(player.move(goingDir));
+                    }*/
                     return moveActions;
                 }
             }
         }
         return new LinkedList<PlayerAction>() {{
-            add(new PlayerAction(player, Action.MOVE_1, goingDir));
+            add(board.movePlayer(player, goingDir));
         }};
     }
 
@@ -147,8 +142,7 @@ public class Checker {
             return null;
         }
         else {
-            this.movePlayerPiece(player, conveyorMoveDir);
-            return player.move(conveyorMoveDir);
+            return board.movePlayer(player, conveyorMoveDir);
         }
     }
 
@@ -172,15 +166,6 @@ public class Checker {
         return allActions;
     }
 
-    public void movePlayerPiece(Player player, Direction playerMoveDir){
-        Position tempPos = player.getPos();
-
-        if (board.getCellAt(tempPos).getPiecesInCell().contains(player)) {
-            board.getCellAt(tempPos).getPiecesInCell().remove(player);
-            board.getNextCell(tempPos, playerMoveDir).addPiece(player);
-        }
-    }
-
     public boolean willCrashWithWall(Player player, Direction goingDir, ICell currCell){
 
         Direction oppositeDir = goingDir.oppositeDir();
@@ -188,7 +173,7 @@ public class Checker {
         if (currCell != null) {
             List<IPiece> piecesInCurrCell = board.getCellAt(player.getPos()).getPiecesInCell();
             for (IPiece piece : piecesInCurrCell) {
-                System.out.println(piece.getName() + "-" + piece.getPieceDirection());
+                //System.out.println(piece.getName() + "-" + piece.getPieceDirection());
                 if (piece instanceof Wall && piece.getPieceDirection() == goingDir) {
                     System.out.println("hit wall");
                     return true;

@@ -20,7 +20,7 @@ interface IPlayer extends IPiece {
     /**
      * @param dir The direction the player should move
      */
-    PlayerAction move(Direction dir);
+    void move(Direction dir);
 
 
     /**

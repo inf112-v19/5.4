@@ -1,8 +1,12 @@
 package inf112.skeleton.app.gameLogic.board;
 
 import inf112.skeleton.app.GUI.player.Position;
+import inf112.skeleton.app.gameLogic.Player;
+import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.game.FlagOrganizer;
+import inf112.skeleton.app.gameLogic.game.PlayerAction;
+import inf112.skeleton.app.gameLogic.game.PlayerActionWrapper;
 
 public class Board implements IBoard {
 
@@ -35,13 +39,14 @@ public class Board implements IBoard {
      */
     public void displayBoard() {
         for (int i = 0; i < board.length; i++) {
+            System.out.print(i + " ");
             for (int j = 0; j < board.length; j++) {
-                System.out.print(" | ");
+                System.out.print("| ");
                 if (board[i][j] == null) {
                     System.out.print("empty");
                 } else {
                     for (IPiece p : board[i][j].getPiecesInCell()) {
-                        System.out.print(p.getName() + "-" + p.getPieceDirection() + " ");
+                        System.out.print(p.getName() + " " /*+ "-" + p.getPieceDirection() + " "*/);
                     }
                 }
             }
@@ -59,6 +64,15 @@ public class Board implements IBoard {
     public ICell[][] getBoard() {
         return board;
     }
+
+    public PlayerAction movePlayer(Player player, Direction dir){
+        System.out.println("ASIBDIASBDIBASIDBIASUBDIBUS");
+        Position tempPos = player.getPos();
+        getCellAt(tempPos).getPiecesInCell().remove(player);
+        getNextCell(tempPos, dir).addPiece(player);
+        return new PlayerAction(player, Action.MOVE_1, dir);
+    }
+
 
     @Override
     /**
@@ -127,7 +141,7 @@ public class Board implements IBoard {
 
     public boolean insideBoard(Position playerPos, Direction playerDir) {
         Position posAfterMove = playerPos.changePos(playerDir);
-        System.out.println("Pos after theoretical move " + posAfterMove.toString());
+        //System.out.println("Pos after theoretical move " + posAfterMove.toString());
         if (posAfterMove.getY() >= boardHeight || posAfterMove.getY() < 0) {
             return false;
         }

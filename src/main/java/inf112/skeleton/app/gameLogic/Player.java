@@ -29,14 +29,13 @@ public class Player implements IPlayer {
     private List<ProgramCard> playerRegister;
     private MovableGUIRobot robot;
     private RespawnPoint respawnPoint;
-    private PlayerActionWrapper playerActionQueue;
 
 
 
     /**
      * Constructs a player object with position, direction and health
      */
-    public Player(String name, Position pos, Direction dir, int health, PlayerActionWrapper playerActionQueue) {
+    public Player(String name, Position pos, Direction dir, int health) {
         this.name = name;
         this.pos = pos;
         this.facingDir = dir;
@@ -45,12 +44,7 @@ public class Player implements IPlayer {
         this.damageTokens = 0;
         this.robot = new MovableGUIRobot(1);
         this.respawnPoint = new RespawnPoint(pos, 1);
-        this.playerActionQueue = playerActionQueue;
 
-    }
-
-    public PlayerActionWrapper getPlayerActionQueue() {
-        return playerActionQueue;
     }
 
     @Override
@@ -63,11 +57,8 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public PlayerAction move(Direction dir) {
+    public void move(Direction dir) {
         pos = pos.changePos(dir);
-        return new PlayerAction(this, Action.MOVE_1, dir);
-        //Comment out line below for the tests to run
-        //this.getRobot().doAction(ActionType.MOVE, dir);
     }
 
     public void die() {
@@ -238,7 +229,7 @@ public class Player implements IPlayer {
 
     @Override
     public Direction getPieceDirection() {
-        return null;
+        return facingDir;
     }
 
     @Override
