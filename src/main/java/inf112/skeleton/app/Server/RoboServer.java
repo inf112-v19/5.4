@@ -71,7 +71,6 @@ public class RoboServer {
 
         public void run() {
             try {
-                System.out.println("We're inside run fam");
                 oos.writeObject(playerID);
                 oos.flush();
 

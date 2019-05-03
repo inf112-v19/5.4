@@ -66,10 +66,6 @@ public class Board implements IBoard {
         Position nextPos = tempPos.changePos(dir);
 
         this.changePlayerPos(player, nextPos);
-
-        System.out.println(player.getPos());
-
-        System.out.println();
         return new PlayerAction(player, Action.MOVE_1, dir);
     }
 
@@ -179,7 +175,7 @@ public class Board implements IBoard {
                     System.out.print("empty");
                 } else {
                     for (IPiece p : board[i][j].getPiecesInCell()) {
-                        System.out.print(p.getName() + " " /*+ "-" + p.getPieceDirection() + " "*/);
+                        System.out.print(p.getName() + " ");
                     }
                 }
             }

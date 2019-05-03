@@ -73,7 +73,6 @@ public class Checker2 {
 
         if(!board.insideBoard(player.getPos().changePos(direction)) || !board.insideBoard(player.getPos())) {
             this.board.killPlayer(player);
-            System.out.println("Player is outside board");
         }
 
         moveActions.add(board.movePlayer(player,direction));

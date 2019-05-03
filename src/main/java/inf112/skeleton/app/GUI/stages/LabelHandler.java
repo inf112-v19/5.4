@@ -56,7 +56,6 @@ public class LabelHandler {
     }
 
     public void addHoverStyle(Label currLabel){
-        System.out.println("YEEHAW");
         currLabel.addListener(new ClickListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {

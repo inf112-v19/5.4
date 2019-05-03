@@ -32,9 +32,7 @@ public class TestGame {
             if (playerAction.getAction().getActionType() == ActionType.DAMAGE) {
                 playerAction.getPlayer().takeDamage(playerAction.getAction().getValue());
             }
-            //Checker checker = new Checker(playerAction.getPlayer(), playerAction.getAction(), board, GUIplayeractionList);
             List<PlayerAction> boss = checker.doAction(playerAction);
-            //checker.doAction();
         }
 
     }
@@ -42,23 +40,6 @@ public class TestGame {
     public Checker2 getChecker() {
         return checker;
     }
-
-    /*
-    public void doAction(PlayerAction playerAction) {
-        switch (playerAction.getAction().getActionType()) {
-            case MOVE:
-                Checker checker = new Checker(playerAction.getPlayer(), );
-                playerAction.getPlayer().move(playerAction.getPlayer().getDirection(), playerAction.getAction().getValue());
-                break;
-            case DAMAGE:
-                playerAction.getPlayer().takeDamage(playerAction.getAction().getValue());
-                break;
-            case ROTATE:
-                playerAction.getPlayer().rotate(playerAction.getAction().getRotation());
-                break;
-        }
-    }
-    */
 
     public PlayerActionWrapper getGUIplayeractionList() {
         return GUIplayeractionList;

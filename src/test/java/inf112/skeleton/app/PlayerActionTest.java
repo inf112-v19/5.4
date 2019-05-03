@@ -100,7 +100,6 @@ public class PlayerActionTest extends GameTest {
         for (Player currPlayer : game.getPlayerList()) {
             for (int i = 0; i < cardsForPlayer; i++) {
                 ProgramCard tempCard = deck.getTopCard();
-                System.out.println(tempCard.toString());
                 PlayerAction playerAction = new PlayerAction(currPlayer, tempCard.getCardType().getAction(), player.getDirection());
                 game.addActionToList(playerAction);
             }
