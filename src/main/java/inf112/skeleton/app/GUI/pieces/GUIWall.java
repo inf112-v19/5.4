@@ -10,6 +10,7 @@ public class GUIWall extends GUIPiece {
     public GUIWall(Direction dir) {
         sprite = new Sprite(new Texture(Gdx.files.internal("board/wall.png")));
         sprite.setOrigin(getWidth() / 2, getHeight() / 2);
+
         switch (dir) {
             case WEST:
                 this.setRotation(90f);

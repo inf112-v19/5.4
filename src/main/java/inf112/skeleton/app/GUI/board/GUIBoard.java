@@ -10,14 +10,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.GUI.player.MovableGUIRobot;
+import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.board.ICell;
 import inf112.skeleton.app.gameLogic.board.IPiece;
+import inf112.skeleton.app.gameLogic.board.pieces.Laser;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.game.PlayerAction;
 
 import java.util.List;
+
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 
 public class GUIBoard extends Table {
@@ -111,7 +115,7 @@ public class GUIBoard extends Table {
 
     }
 
-    public void removePiece(int x, int y, GUIPiece GUIPiece) {
+    public void removeGUIPiece(int x, int y, GUIPiece GUIPiece) {
         this.boardMap[y][x].removePiece(GUIPiece);
     }
 
@@ -151,59 +155,10 @@ public class GUIBoard extends Table {
         }*/
     }
 
-    public void doGUIActions(List<List<List<PlayerAction>>> allPlayerActions) {
-
-        SequenceAction allActionsSequenced = new SequenceAction();
+    public void doGUIActions(List<List<List<PlayerAction>>> allPlayerActions, List<Action> laserAnimations, List<List<PlayerAction>> conveyorActions) {
 
 
-
-        // All the actions for each iteration are to be done simultaneously.
-        for (List<List<PlayerAction>> cardActions : allPlayerActions) {
-            for (List<PlayerAction> parallelGUIActions : cardActions) {
-
-                System.out.println(parallelGUIActions);
-                ParallelAction parallelAction = new ParallelAction();
-
-                // Add every action to a parallel action.
-                for (PlayerAction robotAction : parallelGUIActions) {
-
-                    Player currPlayer = robotAction.getPlayer();
-                    MovableGUIRobot currRobot = currPlayer.getRobot();
-                    Direction actionDir = robotAction.getActionDir();
-
-                    // Tells the robot the move it's going to do, and which direction. Returns the appropriate action.
-                    Action guiAction = currRobot.getGUIAction(robotAction.getAction().getActionType(), actionDir);
-                    guiAction.setTarget(currRobot);
-                    guiAction.setActor(currRobot);
-
-                    RunnableAction logUpdate = new RunnableAction(){
-                        @Override
-                        public void run() {
-                            String printString = "ROBOT DOES A " + robotAction.getAction().getDescription();
-                            if(robotAction.getAction().getRotation() == null){
-                                printString += " IN " + actionDir + " DIRECTION!";
-                            }
-
-                            System.out.println(printString);
-
-                        }
-                    };
-
-                    parallelAction.addAction(guiAction);
-                    parallelAction.addAction(logUpdate);
-
-                }
-
-
-                allActionsSequenced.addAction(parallelAction);
-                allActionsSequenced.addAction(new DelayAction(1));
-                System.out.println("Added delay!");
-
-            }
-
-        }
-
-        this.addAction(allActionsSequenced);
+        this.addAction(new AnimationController().getAllActionsSequenced(allPlayerActions,laserAnimations,conveyorActions));
     }
 
     public float[] getPiecePos(int x, int y) {
@@ -239,5 +194,49 @@ public class GUIBoard extends Table {
     public void resetTileColor(int x, int y) {
         boardMap[y][x].resetTileColor();
     }
+
+    public SequenceAction getLaserAnimations(List<Laser> lasers){
+
+        DelayAction laserDelayAction = new DelayAction(2);
+        DelayAction postDelayAction = new DelayAction(1);
+
+        RunnableAction addLasersAnimation = new RunnableAction(){
+            @Override
+            public void run() {
+
+                System.out.println(lasers.size());
+                for(Laser laser : lasers){
+
+                    GUIPiece guiPiece = laser.getGUIPiece();
+
+                    Position currPos = laser.getPosition();
+                    int x = currPos.getX();
+                    int y = currPos.getY();
+                    addGUIPiece(x, y, guiPiece);
+
+                }
+
+            }
+        };
+
+        RunnableAction removeLasersAnimation = new RunnableAction(){
+            @Override
+            public void run() {
+                for(Laser laser : lasers){
+
+                    GUIPiece guiPiece = laser.getGUIPiece();
+
+                    int x = laser.getPosition().getX();
+                    int y = laser.getPosition().getY();
+                    removeGUIPiece(x, y, guiPiece);
+
+                }
+            }
+        };
+
+        return new SequenceAction(addLasersAnimation, laserDelayAction, removeLasersAnimation, postDelayAction);
+    }
+
+
 
 }

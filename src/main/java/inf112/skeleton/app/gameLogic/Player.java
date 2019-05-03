@@ -3,16 +3,15 @@ package inf112.skeleton.app.gameLogic;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.GUI.pieces.GUIRobot;
 import inf112.skeleton.app.GUI.player.MovableGUIRobot;
-import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.board.IPiece;
 import inf112.skeleton.app.gameLogic.board.pieces.Flag;
 import inf112.skeleton.app.gameLogic.board.pieces.LaserShooter;
-import inf112.skeleton.app.gameLogic.board.pieces.Wall;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.ActionType;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.enums.Rotation;
+import inf112.skeleton.app.gameLogic.game.PlayerAction;
 import inf112.skeleton.app.gameLogic.game.Checker;
 import inf112.skeleton.app.gameLogic.game.PlayerAction;
 import inf112.skeleton.app.gameLogic.game.PlayerActionWrapper;
@@ -35,7 +34,7 @@ public class Player implements IPlayer {
     private MovableGUIRobot robot;
     private RespawnPoint respawnPoint;
     private PlayerActionWrapper playerActionQueue;
-    private LaserShooter laserShooter = new LaserShooter(this.getDirection(), this.getPos(), 1);
+
 
 
 
@@ -52,6 +51,7 @@ public class Player implements IPlayer {
         this.robot = new MovableGUIRobot(1);
         this.respawnPoint = new RespawnPoint(pos, 1);
         this.playerActionQueue = playerActionQueue;
+
     }
 
     public PlayerActionWrapper getPlayerActionQueue() {
@@ -68,8 +68,9 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public void move(Direction dir) {
+    public PlayerAction move(Direction dir) {
         pos = pos.changePos(dir);
+        return new PlayerAction(this, Action.MOVE_1, dir);
         //Comment out line below for the tests to run
         //this.getRobot().doAction(ActionType.MOVE, dir);
     }
@@ -173,11 +174,11 @@ public class Player implements IPlayer {
         return this.getRespawnPoint().getNextFlag() == flag.getNumber();
     }
 
-    public boolean isLastFlag(Flag flag, int numberOfFlags) {
+    public boolean isLastFlag(Flag flag, int numberOfFlags){
         return isNextFlag(flag) && flag.getNumber() == numberOfFlags;
     }
 
-    public void setNextFlag() {
+    public void setNextFlag(){
         setRespawnPoint();
         respawnPoint.setNextFlag();
     }
@@ -259,7 +260,7 @@ public class Player implements IPlayer {
     }
 
     public LaserShooter getLaserShooter(){
-        return this.laserShooter;
+        return new LaserShooter(this.getDirection(), this.getPos(), 1);
     }
 
     public Stack getPlayerDeck () {

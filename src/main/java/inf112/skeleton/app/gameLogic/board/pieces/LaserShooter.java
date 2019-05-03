@@ -46,9 +46,13 @@ public class LaserShooter implements IPiece, Serializable {
 
     @Override
     public GUIPiece getGUIPiece() {
-        return new GUILaserShooter(this.getPieceDirection());
+        return new GUILaserShooter(this);
     }
     public Position getPos() {
         return this.pos;
+    }
+
+    public Laser createNewLaser(Position pos){
+        return new Laser(this.direction, this.damage, pos);
     }
 }

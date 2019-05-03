@@ -5,6 +5,7 @@ import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.board.IPiece;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.enums.Rotation;
+import inf112.skeleton.app.gameLogic.game.PlayerAction;
 
 
 interface IPlayer extends IPiece {
@@ -19,7 +20,7 @@ interface IPlayer extends IPiece {
     /**
      * @param dir The direction the player should move
      */
-    void move(Direction dir);
+    PlayerAction move(Direction dir);
 
 
     /**
