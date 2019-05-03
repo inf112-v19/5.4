@@ -32,6 +32,8 @@ public class MainGameScreen implements Screen {
     private Stage stage;
     private Skin skin;
     private Stats stats;
+
+    private boolean isPvpMatch;
     OrthographicCamera camera;
     ExtendViewport viewport;
     Music music;
@@ -48,7 +50,7 @@ public class MainGameScreen implements Screen {
     DisplayLog displayLog;
 
     public MainGameScreen(int numberOfPlayers, boolean isPvpMatch) {
-
+        this.isPvpMatch = isPvpMatch;
         //SoundPlayer.GameSound.PLAY_MUSIC.playSound();
 
         // Main stage
@@ -265,4 +267,5 @@ public class MainGameScreen implements Screen {
     public void gameOver(Player player) {
         this.stage = new GameOverStage(viewport, this.skin ,player);
     }
+    public boolean getIsPvpMatch() { return isPvpMatch; }
 }

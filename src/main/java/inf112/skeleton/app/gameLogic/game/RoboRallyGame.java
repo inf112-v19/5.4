@@ -48,6 +48,16 @@ public class RoboRallyGame {
         players = new ArrayList<>();
 
         pveGenerator();
+        this.deck = new ProgramCardDeck();  // Deck of cards in the game
+
+        players = new ArrayList<Player>();
+        if (guiScreen.getIsPvpMatch()) {
+            pvpGenerator();
+        }
+        else {
+            pveGenerator();
+        }
+
 
         this.laserCalculator = new LaserCalculator(board, players);
         board.sortBoard();
@@ -114,19 +124,6 @@ public class RoboRallyGame {
 
                 onePhaseActionsList.addAll(cardActions);
 
-                /*onePhaseActionsList.add(new ArrayList<List>(){{
-                    add(new ArrayList<RunnableAction>(){{add(
-                        new RunnableAction(){
-                            @Override
-                            public void run() {
-
-                            }
-
-                            {
-
-                        }}
-                );}});
-                }});*/  //guiScreen.updateStats(currentPlayer);
             }
             allActions.add(onePhaseActionsList);
 
