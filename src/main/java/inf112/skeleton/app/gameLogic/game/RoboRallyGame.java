@@ -93,6 +93,8 @@ public class RoboRallyGame {
 
     public void executeCards(List<List<PlayerAndProgramCard>> allProgramCards) {
 
+        this.guiScreen.getDisplayLog().clearLog();
+
         // All innermost actions: Actions that are do be executed in paralell.
         // One layer outside: all actions originating from ONE card, e.g MOVE 3.
         // Outermost layer: all the actions from all the cards.
@@ -153,6 +155,8 @@ public class RoboRallyGame {
             @Override
             public void run() {
 
+                guiScreen.updateStats(currentPlayer);
+
                 //List<Player> deadPlayers = board.getDeadPlayers();
                 for (Player currPlayer : players) {
                     if(currPlayer.isDead()){
@@ -202,7 +206,7 @@ public class RoboRallyGame {
                     break;
                 }
             }
-            players.add(new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, false));
+            players.add(new Player(Integer.toString(i+1), position, Direction.SOUTH, startHealth, false));
             board.addPiece(position, players.get(i));
         }
     }
@@ -218,7 +222,7 @@ public class RoboRallyGame {
                         break;
                     }
                 }
-                players.add(new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, false));
+                players.add(new Player(Integer.toString(i+1), position, Direction.SOUTH, startHealth, false));
                 board.addPiece(position, players.get(i));
             }
 
@@ -230,9 +234,11 @@ public class RoboRallyGame {
                         break;
                     }
                 }
-                players.add(new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, true));
+                players.add(new Player(Integer.toString(i+1), position, Direction.SOUTH, startHealth, true));
                 board.addPiece(position, players.get(i));
             }
         }
     }
+
+
 }

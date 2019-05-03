@@ -93,12 +93,6 @@ public class LoadScreen implements Screen {
         //MyTextInputListener listener = new MyTextInputListener();
         //Gdx.input.getTextInput(listener, "Dialog Title", "Initial Textfield Value", "Hint Value");
 
-
-        TextField usernameTextField = new TextField("", skin);
-        stage.addActor(usernameTextField);
-
-        usernameTextField.getText();
-
         Gdx.input.setInputProcessor(stage);
 
     }

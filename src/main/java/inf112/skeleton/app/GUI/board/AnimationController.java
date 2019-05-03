@@ -38,14 +38,6 @@ public class AnimationController {
 
             }
 
-            // Conveyor animations for the phase.
-            RunnableAction output = new RunnableAction(){
-                @Override
-                public void run() {
-                    System.out.println("--CONVEYORS, ROLL OUT!--");
-                }
-
-                {}};
             ParallelAction conveyorParallelAction = this.makeConveyorParallellAction(conveyorActions.get(i));
             allActionsSequenced.addAction(conveyorParallelAction);
             allActionsSequenced.addAction(new DelayAction(1));
@@ -79,7 +71,7 @@ public class AnimationController {
             RunnableAction logUpdate = new RunnableAction(){
                 @Override
                 public void run() {
-                    String printString = "ROBOT DOES A " + robotAction.getAction().getDescription();
+                    String printString = "PLAYER " + currPlayer.getName() + " DOES A " + robotAction.getAction().getDescription();
                     if(robotAction.getAction().getRotation() == null){
                         printString += " IN " + actionDir + " DIRECTION!";
                     }
@@ -105,7 +97,7 @@ public class AnimationController {
         parallelAction.addAction(new RunnableAction(){
             @Override
             public void run() {
-                displayLog.updateLog("-- CONVEYORS --");
+                displayLog.updateLog("-CONVEYORS ROLL-");
                 //SoundPlayer.GameSound.ROTATE.playSound();
             }
 
