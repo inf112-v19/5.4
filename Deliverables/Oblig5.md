@@ -118,3 +118,6 @@ for å spørre om hjelp.
 3. Go to Run > Edit Configurations.
 4. Set "Working directory" to "...\src\main\java\inf112\skeleton\app\assets".
 5. Run successfully!
+
+### Hvordan testene skal kjøres
+Dette er dokumentert i README.md filen.
