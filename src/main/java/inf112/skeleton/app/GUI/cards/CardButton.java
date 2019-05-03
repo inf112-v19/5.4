@@ -13,16 +13,8 @@ public class CardButton extends Button {
         // Custom card texture
     }
 
-
-    // Future change of skin
-    /*@Override
-    public void draw(Batch batch, float parentAlpha) {
-        batch.draw(sprite, getX(), getY(), getWidth(), getHeight());
-    }*/
-
     public GUICard getGUICard() {
         return this.GUICard;
     }
-
 
 }

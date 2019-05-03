@@ -98,7 +98,6 @@ public class AnimationController {
             @Override
             public void run() {
                 displayLog.updateLog("-CONVEYORS ROLL-");
-                //SoundPlayer.GameSound.ROTATE.playSound();
             }
 
             {

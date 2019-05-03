@@ -35,13 +35,10 @@ public class JSONBoardGenerator {
 
             JSONObject jsonBoardFile = (JSONObject) boardFile;
             JSONObject sizeboi = (JSONObject) jsonBoardFile.get("-1");
-
-            //System.out.println(sizeboi.values());
             Object[] objects = sizeboi.values().toArray();
             int width = Integer.parseInt(objects[0].toString());
             int height = Integer.parseInt(objects[1].toString());
             jsonBoardPieceList = new ICell[height][width];
-            //System.out.println(jsonBoardFile);
 
 
             for (int y = 0; y < height; y++) {
@@ -52,7 +49,6 @@ public class JSONBoardGenerator {
             }
 
             // Add all pieces.
-
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
                     ICell tempCell = jsonBoardPieceList[y][x];

@@ -28,9 +28,6 @@ public class IPStage extends Stage{
         Table mainTable = new Table();
         mainTable.setFillParent(true);
 
-        //MyTextInputListener listener = new MyTextInputListener();
-        //Gdx.input.getTextInput(listener, "Dialog Title", "Initial Textfield Value", "Hint Value");
-
         BitmapFont textLabelFont = new BitmapFont();
         textLabelFont.getData().setScale(8);
         BitmapFont buttonLabelFont = new BitmapFont();
@@ -57,8 +54,6 @@ public class IPStage extends Stage{
         mainTable.add(btn).expand().top().padTop(50);
 
         this.addActor(mainTable);
-
-        //usernameTextField.setScale(5);
 
         btn.addListener(new ClickListener(){
             @Override

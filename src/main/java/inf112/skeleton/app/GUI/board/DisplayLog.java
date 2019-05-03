@@ -18,9 +18,6 @@ public class DisplayLog {
 
     public String getLog(){
         String returnString = new String(this.log);
-        //this.log = "";
-        System.out.println("RETURNSTRING");
-        System.out.println(returnString);
         return returnString;
     }
 

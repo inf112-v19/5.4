@@ -24,16 +24,11 @@ public class PickStage extends Stage {
 
         Table mainTable = new Table();
         mainTable.setFillParent(true);
-        //mainTable.setDebug(true);
 
         Label hostLabel = labelHandler.createNewLabel("HOST",5);
         Label joinLabel = labelHandler.createNewLabel("JOIN",5);
-        //List<Label> labels = labelHandler.createNewLabels( new ArrayList<Label>(Arrays.asList(["HOST","JOIN"]));
         List<Label> labelList = new ArrayList<Label>();
         labelList.addAll(Arrays.asList(hostLabel, joinLabel));
-
-        //labelHandler.addHoverStyle(labelList);
-
 
         mainTable.add(hostLabel).pad(30);
         mainTable.add(joinLabel).pad(30);

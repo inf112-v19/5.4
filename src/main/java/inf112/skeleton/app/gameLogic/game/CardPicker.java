@@ -32,7 +32,6 @@ public class CardPicker {
         this.numberOfPhases = 5;
 
         resetCards();
-        System.out.println("AAAAAAh -- " + this.allPhaseCards.size());
 
     }
 
@@ -86,11 +85,8 @@ public class CardPicker {
 
     public void fromPlayertoPhaseCards(){
         int numberOfPhases = 5;
-
-        System.out.println(allPhaseCards.size());
         for(List<PlayerAndProgramCard> playerCards : allPlayerCards){
             for(int i = 0; i<numberOfPhases; i++){
-                System.out.println(i);
                 if(!(i>=playerCards.size())){
                     PlayerAndProgramCard tempCard = playerCards.get(i);
                     allPhaseCards.get(i).add(tempCard);
@@ -98,11 +94,6 @@ public class CardPicker {
 
             }
         }
-
-        /*for(List<PlayerAndProgramCard> onePhaseCards : allPhaseCards){
-            Collections.sort(onePhaseCards);
-        }*/
-
 
         rbg.executeCards(this.allPhaseCards);
 

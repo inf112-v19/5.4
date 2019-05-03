@@ -18,8 +18,6 @@ public class GUIFlag extends GUIPiece {
         sprite.setOrigin(getWidth() / 2, getHeight() / 2);
 
         this.changeSprite(number);
-
-        System.out.println("This is the ");
     }
 
     public void changeSprite(int number) {

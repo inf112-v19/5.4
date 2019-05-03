@@ -5,12 +5,10 @@ import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.board.Board;
-import inf112.skeleton.app.gameLogic.board.Cell;
 import inf112.skeleton.app.gameLogic.board.ICell;
 import inf112.skeleton.app.gameLogic.board.pieces.*;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
-import javafx.geometry.Pos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +75,6 @@ public class Checker2 {
                 !board.insideBoard(playerPos) ||
                 board.cellContainsClass(playerPos, Hole.class)) {
             this.board.killPlayer(player);
-            System.out.println("Player is outside board");
         }
 
         moveActions.add(board.movePlayer(player,direction));

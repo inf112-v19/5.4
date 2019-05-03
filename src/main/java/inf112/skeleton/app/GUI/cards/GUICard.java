@@ -50,12 +50,8 @@ public class GUICard extends Stack {
         this.cardButton = new CardButton(this, cardButtonStyle);
         this.add(cardButton);
 
-
-        //buttonTextLabels.setDebug(true);
-
         buttonTextLabels.setFillParent(false);
         buttonTextLabels.top().right();
-        //buttonTextLabels.setDebug(true);
 
         // Refresh the cards display values.
         updateCard();

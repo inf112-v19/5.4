@@ -31,16 +31,11 @@ public class LabelHandler {
     }
 
     public Label createNewLabel(String text) {
-
-        //BitmapFont font = new BitmapFont();
-        //font.setColor(fontColor);
         return createNewLabel(text, 5);
     }
 
     public Label createNewLabel(String text, int scale) {
-        //BitmapFont font = new BitmapFont();
         Label.LabelStyle newLabelStyle = new Label.LabelStyle(font, Color.WHITE);
-        //newLabelStyle.font.getData().setScale(scale);
         Label newLabel = new Label(text, newLabelStyle);
         newLabel.setFontScale(scale);
         newLabel.setColor(fontColor);
@@ -56,12 +51,10 @@ public class LabelHandler {
     }
 
     public void addHoverStyle(Label currLabel){
-        System.out.println("YEEHAW");
         currLabel.addListener(new ClickListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                 currLabel.setColor(hoverColor);
-
             }
 
             @Override

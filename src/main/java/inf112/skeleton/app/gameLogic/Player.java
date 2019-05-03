@@ -78,7 +78,6 @@ public class Player implements IPlayer {
     public PlayerAction die() {
         this.health--;
         this.damageTokens = 0;
-        System.out.println("YOU LOST HP, NEW HP: " + this.health);
         this.pos = respawnPoint.getPos();
         this.isAlive = false;
 
@@ -165,8 +164,6 @@ public class Player implements IPlayer {
         } else {
             throw new IllegalArgumentException("Not a valid rotation!");
         }
-        //Coment out line below for the tests to run
-        //robot.doAction(ActionType.ROTATE, facingDir);
     }
 
     public void setRespawnPoint() {

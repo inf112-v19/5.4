@@ -82,7 +82,6 @@ public class GUIDeck extends Table {
         List<ProgramCard> cards = pgDeck.drawXCards(maxCards);
         this.pgCards = cards; */
 
-        System.out.println(this.pgCards + " HEI JEG HETER CREATE GUICARDS");
         for (ProgramCard card : this.pgCards) {
             GUICard guiCard = new GUICard(skin, card, this.cardButtonStyle);
             Button cardButton = guiCard.getButton();
@@ -377,7 +376,6 @@ public class GUIDeck extends Table {
 
     public void setProgramCards(List<ProgramCard> pgCards) {
         this.pgCards = pgCards;
-        System.out.println(pgCards);
     }
 
     public boolean getGoBool() {

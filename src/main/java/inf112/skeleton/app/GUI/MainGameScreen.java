@@ -41,9 +41,6 @@ public class MainGameScreen implements Screen {
     RoboRallyGame roboRallyGame;
     List<Player> players;
 
-    List<ProgramCard> pgCards;
-    MovableGUIRobot currentMovableRobot;
-
     GUIDeck guiDeck;
     Cell guiDeckCell;
 

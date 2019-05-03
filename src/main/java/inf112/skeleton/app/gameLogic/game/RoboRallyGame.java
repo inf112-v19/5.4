@@ -107,8 +107,6 @@ public class RoboRallyGame {
         List<Action> laserAnimations = new ArrayList<>();
         List<List<PlayerAction>> conveyorActions = new ArrayList<>();
 
-        System.out.println("ACTUAL PHASE NUMBER: " + allProgramCards.size());
-
         for (List<PlayerAndProgramCard> onePhaseProgramCards : allProgramCards) {
 
             // Sorts all phase-cards.
@@ -152,7 +150,6 @@ public class RoboRallyGame {
                 //List<Player> deadPlayers = board.getDeadPlayers();
                 for (Player currPlayer : players) {
                     if(currPlayer.isDead()){
-                        System.out.println("EEYOO IM DEEEAD LMAO");
                         currPlayer.setAlive();
                         guiScreen.getGUIBoard().respawnPlayer(currPlayer);
                     }

@@ -36,9 +36,6 @@ public class ProgramCard implements Comparable<ProgramCard>, Serializable {
         Integer int1 = this.getPriority();
         Integer int2 = otherCard.getPriority();
         return int1.compareTo(int2);
-        /*if(this.priority > otherCard.priority) return 1;
-        if(this.priority < otherCard.priority) return -1;
-        else                   return 0;*/
     }
 
 }

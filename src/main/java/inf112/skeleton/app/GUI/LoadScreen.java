@@ -104,28 +104,11 @@ public class LoadScreen implements Screen {
 
     @Override
     public void render(float v) {
-
-        //camera.update();
-
-        //Gdx.gl.glClearColor(0.57f, 0.77f, 0.85f, 1);
         Gdx.gl.glClearColor(0.1f,0.1f,0.1f,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.draw();
         stage.act(Gdx.graphics.getDeltaTime());
-
-        /*if (Gdx.input.isTouched()) {
-
-            Sound sound = Gdx.audio.newSound(Gdx.files.internal("audio/yeahEcho.mp3"));
-
-            MainGameScreen mainGameScreen = new MainGameScreen();
-            game.setScreen(mainGameScreen);
-
-            sound.play(0.5f);
-            dispose();
-        }*/
-
-
     }
 
     @Override

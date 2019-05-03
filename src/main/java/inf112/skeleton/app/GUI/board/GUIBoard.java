@@ -51,7 +51,6 @@ public class GUIBoard extends Table {
 
         // Probably a stupid way to do it.
         this.unitSize = boardHeight / yGridSize;
-        //this.unitSize = 900/xGridSize;
 
         boardMap = new Tile[yGridSize][xGridSize];
 
@@ -146,7 +145,6 @@ public class GUIBoard extends Table {
      */
     public void addPlayers(List<Player> players) {
         for (Player currPlayer : players) {
-            //System.out.println("Added guiplayer at " + currPlayer.getPos().toString());
             this.addGUIPiece(currPlayer.getPos().getX(), currPlayer.getPos().getY(), currPlayer.getRobot());
         }
     }
@@ -190,8 +188,6 @@ public class GUIBoard extends Table {
         RunnableAction addLasersAnimation = new RunnableAction(){
             @Override
             public void run() {
-
-                System.out.println(lasers.size());
                 for(Laser laser : lasers){
 
                     GUIPiece guiPiece = laser.getGUIPiece();
