@@ -219,6 +219,7 @@ public class RoboRallyGame {
 
     public void pveGenerator() {
         for (int i = 0; i < totalPlayers; i++) {
+
             if (i == 0) {
                 Position position = new Position(i + 5, 7);
                 //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
@@ -226,6 +227,7 @@ public class RoboRallyGame {
                 board.addPiece(position, players.get(i));
                 System.out.println("player made!!");
             }
+
             else {
                 Position position = new Position(i + 5, 7);
                 //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
