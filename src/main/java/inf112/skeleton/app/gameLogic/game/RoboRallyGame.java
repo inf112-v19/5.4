@@ -27,11 +27,16 @@ public class RoboRallyGame {
     private int totalPlayers = 3;   // Total players in the game
     private List<Player> players;       // Players in the game
     private int startHealth = 3;
+    private int cardPickedTurns = 0;
     private String boardPath = "FlagBoard.json";
     private LaserCalculator laserCalculator;
 
     private ProgramCardDeck deck;
     private Player currentPlayer;
+    private Player player1;
+    private Player player2;
+    private Player player3;
+
     private Board board;
 
     private Checker checker;
@@ -51,13 +56,14 @@ public class RoboRallyGame {
         this.deck = new ProgramCardDeck();  // Deck of cards in the game
 
         players = new ArrayList<Player>();
+
         for (int i = 0; i < totalPlayers; i++) {
             Position position = new Position(i+5, 7);
             //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
             players.add(new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, playerActionQueue));
             board.addPiece(position, players.get(i));
             System.out.println("player made!!");
-        }
+         }
 
         this.laserCalculator = new LaserCalculator(board, players);
 
@@ -67,6 +73,7 @@ public class RoboRallyGame {
     public void playGame(){
         this.deck.shuffleDeck();
         this.currentPlayer = players.get(0);
+
 //        for (Player currentPlayer : players) {
 //            this.currentPlayer = currentPlayer;
 //        }
@@ -79,15 +86,13 @@ public class RoboRallyGame {
      * Here the player will get to draw and pick cards
      */
     public void prePlay() {
-        int damageTokens = currentPlayer.getDamageTokens();
-        int cardsToDraw = 9;
-        cardsToDraw -= damageTokens;
 
-        List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
 
         // TODO take cards from deck and assign them to the player
         //this.currentPlayer =currentPlayer;
-        this.guiScreen.pickCardPhase(cards);
+
+        //this.startCardPicking();
+        CardPicker cardpicker = new CardPicker(players);
 
     }
 
@@ -103,19 +108,41 @@ public class RoboRallyGame {
 
     }
 
-    public void postPick(List<ProgramCard> pickedProgramCards){
+    public void startCardPicking(){
+        List<List<PlayerAndProgramCard>> allCards = new ArrayList<>();
 
-        List<List<ProgramCard>> allCards = new ArrayList<>();
-
-        for (ProgramCard currCard : pickedProgramCards){
-            List<ProgramCard> currcards = new ArrayList<ProgramCard>(){{add(currCard);}};
-            allCards.add(currcards);
+        for(Player player : players){
+            int damageTokens = player.getDamageTokens();
+            int cardsToDraw = 9;
+            cardsToDraw -= damageTokens;
+            List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
+            this.guiScreen.pickCardPhase(cards);
         }
 
-        this.executeCards(allCards);
     }
 
-    public void executeCards(List<List<ProgramCard>> allProgramCards) {
+
+    public void postPick(List<ProgramCard> pickedProgramCards){
+
+            List<List<PlayerAndProgramCard>> sortedPlayerCards = new ArrayList<>();
+
+            for(int i = 0; i<allCards.size(); i++){
+                List<PlayerAndProgramCard> playerCards = allCards.get(i);
+                List<PlayerAndProgramCard> onePhaseProgramCards = sortedPlayerCards.get(i);
+
+                for (PlayerAndProgramCard playerAndProgramCard:onePhaseProgramCards){
+
+                }
+            }
+
+
+
+            this.executeCards(sortedPlayerCards);
+
+
+    }
+
+    public void executeCards(List<List<PlayerAndProgramCard>> allProgramCards) {
 
         // All innermost actions: Actions that are do be executed in paralell.
         // One layer outside: all actions originating from ONE card, e.g MOVE 3.
@@ -124,12 +151,15 @@ public class RoboRallyGame {
         List<Action> laserAnimations = new ArrayList<>();
         List<List<PlayerAction>> conveyorActions = new ArrayList<>();
 
-        for (List<ProgramCard> onePhaseProgramCards : allProgramCards) {
+        for (List<PlayerAndProgramCard> onePhaseProgramCards : allProgramCards) {
 
             // Sorts all phase-cards.
             Collections.sort(onePhaseProgramCards);
 
-            for (ProgramCard card : onePhaseProgramCards) {
+            for (PlayerAndProgramCard playerAndProgramCard : onePhaseProgramCards) {
+
+                currentPlayer = playerAndProgramCard.getPlayer();
+                ProgramCard card = playerAndProgramCard.getPgCard();
 
                 // All the actions originating from ONE card.
                 List<List<PlayerAction>> cardActions = checker.doAction(card.getCardType().getAction(), currentPlayer);
@@ -142,10 +172,7 @@ public class RoboRallyGame {
                     }
 
                 }
-
-
                 allActions.add(cardActions);
-
             }
 
             // Conveyors actions for one round, added
