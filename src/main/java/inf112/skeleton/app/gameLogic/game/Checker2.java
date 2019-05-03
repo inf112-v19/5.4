@@ -8,7 +8,6 @@ import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.board.pieces.IPiece;
 import inf112.skeleton.app.gameLogic.board.pieces.Conveyor;
 import inf112.skeleton.app.gameLogic.board.pieces.Gears;
-import inf112.skeleton.app.gameLogic.board.pieces.IPiece;
 import inf112.skeleton.app.gameLogic.board.pieces.Wall;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
@@ -63,12 +62,16 @@ public class Checker2 {
     }
 
     public void movePlayer(Player player, Direction direction, List<PlayerAction> moveActions) {
+        // death lol
+        if(!board.insideBoard(player.getPos().changePos(direction))) {
+            this.board.killPlayer(player);
+            System.out.println("Player is outside board");
+            return;
+        }
+
         if (canPlayerMove(player, direction, moveActions)) {
-            if(board.insideBoard(player, direction)){
-                player.die();
-                System.out.println("Player is outside board");
-            }
             moveActions.add(board.movePlayer(player,direction));
+            return;
         }
     }
 

@@ -4,15 +4,13 @@ import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.board.pieces.IPiece;
 import inf112.skeleton.app.gameLogic.enums.Action;
-import inf112.skeleton.app.gameLogic.board.pieces.IPiece;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.game.FlagOrganizer;
 import inf112.skeleton.app.gameLogic.game.PlayerAction;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import java.util.Collections;
+import java.util.List;
 
 public class Board implements IBoard {
 
@@ -75,16 +73,17 @@ public class Board implements IBoard {
 
     /**
      * moves player lol
+     *
      * @param player
      * @param dir
      * @return
      */
-    public PlayerAction movePlayer(Player player, Direction dir){
+    public PlayerAction movePlayer(Player player, Direction dir) {
 
         Position tempPos = player.getPos();
         Position nextPos = tempPos.changePos(dir);
 
-        this.changePlayerPos(player,nextPos);
+        this.changePlayerPos(player, nextPos);
 
         System.out.println(player.getPos());
 
@@ -110,7 +109,10 @@ public class Board implements IBoard {
     }
 
     public ICell getCellAt(Position pos) {
-        return board[pos.getY()][pos.getX()];
+        if (insideBoard(pos)) {
+            return board[pos.getY()][pos.getX()];
+        }
+        return null;
     }
 
     public IPiece cellContainsClass(Position pos, Class piece) {
@@ -158,15 +160,16 @@ public class Board implements IBoard {
         return this.getCellAt(pos).getPiecesInCell().contains(piece);
     }
 
-    public boolean insideBoard(Player player, Direction goingDir) {
-        Position playerPos = player.getPos();
-        if (playerPos.getY() >= boardHeight || playerPos.getY() < 0) {
-            return false;
-        }
-        if (playerPos.getX() >= boardWidth || playerPos.getX() < 0) {
-            return false;
-        }
-        return true;
+    public boolean insideBoard(Position playerPos) {
+        return insideX(playerPos) && insideY(playerPos);
+    }
+
+    private boolean insideY(Position playerPos) {
+        return (playerPos.getY() < boardHeight && playerPos.getY() >= 0);
+    }
+
+    private boolean insideX(Position playerPos) {
+        return (playerPos.getX() < boardWidth && playerPos.getX() >= 0);
     }
 
     public int getBoardWidth() {
@@ -177,19 +180,24 @@ public class Board implements IBoard {
         return boardHeight;
     }
 
-    public void killPlayer(Player player){
+    public void killPlayer(Player player) {
         this.deadPlayers.add(player);
     }
 
-    public List<Player> getDeadPlayers(){
+    public List<Player> getDeadPlayers() {
         return this.deadPlayers;
     }
 
     public void changePlayerPos(Player player, Position newPos) {
         Position currPlayerPos = player.getPos();
-
-        getCellAt(currPlayerPos).removePlayer(player);
-        getCellAt(newPos).addPiece(player);
+        ICell temp1 = getCellAt(currPlayerPos);
+        if(temp1 != null){
+            getCellAt(currPlayerPos).removePlayer(player);
+        }
+        ICell temp = getCellAt(newPos);
+        if (temp != null) {
+            temp.addPiece(player);
+        }
         player.changePlayerPos(newPos);
 
     }
@@ -200,8 +208,7 @@ public class Board implements IBoard {
                 Collections.sort(board[x][y].getPiecesInCell(), (iPiece, t1) -> {
                     if (iPiece.getSize() == t1.getSize()) {
                         return 0;
-                    }
-                    else if (iPiece.getSize() < t1.getSize()) {
+                    } else if (iPiece.getSize() < t1.getSize()) {
                         return -1;
                     }
                     return 1;
