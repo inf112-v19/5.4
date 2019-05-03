@@ -26,7 +26,7 @@ public class Stats extends Table {
     public Stats(Skin skin, Player player) {
         //hearties = new ArrayList<>();
 
-        this.setDebug(true);
+        //this.setDebug(true);
         this.skin = skin;
         this.defaults().size(40).left();
         heartSprite = new Sprite(new Texture(Gdx.files.internal("board/heart.png")));
@@ -34,14 +34,17 @@ public class Stats extends Table {
 
         //this.setDebug(true);
 
-        Label hpLabel = new Label("HEALTH", skin);
+        this.hpLabel = new Label("HEALTH", skin);
         hpLabel.setAlignment(Align.left);
-        hpLabel.setColor(Color.PURPLE);
+        hpLabel.setColor(Color.GREEN);
         hpLabel.setFontScale(2f);
 
-        Label dtLabel = new Label("DAMAGE TOKENS:", skin);
+
+        this.dtLabel = new Label("DAMAGE TOKENS:", skin);
         dtLabel.setAlignment(Align.left);
+        dtLabel.setColor(Color.ORANGE);
         dtLabel.setFontScale(2f);
+        //dtLabel.getStyle().font.getData().
 
         updateStats(player);
 
@@ -54,14 +57,14 @@ public class Stats extends Table {
         int health = player.getHealth();
         int damagetokens = player.getDamageTokens();
 
-        Label hpLabel = new Label("HEALTH", skin);
+        /*Label hpLabel = new Label("HEALTH", skin);
         hpLabel.setAlignment(Align.left);
         hpLabel.setColor(Color.PURPLE);
         hpLabel.setFontScale(2f);
 
         Label dtLabel = new Label("DAMAGE TOKENS:", skin);
         dtLabel.setAlignment(Align.left);
-        dtLabel.setFontScale(2f);
+        dtLabel.setFontScale(2f);*/
 
         this.add(hpLabel).colspan(3).expandX();
         this.row();
@@ -76,6 +79,7 @@ public class Stats extends Table {
         this.add(dtLabel).colspan(10).expandX().size(60, 60);
         this.row();
 
+        System.out.println("AMOUNT OF DAMAGE TOKENS " + damagetokens);
         for (int i = 0; i < damagetokens; i++) {
             Image stonie = new Image(dtSprite.getTexture());
             this.add(stonie).uniform();

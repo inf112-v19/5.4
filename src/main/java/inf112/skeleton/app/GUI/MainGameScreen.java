@@ -29,6 +29,7 @@ public class MainGameScreen implements Screen {
 
     private Stage stage;
     private Skin skin;
+    private Stats stats;
     OrthographicCamera camera;
     ExtendViewport viewport;
     Music music;
@@ -95,7 +96,8 @@ public class MainGameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0.57f, 0.77f, 0.85f, 1);
+        //Gdx.gl.glClearColor(0.57f, 0.77f, 0.85f, 1);
+        Gdx.gl.glClearColor(0.1f,0.1f,0.1f,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.draw();
@@ -171,7 +173,7 @@ public class MainGameScreen implements Screen {
         boards.add(piecesBoard);
         boards.add(robotsBoard);
 
-        Stats stats = new Stats(skin, players.get(0));
+        this.stats = new Stats(skin, players.get(0));
 
         // Add everything to the main table.
         topBar.add().prefWidth(200);
@@ -249,6 +251,10 @@ public class MainGameScreen implements Screen {
             stage.addActor(player.getRobot());
         }
 
+    }
+
+    public void updateStats(Player player){
+        this.stats.updateStats(player);
     }
 
 

@@ -158,10 +158,11 @@ public class GUIBoard extends Table {
         }*/
     }
 
-    public void doGUIActions(List<List<List<PlayerAction>>> allPlayerActions, List<Action> laserAnimations, List<List<PlayerAction>> conveyorActions) {
+    public void doGUIActions(List<List<List<PlayerAction>>> allPlayerActions, List<Action> laserAnimations,
+                             List<List<PlayerAction>> conveyorActions, RunnableAction postExectionAction) {
 
-
-        this.addAction(new AnimationController().getAllActionsSequenced(allPlayerActions,laserAnimations,conveyorActions));
+        this.addAction(new AnimationController().getAllActionsSequenced(allPlayerActions,
+                laserAnimations,conveyorActions, postExectionAction));
     }
 
     public float[] getPiecePos(int x, int y) {
