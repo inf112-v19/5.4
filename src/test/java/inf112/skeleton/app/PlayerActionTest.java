@@ -35,7 +35,7 @@ public class PlayerActionTest extends GameTest {
 
         System.out.println(new File("DankBoard.json").getAbsoluteFile());
         game = new TestGame();
-        player = new Player("1", new Position(7, 7), Direction.NORTH, 3);
+        player = new Player("1", new Position(7, 7), Direction.NORTH, 3, false);
     }
 
     @Test
@@ -92,7 +92,7 @@ public class PlayerActionTest extends GameTest {
 
     @Test
     public void testTwoPlayersMoving() {
-        Player player2 = new Player("2", new Position(6, 6), Direction.NORTH, 3);
+        Player player2 = new Player("2", new Position(6, 6), Direction.NORTH, 3, false);
         ProgramCardDeck deck = new ProgramCardDeck();
         int cardsForPlayer = 2;
         game.addPlayerToList(player);
@@ -120,7 +120,7 @@ public class PlayerActionTest extends GameTest {
 
     @Test
     public void testStoppingOnFlagChangesNextFlag() {
-        player = new Player("1", new Position(0, 7), Direction.NORTH, 3);
+        player = new Player("1", new Position(0, 7), Direction.NORTH, 3, false);
         assertEquals(1, player.getRespawnPoint().getNextFlag());
         game.getChecker().doAction(new PlayerAction(player, Action.MOVE_1, player.getDirection()));
         //checker.doAction();
@@ -132,7 +132,7 @@ public class PlayerActionTest extends GameTest {
 
     @Test
     public void testStoppingOnLastFlag() {
-        player = new Player("1", new Position(0, 7), Direction.NORTH, 3);
+        player = new Player("1", new Position(0, 7), Direction.NORTH, 3, false);
         List<Player> players = new LinkedList<>();
         players.add(player);
         assertEquals(1, player.getRespawnPoint().getNextFlag());

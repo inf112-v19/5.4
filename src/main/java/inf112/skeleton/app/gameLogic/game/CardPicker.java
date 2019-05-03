@@ -46,8 +46,16 @@ public class CardPicker {
     public void pickPlayerCards(){
         this.currentPlayer = players.get(counter);
         cardsToDraw -= currentPlayer.getDamageTokens();
-        List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
-        this.rbg.guiScreen.pickCardPhase(cards, currentPlayer);
+
+        if (this.currentPlayer.getAi()==false) {
+            List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
+            this.rbg.guiScreen.pickCardPhase(cards, currentPlayer);
+        }
+        else {
+            cardsToDraw = 5;
+            List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
+            postPick(cards);
+        }
     }
 
     public void postPick(List<ProgramCard> pickedProgramCards){
@@ -71,9 +79,6 @@ public class CardPicker {
         }
 
     }
-
-
-
 
     public void fromPlayertoPhaseCards(){
         int numberOfPhases = 5;
