@@ -13,16 +13,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import inf112.skeleton.app.GUI.LoadScreen;
 import inf112.skeleton.app.GUI.MainGameScreen;
+import inf112.skeleton.app.gameLogic.Player;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class IPStage extends Stage{
+import static com.badlogic.gdx.utils.Align.center;
 
-    public IPStage(Viewport viewport, Skin skin, Game game){
+public class PlayerNumberStage extends Stage{
+
+    public PlayerNumberStage(Viewport viewport, Skin skin, LabelHandler labelHandler, LoadScreen screen, Game game){
         super(viewport);
 
         Table mainTable = new Table();
@@ -39,9 +43,10 @@ public class IPStage extends Stage{
         Label.LabelStyle textLabelStyle = new Label.LabelStyle(textLabelFont, new Color(1f, 1f, 0.4f, 1f));
         Label.LabelStyle buttonLabelStyle = new Label.LabelStyle(buttonLabelFont, new Color(1f, 1f, 0.8f, 1f));
 
-        Label textLabel = new Label("ENTER IP:", textLabelStyle);
+        Label textLabel = new Label("ENTER NUMBER OF PLAYERS:", textLabelStyle);
 
         TextField usernameTextField = new TextField("", skin);
+        usernameTextField.setAlignment(center);
 
         Label enterLabel = new Label("ENTER", buttonLabelStyle);
         TextButton btn = new TextButton("", skin);
@@ -66,6 +71,7 @@ public class IPStage extends Stage{
                 super.clicked(event, x, y);
                 Sound sound = Gdx.audio.newSound(Gdx.files.internal("audio/yeahEcho.mp3"));
 
+                //usernameTextField.getText();
                 MainGameScreen mainGameScreen = new MainGameScreen(3);
                 game.setScreen(mainGameScreen);
 

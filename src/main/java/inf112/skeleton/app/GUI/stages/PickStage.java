@@ -24,7 +24,7 @@ public class PickStage extends Stage {
 
         Table mainTable = new Table();
         mainTable.setFillParent(true);
-        mainTable.setDebug(true);
+        //mainTable.setDebug(true);
 
         Label hostLabel = labelHandler.createNewLabel("HOST",5);
         Label joinLabel = labelHandler.createNewLabel("JOIN",5);

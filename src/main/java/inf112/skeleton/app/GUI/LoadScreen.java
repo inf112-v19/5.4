@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import inf112.skeleton.app.GUI.stages.IPStage;
 import inf112.skeleton.app.GUI.stages.LabelHandler;
 import inf112.skeleton.app.GUI.stages.PickStage;
+import inf112.skeleton.app.GUI.stages.PlayerNumberStage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,8 +50,8 @@ public class LoadScreen implements Screen {
 
         LabelHandler labelHandler = new LabelHandler(skin);
 
-        Label rrLabel = labelHandler.createNewLabel("LET'S ROBO RALLY!");
-        rrLabel.setFontScale(3);
+        Label rrLabel = labelHandler.createNewLabel("LET'S ROBO RALLY!",8);
+        //rrLabel.setFontScale(3);
 
         Label playLabel = labelHandler.createNewLabel("PLAY",8);
         Label exitLabel = labelHandler.createNewLabel("EXIT",8);
@@ -77,7 +78,7 @@ public class LoadScreen implements Screen {
         playLabel.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                setStage(new PickStage(viewport, skin, labelHandler, screen, game));
+                setStage(new PlayerNumberStage(viewport, skin, labelHandler, screen, game));
                 /*Sound sound = Gdx.audio.newSound(Gdx.files.internal("audio/yeahEcho.mp3"));
 
                 MainGameScreen mainGameScreen = new MainGameScreen();

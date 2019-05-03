@@ -31,7 +31,9 @@ public class RoboRallyGame {
 
     private Checker2 checker2;
 
-    public RoboRallyGame(MainGameScreen guiScreen) {
+    public RoboRallyGame(MainGameScreen guiScreen, int numberOfPlayers) {
+
+        this.totalPlayers = numberOfPlayers;
 
         this.guiScreen = guiScreen;
         this.board = new Board("Captain Hook", boardPath);
@@ -79,7 +81,8 @@ public class RoboRallyGame {
 
         // TODO take cards from deck and assign them to the player
         //this.currentPlayer =currentPlayer;
-        this.guiScreen.pickCardPhase(cards);
+        for(Player player : players){this.guiScreen.pickCardPhase(cards);}
+
 
     }
 

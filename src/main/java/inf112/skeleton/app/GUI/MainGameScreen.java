@@ -43,7 +43,7 @@ public class MainGameScreen implements Screen {
     GUIDeck guiDeck;
     Cell guiDeckCell;
 
-    public MainGameScreen() {
+    public MainGameScreen(int numberOfPlayers) {
 
         //SoundPlayer.GameSound.PLAY_MUSIC.playSound();
 
@@ -60,7 +60,7 @@ public class MainGameScreen implements Screen {
         skin.get(Label.LabelStyle.class).fontColor = Color.WHITE;
 
 
-        this.roboRallyGame = new RoboRallyGame(this);
+        this.roboRallyGame = new RoboRallyGame(this, numberOfPlayers);
 
         // Get the players from the game.
         this.players = roboRallyGame.getPlayers();
