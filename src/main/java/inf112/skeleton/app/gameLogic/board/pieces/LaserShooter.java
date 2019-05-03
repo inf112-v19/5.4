@@ -4,7 +4,6 @@ import inf112.skeleton.app.GUI.pieces.GUILaserShooter;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.enums.Direction;
-import inf112.skeleton.app.gameLogic.board.IPiece;
 
 public class LaserShooter implements IPiece {
 
@@ -46,6 +45,12 @@ public class LaserShooter implements IPiece {
     public GUIPiece getGUIPiece() {
         return new GUILaserShooter(this);
     }
+
+    @Override
+    public int getSize() {
+        return 3;
+    }
+
     public Position getPos() {
         return this.pos;
     }

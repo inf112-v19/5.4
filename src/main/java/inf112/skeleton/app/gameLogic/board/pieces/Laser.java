@@ -1,11 +1,9 @@
 package inf112.skeleton.app.gameLogic.board.pieces;
 
-import inf112.skeleton.app.GUI.pieces.GUILaser;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.GUI.pieces.LaserGUI;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.board.Board;
-import inf112.skeleton.app.gameLogic.board.IPiece;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import java.util.ArrayList;
@@ -57,6 +55,11 @@ public class Laser implements IPiece {
 
     @Override
     public GUIPiece getGUIPiece() {return this.guiPiece;
+    }
+
+    @Override
+    public int getSize() {
+        return 2;
     }
 
     public Position getPosition() {

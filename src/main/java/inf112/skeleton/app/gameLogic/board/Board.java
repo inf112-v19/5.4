@@ -2,6 +2,7 @@ package inf112.skeleton.app.gameLogic.board;
 
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
+import inf112.skeleton.app.gameLogic.board.pieces.IPiece;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.game.FlagOrganizer;
@@ -9,6 +10,8 @@ import inf112.skeleton.app.gameLogic.game.PlayerAction;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import java.util.Collections;
 
 public class Board implements IBoard {
 
@@ -44,7 +47,6 @@ public class Board implements IBoard {
      */
     public void displayBoard() {
         for (int i = 0; i < board.length; i++) {
-            System.out.print(i + " ");
             for (int j = 0; j < board.length; j++) {
                 System.out.print("| ");
                 if (board[i][j] == null) {
@@ -157,7 +159,7 @@ public class Board implements IBoard {
 
     public boolean insideBoard(Position playerPos, Direction playerDir) {
         Position posAfterMove = playerPos.changePos(playerDir);
-        //System.out.println("Pos after theoretical move " + posAfterMove.toString());
+        System.out.println("Pos after theoretical move " + posAfterMove.toString());
         if (posAfterMove.getY() >= boardHeight || posAfterMove.getY() < 0) {
             return false;
         }
@@ -190,6 +192,22 @@ public class Board implements IBoard {
         getCellAt(newPos).addPiece(player);
         player.changePlayerPos(newPos);
 
+    }
+
+    public void sortBoard() {
+        for (int y = 0; y < boardHeight; y++) {
+            for (int x = 0; x < boardWidth; x++) {
+                Collections.sort(board[x][y].getPiecesInCell(), (iPiece, t1) -> {
+                    if (iPiece.getSize() == t1.getSize()) {
+                        return 0;
+                    }
+                    else if (iPiece.getSize() < t1.getSize()) {
+                        return -1;
+                    }
+                    return 1;
+                });
+            }
+        }
     }
 
 }
