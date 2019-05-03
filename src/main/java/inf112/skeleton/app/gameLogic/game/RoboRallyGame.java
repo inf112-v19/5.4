@@ -118,6 +118,20 @@ public class RoboRallyGame {
                 List<List<PlayerAction>> cardActions = checker2.doCard(card, currentPlayer);
 
                 onePhaseActionsList.addAll(cardActions);
+
+                /*onePhaseActionsList.add(new ArrayList<List>(){{
+                    add(new ArrayList<RunnableAction>(){{add(
+                        new RunnableAction(){
+                            @Override
+                            public void run() {
+
+                            }
+
+                            {
+
+                        }}
+                );}});
+                }});*/  //guiScreen.updateStats(currentPlayer);
             }
             allActions.add(onePhaseActionsList);
 
@@ -138,7 +152,6 @@ public class RoboRallyGame {
         return new RunnableAction() {
             @Override
             public void run() {
-                guiScreen.updateStats(currentPlayer);
 
                 //List<Player> deadPlayers = board.getDeadPlayers();
                 for (Player currPlayer : players) {

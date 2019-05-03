@@ -222,7 +222,6 @@ public class Player implements IPlayer {
         return this.pos;
     }
 
-
     @Override
     public IPiece getType() {
         return null;

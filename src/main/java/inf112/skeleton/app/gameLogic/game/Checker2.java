@@ -206,16 +206,13 @@ public class Checker2 {
             if (player.getPos().equals(board.getFlags().getFlagPos(player.getRespawnPoint().nextFlag))) {
                 System.out.println("Found flag " + player.getRespawnPoint().getNextFlag());
                 SoundPlayer.GameSound.FLAG_PICKUP.playSound();
-
                 player.setNextFlag();
                 System.out.println("Next Flag is " + player.getRespawnPoint().getNextFlag());
 
             }
-            if (player.getRespawnPoint().nextFlag == board.getFlags().getNumberOfFlags()) {
-                for (int i = 0; i < 10; i++) {
-                    System.out.println("GOT THE LAST FLAG!!! Flag: " + player.getRespawnPoint().getNextFlag());
-                    return player;
-                }
+            if (player.getRespawnPoint().nextFlag-1 == board.getFlags().getNumberOfFlags()) {
+                System.out.println("GOT THE LAST FLAG!!! Flag: " + player.getRespawnPoint().getNextFlag());
+                return player;
             }
         }
         return null;
