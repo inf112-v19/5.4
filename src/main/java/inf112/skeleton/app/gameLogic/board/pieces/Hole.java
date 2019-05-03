@@ -2,7 +2,6 @@ package inf112.skeleton.app.gameLogic.board.pieces;
 
 import inf112.skeleton.app.GUI.pieces.GUIHole;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
-import inf112.skeleton.app.gameLogic.board.IPiece;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
 public class Hole implements IPiece {
@@ -34,5 +33,10 @@ public class Hole implements IPiece {
     @Override
     public GUIPiece getGUIPiece() {
         return new GUIHole();
+    }
+
+    @Override
+    public int getSize() {
+        return 0;
     }
 }

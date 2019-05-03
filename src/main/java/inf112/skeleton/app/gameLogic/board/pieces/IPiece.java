@@ -1,4 +1,4 @@
-package inf112.skeleton.app.gameLogic.board;
+package inf112.skeleton.app.gameLogic.board.pieces;
 
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.gameLogic.enums.Direction;
@@ -38,4 +38,11 @@ public interface IPiece {
      * @return GUIPiece
      */
     GUIPiece getGUIPiece();
+
+    /**
+     * Returns size of pieces
+     * @return size
+     */
+    int getSize();
+
 }
