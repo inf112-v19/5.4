@@ -1,17 +1,13 @@
 package inf112.skeleton.app.gameLogic.board.pieces;
 
-import inf112.skeleton.app.GUI.pieces.GUIGear;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
-import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
-public class Gears implements IPiece {
+public class Piece implements IPiece {
 
-    private Action action;
-
-    public Gears(Action rotation) {
-        this.action = rotation;
-    }
+    char symbol = '-';
+    String name = "undefined";
+    int size = 4;
 
 
     @Override
@@ -21,12 +17,12 @@ public class Gears implements IPiece {
 
     @Override
     public String getName() {
-        return "Gear";
+        return null;
     }
 
     @Override
     public char getSymbol() {
-        return '*';
+        return this.symbol;
     }
 
     @Override
@@ -36,16 +32,11 @@ public class Gears implements IPiece {
 
     @Override
     public GUIPiece getGUIPiece() {
-        // Seems very easily breakable.
-        return new GUIGear(this.action.getRotation());
+        return null;
     }
 
     @Override
     public int getSize() {
-        return 0;
-    }
-
-    public Action getAction() {
-        return action;
+        return this.size;
     }
 }

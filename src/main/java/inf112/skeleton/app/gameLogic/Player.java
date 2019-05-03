@@ -3,24 +3,16 @@ package inf112.skeleton.app.gameLogic;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.GUI.pieces.GUIRobot;
 import inf112.skeleton.app.GUI.player.MovableGUIRobot;
-import inf112.skeleton.app.gameLogic.board.Board;
-import inf112.skeleton.app.gameLogic.board.ICell;
-import inf112.skeleton.app.gameLogic.board.IPiece;
+import inf112.skeleton.app.gameLogic.board.pieces.IPiece;
 import inf112.skeleton.app.gameLogic.board.pieces.Flag;
 import inf112.skeleton.app.gameLogic.board.pieces.LaserShooter;
-import inf112.skeleton.app.gameLogic.board.pieces.Wall;
 import inf112.skeleton.app.GUI.player.Position;
-import inf112.skeleton.app.gameLogic.enums.Action;
-import inf112.skeleton.app.gameLogic.enums.ActionType;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.enums.Rotation;
-import inf112.skeleton.app.gameLogic.game.Checker;
-import inf112.skeleton.app.gameLogic.game.PlayerAction;
 import inf112.skeleton.app.gameLogic.game.PlayerActionWrapper;
 import inf112.skeleton.app.gameLogic.game.RespawnPoint;
 
 import java.util.List;
-import java.util.Queue;
 import java.util.Stack;
 
 
@@ -249,6 +241,11 @@ public class Player implements IPlayer {
     @Override
     public GUIPiece getGUIPiece() {
         return new GUIRobot(1);
+    }
+
+    @Override
+    public int getSize() {
+        return 5;
     }
 
     public void setRobot(MovableGUIRobot robot) {

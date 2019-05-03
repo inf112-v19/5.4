@@ -3,7 +3,6 @@ package inf112.skeleton.app.gameLogic.board.pieces;
 import inf112.skeleton.app.GUI.pieces.GUIFlag;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
 import inf112.skeleton.app.gameLogic.Player;
-import inf112.skeleton.app.gameLogic.board.IPiece;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
 public class Flag implements IPiece {
@@ -55,6 +54,11 @@ public class Flag implements IPiece {
     @Override
     public GUIPiece getGUIPiece() {
         return new GUIFlag();
+    }
+
+    @Override
+    public int getSize() {
+        return 1;
     }
 
     public boolean isNextFlag(Player player) {
