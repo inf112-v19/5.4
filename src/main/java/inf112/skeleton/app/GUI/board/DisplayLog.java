@@ -5,19 +5,25 @@ public class DisplayLog {
     private String log;
 
     public DisplayLog(){
-        this.log = "";
+        this.log = "LOG:\n";
     }
 
     public void updateLog(String input){
         this.log +=input + " \n";
     }
 
-    public void refreshLog(){
-        this.log = "";
+    public void clearLog(){
+        this.log = "LOG:\n";
     }
 
     public String getLog(){
-        return this.log;
+        String returnString = new String(this.log);
+        //this.log = "";
+        System.out.println("RETURNSTRING");
+        System.out.println(returnString);
+        return returnString;
     }
+
+
 
 }

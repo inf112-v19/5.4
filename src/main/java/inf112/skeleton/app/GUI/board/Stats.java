@@ -26,7 +26,6 @@ public class Stats extends Table {
 
     public Stats(Skin skin, Player player, DisplayLog displayLog) {
         this.skin = skin;
-        this.setDebug(true);
         this.defaults().size(40).left();
         heartSprite = new Sprite(new Texture(Gdx.files.internal("board/heart.png")));
         dtSprite = new Sprite(new Texture(Gdx.files.internal("board/damageToken.png")));
@@ -74,8 +73,10 @@ public class Stats extends Table {
         this.row();
 
         Label logLabel = new Label(displayLog.getLog(), skin);
-        logLabel.setAlignment(Align.top);
+        logLabel.setAlignment(Align.topLeft);
+        logLabel.setFontScale(1.4f);
         this.add(logLabel);
+        //this.displayLog.clearLog();
 
     }
 

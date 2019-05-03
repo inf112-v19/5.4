@@ -181,7 +181,7 @@ public class MainGameScreen implements Screen {
         boards.add(piecesBoard);
         boards.add(robotsBoard);
 
-        this.displayLog = new DisplayLog();
+        //this.displayLog = new DisplayLog();
 
         // Add everything to the main table.
         topBar.add().prefWidth(200);
@@ -266,6 +266,10 @@ public class MainGameScreen implements Screen {
 
     public void gameOver(Player player) {
         this.stage = new GameOverStage(viewport, this.skin ,player);
+    }
+
+    public DisplayLog getDisplayLog(){
+        return this.displayLog;
     }
     public boolean getIsPvpMatch() { return isPvpMatch; }
 }
