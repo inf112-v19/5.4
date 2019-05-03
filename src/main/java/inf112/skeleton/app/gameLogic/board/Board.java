@@ -182,6 +182,7 @@ public class Board implements IBoard {
 
     public void killPlayer(Player player) {
         this.deadPlayers.add(player);
+        player.die();
     }
 
     public List<Player> getDeadPlayers() {
@@ -189,15 +190,17 @@ public class Board implements IBoard {
     }
 
     public void changePlayerPos(Player player, Position newPos) {
+
         Position currPlayerPos = player.getPos();
-        ICell temp1 = getCellAt(currPlayerPos);
-        if(temp1 != null){
+        ICell currentCells = getCellAt(currPlayerPos);
+        if(currentCells != null){
             getCellAt(currPlayerPos).removePlayer(player);
         }
-        ICell temp = getCellAt(newPos);
-        if (temp != null) {
-            temp.addPiece(player);
+        ICell nextCells = getCellAt(newPos);
+        if (nextCells != null) {
+            nextCells.addPiece(player);
         }
+
         player.changePlayerPos(newPos);
 
     }

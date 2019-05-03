@@ -5,6 +5,7 @@ import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.board.Board;
+import inf112.skeleton.app.gameLogic.board.Cell;
 import inf112.skeleton.app.gameLogic.board.ICell;
 import inf112.skeleton.app.gameLogic.board.pieces.IPiece;
 import inf112.skeleton.app.gameLogic.board.pieces.Conveyor;
@@ -44,7 +45,7 @@ public class Checker2 {
 
         switch (action.getActionType()) {
             case MOVE:
-                    movePlayer(
+                    tryToMovePlayer(
                             player,
                             action == Action.MOVE_BACK ?
                                     player.getDirection().oppositeDir() : player.getDirection(),
@@ -64,27 +65,47 @@ public class Checker2 {
     }
 
     public void tryToMovePlayer(Player player, Direction direction, List<PlayerAction> moveActions) {
-        if(!board.insideBoard(player.getPos().changePos(direction))) {
+
+        /*if(!board.insideBoard(player.getPos().changePos(direction))) {
             this.board.killPlayer(player);
             System.out.println("Player is outside board");
+        }*/
+
+        /*ICell nextCell = board.getCellAt(player.getPos().changePos(direction));
+        if(nextCell == null){
             return;
-        }
+        }*/
+
         if (canPlayerMove(player, direction, moveActions)) {
             movePlayer(player, direction, moveActions);
         }
     }
 
     public void movePlayer(Player player, Direction direction, List<PlayerAction> moveActions){
+
+        if(!board.insideBoard(player.getPos().changePos(direction)) || !board.insideBoard(player.getPos())) {
+            this.board.killPlayer(player);
+            System.out.println("Player is outside board");
+        }
+
         moveActions.add(board.movePlayer(player,direction));
     }
 
     public boolean canPlayerMove(Player player, Direction direction, List<PlayerAction> moveActions) {
-        return     !hasWall(player, direction)
+        return !hasWall(player, direction)
                 && checkForPlayer(player, direction, moveActions);
     }
 
     public boolean hasWall(Player player, Direction direction) {
-        for (IPiece piece : board.getCellAt(player.getPos()).getPiecesInCell()) {
+
+        ICell nextCell = board.getCellAt(player.getPos().changePos(direction));
+        if(nextCell == null){
+            return false;
+        }
+
+        List<IPiece> pieces = board.getCellAt(player.getPos()).getPiecesInCell();
+
+        for (IPiece piece : pieces) {
             if (piece instanceof Wall && piece.getPieceDirection() == direction) {
                 return true;
             }
@@ -95,6 +116,11 @@ public class Checker2 {
     public boolean checkForPlayer(Player player, Direction direction, List<PlayerAction> moveActions) {
         Position playerPos = player.getPos();
         Position nextPos = playerPos.changePos(direction);
+        ICell nextCell = board.getCellAt(nextPos);
+        if(nextCell == null){
+            return true;
+        }
+
         List<IPiece> nextCellPieces = board.getCellAt(nextPos).getPiecesInCell();
 
         for (IPiece piece : nextCellPieces) {
