@@ -72,7 +72,7 @@ for å spørre om hjelp.
 
 - [X] Man må kunne spille en komplett runde
 
-- [ ] Man må kunne vinne spillet ved å besøke siste flagg
+- [X] Man må kunne vinne spillet ved å besøke siste flagg
   (fullføre et spill)
 
 - [X] Det skal være lasere på brettet
@@ -84,9 +84,9 @@ for å spørre om hjelp.
 - [X] Spillmekanismer for å skyte andre spillere innen rekkevidde med
   laser som peker rett frem
 
-- [ ] fungerende samlebånd på brettet som flytter robotene
+- [X] fungerende samlebånd på brettet som flytter robotene
 
-- [ ] fungerende gyroer på brettet som flytter robotene
+- [X] fungerende gyroer på brettet som flytter robotene
 
 - [ ] game over etter 3 tapte liv
 
@@ -98,11 +98,18 @@ for å spørre om hjelp.
 
 - [ ] power down
 
-- [ ] samlebånd som går i dobbelt tempo
+- [X] samlebånd som går i dobbelt tempo
 
-- [ ] spille mot AI (single-player-mode), evt spill mot random-robote
+- [X] spille mot AI (single-player-mode), evt spill mot random-robote
 
 ## Kode
 
+
 ### Kjente feil og svakheter
+- Hvis to roboter står på hver sin conveyor som facer mot hverandre 
+  så vil de gå gjennom hverandre og bytte plass. Derfor har vi designet brettene
+  våres slik at dette aldri vil skje.
+
+- Når en robot dør vil den spawne på sitt siste respawn-point,
+  hvis det da er en annen robot på den plassen vil de ende opp oppå hverandre
 
