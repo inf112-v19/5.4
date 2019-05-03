@@ -125,6 +125,7 @@ public class RoboRallyGame {
             // Sorts all phase-cards.
             Collections.sort(onePhaseProgramCards);
 
+            List<List<PlayerAction>> onePhaseActionsList = new ArrayList<>();
 
             for (PlayerAndProgramCard playerAndProgramCard : onePhaseProgramCards) {
 
@@ -134,16 +135,17 @@ public class RoboRallyGame {
                 // All the actions originating from ONE card.
                 List<List<PlayerAction>> cardActions = checker.doAction(card.getCardType().getAction(), currentPlayer);
 
-                System.out.println("Actions in actionList: ");
+                /*System.out.println("Actions in actionList: ");
                 for (List<PlayerAction> tempBig : cardActions) {
                     System.out.println("----------");
                     for (PlayerAction pa : tempBig) {
                         System.out.println("Player: " + pa.getPlayer().getName() + " Action: " + pa.getAction().getDescription());
                     }
 
-                }
-                allActions.add(cardActions);
+                }*/
+                onePhaseActionsList.addAll(cardActions);
             }
+            allActions.add(onePhaseActionsList);
 
             // Conveyors actions for one round, added
             conveyorActions.add(checker.doPiecesMoves(players));
