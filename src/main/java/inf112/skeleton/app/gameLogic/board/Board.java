@@ -3,6 +3,7 @@ package inf112.skeleton.app.gameLogic.board;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.board.pieces.IPiece;
+import inf112.skeleton.app.gameLogic.board.pieces.SpawnPlatform;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.game.FlagOrganizer;
@@ -22,6 +23,7 @@ public class Board implements IBoard {
     // In the future we might make a MegaBoard or something.
     public int boardWidth;
     public int boardHeight;
+    private List<SpawnPlatform> spawnPlatforms;
 
     List<Player> deadPlayers;
 
@@ -31,6 +33,7 @@ public class Board implements IBoard {
         JSONBoardGenerator jsonBoardGenerator = new JSONBoardGenerator();
         board = jsonBoardGenerator.generateJsonBoard(path);
         flags = jsonBoardGenerator.getFlags();
+        spawnPlatforms = jsonBoardGenerator.getSpawnPlatforms();
         // Again, assuming it's square. Might break in the future.
         boardWidth = board.length;
         boardHeight = board[0].length;
@@ -59,6 +62,10 @@ public class Board implements IBoard {
             System.out.print(" | ");
             System.out.println();
         }
+    }
+
+    public List<SpawnPlatform> getSpawnPlatforms() {
+        return spawnPlatforms;
     }
 
     @Override

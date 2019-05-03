@@ -10,6 +10,7 @@ import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.ProgramCardDeck;
 import inf112.skeleton.app.gameLogic.board.Board;
+import inf112.skeleton.app.gameLogic.board.pieces.SpawnPlatform;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import java.util.ArrayList;
@@ -24,12 +25,13 @@ public class RoboRallyGame {
     private int totalPlayers = 3;   // Total players in the game
     private List<Player> players;       // Players in the game
     private int startHealth = 3;
-    private String boardPath = "Board2.json";
+    private String boardPath = "Board1.json";
     private LaserCalculator laserCalculator;
 
     private ProgramCardDeck deck;
     private Player currentPlayer;
     private Board board;
+    private List<SpawnPlatform> spawnPlatforms;
 
     private Checker2 checker2;
 
@@ -37,14 +39,21 @@ public class RoboRallyGame {
 
         this.guiScreen = guiScreen;
         this.board = new Board("Captain Hook", boardPath);
+        this.spawnPlatforms = board.getSpawnPlatforms();
         this.checker2 = new Checker2(board);
 
         this.deck = new ProgramCardDeck();  // Deck of cards in the game
 
         players = new ArrayList<Player>();
+
         for (int i = 0; i < totalPlayers; i++) {
-            Position position = new Position(i + 5, 7);
-            //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
+            Position position = new Position(0,0);
+            for(SpawnPlatform spawnPlatform : spawnPlatforms){
+                if(spawnPlatform.getPlatformNumber() == (i+1)){
+                    position = spawnPlatform.getPosition();
+                    break;
+                }
+            }
             players.add(new Player(Integer.toString(i), position, Direction.SOUTH, startHealth));
             board.addPiece(position, players.get(i));
             System.out.println("player made!!");
