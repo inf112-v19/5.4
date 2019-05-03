@@ -112,3 +112,9 @@ for å spørre om hjelp.
 - Når en robot dør vil den spawne på sitt siste respawn-point,
   hvis det da er en annen robot på den plassen vil de ende opp oppå hverandre
 
+### Hvordan bygge, teste og kjøre koden
+1. Clone and open project in IntelliJ.
+2. Try to run Main/the tests (and fail).
+3. Go to Run > Edit Configurations.
+4. Set "Working directory" to "...\src\main\java\inf112\skeleton\app\assets".
+5. Run successfully!
