@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import inf112.skeleton.app.GUI.board.DisplayLog;
 import inf112.skeleton.app.GUI.board.GUIBoard;
 import inf112.skeleton.app.GUI.board.Stats;
 import inf112.skeleton.app.GUI.cards.GUIDeck;
@@ -44,7 +45,9 @@ public class MainGameScreen implements Screen {
     GUIDeck guiDeck;
     Cell guiDeckCell;
 
-    public MainGameScreen(int numberOfPlayers) {
+    DisplayLog displayLog;
+
+    public MainGameScreen(int numberOfPlayers, boolean isPvpMatch) {
 
         //SoundPlayer.GameSound.PLAY_MUSIC.playSound();
 
@@ -66,8 +69,11 @@ public class MainGameScreen implements Screen {
         // Get the players from the game.
         this.players = roboRallyGame.getPlayers();
 
-        this.piecesBoard = new GUIBoard(this.roboRallyGame.getBoard());
-        this.robotsBoard = new GUIBoard(this.roboRallyGame.getBoard());
+        this.displayLog = new DisplayLog();
+        this.stats = new Stats(skin, players.get(0), displayLog);
+
+        this.piecesBoard = new GUIBoard(this.roboRallyGame.getBoard(), this.displayLog);
+        this.robotsBoard = new GUIBoard(this.roboRallyGame.getBoard(), this.displayLog);
         this.robotsBoard.makeBoardInvisible();
         //piecesBoard.addPlayers(players);
 
@@ -173,7 +179,7 @@ public class MainGameScreen implements Screen {
         boards.add(piecesBoard);
         boards.add(robotsBoard);
 
-        this.stats = new Stats(skin, players.get(0));
+        this.displayLog = new DisplayLog();
 
         // Add everything to the main table.
         topBar.add().prefWidth(200);

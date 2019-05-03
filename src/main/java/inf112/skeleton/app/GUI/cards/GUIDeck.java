@@ -216,10 +216,10 @@ public class GUIDeck extends Table {
             public void changed(ChangeEvent event, Actor actor) {
                 clearChildren();
 
-                TextButton againBtn = new TextButton("Pick again", skin);
+                /*TextButton againBtn = new TextButton("Pick again", skin);
                 addPickAgainButton(againBtn);
 
-                add(againBtn);
+                add(againBtn);*/
 
             }
         });

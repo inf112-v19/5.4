@@ -15,8 +15,10 @@ import java.util.List;
 
 public class AnimationController {
 
-    public AnimationController() {
+    private DisplayLog displayLog;
 
+    public AnimationController(DisplayLog displayLog) {
+        this.displayLog = displayLog;
     }
 
     public SequenceAction getAllActionsSequenced(List<List<List<PlayerAction>>> allPlayerActions, List<Action> laserAnimations,
@@ -82,7 +84,9 @@ public class AnimationController {
                         printString += " IN " + actionDir + " DIRECTION!";
                     }
 
-                    System.out.println(printString);
+                    displayLog.updateLog(printString);
+
+                    //System.out.println(printString);
                 }
             };
 
@@ -101,7 +105,7 @@ public class AnimationController {
         parallelAction.addAction(new RunnableAction(){
             @Override
             public void run() {
-                System.out.println("-- CONVEYORS --");
+                displayLog.updateLog("-- CONVEYORS --");
                 //SoundPlayer.GameSound.ROTATE.playSound();
             }
 

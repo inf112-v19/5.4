@@ -37,7 +37,8 @@ public class Player implements IPlayer {
     private Stack<ProgramCard> playerDeck;
     private MovableGUIRobot robot;
     private RespawnPoint respawnPoint;
-    private Boolean ai;
+    private boolean isAi;
+    private boolean isAlive;
 
 
 
@@ -45,7 +46,7 @@ public class Player implements IPlayer {
     /**
      * Constructs a player object with position, direction and health
      */
-    public Player(String name, Position pos, Direction dir, int health, Boolean ai) {
+    public Player(String name, Position pos, Direction dir, int health, boolean isAi) {
         this.name = name;
         this.pos = pos;
         this.facingDir = dir;
@@ -54,7 +55,8 @@ public class Player implements IPlayer {
         this.damageTokens = 0;
         this.robot = new MovableGUIRobot(1);
         this.respawnPoint = new RespawnPoint(pos, 1);
-        this.ai = ai;
+        this.isAi = isAi;
+        this.isAlive = true;
 
     }
 
@@ -76,8 +78,11 @@ public class Player implements IPlayer {
 
     public PlayerAction die() {
         this.health--;
+        this.damageTokens = 0;
         System.out.println("YOU LOST HP, NEW HP: " + this.health);
         this.pos = respawnPoint.getPos();
+        this.isAlive = false;
+
         return new PlayerAction(this, Action.DIE, facingDir);
     }
 
@@ -91,8 +96,7 @@ public class Player implements IPlayer {
         if (damageTokens + amountOfDamage < 10) {
             damageTokens += amountOfDamage;
         } else {
-            damageTokens = 0;
-            health--;
+            this.die();
         }
     }
 
@@ -217,15 +221,6 @@ public class Player implements IPlayer {
         return this.pos;
     }
 
-    /**
-     * @return true if piece's health is above 0, otherwise false
-     */
-    @Override
-    public boolean isAlive() {
-        return this.health > 0;
-    }
-
-
     @Override
     public IPiece getType() {
         return null;
@@ -275,5 +270,13 @@ public class Player implements IPlayer {
         this.playerDeck = playerDeck;
     }
 
-    public Boolean getAi() { return ai; }
+    public boolean isAi() { return this.isAi; }
+
+    public boolean isDead() {
+        return !isAlive;
+    }
+
+    public void setAlive() {
+        this.isAlive = true;
+    }
 }

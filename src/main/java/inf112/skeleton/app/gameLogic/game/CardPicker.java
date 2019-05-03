@@ -45,16 +45,18 @@ public class CardPicker {
 
     public void pickPlayerCards(){
         this.currentPlayer = players.get(counter);
-        cardsToDraw -= currentPlayer.getDamageTokens();
 
-        if (this.currentPlayer.getAi()==false) {
-            List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
-            this.rbg.guiScreen.pickCardPhase(cards, currentPlayer);
-        }
-        else {
+
+        if (this.currentPlayer.isAi()) {
             cardsToDraw = 5;
             List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
             postPick(cards);
+
+        }
+        else {
+            cardsToDraw = 9-currentPlayer.getDamageTokens();
+            List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
+            this.rbg.guiScreen.pickCardPhase(cards, currentPlayer);
         }
     }
 

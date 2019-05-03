@@ -14,6 +14,7 @@ import java.util.List;
 
 public class Stats extends Table {
 
+    private DisplayLog displayLog;
     Sprite heartSprite;
     Sprite dtSprite;
     List<Image> hearties;
@@ -23,12 +24,14 @@ public class Stats extends Table {
     Label hpLabel;
     Label dtLabel;
 
-    public Stats(Skin skin, Player player) {
+    public Stats(Skin skin, Player player, DisplayLog displayLog) {
         this.skin = skin;
+        this.setDebug(true);
         this.defaults().size(40).left();
         heartSprite = new Sprite(new Texture(Gdx.files.internal("board/heart.png")));
         dtSprite = new Sprite(new Texture(Gdx.files.internal("board/damageToken.png")));
 
+        this.displayLog = displayLog;
 
         this.hpLabel = new Label("HEALTH", skin);
         hpLabel.setAlignment(Align.left);
@@ -67,6 +70,12 @@ public class Stats extends Table {
             Image stonie = new Image(dtSprite.getTexture());
             this.add(stonie).uniform();
         }
+
+        this.row();
+
+        Label logLabel = new Label(displayLog.getLog(), skin);
+        logLabel.setAlignment(Align.top);
+        this.add(logLabel);
 
     }
 

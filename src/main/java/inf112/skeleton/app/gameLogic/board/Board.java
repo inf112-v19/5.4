@@ -129,7 +129,8 @@ public class Board implements IBoard {
     }
 
     public void killPlayer(Player player) {
-        this.deadPlayers.add(player);
+        //this.deadPlayers.add(player);
+        //player.die();
         player.die();
     }
 

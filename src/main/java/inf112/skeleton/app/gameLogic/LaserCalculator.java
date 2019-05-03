@@ -44,9 +44,12 @@ public class LaserCalculator {
 
         }
         for (Player player : players) {
-            int x = player.getPos().getX();
-            int y = player.getPos().getY();
-            placeLaser(player.getDirection(), x, y, player.getLaserShooter(), lasers);
+            if(!player.isDead()){
+                int x = player.getPos().getX();
+                int y = player.getPos().getY();
+                placeLaser(player.getDirection(), x, y, player.getLaserShooter(), lasers);
+            }
+
 
         }
 

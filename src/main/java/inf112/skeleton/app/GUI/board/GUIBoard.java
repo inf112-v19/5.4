@@ -27,6 +27,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 public class GUIBoard extends Table {
 
 
+    private DisplayLog displayLog;
     // How many X and Y tiles are generated.
     int xGridSize;
     int yGridSize;
@@ -69,11 +70,12 @@ public class GUIBoard extends Table {
      *
      * @param board
      */
-    public GUIBoard(Board board) {
+    public GUIBoard(Board board, DisplayLog displayLog) {
 
         this(board.getBoardHeight(), board.getBoardWidth());
         this.gamelogicBoard = board;
-
+        this.displayLog = displayLog;
+        
         int boardHeight = board.getBoardHeight();
         int boardWidth = board.getBoardWidth();
 
@@ -152,7 +154,7 @@ public class GUIBoard extends Table {
     public void doGUIActions(List<List<List<PlayerAction>>> allPlayerActions, List<Action> laserAnimations,
                              List<List<PlayerAction>> conveyorActions, RunnableAction postExectionAction) {
 
-        this.addAction(new AnimationController().getAllActionsSequenced(allPlayerActions,
+        this.addAction(new AnimationController(displayLog).getAllActionsSequenced(allPlayerActions,
                 laserAnimations,conveyorActions, postExectionAction));
     }
 
@@ -182,8 +184,8 @@ public class GUIBoard extends Table {
 
     public SequenceAction getLaserAnimations(List<Laser> lasers){
 
-        DelayAction laserDelayAction = new DelayAction(2);
-        DelayAction postDelayAction = new DelayAction(1);
+        DelayAction laserDelayAction = new DelayAction(1);
+        DelayAction postDelayAction = new DelayAction(0.5f);
 
         RunnableAction addLasersAnimation = new RunnableAction(){
             @Override

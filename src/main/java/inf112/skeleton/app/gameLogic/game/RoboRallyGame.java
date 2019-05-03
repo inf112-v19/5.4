@@ -113,6 +113,20 @@ public class RoboRallyGame {
                 List<List<PlayerAction>> cardActions = checker2.doCard(card, currentPlayer);
 
                 onePhaseActionsList.addAll(cardActions);
+
+                /*onePhaseActionsList.add(new ArrayList<List>(){{
+                    add(new ArrayList<RunnableAction>(){{add(
+                        new RunnableAction(){
+                            @Override
+                            public void run() {
+
+                            }
+
+                            {
+
+                        }}
+                );}});
+                }});*/  //guiScreen.updateStats(currentPlayer);
             }
             allActions.add(onePhaseActionsList);
 
@@ -133,11 +147,14 @@ public class RoboRallyGame {
         return new RunnableAction() {
             @Override
             public void run() {
-                guiScreen.updateStats(currentPlayer);
 
-                List<Player> deadPlayers = board.getDeadPlayers();
-                for (Player currPlayer : deadPlayers) {
-                    guiScreen.getGUIBoard().respawnPlayer(currPlayer);
+                //List<Player> deadPlayers = board.getDeadPlayers();
+                for (Player currPlayer : players) {
+                    if(currPlayer.isDead()){
+                        System.out.println("EEYOO IM DEEEAD LMAO");
+                        currPlayer.setAlive();
+                        guiScreen.getGUIBoard().respawnPlayer(currPlayer);
+                    }
                 }
 
                 Player possiblyWinningPlayer = checker2.someoneHasWon(players);
@@ -187,6 +204,7 @@ public class RoboRallyGame {
 
     public void pveGenerator() {
         for (int i = 0; i < totalPlayers; i++) {
+
             if (i == 0) {
                 Position position = new Position(0,0);
                 for(SpawnPlatform spawnPlatform : spawnPlatforms){
@@ -198,6 +216,7 @@ public class RoboRallyGame {
                 players.add(new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, false));
                 board.addPiece(position, players.get(i));
             }
+
             else {
                 Position position = new Position(0,0);
                 for(SpawnPlatform spawnPlatform : spawnPlatforms){
