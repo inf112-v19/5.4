@@ -23,7 +23,7 @@ public class RoboRallyGame {
     // The GUI.
     MainGameScreen guiScreen;
 
-    private int totalPlayers = 4;   // Total players in the game
+    private int totalPlayers;   // Total players in the game
     private List<Player> players;       // Players in the game
     private int startHealth = 3;
     private String boardPath = "Board1.json";
@@ -50,26 +50,7 @@ public class RoboRallyGame {
 
         players = new ArrayList<Player>();
 
-
         pveGenerator();
-
-        /**
-        for (int i = 0; i < totalPlayers; i++) {
-            Position position = new Position(0,0);
-            for(SpawnPlatform spawnPlatform : spawnPlatforms){
-                if(spawnPlatform.getPlatformNumber() == (i+1)){
-                    position = spawnPlatform.getPosition();
-                    break;
-                }
-            }
-            players.add(new Player(Integer.toString(i), position, Direction.SOUTH, startHealth));
-            Position position = new Position(i + 5, 7);
-            //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
-            players.add(new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, false));
-            board.addPiece(position, players.get(i));
-            System.out.println("player made!!");
-         }
-         */
 
         board.displayBoard();
 
@@ -232,14 +213,26 @@ public class RoboRallyGame {
     public void pveGenerator() {
         for (int i = 0; i < totalPlayers; i++) {
             if (i == 0) {
-                Position position = new Position(i + 5, 7);
+                Position position = new Position(0,0);
+                for(SpawnPlatform spawnPlatform : spawnPlatforms){
+                    if(spawnPlatform.getPlatformNumber() == (i+1)){
+                        position = spawnPlatform.getPosition();
+                        break;
+                    }
+                }
                 //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
                 players.add(new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, false));
                 board.addPiece(position, players.get(i));
                 System.out.println("player made!!");
             }
             else {
-                Position position = new Position(i + 5, 7);
+                Position position = new Position(0,0);
+                for(SpawnPlatform spawnPlatform : spawnPlatforms){
+                    if(spawnPlatform.getPlatformNumber() == (i+1)){
+                        position = spawnPlatform.getPosition();
+                        break;
+                    }
+                }
                 //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
                 players.add(new Player(Integer.toString(i), position, Direction.SOUTH, startHealth, true));
                 board.addPiece(position, players.get(i));
