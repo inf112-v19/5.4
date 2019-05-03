@@ -31,13 +31,18 @@ public class JSONBoardGenerator {
             Object boardFile = parser.parse(new FileReader(filepath));
 
             JSONObject jsonBoardFile = (JSONObject) boardFile;
-            int jsonSize = jsonBoardFile.size();
-            jsonBoardPieceList = new ICell[jsonSize][jsonSize];
+            JSONObject sizeboi = (JSONObject) jsonBoardFile.get("-1");
+
+            System.out.println(sizeboi.values());
+            Object[] objects = sizeboi.values().toArray();
+            int width = Integer.parseInt(objects[0].toString());
+            int height = Integer.parseInt(objects[1].toString());
+            jsonBoardPieceList = new ICell[height][width];
             System.out.println(jsonBoardFile);
 
 
-            for (int y = 0; y <= jsonSize - 1; y++) {
-                for (int x = 0; x <= jsonSize - 1; x++) {
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
                     Cell tempCell = new Cell();
                     jsonBoardPieceList[y][x] = tempCell;
                 }
@@ -45,11 +50,11 @@ public class JSONBoardGenerator {
 
             // Add all pieces.
 
-            for (int y = 0; y <= jsonSize - 1; y++) {
-                for (int x = 0; x <= jsonSize - 1; x++) {
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
                     ICell tempCell = jsonBoardPieceList[y][x];
-                    String intX = Integer.toString(x);
                     String intY = Integer.toString(y);
+                    String intX = Integer.toString(x);
 
                     JSONObject yCord = (JSONObject) jsonBoardFile.get(intY);
                     JSONArray xCord = (JSONArray) yCord.get(intX);

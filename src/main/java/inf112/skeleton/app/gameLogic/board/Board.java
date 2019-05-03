@@ -20,8 +20,8 @@ public class Board implements IBoard {
 
     // Assuming all boards are square for ease of use.
     // In the future we might make a MegaBoard or something.
-    int boardWidth;
-    int boardHeight;
+    public int boardWidth;
+    public int boardHeight;
 
     List<Player> deadPlayers;
 
@@ -32,8 +32,8 @@ public class Board implements IBoard {
         board = jsonBoardGenerator.generateJsonBoard(path);
         flags = jsonBoardGenerator.getFlags();
         // Again, assuming it's square. Might break in the future.
-        boardHeight = board.length;
-        boardWidth = board[0].length;
+        boardWidth = board.length;
+        boardHeight = board[0].length;
         deadPlayers = new ArrayList<>();
     }
 
@@ -45,8 +45,8 @@ public class Board implements IBoard {
      * Method for displaying the cells in the GUIBoard
      */
     public void displayBoard() {
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
+        for (int i = 0; i < boardWidth; i++) {
+            for (int j = 0; j < boardHeight; j++) {
                 System.out.print("| ");
                 if (board[i][j] == null) {
                     System.out.print("empty");
@@ -115,6 +115,8 @@ public class Board implements IBoard {
         return null;
     }
 
+
+
     public IPiece cellContainsClass(Position pos, Class piece) {
         for (IPiece currPiece : getCellAt(pos).getPiecesInCell()) {
             if (currPiece.getClass() == piece) {
@@ -165,11 +167,11 @@ public class Board implements IBoard {
     }
 
     private boolean insideY(Position playerPos) {
-        return (playerPos.getY() < boardHeight && playerPos.getY() >= 0);
+        return (playerPos.getY() < boardWidth && playerPos.getY() >= 0);
     }
 
     private boolean insideX(Position playerPos) {
-        return (playerPos.getX() < boardWidth && playerPos.getX() >= 0);
+        return (playerPos.getX() < boardHeight && playerPos.getX() >= 0);
     }
 
     public int getBoardWidth() {

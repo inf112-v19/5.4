@@ -16,6 +16,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 import static org.junit.Assert.assertEquals;
@@ -123,20 +124,21 @@ public class PlayerActionTest extends GameTest {
         assertEquals(1, player.getRespawnPoint().getNextFlag());
         game.getChecker().doAction(new PlayerAction(player, Action.MOVE_1, player.getDirection()));
         //checker.doAction();
-        game.getChecker().checkForFlag(player);
+        List<Player> players = new LinkedList<>();
+        players.add(player);
+        game.getChecker().checkForFlag(players);
         assertEquals(2, player.getRespawnPoint().getNextFlag());
     }
 
     @Test
     public void testStoppingOnLastFlag() {
         player = new Player("1", new Position(0, 7), Direction.NORTH, 3);
+        List<Player> players = new LinkedList<>();
+        players.add(player);
         assertEquals(1, player.getRespawnPoint().getNextFlag());
-        Queue<PlayerAction> playerActionQueue = new LinkedList<>();
         for (int i = 0; i < 2; i++) {
-
-            //Checker checker = new Checker(player, Action.MOVE_1, game.getBoard(), playerActionQueue);
             game.getChecker().doAction(new PlayerAction(player, Action.MOVE_1, player.getDirection()));
-            game.getChecker().checkForFlag(player);
+            game.getChecker().checkForFlag(players);
         }
         assertEquals(2, game.getBoard().getFlags().getNumberOfFlags());
         assertEquals(2, player.getRespawnPoint().getNextFlag());

@@ -80,7 +80,7 @@ public class GUIBoard extends Table {
 
         for(int y=0; y<boardHeight; y++){
             for(int x = 0; x<boardWidth; x++ ){
-                ICell currCell = board.getCellAt(x, y);
+                ICell currCell = board.getCellAt(y, x);
                 if (currCell != null) {
                     //ICell currCell = board.getCellAt(2, 0);
                     List<IPiece> pieces = currCell.getPiecesInCell();
@@ -90,7 +90,7 @@ public class GUIBoard extends Table {
                             continue;
                         }
                         // Finds the appropriate GUIPiece for the board piece.
-                        this.addGUIPiece(x, y, currPiece.getGUIPiece());
+                        this.addGUIPiece(y, x, currPiece.getGUIPiece());
                     }
                 }
 

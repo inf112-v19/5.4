@@ -189,18 +189,20 @@ public class Checker2 {
         return moveActions;
     }
 
-    public void checkForFlag(Player player) {
+    public void checkForFlag(List<Player> players) {
         //checks if the players position is the same as the flag the player is looking for
-        if (player.getPos().equals(board.getFlags().getFlagPos(player.getRespawnPoint().nextFlag))) {
-            System.out.println("Found flag " + player.getRespawnPoint().getNextFlag());
-            SoundPlayer.GameSound.FLAG_PICKUP.playSound();
-            if (player.getRespawnPoint().nextFlag == board.getFlags().getNumberOfFlags()) {
-                for (int i = 0; i < 10; i++) {
-                    System.out.println("GOT THE LAST FLAG!!! Flag: " + player.getRespawnPoint().getNextFlag());
+        for(Player player : players){
+            if (player.getPos().equals(board.getFlags().getFlagPos(player.getRespawnPoint().nextFlag))) {
+                System.out.println("Found flag " + player.getRespawnPoint().getNextFlag());
+                SoundPlayer.GameSound.FLAG_PICKUP.playSound();
+                if (player.getRespawnPoint().nextFlag == board.getFlags().getNumberOfFlags()) {
+                    for (int i = 0; i < 10; i++) {
+                        System.out.println("GOT THE LAST FLAG!!! Flag: " + player.getRespawnPoint().getNextFlag());
+                    }
+                } else {
+                    player.setNextFlag();
+                    System.out.println("Next Flag is " + player.getRespawnPoint().getNextFlag());
                 }
-            } else {
-                player.setNextFlag();
-                System.out.println("Next Flag is " + player.getRespawnPoint().getNextFlag());
             }
         }
     }
