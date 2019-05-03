@@ -1,5 +1,6 @@
 package inf112.skeleton.app.gameLogic.game;
 
+import inf112.skeleton.app.GUI.SoundPlayer;
 import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.ProgramCard;
@@ -64,6 +65,9 @@ public class Checker2 {
         if (canPlayerMove(player, direction, moveActions)) {
             moveActions.add(board.movePlayer(player,direction));
         }
+        if(board.insideBoard(player, direction)){
+            System.out.println("Player is outside board");
+        }
     }
 
     public boolean canPlayerMove(Player player, Direction direction, List<PlayerAction> moveActions) {
@@ -123,6 +127,22 @@ public class Checker2 {
             }
         }
         return moveActions;
+    }
+
+    public void checkForFlag(Player player) {
+        //checks if the players position is the same as the flag the player is looking for
+        if (player.getPos().equals(board.getFlags().getFlagPos(player.getRespawnPoint().nextFlag))) {
+            System.out.println("Found flag " + player.getRespawnPoint().getNextFlag());
+            SoundPlayer.GameSound.FLAG_PICKUP.playSound();
+            if (player.getRespawnPoint().nextFlag == board.getFlags().getNumberOfFlags()) {
+                for (int i = 0; i < 10; i++) {
+                    System.out.println("GOT THE LAST FLAG!!! Flag: " + player.getRespawnPoint().getNextFlag());
+                }
+            } else {
+                player.setNextFlag();
+                System.out.println("Next Flag is " + player.getRespawnPoint().getNextFlag());
+            }
+        }
     }
 
 }

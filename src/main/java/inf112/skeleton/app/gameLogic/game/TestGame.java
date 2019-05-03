@@ -15,14 +15,14 @@ public class TestGame {
     private Queue<PlayerAction> playerActionList;
     private PlayerActionWrapper GUIplayeractionList;
     private Board board;
-    private Checker checker;
+    private Checker2 checker;
 
     public TestGame() {
         this.GUIplayeractionList = new PlayerActionWrapper();
         this.playerList = new ArrayList<>();
         this.playerActionList = new LinkedList<>();
         this.board = new Board("TestBoard", "TestBoard.json");
-        this.checker = new Checker(board);
+        this.checker = new Checker2(board);
     }
 
     public void doAllActions() {
@@ -33,13 +33,13 @@ public class TestGame {
                 playerAction.getPlayer().takeDamage(playerAction.getAction().getValue());
             }
             //Checker checker = new Checker(playerAction.getPlayer(), playerAction.getAction(), board, GUIplayeractionList);
-            List<List<PlayerAction>> boss = checker.doAction(playerAction.getAction(), playerAction.getPlayer());
+            List<PlayerAction> boss = checker.doAction(playerAction);
             //checker.doAction();
         }
 
     }
 
-    public Checker getChecker() {
+    public Checker2 getChecker() {
         return checker;
     }
 

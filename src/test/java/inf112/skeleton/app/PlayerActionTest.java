@@ -10,7 +10,6 @@ import inf112.skeleton.app.gameLogic.ProgramCardDeck;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.game.PlayerAction;
-import inf112.skeleton.app.gameLogic.game.PlayerActionWrapper;
 import inf112.skeleton.app.gameLogic.game.TestGame;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +25,6 @@ public class PlayerActionTest extends GameTest {
 
     private Player player;
     private TestGame game;
-    private PlayerActionWrapper playerActionQueue;
 
     @Before
     public void setupActionTest() {
@@ -35,10 +33,8 @@ public class PlayerActionTest extends GameTest {
         Gdx.files = new LwjglFiles();
 
         System.out.println(new File("DankBoard.json").getAbsoluteFile());
-        //new LwjglApplication(new GUIMain());
         game = new TestGame();
         player = new Player("1", new Position(7, 7), Direction.NORTH, 3);
-        playerActionQueue = new PlayerActionWrapper();
     }
 
     @Test
@@ -125,10 +121,7 @@ public class PlayerActionTest extends GameTest {
     public void testStoppingOnFlagChangesNextFlag() {
         player = new Player("1", new Position(0, 7), Direction.NORTH, 3);
         assertEquals(1, player.getRespawnPoint().getNextFlag());
-        //PlayerAction playerAction = new PlayerAction(player, Action.MOVE_1);
-
-        //Checker checker = new Checker(player, Action.MOVE_1, game.getBoard(), playerActionQueue);
-        game.getChecker().doAction(Action.MOVE_1, player);
+        game.getChecker().doAction(new PlayerAction(player, Action.MOVE_1, player.getDirection()));
         //checker.doAction();
         game.getChecker().checkForFlag(player);
         assertEquals(2, player.getRespawnPoint().getNextFlag());
@@ -138,12 +131,11 @@ public class PlayerActionTest extends GameTest {
     public void testStoppingOnLastFlag() {
         player = new Player("1", new Position(0, 7), Direction.NORTH, 3);
         assertEquals(1, player.getRespawnPoint().getNextFlag());
-        //PlayerAction playerAction = new PlayerAction(player, Action.MOVE_1);
         Queue<PlayerAction> playerActionQueue = new LinkedList<>();
         for (int i = 0; i < 2; i++) {
 
             //Checker checker = new Checker(player, Action.MOVE_1, game.getBoard(), playerActionQueue);
-            game.getChecker().doAction(Action.MOVE_1, player);
+            game.getChecker().doAction(new PlayerAction(player, Action.MOVE_1, player.getDirection()));
             game.getChecker().checkForFlag(player);
         }
         assertEquals(2, game.getBoard().getFlags().getNumberOfFlags());

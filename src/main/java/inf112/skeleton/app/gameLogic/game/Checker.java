@@ -1,3 +1,4 @@
+/*
 package inf112.skeleton.app.gameLogic.game;
 
 import inf112.skeleton.app.GUI.SoundPlayer;
@@ -61,6 +62,7 @@ public class Checker {
             board.movePlayer(player, playerMoveDir);
             return calculatedMoves;
         }*/
+/*
         return calculatedMoves;
     }
 
@@ -87,7 +89,7 @@ public class Checker {
         Direction oppositeDir = goingDir.oppositeDir();
 
         // Checks if player goes outside board, and should die.
-        if (!board.insideBoard(player.getPos(), goingDir)) {
+        if (!board.insideBoard(player) {
             player.die();
             return moveActions;
         }
@@ -111,6 +113,7 @@ public class Checker {
                     if(moveActions.size() > 0){
                         //moveActions.add(player.move(goingDir));
                     }*/
+/*
                     return moveActions;
                 }
             }
@@ -196,3 +199,4 @@ public class Checker {
 
     }
 }
+*/

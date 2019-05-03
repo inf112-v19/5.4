@@ -157,13 +157,12 @@ public class Board implements IBoard {
         return this.getCellAt(pos).getPiecesInCell().contains(piece);
     }
 
-    public boolean insideBoard(Position playerPos, Direction playerDir) {
-        Position posAfterMove = playerPos.changePos(playerDir);
-        System.out.println("Pos after theoretical move " + posAfterMove.toString());
-        if (posAfterMove.getY() >= boardHeight || posAfterMove.getY() < 0) {
+    public boolean insideBoard(Player player, Direction goingDir) {
+        Position playerPos = player.getPos();
+        if (playerPos.getY() >= boardHeight || playerPos.getY() < 0) {
             return false;
         }
-        if (posAfterMove.getX() >= boardWidth || posAfterMove.getX() < 0) {
+        if (playerPos.getX() >= boardWidth || playerPos.getX() < 0) {
             return false;
         }
         return true;
