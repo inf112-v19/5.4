@@ -24,7 +24,7 @@ public class RoboRallyGame {
     private int totalPlayers = 3;   // Total players in the game
     private List<Player> players;       // Players in the game
     private int startHealth = 3;
-    private String boardPath = "Board2.json";
+    private String boardPath = "Board1.json";
     private LaserCalculator laserCalculator;
 
     private ProgramCardDeck deck;
