@@ -73,7 +73,17 @@ public class PlayerNumberStage extends Stage{
                 Sound sound = Gdx.audio.newSound(Gdx.files.internal("audio/yeahEcho.mp3"));
 
                 //usernameTextField.getText();
-                int numPlayers = Integer.parseInt(usernameTextField.getText());
+                int numPlayers;
+                try {
+                    numPlayers = Integer.parseInt(usernameTextField.getText());
+                }
+                catch (NumberFormatException e){
+                    numPlayers = 1;
+
+                    System.out.println("defaulting to " + numPlayers + " players");
+
+                }
+
                 MainGameScreen mainGameScreen = new MainGameScreen(numPlayers);
                 game.setScreen(mainGameScreen);
 

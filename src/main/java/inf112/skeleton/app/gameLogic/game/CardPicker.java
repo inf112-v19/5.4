@@ -30,15 +30,14 @@ public class CardPicker {
 
         this.numberOfPhases = 5;
 
-        for(int i = 0; i<numberOfPhases; i++){
-            this.allPhaseCards.add(new ArrayList<>());
-        }
+        resetCards();
         System.out.println("AAAAAAh -- " + this.allPhaseCards.size());
 
     }
 
     public void startCardPicking(){
         this.counter = 0;
+        this.resetCards();
         this.deck = new ProgramCardDeck();
         this.deck.shuffleDeck();
         this.pickPlayerCards();
@@ -97,7 +96,14 @@ public class CardPicker {
 
 
         rbg.executeCards(this.allPhaseCards);
-        allPhaseCards.clear();
-        allPlayerCards.clear();
+
+    }
+
+    public void resetCards(){
+        allPhaseCards = new ArrayList<>();
+        allPlayerCards = new ArrayList<>();
+        for(int i = 0; i<numberOfPhases; i++){
+            this.allPhaseCards.add(new ArrayList<>());
+        }
     }
 }
