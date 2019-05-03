@@ -205,7 +205,8 @@ public class MainGameScreen implements Screen {
      * @param pgCards cards to pick from, usually 9
      * @return picked cards, usually 5
      */
-    public void pickCardPhase(List<ProgramCard> pgCards) {
+    public void pickCardPhase(List<ProgramCard> pgCards, Player currentPlayer) {
+        this.updateStats(currentPlayer);
         Button doneButton = new TextButton("DONE", skin);
         this.guiDeck = new GUIDeck(skin, pgCards, doneButton);
         this.guiDeck.setProgramCards(pgCards);

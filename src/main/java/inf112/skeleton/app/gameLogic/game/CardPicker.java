@@ -38,6 +38,7 @@ public class CardPicker {
     }
 
     public void startCardPicking(){
+        this.counter = 0;
         this.deck = new ProgramCardDeck();
         this.deck.shuffleDeck();
         this.pickPlayerCards();
@@ -47,7 +48,7 @@ public class CardPicker {
         this.currentPlayer = players.get(counter);
         cardsToDraw -= currentPlayer.getDamageTokens();
         List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
-        this.rbg.guiScreen.pickCardPhase(cards);
+        this.rbg.guiScreen.pickCardPhase(cards, currentPlayer);
     }
 
     public void postPick(List<ProgramCard> pickedProgramCards){

@@ -175,6 +175,8 @@ public class RoboRallyGame {
                     guiScreen.getGUIBoard().respawnPlayer(currPlayer);
                 }
 
+                cardPicker.startCardPicking();
+
             }
         };
 
