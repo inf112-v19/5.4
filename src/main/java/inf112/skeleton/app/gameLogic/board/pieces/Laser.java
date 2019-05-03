@@ -1,27 +1,38 @@
 package inf112.skeleton.app.gameLogic.board.pieces;
 
-import inf112.skeleton.app.GUI.pieces.GUILaser;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
+import inf112.skeleton.app.GUI.pieces.LaserGUI;
+import inf112.skeleton.app.GUI.player.Position;
+import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.enums.Direction;
-import inf112.skeleton.app.gameLogic.board.IPiece;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Laser implements IPiece {
 
+    private final Position position;
+    private final GUIPiece guiPiece;
     private Direction direction;
-    private LaserShooter laserShooter;
+    private int damage;
 
-    public Laser(Direction dir, LaserShooter laserShooter){
+    public Laser(Direction dir, int damage, Position position) {
         this.direction = dir;
-        this.laserShooter = laserShooter;
+        this.damage = damage;
+        this.position = position;
+        this.guiPiece = new LaserGUI(this);
     }
 
-    public LaserShooter getLaserShooter() {
-        return laserShooter;
+    @SuppressWarnings("all")
+    public void shootLaser(Position pos, Direction dir, Board board) {
+        List<Laser> laserList = new ArrayList<>();
     }
 
-    public int getDamage(){
-        return laserShooter.getDamage();
+
+    public int getDamage() {
+        return this.damage;
     }
+
     @Override
     public IPiece getType() {
         return null;
@@ -43,7 +54,15 @@ public class Laser implements IPiece {
     }
 
     @Override
-    public GUIPiece getGUIPiece() {
-        return new GUILaser();
+    public GUIPiece getGUIPiece() {return this.guiPiece;
+    }
+
+    @Override
+    public int getSize() {
+        return 2;
+    }
+
+    public Position getPosition() {
+        return this.position;
     }
 }

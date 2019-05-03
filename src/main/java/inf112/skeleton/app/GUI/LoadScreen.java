@@ -1,19 +1,29 @@
 package inf112.skeleton.app.GUI;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import inf112.skeleton.app.gameLogic.game.RoboRallyGame;
+import inf112.skeleton.app.GUI.player.Position;
+import inf112.skeleton.app.GUI.stages.*;
+import inf112.skeleton.app.gameLogic.Player;
+import inf112.skeleton.app.gameLogic.enums.Direction;
 
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class LoadScreen implements Screen {
@@ -36,16 +46,65 @@ public class LoadScreen implements Screen {
 
         this.game = game;
 
-        BitmapFont font = new BitmapFont();
-        font.getData().setScale(3,3);
-        Label.LabelStyle labelStyle = new Label.LabelStyle(font, new Color(1f,1f,0.4f,1f));
+        Skin skin = new Skin(Gdx.files.internal("rusty-robot/skin/rusty-robot-ui.json"));
 
-        Label label = new Label("LET'S ROBO RALLY!", labelStyle);
+        LabelHandler labelHandler = new LabelHandler(skin);
+
+        Label rrLabel = labelHandler.createNewLabel("LET'S ROBO RALLY!",8);
+        //rrLabel.setFontScale(3);
+
+        Label playLabel = labelHandler.createNewLabel("PLAY",8);
+        Label exitLabel = labelHandler.createNewLabel("EXIT",8);
+
+        List<Label> labelList = new ArrayList<Label>();
+        labelList.addAll(Arrays.asList(playLabel, exitLabel));
 
         Table mainTable = new Table();
         mainTable.setFillParent(true);
-        mainTable.add(label).expand().center();
+        mainTable.add(rrLabel).expand().center().top().pad(200).colspan(2);
+        mainTable.row();
+        mainTable.add(playLabel).expand().center().top().pad(200);
+        mainTable.add(exitLabel).expand().center().top().pad(200);
+
         stage.addActor(mainTable);
+
+
+        for (Label currLabel : labelList){
+            labelHandler.addHoverStyle(currLabel);
+        }
+
+        LoadScreen screen = this;
+
+        playLabel.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                setStage(new PlayerNumberStage(viewport, skin, labelHandler, screen, game));
+                //setStage(new GameOverStage(viewport,skin, new Player("Jarle", new Position(1,2), Direction.NORTH, 5)));
+                /*Sound sound = Gdx.audio.newSound(Gdx.files.internal("audio/yeahEcho.mp3"));
+
+                MainGameScreen mainGameScreen = new MainGameScreen();
+                game.setScreen(mainGameScreen);
+
+                sound.play(0.5f);
+                dispose();*/
+            }
+        });
+
+        exitLabel.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+            }
+        });
+
+        //MyTextInputListener listener = new MyTextInputListener();
+        //Gdx.input.getTextInput(listener, "Dialog Title", "Initial Textfield Value", "Hint Value");
+
+
+        TextField usernameTextField = new TextField("", skin);
+        stage.addActor(usernameTextField);
+
+        usernameTextField.getText();
 
         Gdx.input.setInputProcessor(stage);
 
@@ -61,13 +120,14 @@ public class LoadScreen implements Screen {
 
         //camera.update();
 
-        Gdx.gl.glClearColor(0.57f, 0.77f, 0.85f, 1);
+        //Gdx.gl.glClearColor(0.57f, 0.77f, 0.85f, 1);
+        Gdx.gl.glClearColor(0.1f,0.1f,0.1f,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.draw();
         stage.act(Gdx.graphics.getDeltaTime());
 
-        if (Gdx.input.isTouched()) {
+        /*if (Gdx.input.isTouched()) {
 
             Sound sound = Gdx.audio.newSound(Gdx.files.internal("audio/yeahEcho.mp3"));
 
@@ -76,7 +136,7 @@ public class LoadScreen implements Screen {
 
             sound.play(0.5f);
             dispose();
-        }
+        }*/
 
 
     }
@@ -104,5 +164,9 @@ public class LoadScreen implements Screen {
     @Override
     public void dispose() {
 
+    }
+
+    public void setStage(Stage stage){
+        this.stage = stage;
     }
 }

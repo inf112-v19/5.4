@@ -2,17 +2,19 @@ package inf112.skeleton.app.gameLogic.board.pieces;
 
 import inf112.skeleton.app.GUI.pieces.GUIConveyor;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
-import inf112.skeleton.app.gameLogic.board.IPiece;
 import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
-public class Conveyor implements IPiece {
+import java.io.Serializable;
+
+public class Conveyor implements IPiece, Serializable {
 
     private Direction direction;
-    private int speed = 1;
+    private int speed;
 
-    public Conveyor(Direction dir){
+    public Conveyor(Direction dir, int speed) {
         this.direction = dir;
+        this.speed = speed;
     }
 
     public int getSpeed() {
@@ -32,10 +34,14 @@ public class Conveyor implements IPiece {
     @Override
     public char getSymbol() {
         switch (this.direction) {
-            case NORTH: return '↑';
-            case SOUTH: return '↓';
-            case EAST: return '→';
-            default: return '←';
+            case NORTH:
+                return '↑';
+            case SOUTH:
+                return '↓';
+            case EAST:
+                return '→';
+            default:
+                return '←';
         }
     }
 
@@ -49,5 +55,13 @@ public class Conveyor implements IPiece {
     }
 
     @Override
-    public GUIPiece getGUIPiece() { return new GUIConveyor(this.getPieceDirection()); }
+    public GUIPiece getGUIPiece() {
+        return new GUIConveyor(this.getPieceDirection(), this.speed);
+    }
+
+    @Override
+    public int getSize() {
+        return 0;
+    }
+
 }

@@ -1,9 +1,6 @@
 package inf112.skeleton.app.GUI.board;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
@@ -11,27 +8,36 @@ import inf112.skeleton.app.GUI.pieces.GUIPiece;
 public class Tile extends Stack {
 
 
-    public Tile () {
+    public Tile() {
 
-        class BaseTile extends Actor {
-            Sprite sprite = new Sprite(new Texture(Gdx.files.internal("board/base_tile.png")));
+        BaseTile baseTile = new BaseTile();
+        this.addPiece(baseTile);
+    }
 
-            @Override
-            public void draw(Batch batch, float parentAlpha) {
-                batch.draw(sprite, getX(),getY(), getWidth(), getHeight());
-            }
+    public void addPiece(GUIPiece guiPiece) {
+        this.add(guiPiece);
+    }
+
+    public void removePiece(GUIPiece GUIPiece) {
+        this.removeActor(GUIPiece);
+    }
+
+    public void makeTileInvisible() {
+        for (Actor child : this.getChildren()) {
+            child.setVisible(false);
+        }
+    }
+
+    public void lightUpTile() {
+        for (Actor child : this.getChildren()) {
+            child.setColor(Color.ORANGE);
         }
 
-        this.add(new BaseTile());
-        //this.add(new GUIRobot());
     }
 
-    public void addPiece(GUIPiece GUIPiece) {
-        // REMOVE
-        this.add(GUIPiece);
-    }
-
-    public void removePiece(GUIPiece GUIPiece){
-        this.removeActor(GUIPiece);
+    public void resetTileColor() {
+        for (Actor child : this.getChildren()) {
+            child.setColor(Color.WHITE);
+        }
     }
 }

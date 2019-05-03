@@ -7,44 +7,45 @@ import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.game.FlagOrganizer;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
-
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import java.util.LinkedList;
+import java.util.List;
 
 public class JSONBoardGenerator {
 
     JSONParser parser = new JSONParser();
     ICell[][] jsonBoardPieceList;
     private FlagOrganizer flags = FlagOrganizer.getInstance();
+    private List<SpawnPlatform> spawnPlatforms = new LinkedList<>();
 
     public ICell[][] generateJsonBoard(String filepath) {
-
-
-
         try {
 
             System.out.println(new File("xxxxxxxx.").getAbsoluteFile());
 
-
-            //Object boardFile = Gdx.files.internal(filepath);
-
             Object boardFile = parser.parse(new FileReader(filepath));
 
             JSONObject jsonBoardFile = (JSONObject) boardFile;
-            int jsonSize = jsonBoardFile.size();
-            jsonBoardPieceList = new ICell[jsonSize][jsonSize];
-            System.out.println(jsonBoardFile);
+            JSONObject sizeboi = (JSONObject) jsonBoardFile.get("-1");
+
+            //System.out.println(sizeboi.values());
+            Object[] objects = sizeboi.values().toArray();
+            int width = Integer.parseInt(objects[0].toString());
+            int height = Integer.parseInt(objects[1].toString());
+            jsonBoardPieceList = new ICell[height][width];
+            //System.out.println(jsonBoardFile);
 
 
-            for (int y = 0; y <= jsonSize - 1; y++) {
-                for (int x = 0; x <= jsonSize - 1; x++) {
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
                     Cell tempCell = new Cell();
                     jsonBoardPieceList[y][x] = tempCell;
                 }
@@ -52,161 +53,214 @@ public class JSONBoardGenerator {
 
             // Add all pieces.
 
-            for (int y = 0; y <= jsonSize - 1; y++) {
-                for (int x = 0; x <= jsonSize - 1; x++) {
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
                     ICell tempCell = jsonBoardPieceList[y][x];
-                    String intX = Integer.toString(x);
                     String intY = Integer.toString(y);
+                    String intX = Integer.toString(x);
 
                     JSONObject yCord = (JSONObject) jsonBoardFile.get(intY);
                     JSONArray xCord = (JSONArray) yCord.get(intX);
                     Iterator<String> iterator = xCord.iterator();
 
-                    /*JSONObject xCord = (JSONObject) jsonBoardFile.get(intX);
-                    JSONArray yCord = (JSONArray) xCord.get(intY);
-                    Iterator<String> iterator = yCord.iterator();*/
                     while (iterator.hasNext()) {
 
                         String jsonIterator = iterator.next();
-                        System.out.println(jsonIterator);
                         switch (jsonIterator) {
+                            case "SpawnPlatform1":
+                                SpawnPlatform temp = new SpawnPlatform(1, new Position(x,y));
+                                tempCell.addPiece(temp);
+                                spawnPlatforms.add(temp);
+                                break;
+                            case "SpawnPlatform2":
+                                temp = new SpawnPlatform(2, new Position(x,y));
+                                tempCell.addPiece(temp);
+                                spawnPlatforms.add(temp);
+                                break;
+                            case "SpawnPlatform3":
+                                temp = new SpawnPlatform(3, new Position(x,y));
+                                tempCell.addPiece(temp);
+                                spawnPlatforms.add(temp);
+                                break;
+                            case "SpawnPlatform4":
+                                temp = new SpawnPlatform(4, new Position(x,y));
+                                tempCell.addPiece(temp);
+                                spawnPlatforms.add(temp);
+                                break;
+                            case "SpawnPlatform5":
+                                temp = new SpawnPlatform(5, new Position(x,y));
+                                tempCell.addPiece(temp);
+                                spawnPlatforms.add(temp);
+                                break;
+                            case "SpawnPlatform6":
+                                temp = new SpawnPlatform(6, new Position(x,y));
+                                tempCell.addPiece(temp);
+                                spawnPlatforms.add(temp);
+                                break;
+                            case "SpawnPlatform7":
+                                temp = new SpawnPlatform(7, new Position(x,y));
+                                tempCell.addPiece(temp);
+                                spawnPlatforms.add(temp);
+                                break;
+                            case "SpawnPlatform8":
+                                temp = new SpawnPlatform(8, new Position(x,y));
+                                tempCell.addPiece(temp);
+                                spawnPlatforms.add(temp);
+                                break;
+                            case "Repair":
+                                tempCell.addPiece(new Repair());
+                                break;
+                            case "LeftGear":
+                                tempCell.addPiece(new Gears(Action.ROTATE_L));
+                                break;
+                            case "RightGear":
+                                tempCell.addPiece(new Gears(Action.ROTATE_R));
+                                break;
                             case "Hole":
-                                System.out.println("Making Hole!");
                                 tempCell.addPiece(new Hole());
                                 break;
 
                             case "NorthWall":
-                                System.out.println("Making north wall!");
                                 tempCell.addPiece(new Wall(Direction.NORTH));
-                                addOppositeWall(x,y-1,Direction.SOUTH);
+                                addOppositeWall(x, y - 1, Direction.SOUTH);
                                 break;
 
                             case "EastWall":
-                                System.out.println("Making east wall!");
                                 tempCell.addPiece(new Wall(Direction.EAST));
-                                addOppositeWall(x+1,y,Direction.WEST);
+                                addOppositeWall(x + 1, y, Direction.WEST);
                                 break;
 
                             case "SouthWall":
-                                System.out.println("Making south wall!");
                                 tempCell.addPiece(new Wall(Direction.SOUTH));
-                                addOppositeWall(x,y+1, Direction.NORTH);
+                                addOppositeWall(x, y + 1, Direction.NORTH);
                                 break;
 
                             case "WestWall":
-                                System.out.println("Making west wall!");
                                 tempCell.addPiece(new Wall(Direction.WEST));
-                                addOppositeWall(x-1,y,Direction.EAST);
+                                addOppositeWall(x - 1, y, Direction.EAST);
                                 break;
 
                             case "ConveyorNorth":
-                                System.out.println("Making northfacing conveyor!");
-                                tempCell.addPiece(new Conveyor(Direction.NORTH));
+                                tempCell.addPiece(new Conveyor(Direction.NORTH, 1));
                                 break;
 
                             case "ConveyorEast":
-                                System.out.println("Making eastfacing conveyor!");
-                                tempCell.addPiece(new Conveyor(Direction.EAST));
+                                tempCell.addPiece(new Conveyor(Direction.EAST, 1));
                                 break;
 
                             case "ConveyorSouth":
-                                System.out.println("Making southfacing conveyor!");
-                                tempCell.addPiece(new Conveyor(Direction.SOUTH));
+                                tempCell.addPiece(new Conveyor(Direction.SOUTH, 1));
                                 break;
 
                             case "ConveyorWest":
-                                System.out.println("Making westfacing conveyor!");
-                                tempCell.addPiece(new Conveyor(Direction.WEST));
+                                tempCell.addPiece(new Conveyor(Direction.WEST, 1));
+                                break;
+                            case "ConveyorNorth2":
+                                tempCell.addPiece(new Conveyor(Direction.NORTH, 2));
+                                break;
+
+                            case "ConveyorEast2":
+                                tempCell.addPiece(new Conveyor(Direction.EAST, 2));
+                                break;
+
+                            case "ConveyorSouth2":
+                                tempCell.addPiece(new Conveyor(Direction.SOUTH, 2));
+                                break;
+
+                            case "ConveyorWest2":
+                                tempCell.addPiece(new Conveyor(Direction.WEST, 2));
                                 break;
 
                             case "FlagOne":
-                                System.out.println("Making flag number 1 " + x + " " + y);
                                 tempCell.addPiece(new Flag(1));
                                 flags.setFlagAtPos(1, new Position(x, y));
                                 break;
 
                             case "FlagTwo":
-                                System.out.println("Making flag number 2");
                                 tempCell.addPiece(new Flag(2));
                                 flags.setFlagAtPos(2, new Position(x, y));
                                 break;
 
                             case "FlagThree":
-                                System.out.println("Making flag number 3");
                                 tempCell.addPiece(new Flag(3));
                                 flags.setFlagAtPos(3, new Position(x, y));
                                 break;
 
                             case "FlagFour":
-                                System.out.println("Making flag number 3");
-                                tempCell.addPiece(new Flag(3));
+                                tempCell.addPiece(new Flag(4));
                                 flags.setFlagAtPos(4, new Position(x, y));
+                                break;
+                            case "FlagFive":
+                                tempCell.addPiece(new Flag(5));
+                                flags.setFlagAtPos(5, new Position(x, y));
+                                break;
+                            case "FlagSix":
+                                tempCell.addPiece(new Flag(6));
+                                flags.setFlagAtPos(6, new Position(x, y));
                                 break;
 
                             case "GearRight":
-                                System.out.println("Making gear rotating right");
                                 tempCell.addPiece(new Gears(Action.ROTATE_R));
                                 break;
 
                             case "GearLeft":
-                                System.out.println("Making gear rotating left");
                                 tempCell.addPiece(new Gears(Action.ROTATE_L));
                                 break;
 
                             case "LaserShooterNorth1":
-                                System.out.println("Making northfacing lasershooter");
-                                tempCell.addPiece(new LaserShooter(Direction.NORTH, 1));
+                                tempCell.addPiece(new LaserShooter(Direction.NORTH, new Position(x, y), 1));
+                                break;
 
                             case "LaserShooterNorth2":
-                                System.out.println("Making northfacing lasershooter");
-                                tempCell.addPiece(new LaserShooter(Direction.NORTH, 2));
+                                tempCell.addPiece(new LaserShooter(Direction.NORTH, new Position(x, y), 2));
+                                break;
 
                             case "LaserShooterNorth3":
-                                System.out.println("Making northfacing lasershooter");
-                                tempCell.addPiece(new LaserShooter(Direction.NORTH, 3));
+                                tempCell.addPiece(new LaserShooter(Direction.NORTH, new Position(x, y), 3));
+                                break;
 
                             case "LaserShooterEast1":
-                                System.out.println("Making northfacing lasershooter");
-                                tempCell.addPiece(new LaserShooter(Direction.EAST, 1));
+                                tempCell.addPiece(new LaserShooter(Direction.EAST, new Position(x, y), 1));
+                                break;
 
                             case "LaserShooterEast2":
-                                System.out.println("Making northfacing lasershooter");
-                                tempCell.addPiece(new LaserShooter(Direction.EAST, 2));
+                                tempCell.addPiece(new LaserShooter(Direction.EAST, new Position(x, y), 2));
+                                break;
 
                             case "LaserShooterEast3":
-                                System.out.println("Making northfacing lasershooter");
-                                tempCell.addPiece(new LaserShooter(Direction.EAST, 3));
+                                tempCell.addPiece(new LaserShooter(Direction.EAST, new Position(x, y), 3));
+                                break;
 
                             case "LaserShooterSouth1":
-                                System.out.println("Making northfacing lasershooter");
-                                tempCell.addPiece(new LaserShooter(Direction.SOUTH, 1));
+                                tempCell.addPiece(new LaserShooter(Direction.SOUTH, new Position(x, y), 1));
+                                break;
 
                             case "LaserShooterSouth2":
-                                System.out.println("Making northfacing lasershooter");
-                                tempCell.addPiece(new LaserShooter(Direction.SOUTH, 2));
+                                tempCell.addPiece(new LaserShooter(Direction.SOUTH, new Position(x, y), 2));
+                                break;
 
                             case "LaserShooterSouth3":
-                                System.out.println("Making northfacing lasershooter");
-                                tempCell.addPiece(new LaserShooter(Direction.SOUTH, 3));
+                                tempCell.addPiece(new LaserShooter(Direction.SOUTH, new Position(x, y), 3));
+                                break;
 
                             case "LaserShooterWest1":
-                                System.out.println("Making northfacing lasershooter");
-                                tempCell.addPiece(new LaserShooter(Direction.WEST, 1));
+                                tempCell.addPiece(new LaserShooter(Direction.WEST, new Position(x, y), 1));
+                                break;
 
                             case "LaserShooterWest2":
-                                System.out.println("Making northfacing lasershooter");
-                                tempCell.addPiece(new LaserShooter(Direction.WEST, 2));
+                                tempCell.addPiece(new LaserShooter(Direction.WEST, new Position(x, y), 2));
+                                break;
 
                             case "LaserShooterWest3":
-                                System.out.println("Making northfacing lasershooter");
-                                tempCell.addPiece(new LaserShooter(Direction.WEST, 3));
+                                tempCell.addPiece(new LaserShooter(Direction.WEST, new Position(x, y), 3));
+                                break;
                         }
                     }
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();
-            } catch (ParseException e) {
+        } catch (ParseException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -216,13 +270,12 @@ public class JSONBoardGenerator {
         return jsonBoardPieceList;
     }
 
-    public void addOppositeWall(int newX, int newY, Direction newWallDirection){
-        if(newY < jsonBoardPieceList.length && newY >= 0){
-            if(newX < jsonBoardPieceList[newY].length && newX >= 0){
-                if(jsonBoardPieceList[newY][newX] != null) {
+    public void addOppositeWall(int newX, int newY, Direction newWallDirection) {
+        if (newY < jsonBoardPieceList.length && newY >= 0) {
+            if (newX < jsonBoardPieceList[newY].length && newX >= 0) {
+                if (jsonBoardPieceList[newY][newX] != null) {
                     ICell newCell = jsonBoardPieceList[newY][newX];
                     if (!containsOppositeWall(newCell, newWallDirection)) {
-                        System.out.println("I'M PLACING A " + newWallDirection + " WALL AT " + newX + ", " + newY);
                         newCell.addPiece(new Wall(newWallDirection));
                     }
                 }
@@ -230,12 +283,11 @@ public class JSONBoardGenerator {
         }
     }
 
-    public boolean containsOppositeWall(ICell newCell, Direction newWallDirection){
+    public boolean containsOppositeWall(ICell newCell, Direction newWallDirection) {
         // Checks if the new cell has a wall.
-
-        for(IPiece piece : newCell.getPiecesInCell()){
-            if(piece instanceof Wall){
-                if(piece.getPieceDirection() == newWallDirection){
+        for (IPiece piece : newCell.getPiecesInCell()) {
+            if (piece instanceof Wall) {
+                if (piece.getPieceDirection() == newWallDirection) {
                     return true;
                 }
             }
@@ -245,5 +297,9 @@ public class JSONBoardGenerator {
 
     public FlagOrganizer getFlags() {
         return flags;
+    }
+
+    public List<SpawnPlatform> getSpawnPlatforms(){
+        return spawnPlatforms;
     }
 }

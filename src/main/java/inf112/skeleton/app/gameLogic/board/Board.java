@@ -1,19 +1,27 @@
 package inf112.skeleton.app.gameLogic.board;
 
 import inf112.skeleton.app.GUI.player.Position;
+import inf112.skeleton.app.gameLogic.Player;
+import inf112.skeleton.app.gameLogic.board.pieces.IPiece;
+import inf112.skeleton.app.gameLogic.board.pieces.SpawnPlatform;
+import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.game.FlagOrganizer;
+import inf112.skeleton.app.gameLogic.game.PlayerAction;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Board implements IBoard {
 
     String boardName;
     ICell[][] board;
     private FlagOrganizer flags;
-
-    // Assuming all boards are square for ease of use.
-    // In the future we might make a MegaBoard or something.
-    int boardWidth;
-    int boardHeight;
+    public int boardWidth;
+    public int boardHeight;
+    private List<SpawnPlatform> spawnPlatforms;
+    List<Player> deadPlayers;
 
     public Board(String name, String path) {
         flags = FlagOrganizer.getInstance();
@@ -21,37 +29,18 @@ public class Board implements IBoard {
         JSONBoardGenerator jsonBoardGenerator = new JSONBoardGenerator();
         board = jsonBoardGenerator.generateJsonBoard(path);
         flags = jsonBoardGenerator.getFlags();
-        // Again, assuming it's square. Might break in the future.
-        boardHeight = board.length;
-        boardWidth = board[0].length;
-    }
-
-    public void generateBoard() {
-
+        spawnPlatforms = jsonBoardGenerator.getSpawnPlatforms();
+        boardWidth = board.length;
+        boardHeight = board[0].length;
+        deadPlayers = new ArrayList<>();
     }
 
     public FlagOrganizer getFlags() {
         return flags;
     }
 
-    /**
-     * Method for displaying the cells in the GUIBoard
-     */
-    public void displayBoard() {
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
-                System.out.print(" | ");
-                if (board[i][j] == null) {
-                    System.out.print("empty");
-                } else {
-                    for (IPiece p : board[i][j].getPiecesInCell()) {
-                        System.out.print(p.getName() + "-" + p.getPieceDirection() + " ");
-                    }
-                }
-            }
-            System.out.print(" | ");
-            System.out.println();
-        }
+    public List<SpawnPlatform> getSpawnPlatforms() {
+        return spawnPlatforms;
     }
 
     @Override
@@ -64,6 +53,27 @@ public class Board implements IBoard {
         return board;
     }
 
+    /**
+     * moves player lol
+     *
+     * @param player
+     * @param dir
+     * @return
+     */
+    public PlayerAction movePlayer(Player player, Direction dir) {
+
+        Position tempPos = player.getPos();
+        Position nextPos = tempPos.changePos(dir);
+
+        this.changePlayerPos(player, nextPos);
+
+        System.out.println(player.getPos());
+
+        System.out.println();
+        return new PlayerAction(player, Action.MOVE_1, dir);
+    }
+
+
     @Override
     /**
      * Method for retrieving a Cell from a specific coordinate on the board
@@ -72,77 +82,110 @@ public class Board implements IBoard {
         return board[y][x];
     }
 
-    public void addPiece(int x, int y, IPiece piece){
+    public void addPiece(int x, int y, IPiece piece) {
         board[y][x].addPiece(piece);
     }
-    public void addPiece(Position pos, IPiece piece){
 
+    public void addPiece(Position pos, IPiece piece) {
         this.addPiece(pos.getX(), pos.getY(), piece);
     }
 
-    /*
-    public ICell getNextCell(int x, int y, Direction dir) {
-
-        ICell cell = new Cell();
-        switch (dir) {
-            case NORTH:
-                cell = board[x][y + 1];
-                break;
-            case SOUTH:
-                cell = board[x][y - 1];
-                break;
-            case EAST:
-                cell = board[x + 1][y];
-                break;
-            case WEST:
-                cell = board[x - 1][y];
-                break;
-        }
-        return cell;
-    } */
-
     public ICell getCellAt(Position pos) {
-        //Byttet om disse, var board[pos.getX()][pos.getY()];
-        return board[pos.getY()][pos.getX()];
+        if (insideBoard(pos)) {
+            return board[pos.getY()][pos.getX()];
+        }
+        return null;
     }
 
-    public ICell getNextCell(Position pos, Direction dir) {
-        ICell cell = new Cell();
-        switch (dir) {
-            case NORTH:
-                cell = board[pos.getY() - 1][pos.getX()];
-                break;
-            case SOUTH:
-                cell = board[pos.getY() + 1][pos.getX()];
-                break;
-            case EAST:
-                cell = board[pos.getY()][pos.getX() + 1];
-                break;
-            case WEST:
-                cell = board[pos.getY()][pos.getX() - 1];
-                break;
+
+
+    public IPiece cellContainsClass(Position pos, Class piece) {
+        for (IPiece currPiece : getCellAt(pos).getPiecesInCell()) {
+            if (currPiece.getClass() == piece) {
+                return currPiece;
+            }
         }
-        return cell;
+        return null;
     }
 
-    public boolean insideBoard(Position playerPos, Direction playerDir){
-        Position posAfterMove = playerPos.changePos(playerDir);
-        System.out.println("Pos after theoretical move " + posAfterMove.toString());
-        if(posAfterMove.getY() >= boardHeight || posAfterMove.getY() < 0){
-            return false;
-        }
-        if (posAfterMove.getX() >= boardWidth || posAfterMove.getX() < 0){
-            return false;
-        }
-        return true;
+    public boolean insideBoard(Position playerPos) {
+        return insideX(playerPos) && insideY(playerPos);
     }
 
-    public int getBoardWidth(){
+    private boolean insideY(Position playerPos) {
+        return (playerPos.getY() < boardWidth && playerPos.getY() >= 0);
+    }
+
+    private boolean insideX(Position playerPos) {
+        return (playerPos.getX() < boardHeight && playerPos.getX() >= 0);
+    }
+
+    public int getBoardWidth() {
         return boardWidth;
     }
 
-    public int getBoardHeight(){
+    public int getBoardHeight() {
         return boardHeight;
+    }
+
+    public void killPlayer(Player player) {
+        this.deadPlayers.add(player);
+        player.die();
+    }
+
+    public List<Player> getDeadPlayers() {
+        return this.deadPlayers;
+    }
+
+    public void changePlayerPos(Player player, Position newPos) {
+
+        Position currPlayerPos = player.getPos();
+        ICell currentCells = getCellAt(currPlayerPos);
+        if(currentCells != null){
+            getCellAt(currPlayerPos).removePlayer(player);
+        }
+        ICell nextCells = getCellAt(newPos);
+        if (nextCells != null) {
+            nextCells.addPiece(player);
+        }
+
+        player.changePlayerPos(newPos);
+
+    }
+
+    public void sortBoard() {
+        for (int y = 0; y < boardHeight; y++) {
+            for (int x = 0; x < boardWidth; x++) {
+                Collections.sort(board[x][y].getPiecesInCell(), (iPiece, t1) -> {
+                    if (iPiece.getSize() == t1.getSize()) {
+                        return 0;
+                    } else if (iPiece.getSize() < t1.getSize()) {
+                        return -1;
+                    }
+                    return 1;
+                });
+            }
+        }
+    }
+
+    /**
+     * Method for displaying the cells in the GUIBoard
+     */
+    public void displayBoard() {
+        for (int i = 0; i < boardWidth; i++) {
+            for (int j = 0; j < boardHeight; j++) {
+                System.out.print("| ");
+                if (board[i][j] == null) {
+                    System.out.print("empty");
+                } else {
+                    for (IPiece p : board[i][j].getPiecesInCell()) {
+                        System.out.print(p.getName() + " " /*+ "-" + p.getPieceDirection() + " "*/);
+                    }
+                }
+            }
+            System.out.print(" | ");
+            System.out.println();
+        }
     }
 
 }

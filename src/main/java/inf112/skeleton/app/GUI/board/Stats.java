@@ -2,29 +2,73 @@ package inf112.skeleton.app.GUI.board;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.utils.Align;
 import inf112.skeleton.app.gameLogic.Player;
+
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Stats extends Table {
 
-    Sprite sprite;
+    Sprite heartSprite;
+    Sprite dtSprite;
+    List<Image> hearties;
+    Cell healthRow;
+    Cell dtRow;
+    Skin skin;
+    Label hpLabel;
+    Label dtLabel;
 
-    public Stats(Skin skin, Player player){
+    public Stats(Skin skin, Player player) {
+        this.skin = skin;
+        this.defaults().size(40).left();
+        heartSprite = new Sprite(new Texture(Gdx.files.internal("board/heart.png")));
+        dtSprite = new Sprite(new Texture(Gdx.files.internal("board/damageToken.png")));
 
-        sprite = new Sprite(new Texture(Gdx.files.internal("heart.png")));
 
-        //this.setDebug(true);
+        this.hpLabel = new Label("HEALTH", skin);
+        hpLabel.setAlignment(Align.left);
+        hpLabel.setColor(Color.GREEN);
+        hpLabel.setFontScale(2f);
 
-        this.add(new Label("HP:", skin));
+
+        this.dtLabel = new Label("DAMAGE TOKENS:", skin);
+        dtLabel.setAlignment(Align.left);
+        dtLabel.setColor(Color.ORANGE);
+        dtLabel.setFontScale(2f);
+
+        updateStats(player);
+
+    }
+
+    public void updateStats(Player player) {
+
+        this.clearChildren();
+
+        int health = player.getHealth();
+        int damagetokens = player.getDamageTokens();
+
+        this.add(hpLabel).colspan(3).expandX();
         this.row();
-        for(int i=0; i<player.getHealth(); i++){
-            this.add(new Image(sprite.getTexture())).size(30).uniform();
+
+        for (int i = 0; i < health; i++) { //player.getHealth()
+            Image heartie = new Image(heartSprite.getTexture());
+            this.add(heartie).uniform();
+        }
+        this.row();
+
+        this.add(dtLabel).colspan(10).expandX().size(60, 60);
+        this.row();
+        for (int i = 0; i < damagetokens; i++) {
+            Image stonie = new Image(dtSprite.getTexture());
+            this.add(stonie).uniform();
         }
 
     }
 
 }
+

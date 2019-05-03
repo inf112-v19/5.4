@@ -1,7 +1,11 @@
 package inf112.skeleton.app.gameLogic.board;
 
+import inf112.skeleton.app.gameLogic.Player;
+import inf112.skeleton.app.gameLogic.board.pieces.IPiece;
+
 import java.util.LinkedList;
 import java.util.List;
+
 
 public class Cell implements ICell {
 
@@ -13,6 +17,7 @@ public class Cell implements ICell {
 
     /**
      * Method for getting the list of pieces in the cell
+     *
      * @return List of pieces
      */
     @Override
@@ -22,6 +27,7 @@ public class Cell implements ICell {
 
     /**
      * Method for adding pieces to the list of pieces in the Cell
+     *
      * @param piece the piece you want to add
      */
     @Override
@@ -42,5 +48,10 @@ public class Cell implements ICell {
     @Override
     public String getName() {
         return null;
+    }
+
+    @Override
+    public void removePlayer(Player player) {
+        piecesInCell.remove(player);
     }
 }

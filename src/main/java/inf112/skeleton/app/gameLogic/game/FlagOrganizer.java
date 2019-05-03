@@ -2,9 +2,10 @@ package inf112.skeleton.app.gameLogic.game;
 
 import inf112.skeleton.app.GUI.player.Position;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class FlagOrganizer {
+public class FlagOrganizer implements Serializable {
 
     //Class for keeping track of flags
     //Class is singleton to avoid having multiple of flags.
@@ -14,12 +15,12 @@ public class FlagOrganizer {
 
     private HashMap<Integer, Position> flagSet;
 
-    private FlagOrganizer(){
+    private FlagOrganizer() {
         this.flagSet = new HashMap<>();
     }
 
-    public void setFlagAtPos(int i, Position pos){
-        if(!flagSet.containsKey(i)){
+    public void setFlagAtPos(int i, Position pos) {
+        if (!flagSet.containsKey(i)) {
             flagSet.put(i, pos);
         } else {
             System.out.println("This flag has already been added");
@@ -30,7 +31,7 @@ public class FlagOrganizer {
         return flagSet.size();
     }
 
-    public Position getFlagPos(int i){
+    public Position getFlagPos(int i) {
         return flagSet.get(i);
     }
 

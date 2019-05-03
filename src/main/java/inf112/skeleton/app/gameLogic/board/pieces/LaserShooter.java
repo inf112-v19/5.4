@@ -1,18 +1,22 @@
 package inf112.skeleton.app.gameLogic.board.pieces;
 
-import inf112.skeleton.app.GUI.pieces.BaseAsset;
+import inf112.skeleton.app.GUI.pieces.GUILaserShooter;
 import inf112.skeleton.app.GUI.pieces.GUIPiece;
+import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.enums.Direction;
-import inf112.skeleton.app.gameLogic.board.IPiece;
 
-public class LaserShooter implements IPiece {
+import java.io.Serializable;
+
+public class LaserShooter implements IPiece, Serializable {
 
     private Direction direction;
     private int damage;
+    private Position pos;
 
-    public LaserShooter(Direction dir, int damage){
+    public LaserShooter(Direction dir, Position pos, int damage){
         this.direction = dir;
         this.damage = damage;
+        this.pos = pos;
     }
 
     public int getDamage() {
@@ -41,7 +45,19 @@ public class LaserShooter implements IPiece {
 
     @Override
     public GUIPiece getGUIPiece() {
-        // PLACEHOLDER
-        return new BaseAsset();
+        return new GUILaserShooter(this);
+    }
+
+    @Override
+    public int getSize() {
+        return 3;
+    }
+
+    public Position getPos() {
+        return this.pos;
+    }
+
+    public Laser createNewLaser(Position pos){
+        return new Laser(this.direction, this.damage, pos);
     }
 }
