@@ -27,7 +27,7 @@ public class LaserCalculator {
 
         for (int y = 0; y < board.getBoardHeight(); y++) {
             for (int x = 0; x < board.getBoardWidth(); x++) {
-                for (IPiece piece : board.getCellAt(x, y).getPiecesInCell()) {
+                for (IPiece piece : board.getCellAt(y, x).getPiecesInCell()) {
                     if (piece instanceof LaserShooter) {
                         this.laserShooterList.add((LaserShooter) piece);
                         break;
@@ -62,7 +62,7 @@ public class LaserCalculator {
      * @param laserPositions, the list of all the positions lasers are placed in
      */
     public void tryToPlaceLaser(Position pos, Direction dir, LaserShooter laserShooter, List<Laser> laserPositions) {
-        if (pos.getX() >= board.getBoardWidth() || pos.getY() >= board.getBoardHeight() || pos.getY() < 0 || pos.getX() < 0) {
+        if (pos.getX() >= board.getBoardHeight() || pos.getY() >= board.getBoardWidth() || pos.getY() < 0 || pos.getX() < 0) {
             return;
         }
         if (board.getCellAt(pos).getPiecesInCell().contains(laserShooter)) {

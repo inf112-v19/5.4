@@ -12,7 +12,9 @@ import inf112.skeleton.app.gameLogic.ProgramCardDeck;
 import inf112.skeleton.app.gameLogic.board.Board;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class RoboRallyGame {
 
@@ -22,7 +24,7 @@ public class RoboRallyGame {
     private int totalPlayers = 3;   // Total players in the game
     private List<Player> players;       // Players in the game
     private int startHealth = 3;
-    private String boardPath = "Board1.json";
+    private String boardPath = "Board2.json";
     private LaserCalculator laserCalculator;
 
     private ProgramCardDeck deck;
@@ -43,7 +45,7 @@ public class RoboRallyGame {
 
         players = new ArrayList<Player>();
         for (int i = 0; i < totalPlayers; i++) {
-            Position position = new Position(i+5, 7);
+            Position position = new Position(i + 5, 7);
             //String name, Position pos, Direction dir, int health, Board board, Queue<PlayerAction> playerActionQueue
             players.add(new Player(Integer.toString(i), position, Direction.SOUTH, startHealth));
             board.addPiece(position, players.get(i));
@@ -58,7 +60,7 @@ public class RoboRallyGame {
         playGame();
     }
 
-    public void playGame(){
+    public void playGame() {
         this.deck.shuffleDeck();
         this.currentPlayer = players.get(0);
 //        for (Player currentPlayer : players) {
@@ -98,12 +100,14 @@ public class RoboRallyGame {
 
     }
 
-    public void postPick(List<ProgramCard> pickedProgramCards){
+    public void postPick(List<ProgramCard> pickedProgramCards) {
 
         List<List<ProgramCard>> allCards = new ArrayList<>();
 
-        for (ProgramCard currCard : pickedProgramCards){
-            List<ProgramCard> currcards = new ArrayList<ProgramCard>(){{add(currCard);}};
+        for (ProgramCard currCard : pickedProgramCards) {
+            List<ProgramCard> currcards = new ArrayList<ProgramCard>() {{
+                add(currCard);
+            }};
             allCards.add(currcards);
         }
 
@@ -155,6 +159,8 @@ public class RoboRallyGame {
             SequenceAction laserAnimation = this.guiScreen.getGUIBoard().getLaserAnimations(this.laserCalculator.laserCalculation());
             laserAnimations.add(laserAnimation);
 
+            checker2.checkForFlag(players);
+
         }
         System.out.println("These are the conveyor moves");
         System.out.println(conveyorActions);
@@ -163,13 +169,13 @@ public class RoboRallyGame {
 
     private RunnableAction getPostExecutionAction() {
 
-        return new RunnableAction(){
+        return new RunnableAction() {
             @Override
             public void run() {
                 guiScreen.updateStats(currentPlayer);
 
                 List<Player> deadPlayers = board.getDeadPlayers();
-                for(Player currPlayer : deadPlayers){
+                for (Player currPlayer : deadPlayers) {
                     guiScreen.getGUIBoard().respawnPlayer(currPlayer);
                 }
 
@@ -179,10 +185,13 @@ public class RoboRallyGame {
     }
 
 
-    public List<Player> getPlayers(){
+    public List<Player> getPlayers() {
         return this.players;
     }
-    public Board getBoard(){return this.board;}
+
+    public Board getBoard() {
+        return this.board;
+    }
 
 
 }

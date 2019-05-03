@@ -1,6 +1,10 @@
 {
+  "-1": {
+    "0" : "12",
+    "1" : "16"
+  },
   "0": {
-    "0": [],
+    "0": ["Repair"],
     "1": [],
     "2": ["NorthWall"],
     "3": ["ConveyorNorth"],
@@ -24,7 +28,7 @@
     "7": ["FlagOne"],
     "8": ["ConveyorSouth"],
     "9": [],
-    "10": [],
+    "10": ["RightGear"],
     "11": ["ConveyorWest"]
   },
   "2": {
@@ -45,7 +49,7 @@
     "0": ["ConveyorEast"],
     "1": ["ConveyorEast"],
     "2": ["ConveyorEast"],
-    "3": [],
+    "3": ["LeftGear"],
     "4": [],
     "5": ["ConveyorSouth"],
     "6": ["ConveyorNorth"],
@@ -57,7 +61,7 @@
   },
   "4": {
     "0": ["WestWall"],
-    "1": ["FlagThree"],
+    "1": [],
     "2": [],
     "3": [],
     "4": ["SouthWall", "EastWall"],
@@ -107,7 +111,7 @@
     "6": ["ConveyorSouth"],
     "7": ["WestWall", "NorthWall"],
     "8": [],
-    "9": ["FlagTwo"],
+    "9": [],
     "10": [],
     "11": ["EastWall"]
   },
@@ -115,12 +119,12 @@
     "0": ["ConveyorWest"],
     "1": ["ConveyorWest"],
     "2": ["ConveyorWest"],
-    "3": [],
+    "3": ["LeftGear"],
     "4": [],
     "5": ["ConveyorSouth"],
     "6": ["ConveyorNorth"],
     "7": [],
-    "8": [],
+    "8": ["LeftGear"],
     "9": ["ConveyorWest"],
     "10": ["ConveyorWest"],
     "11": ["ConveyorWest"]
@@ -150,7 +154,7 @@
     "7": [],
     "8": ["ConveyorSouth"],
     "9": [],
-    "10": [],
+    "10": ["RightGear"],
     "11": ["ConveyorEast"]
   },
   "11": {
@@ -165,6 +169,62 @@
     "8": ["ConveyorSouth"],
     "9": ["SouthWall"],
     "10": ["ConveyorNorth"],
+    "11": []
+  },
+  "12": {
+    "0": [],
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": ["WestWall"],
+    "5": [],
+    "6": [],
+    "7": ["EastWall"],
+    "8": [],
+    "9": [],
+    "10": [],
+    "11": []
+  },
+  "13": {
+    "0": [],
+    "1": ["WestWall", "EastWall"],
+    "2": [],
+    "3": [],
+    "4": [],
+    "5": [],
+    "6": [],
+    "7": [],
+    "8": [],
+    "9": [],
+    "10": ["WestWall", "EastWall"],
+    "11": []
+  },
+  "14": {
+    "0": ["ConveyorEast"],
+    "1": ["ConveyorEast"],
+    "2": ["ConveyorSouth"],
+    "3": [],
+    "4": [],
+    "5": ["EastWall"],
+    "6": [],
+    "7": [],
+    "8": [],
+    "9": ["ConveyorSouth"],
+    "10": ["ConveyorWest"],
+    "11": ["ConveyorWest"]
+  },
+  "15": {
+    "0": [],
+    "1": [],
+    "2": ["ConveyorEast"],
+    "3": ["ConveyorEast"],
+    "4": ["ConveyorEast"],
+    "5": ["EastWall"],
+    "6": [],
+    "7": ["ConveyorWest"],
+    "8": ["ConveyorWest"],
+    "9": ["ConveyorWest"],
+    "10": [],
     "11": []
   }
 }
