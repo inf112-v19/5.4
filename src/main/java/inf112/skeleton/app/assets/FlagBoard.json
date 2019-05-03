@@ -41,7 +41,7 @@
       "SouthWall"
     ],
     "6": [
-      "ConveyorEast",
+      "ConveyorEast2",
       "SouthWall"
     ],
     "7": [
@@ -57,7 +57,7 @@
     "10": [
       "ConveyorSouth"
     ],
-    "11": []
+    "11": ["FlagThree"]
   },
   "2": {
     "0": [
@@ -204,12 +204,12 @@
       "SouthWall",
       "WestWall"
     ],
-    "8": [],
+    "8": ["FlagFour"],
     "9": [
       "ConveyorNorth"
     ],
     "10": [
-      "ConveyorSouth",
+      "ConveyorSouth2",
       "WestWall"
     ],
     "11": []
@@ -273,7 +273,7 @@
       "ConveyorSouth",
       "WestWall"
     ],
-    "11": []
+    "11": ["Hole"]
   },
   "9": {
     "0": [
@@ -289,7 +289,7 @@
     "4": [
       "ConveyorNorth"
     ],
-    "5": [],
+    "5": ["Hole"],
     "6": [
       "ConveyorNorth"
     ],
@@ -325,7 +325,7 @@
       "NorthWall"
     ],
     "6": [
-      "ConveyorWest",
+      "ConveyorWest2",
       "NorthWall"
     ],
     "7": [
@@ -345,7 +345,7 @@
   },
   "11": {
     "0": [],
-    "1": [],
+    "1": ["FlagSix"],
     "2": [
       "SouthWall"
     ],

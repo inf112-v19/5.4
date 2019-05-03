@@ -2,7 +2,6 @@ package inf112.skeleton.app.gameLogic.board;
 
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.board.pieces.IPiece;
-import inf112.skeleton.app.gameLogic.board.ICell;
 
 import java.util.LinkedList;
 import java.util.List;
