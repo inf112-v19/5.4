@@ -53,7 +53,7 @@ public class Flag implements IPiece {
 
     @Override
     public GUIPiece getGUIPiece() {
-        return new GUIFlag();
+        return new GUIFlag(this.number);
     }
 
     @Override

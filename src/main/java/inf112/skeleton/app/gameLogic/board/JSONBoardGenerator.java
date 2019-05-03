@@ -140,7 +140,7 @@ public class JSONBoardGenerator {
                                 break;
 
                             case "FlagFour":
-                                tempCell.addPiece(new Flag(3));
+                                tempCell.addPiece(new Flag(4));
                                 flags.setFlagAtPos(4, new Position(x, y));
                                 break;
 
