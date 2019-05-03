@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import inf112.skeleton.app.gameLogic.board.pieces.Laser;
-import inf112.skeleton.app.gameLogic.enums.Direction;
 
 public class LaserGUI extends GUIPiece {
 

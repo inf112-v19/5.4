@@ -1,5 +1,7 @@
 package inf112.skeleton.app.gameLogic.board;
 
+import inf112.skeleton.app.gameLogic.board.pieces.IPiece;
+
 import java.util.List;
 
 public interface ICell {
