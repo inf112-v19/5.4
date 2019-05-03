@@ -18,6 +18,7 @@ import inf112.skeleton.app.gameLogic.enums.Direction;
 import inf112.skeleton.app.gameLogic.enums.Rotation;
 import inf112.skeleton.app.gameLogic.game.PlayerActionWrapper;
 import inf112.skeleton.app.gameLogic.game.RespawnPoint;
+import javafx.geometry.Pos;
 
 import java.util.List;
 import java.util.Stack;
