@@ -5,6 +5,7 @@ import inf112.skeleton.app.GUI.player.Position;
 import inf112.skeleton.app.gameLogic.Player;
 import inf112.skeleton.app.gameLogic.ProgramCard;
 import inf112.skeleton.app.gameLogic.board.Board;
+import inf112.skeleton.app.gameLogic.board.ICell;
 import inf112.skeleton.app.gameLogic.board.pieces.IPiece;
 import inf112.skeleton.app.gameLogic.board.pieces.Conveyor;
 import inf112.skeleton.app.gameLogic.board.pieces.Gears;
@@ -13,6 +14,7 @@ import inf112.skeleton.app.gameLogic.enums.Action;
 import inf112.skeleton.app.gameLogic.enums.Direction;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Checker2 {
@@ -119,15 +121,19 @@ public class Checker2 {
         List<Player> copyPlayersList = players;
 
         for(Player player: copyPlayersList){
-            List<IPiece> pieces = board.getCellAt(player.getPos()).getPiecesInCell();
-            List<IPiece> copyPieceList = new ArrayList<>(pieces);
-            for (IPiece piece : copyPieceList) {
+            ICell cell = board.getCellAt(player.getPos());
+            List<IPiece> pieces;
+            if(cell != null) {
+                pieces = cell.getPiecesInCell();
+                List<IPiece> copyPieceList = new ArrayList<>(pieces);
+                for (IPiece piece : copyPieceList) {
 
-                if(piece instanceof Conveyor) {
-                    conveyorMove(player, piece.getPieceDirection(), moveActions);
-                }
-                if (piece instanceof Gears) {
-                    moveActions.add(rotatePlayer(player, ((Gears)piece).getAction()));
+                    if (piece instanceof Conveyor) {
+                        conveyorMove(player, piece.getPieceDirection(), moveActions);
+                    }
+                    if (piece instanceof Gears) {
+                        moveActions.add(rotatePlayer(player, ((Gears) piece).getAction()));
+                    }
                 }
             }
         }
