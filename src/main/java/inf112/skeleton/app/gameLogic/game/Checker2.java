@@ -63,15 +63,16 @@ public class Checker2 {
 
     public void movePlayer(Player player, Direction direction, List<PlayerAction> moveActions) {
         if (canPlayerMove(player, direction, moveActions)) {
+            if(board.insideBoard(player, direction)){
+                player.die();
+                System.out.println("Player is outside board");
+            }
             moveActions.add(board.movePlayer(player,direction));
-        }
-        if(board.insideBoard(player, direction)){
-            System.out.println("Player is outside board");
         }
     }
 
     public boolean canPlayerMove(Player player, Direction direction, List<PlayerAction> moveActions) {
-        return     !hasWall(player, direction)
+        return !hasWall(player, direction)
                 && checkForPlayer(player, direction, moveActions);
     }
 
