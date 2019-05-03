@@ -7,6 +7,7 @@ import inf112.skeleton.app.gameLogic.ProgramCardDeck;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class CardPicker {
 
@@ -49,6 +50,7 @@ public class CardPicker {
 
         if (this.currentPlayer.isAi()) {
             cardsToDraw = 5;
+            cardsToDraw = ThreadLocalRandom.current().nextInt(2, 5 + 1);
             List<ProgramCard> cards = deck.drawXCards(cardsToDraw);
             postPick(cards);
 
@@ -60,7 +62,7 @@ public class CardPicker {
         }
     }
 
-    public void postPick(List<ProgramCard> pickedProgramCards){
+    public void postPick(List<ProgramCard> pickedProgramCards) {
 
         //List<List<PlayerAndProgramCard>> sortedPlayerCards = new ArrayList<>();
         this.counter++;
