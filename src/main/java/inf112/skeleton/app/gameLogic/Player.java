@@ -35,7 +35,6 @@ public class Player implements IPlayer {
     private Direction facingDir;
     private Position pos;
     private Stack<ProgramCard> playerDeck;
-    private List<ProgramCard> playerRegister;
     private MovableGUIRobot robot;
     private RespawnPoint respawnPoint;
     private Boolean ai;

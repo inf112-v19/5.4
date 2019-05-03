@@ -44,6 +44,7 @@ public class RoboRallyGame {
         this.spawnPlatforms = board.getSpawnPlatforms();
         this.checker2 = new Checker2(board);
         this.deck = new ProgramCardDeck();
+
         players = new ArrayList<>();
 
         pveGenerator();

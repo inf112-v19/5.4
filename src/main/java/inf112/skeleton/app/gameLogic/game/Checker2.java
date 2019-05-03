@@ -64,17 +64,6 @@ public class Checker2 {
     }
 
     public void tryToMovePlayer(Player player, Direction direction, List<PlayerAction> moveActions) {
-
-        /*if(!board.insideBoard(player.getPos().changePos(direction))) {
-            this.board.killPlayer(player);
-            System.out.println("Player is outside board");
-        }*/
-
-        /*ICell nextCell = board.getCellAt(player.getPos().changePos(direction));
-        if(nextCell == null){
-            return;
-        }*/
-
         if (canPlayerMove(player, direction, moveActions)) {
             movePlayer(player, direction, moveActions);
         }
@@ -138,9 +127,7 @@ public class Checker2 {
 
     public void conveyorMove(Player player, Direction conveyorMoveDir, List<PlayerAction> moveActions){
         if(!hasWall(player, conveyorMoveDir)){
-            //afterConveyorPositions.add(player.getPos().changePos(conveyorMoveDir));
             movePlayer(player, conveyorMoveDir, moveActions);
-
         }
     }
 
@@ -165,27 +152,6 @@ public class Checker2 {
                 }
             }
         }
-
-        /*for(PlayerAction currPlayerAction : moveActions){
-            Position currPlayerPos = currPlayerAction.getPlayer().getPos();
-            Direction currActionDir = currPlayerAction.getActionDir();
-            Position newPlayerPos = currPlayerPos.changePos(currActionDir);
-
-            int posCount = 0;
-
-            for(int i = 0; i<afterConveyorPositions.size(); i++){
-
-                if(newPlayerPos.equals(afterConveyorPositions.get(i))){
-                    posCount++;
-                }
-            }
-            System.out.println("THIS IS POS COUNT LMAO " + posCount);
-            if(posCount < 2){
-                movePlayer(currPlayerAction.getPlayer(), currActionDir, moveActions);
-            }
-
-        }*/
-
         return moveActions;
     }
 

@@ -34,9 +34,6 @@ public class PlayerAndProgramCard implements Comparable<PlayerAndProgramCard>, S
         Integer int1 = this.pgCard.getPriority();
         Integer int2 = otherCard.getPgCard().getPriority();
         return int1.compareTo(int2);
-        /*if(this.priority > otherCard.priority) return 1;
-        if(this.priority < otherCard.priority) return -1;
-        else                   return 0;*/
     }
 
 }
